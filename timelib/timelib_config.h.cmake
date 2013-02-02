@@ -1,0 +1,10 @@
+#cmakedefine HAVE_SYS_TYPES_H 1
+#cmakedefine HAVE_INTTYPES_H  1
+#cmakedefine HAVE_STDINT_H    1
+#cmakedefine HAVE_STDLIB_H    1
+#cmakedefine HAVE_STRING_H    1
+#cmakedefine HAVE_STRTOLL     1
+#cmakedefine HAVE_ATOLL       1
+#cmakedefine HAVE_INT32_T     1
+#cmakedefine HAVE_UINT32_T    1
+#cmakedefine SIZEOF_INT       4
