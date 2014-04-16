@@ -7,14 +7,14 @@ include(CheckFunctionExists)
 include(TestBigEndian)
 
 MACRO(TIME_CHECK_INCLUDE include_file)
-	string(REGEX REPLACE "[./]"
-	         "_" _include_var ${include_file})
-	string(TOUPPER "HAVE_${_include_var}" _include_var)
+  string(REGEX REPLACE "[./]"
+           "_" _include_var ${include_file})
+  string(TOUPPER "HAVE_${_include_var}" _include_var)
 
-	CHECK_INCLUDE_FILES("${include_file}" ${_include_var})
-	IF(NOT ${_include_var})
-		message(STATUS "Checking for ${include_file} - failed")
-	ENDIF()
+  CHECK_INCLUDE_FILES("${include_file}" ${_include_var})
+  IF(NOT ${_include_var})
+    message(STATUS "Checking for ${include_file} - failed")
+  ENDIF()
 ENDMACRO()
 
 TEST_BIG_ENDIAN(WORDS_BIGENDIAN)
@@ -35,10 +35,12 @@ CHECK_FUNCTION_EXISTS("atoll" HAVE_ATOLL)
 CHECK_FUNCTION_EXISTS("strftime" HAVE_STRFTIME)
 CHECK_FUNCTION_EXISTS("setlocale" HAVE_SETLOCALE)
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/timelib_config.h.cmake ${CMAKE_CURRENT_SOURCE_DIR}/timelib_config.h)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/timelib_config.h.cmake 
+               ${CMAKE_CURRENT_SOURCE_DIR}/timelib_config.h)
 
 add_definitions(-DNDEBUG)
-set(TIMELIB_SOURCES astro.c dow.c interval.c parse_date.c parse_iso_intervals.c parse_tz.c timelib.c tm2unixtime.c unixtime2tm.c)
+set(TIMELIB_SOURCES astro.c dow.c interval.c parse_date.c parse_iso_intervals.c 
+                    parse_tz.c timelib.c tm2unixtime.c unixtime2tm.c)
 
 add_library(timelib STATIC ${TIMELIB_SOURCES})
 

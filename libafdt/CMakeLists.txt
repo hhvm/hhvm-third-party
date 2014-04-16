@@ -11,10 +11,10 @@ include(CheckCSourceRuns)
 include(CheckCSourceCompiles)
 
 MACRO(AFDT_CHECK_INCLUDE include_file)
-	CHECK_INCLUDE_FILE("${include_file}" INCLUDE_CHECK_${include_file})
-	IF(NOT INCLUDE_CHECK_${include_file})
-		message(STATUS "Checking for ${include_file} - failed")
-	ENDIF()
+  CHECK_INCLUDE_FILE("${include_file}" INCLUDE_CHECK_${include_file})
+  IF(NOT INCLUDE_CHECK_${include_file})
+    message(STATUS "Checking for ${include_file} - failed")
+  ENDIF()
 ENDMACRO()
 
 AFDT_CHECK_INCLUDE("arpa/inet.h")
@@ -43,43 +43,47 @@ CHECK_FUNCTION_EXISTS("strerror" HAVE_STRERROR)
 find_package(LibEvent)
 
 IF(LibEvent_FOUND)
-	set(CMAKE_REQUIRED_INCLUDES "${LIBEVENT_INCLUDE_DIR}")
-	set(CMAKE_REQUIRED_LIBRARIES "${LIBEVENT_LIB}")
-	file(READ ${CMAKE_CURRENT_SOURCE_DIR}/CMake/CheckLibeventVersion.c VERSION_CHECK_SOURCE)
+  set(CMAKE_REQUIRED_INCLUDES "${LIBEVENT_INCLUDE_DIR}")
+  set(CMAKE_REQUIRED_LIBRARIES "${LIBEVENT_LIB}")
+  file(READ ${CMAKE_CURRENT_SOURCE_DIR}/CMake/CheckLibeventVersion.c 
+       VERSION_CHECK_SOURCE)
 
-	CHECK_SYMBOL_EXISTS("event_get_version_number" "event.h" HAVE_EVENT_GET_VERSION_NUMBER)
+  CHECK_SYMBOL_EXISTS("event_get_version_number" "event.h" 
+                      HAVE_EVENT_GET_VERSION_NUMBER)
 
-	IF(HAVE_EVENT_GET_VERSION_NUMBER)
-		SET(CMAKE_REQUIRED_DEFINITIONS
-			-DHAVE_EVENT_GET_VERSION_NUMBER
-			-DEVENT_VERSION_WANTED=0x2000900)
-		CHECK_C_SOURCE_COMPILES("${VERSION_CHECK_SOURCE}" HAVE_LIBEVENT_209)
-		set(HAVE_LIBEVENT_145 1)
-		set(HAVE_LIBEVENT_143 1)
-		message(STATUS "Found libevent 2.0.9+")
-	ELSE()
-		# < version 2
-		SET(CMAKE_REQUIRED_DEFINITIONS
-			-DEVENT_VERSION_WANTED=0x1040500)
-		CHECK_C_SOURCE_COMPILES("${VERSION_CHECK_SOURCE}" HAVE_LIBEVENT_145)
-		IF(NOT HAVE_LIBEVENT_145)
-			SET(CMAKE_REQUIRED_DEFINITIONS -DEVENT_VERSION_WANTED=0x1040300)
-			CHECK_C_SOURCE_COMPILES("${VERSION_CHECK_SOURCE}" HAVE_LIBEVENT_143)
-			IF(NOT LIBEVENT_VERSION_143)
-				message(FATAL_ERROR "Couldn't find at least libevent 1.4.3+")
-			ENDIF()
-		ELSE()
-			set(HAVE_LIBEVENT_143 1)
-			message(STATUS "Found libevent 1.4.5+")
-		ENDIF()
-	ENDIF()
-	set(ASYNC_SOURCE src/async.c)
-	include_directories(${LIBEVENT_INCLUDE_DIR})
+  IF(HAVE_EVENT_GET_VERSION_NUMBER)
+    SET(CMAKE_REQUIRED_DEFINITIONS
+      -DHAVE_EVENT_GET_VERSION_NUMBER
+      -DEVENT_VERSION_WANTED=0x2000900)
+    CHECK_C_SOURCE_COMPILES("${VERSION_CHECK_SOURCE}" HAVE_LIBEVENT_209)
+    set(HAVE_LIBEVENT_145 1)
+    set(HAVE_LIBEVENT_143 1)
+    message(STATUS "Found libevent 2.0.9+")
+  ELSE()
+    # < version 2
+    SET(CMAKE_REQUIRED_DEFINITIONS
+      -DEVENT_VERSION_WANTED=0x1040500)
+    CHECK_C_SOURCE_COMPILES("${VERSION_CHECK_SOURCE}" HAVE_LIBEVENT_145)
+    IF(NOT HAVE_LIBEVENT_145)
+      SET(CMAKE_REQUIRED_DEFINITIONS -DEVENT_VERSION_WANTED=0x1040300)
+      CHECK_C_SOURCE_COMPILES("${VERSION_CHECK_SOURCE}" HAVE_LIBEVENT_143)
+      IF(NOT LIBEVENT_VERSION_143)
+        message(FATAL_ERROR "Couldn't find at least libevent 1.4.3+")
+      ENDIF()
+    ELSE()
+      set(HAVE_LIBEVENT_143 1)
+      message(STATUS "Found libevent 1.4.5+")
+    ENDIF()
+  ENDIF()
+  set(ASYNC_SOURCE src/async.c)
+  include_directories(${LIBEVENT_INCLUDE_DIR})
 ENDIF()
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_SOURCE_DIR}/src/config.h)
-add_library(afdt STATIC src/lowlevel.c src/strlcpy.c src/sync.c src/util.c ${ASYNC_SOURCE})
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake 
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/config.h)
+add_library(afdt STATIC src/lowlevel.c src/strlcpy.c src/sync.c src/util.c 
+            ${ASYNC_SOURCE})
 
 IF(LibEvent_FOUND)
-	target_link_libraries(afdt ${LIBEVENT_LIB})
+  target_link_libraries(afdt ${LIBEVENT_LIB})
 ENDIF()
