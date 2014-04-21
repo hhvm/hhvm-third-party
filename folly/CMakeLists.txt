@@ -44,6 +44,7 @@ list(REMOVE_ITEM files
 # Remove non-portable items
 if (NOT LINUX)
   list(REMOVE_ITEM files
+    ${FOLLY_DIR}/LifoSem.cpp
     ${FOLLY_DIR}/detail/MemoryIdler.cpp
     ${FOLLY_DIR}/experimental/symbolizer/Symbolizer.cpp
     ${FOLLY_DIR}/experimental/symbolizer/Dwarf.cpp
