@@ -20,15 +20,43 @@ include(FollySetup)
 
 add_definitions("-DHHVM")
 
-add_subdirectory(libafdt)
-add_subdirectory(libmbfl)
-add_subdirectory(libsqlite3)
-add_subdirectory(timelib)
-add_subdirectory(lz4)
-add_subdirectory(double-conversion)
-add_subdirectory(folly)
-add_subdirectory(libzip)
+set(THIRD_PARTY_MODULES)
+set(THIRD_PARTY_HEADERS)
+
+list(APPEND THIRD_PARTY_MODULES
+  libafdt
+  libmbfl
+  libsqlite3
+  timelib
+  lz4
+  double-conversion
+  folly
+  libzip)
 if(ENABLE_FASTCGI)
-  add_subdirectory(ti)
-  add_subdirectory(thrift)
+  list(APPEND THIRD_PARTY_MODULES ti)
+  list(APPEND THIRD_PARTY_MODULES thrift)
 endif()
+
+function(TP_INSTALL_HEADERS TARGET SRCDIR DEST)
+  file(GLOB_RECURSE files "${SRCDIR}/*.h")
+  install(
+    CODE "INCLUDE(\"${HPHP_HOME}/CMake/HPHPFunctions.cmake\")
+      HHVM_INSTALL_HEADERS(${TARGET}
+      \"${CMAKE_CURRENT_SOURCE_DIR}/${SRCDIR}\"
+      \"${CMAKE_INSTALL_PREFIX}/include/hphp/third-party/${DEST}\"
+      ${files})"
+    COMPONENT dev)
+endfunction()
+
+foreach(MODULE ${THIRD_PARTY_MODULES})
+  add_subdirectory(${MODULE})
+  # Install headers here, rather than in the individual submodules, so that we
+  # can easily control the destination. Put them in include/hphp/third-party.
+  if(MODULE STREQUAL folly)
+    TP_INSTALL_HEADERS(folly folly/src/folly folly)
+  elseif(MODULE STREQUAL double-conversion)
+    TP_INSTALL_HEADERS(double-conversion double-conversion/src double-conversion)
+  else()
+    TP_INSTALL_HEADERS(${MODULE} ${MODULE} ${MODULE})
+  endif()
+endforeach()
