@@ -41,6 +41,7 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/io/async/AsyncTimeout.cpp
   ${FOLLY_DIR}/io/async/EventBase.cpp
   ${FOLLY_DIR}/io/async/Request.cpp
+  ${FOLLY_DIR}/wangle/ThreadGate.cpp
   )
 
 # Remove non-portable items
