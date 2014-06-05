@@ -24,6 +24,7 @@ set(THIRD_PARTY_MODULES)
 set(THIRD_PARTY_HEADERS)
 
 list(APPEND THIRD_PARTY_MODULES
+  fastlz
   libafdt
   libmbfl
   libsqlite3
