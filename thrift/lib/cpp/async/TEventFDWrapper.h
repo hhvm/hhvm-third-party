@@ -9,7 +9,7 @@
 #ifndef HPHP_THRIFT_ASYNC_TEVENTFDWRAPPER_H
 #define HPHP_THRIFT_ASYNC_TEVENTFDWRAPPER_H 1
 
-#include <features.h>
+#include "thrift/lib/cpp/portability.h"
 
 // <sys/eventfd.h> doesn't exist on older glibc versions
 #if (defined(__GLIBC__) && __GLIBC_PREREQ(2, 9))

@@ -3,10 +3,21 @@
 
 #ifndef __APPLE__
 #include <time.h>
+#include <features.h>
 #else
 #include <mach/clock.h>
 #include <mach/mach.h>
 #include <sys/time.h>
+#endif
+
+#ifndef __GLIBC_PREREQ
+  #define __GLIBC_PREREQ(maj, min) \
+    ((__GLIBC__ << 16) + __GLIBC_MINOR__ >= ((maj) << 16) + (min))
+#endif
+
+#ifndef __GNUC_PREREQ
+  #define __GNUC_PREREQ(maj, min) \
+    ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
 #endif
 
 class Timer {
