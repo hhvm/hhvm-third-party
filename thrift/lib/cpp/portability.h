@@ -33,7 +33,7 @@ class Timer {
 public:
   static void GetMonotonicTime(timespec &ts) {
     #ifndef __APPLE__
-      gettime(CLOCK_MONOTONIC, &ts);
+      clock_gettime(CLOCK_MONOTONIC, &ts);
     #else
       struct timeval tv;
       gettimeofday(&tv, nullptr);
