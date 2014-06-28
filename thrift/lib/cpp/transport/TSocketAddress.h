@@ -23,11 +23,12 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <netinet/in.h>
-#include <features.h>
 #include <netdb.h>
 #include <cstddef>
 #include <iostream>
 #include <string>
+
+#include "thrift/lib/cpp/portability.h"
 
 namespace apache { namespace thrift { namespace transport {
 
