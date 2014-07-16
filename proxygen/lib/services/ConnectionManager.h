@@ -1,6 +1,6 @@
 // Copyright 2004-present Facebook.  All rights reserved.
 #pragma once
-#include "ti/proxygen/lib/services/ManagedConnection.h"
+#include "proxygen/lib/services/ManagedConnection.h"
 
 #include "thrift/lib/cpp/async/TAsyncTimeoutSet.h"
 #include "thrift/lib/cpp/async/TEventBase.h"

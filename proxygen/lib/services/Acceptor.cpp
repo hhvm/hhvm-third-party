@@ -1,11 +1,11 @@
 // Copyright 2004-present Facebook.  All rights reserved.
-#include "ti/proxygen/lib/services/Acceptor.h"
+#include "proxygen/lib/services/Acceptor.h"
 
 #include "folly/ScopeGuard.h"
 #include "thrift/lib/cpp/async/TAsyncSocket.h"
 #include "thrift/lib/cpp/async/TEventBase.h"
-#include "ti/proxygen/lib/services/ManagedConnection.h"
-#include "ti/proxygen/lib/utils/Time.h"
+#include "proxygen/lib/services/ManagedConnection.h"
+#include "proxygen/lib/utils/Time.h"
 #include "stubs/glog/portability.h"
 
 #include <boost/cast.hpp>

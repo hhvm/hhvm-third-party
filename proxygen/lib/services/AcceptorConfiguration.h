@@ -2,8 +2,8 @@
 #pragma once
 
 #include "folly/String.h"
-#include "ti/proxygen/lib/utils/SocketOptions.h"
-#include "ti/proxygen/lib/services/TcpEventsConfig.h"
+#include "proxygen/lib/utils/SocketOptions.h"
+#include "proxygen/lib/services/TcpEventsConfig.h"
 #include "thrift/lib/cpp/async/TAsyncSocket.h"
 #include "thrift/lib/cpp/transport/TSocketAddress.h"
 

@@ -1,5 +1,5 @@
 // Copyright 2004-present Facebook. All Rights Reserved.
-#include "ti/proxygen/lib/workers/WorkerThread.h"
+#include "proxygen/lib/workers/WorkerThread.h"
 
 #include <boost/thread.hpp>
 #include <signal.h>

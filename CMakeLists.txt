@@ -34,7 +34,7 @@ list(APPEND THIRD_PARTY_MODULES
   folly
   libzip)
 if(ENABLE_FASTCGI)
-  list(APPEND THIRD_PARTY_MODULES ti)
+  list(APPEND THIRD_PARTY_MODULES proxygen)
   list(APPEND THIRD_PARTY_MODULES thrift)
 endif()
 
