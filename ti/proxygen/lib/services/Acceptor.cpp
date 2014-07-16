@@ -4,9 +4,7 @@
 #include "folly/ScopeGuard.h"
 #include "thrift/lib/cpp/async/TAsyncSocket.h"
 #include "thrift/lib/cpp/async/TEventBase.h"
-#include "ti/proxygen/lib/utils/Exception.h"
 #include "ti/proxygen/lib/services/ManagedConnection.h"
-#include "ti/proxygen/lib/utils/Time.h"
 #include "stubs/glog/portability.h"
 
 #include <boost/cast.hpp>
