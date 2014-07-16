@@ -1,5 +1,5 @@
 // Copyright 2004-present Facebook.  All rights reserved.
-#include "ti/proxygen/lib/services/ConnectionManager.h"
+#include "proxygen/lib/services/ConnectionManager.h"
 
 #include "thrift/lib/cpp/async/TEventBase.h"
 

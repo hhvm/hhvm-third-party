@@ -1,6 +1,6 @@
 #include "TcpEventsConfig.h"
 
-#include "ti/proxygen/lib/utils/SocketOptions.h"
+#include "proxygen/lib/utils/SocketOptions.h"
 
 #include <ostream>
 #include <algorithm>

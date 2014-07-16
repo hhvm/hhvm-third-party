@@ -1,7 +1,7 @@
 // Copyright 2004-present Facebook.  All rights reserved.
-#include "ti/proxygen/lib/services/ManagedConnection.h"
+#include "proxygen/lib/services/ManagedConnection.h"
 
-#include "ti/proxygen/lib/services/ConnectionManager.h"
+#include "proxygen/lib/services/ConnectionManager.h"
 
 namespace facebook { namespace proxygen {
 

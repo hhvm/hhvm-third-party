@@ -6,9 +6,9 @@
 #include <event.h>
 #include <chrono>
 
-#include "ti/proxygen/lib/services/AcceptorConfiguration.h"
-#include "ti/proxygen/lib/services/ConnectionManager.h"
-#include "ti/proxygen/lib/transport/TransportInfo.h"
+#include "proxygen/lib/services/AcceptorConfiguration.h"
+#include "proxygen/lib/services/ConnectionManager.h"
+#include "proxygen/lib/transport/TransportInfo.h"
 
 
 namespace apache { namespace thrift {
