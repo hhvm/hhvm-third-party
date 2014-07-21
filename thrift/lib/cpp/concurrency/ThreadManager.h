@@ -21,7 +21,7 @@
 #define HPHP_THRIFT_CONCURRENCY_THREADMANAGER_H 1
 
 #include <memory>
-#include <tr1/functional>
+#include <functional>
 #include <sys/types.h>
 #include <array>
 #include <unistd.h>
@@ -55,8 +55,8 @@ class ThreadManager {
 
  public:
   class Task;
-  typedef std::tr1::function<void(std::shared_ptr<Runnable>)> ExpireCallback;
-  typedef std::tr1::function<void()> InitCallback;
+  typedef std::function<void(std::shared_ptr<Runnable>)> ExpireCallback;
+  typedef std::function<void()> InitCallback;
 
   virtual ~ThreadManager() {}
 
