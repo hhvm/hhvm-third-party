@@ -22,14 +22,14 @@
 #include <utility>
 #include <boost/intrusive/list.hpp>
 #include <boost/utility.hpp>
-#include <tr1/functional>
+#include <functional>
 #include <event.h>  // libevent
 #include <errno.h>
 #include <math.h>
 
 namespace apache { namespace thrift { namespace async {
 
-typedef std::tr1::function<void()> Cob;
+typedef std::function<void()> Cob;
 template <typename MessageT>
 class TNotificationQueue;
 
@@ -407,7 +407,7 @@ class TEventBase : private boost::noncopyable, public TimeoutManager {
 
   // --------- libevent callbacks (not for client use) ------------
 
-  static void runTr1FunctionPtr(std::tr1::function<void()>* fn);
+  static void runTr1FunctionPtr(std::function<void()>* fn);
 
   // small object used as a callback arg with enough info to execute the
   // appropriate client-provided Cob
