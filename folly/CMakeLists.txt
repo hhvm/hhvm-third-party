@@ -83,3 +83,6 @@ if (JEMALLOC_ENABLED)
   target_link_libraries(folly ${JEMALLOC_LIB})
 endif()
 
+# For some reason we aren't making a folly-config.h and this is in there.
+# Please fix properly!
+add_definitions("-DFOLLY_VERSION=\"0.1\"")
