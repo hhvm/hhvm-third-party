@@ -1,15 +1,14 @@
 // Copyright 2004-present Facebook.  All rights reserved.
 #pragma once
-#include "thrift/lib/cpp/async/TAsyncServerSocket.h"
-#include "thrift/lib/cpp/async/TAsyncTimeoutSet.h"
-
-#include <event.h>
-#include <chrono>
 
 #include "proxygen/lib/services/AcceptorConfiguration.h"
 #include "proxygen/lib/services/ConnectionManager.h"
 #include "proxygen/lib/transport/TransportInfo.h"
 
+#include <chrono>
+#include <event.h>
+#include <thrift/lib/cpp/async/TAsyncServerSocket.h>
+#include <thrift/lib/cpp/async/TAsyncTimeoutSet.h>
 
 namespace apache { namespace thrift {
 namespace async {
@@ -18,10 +17,6 @@ class TAsyncTransport;
 namespace transport {
 class TSocketAddress;
 }
-}}
-
-namespace facebook { namespace logging {
-class Logger;
 }}
 
 namespace facebook { namespace stats {
@@ -90,8 +85,8 @@ class Acceptor :
    * This method will be called from the TAsyncServerSocket's primary thread,
    * not the specified TEventBase thread.
    */
-  virtual void init(apache::thrift::async::TAsyncServerSocket *serverSocket,
-                    apache::thrift::async::TEventBase *eventBase);
+  virtual void init(apache::thrift::async::TAsyncServerSocket* serverSocket,
+                    apache::thrift::async::TEventBase* eventBase);
 
   /**
    * Return the number of outstanding connections in this service instance.
@@ -114,21 +109,10 @@ class Acceptor :
   }
 
   /**
-   * Access the Acceptor's upstream (server-side) ConnectionManager
-   */
-  virtual ConnectionManager* getUpstreamConnectionManager() {
-    return upstreamConnectionManager_.get();
-  }
-
-  /**
    * Access the general-purpose timeout manager for transactions.
    */
   virtual apache::thrift::async::TAsyncTimeoutSet* getTransactionTimeoutSet() {
     return transactionTimeouts_.get();
-  }
-
-  virtual apache::thrift::async::TAsyncTimeoutSet* getTcpEventsTimeoutSet() {
-    return tcpEventsTimeouts_.get();
   }
 
   /**
@@ -156,7 +140,7 @@ class Acceptor :
    * Returns true if this proxy is internal to facebook
    */
   bool isInternal() const {
-    return accConfig_.getInternal();
+    return accConfig_.internal;
   }
 
   /**
@@ -164,8 +148,8 @@ class Acceptor :
    *
    * Will return an empty string if no name has been configured.
    */
-  const std::string &getName() const {
-    return accConfig_.getName();
+  const std::string& getName() const {
+    return accConfig_.name;
   }
 
   /**
@@ -177,12 +161,10 @@ class Acceptor :
    */
   virtual void forceStop();
 
-  /**
-   * Flush any counters you have now
-   */
-  virtual void flushStats();
+  const AcceptorConfiguration& getConfig() const { return accConfig_; }
 
  protected:
+
   /**
    * Our event loop.
    *
@@ -190,7 +172,7 @@ class Acceptor :
    * implementation. Also visible in case a subclass wishes to do additional
    * things w/ the event loop (e.g. in attach()).
    */
-  apache::thrift::async::TEventBase *base_{nullptr};
+  apache::thrift::async::TEventBase* base_{nullptr};
 
   /**
    * Hook for subclasses to drop newly accepted connections prior
@@ -228,9 +210,10 @@ class Acceptor :
   void dropAllConnections();
 
   /**
-   * Close any connections that don't have a transaction outstanding.
+   * Drains all open connections of their outstanding transactions. When
+   * a connection's transaction count reaches zero, the connection closes.
    */
-  void closeIdleConnections();
+  void drainAllConnections();
 
   /**
    * onConnectionsDrained() will be called once all connections have been
@@ -283,10 +266,8 @@ class Acceptor :
 
   State state_{State::kInit};
 
-  std::unique_ptr<ConnectionManager> downstreamConnectionManager_;
-  std::unique_ptr<ConnectionManager> upstreamConnectionManager_;
+  ConnectionManager::UniquePtr downstreamConnectionManager_;
   apache::thrift::async::TAsyncTimeoutSet::UniquePtr transactionTimeouts_;
-  apache::thrift::async::TAsyncTimeoutSet::UniquePtr tcpEventsTimeouts_;
 
   bool forceShutdownInProgress_{false};
 };

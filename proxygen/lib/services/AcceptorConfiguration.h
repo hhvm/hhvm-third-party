@@ -1,84 +1,37 @@
 // Copyright 2004-present Facebook.  All rights reserved.
 #pragma once
 
-#include "folly/String.h"
 #include "proxygen/lib/utils/SocketOptions.h"
-#include "proxygen/lib/services/TcpEventsConfig.h"
-#include "thrift/lib/cpp/async/TAsyncSocket.h"
-#include "thrift/lib/cpp/transport/TSocketAddress.h"
 
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <zlib.h>
-
+#include <boost/optional.hpp>
 #include <chrono>
+#include <fcntl.h>
+#include <folly/String.h>
 #include <list>
 #include <string>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <thrift/lib/cpp/async/TAsyncSocket.h>
+#include <thrift/lib/cpp/transport/TSSLSocket.h>
+#include <thrift/lib/cpp/transport/TSocketAddress.h>
+#include <zlib.h>
 
 namespace facebook { namespace proxygen {
 
 /**
- * Configure a single Acceptor.
+ * Configuration for a single Acceptor.
  *
  * This configures not only accept behavior, but also some types of SSL
  * behavior that may make sense to configure on a per-VIP basis (e.g. which
  * cert(s) we use, etc).
  */
-class AcceptorConfiguration {
- public:
-
-  /** Set/get the address to bind to */
-  void setAddress(const apache::thrift::transport::TSocketAddress &addr) {
-    addr_ = addr;
-  }
-
-  const apache::thrift::transport::TSocketAddress& getAddress() const {
-    return addr_;
-  }
-
+struct AcceptorConfiguration {
   /**
-   * Set/get whether or not the interface is being used to accept traffic from
-   * internal or external clients. Internal clients will different behavior
-   * (e.g. Via headers, etc).
-   */
-  void setInternal(bool internal) { internal_ = internal; }
-  bool getInternal() const { return internal_; }
-
-  /**
-   * Set/get the depth of the accept queue backlog.
-   */
-  void setAcceptBacklog(uint32_t len) { acceptBacklog_ = len; }
-  uint32_t getAcceptBacklog() const { return acceptBacklog_; }
-
-  /**
-   * Set/get the number of milliseconds that a connection can be idle before we
-   * close it.
-   */
-  void setConnectionIdleTime(std::chrono::milliseconds time) {
-    connIdleTime_ = time;
-  }
-  std::chrono::milliseconds getConnectionIdleTime() const {
-    return connIdleTime_;
-  }
-
-  /**
-   * Set/get the number of milliseconds that a transaction can be idle before we
-   * close it.
-   */
-  void setTransactionIdleTime(std::chrono::milliseconds time) {
-    transactionIdleTime_ = time;
-  }
-  std::chrono::milliseconds getTransactionIdleTime() const {
-    return transactionIdleTime_;
-  }
-
-  /**
-   * Set/get the socket options to apply on all the downstream connections
+   * Set/get the socket options to apply on all downstream connections.
    */
   void setSocketOptions(
     const apache::thrift::async::TAsyncSocket::OptionMap& opts) {
-    socketOptions_ = filterIPSocketOptions(opts, addr_.getFamily());
+    socketOptions_ = filterIPSocketOptions(opts, bindAddress.getFamily());
   }
   apache::thrift::async::TAsyncSocket::OptionMap&
   getSocketOptions() {
@@ -90,57 +43,56 @@ class AcceptorConfiguration {
   }
 
   /**
-   * Set/get the name of a protocol to use on non-TLS connections.
+   * The name of this acceptor; used for stats/reporting purposes.
    */
-  void setPlaintextProtocol(const std::string& proto) {
-    plaintextProtocol_ = proto;
-  }
-  const std::string& getPlaintextProtocol() const {
-    return plaintextProtocol_;
-  }
+  std::string name;
 
   /**
-   * Set/get the name of this acceptor; used for stats/reporting purposes.
+   * Determines if the VIP should accept traffic from only internal or
+   * external clients. Internal VIPs have different behavior
+   * (e.g. Via headers, etc).
    */
-  void setName(const std::string &name) {
-    name_ = name;
-  }
-  const std::string &getName() const { return name_; }
+  bool internal{false};
 
-  void setTcpEventsConfig(TcpEventsConfig tcpEventsConfig) {
-    tcpEvents_ = tcpEventsConfig;
-  }
+  /**
+   * The depth of the accept queue backlog.
+   */
+  uint32_t acceptBacklog{1024};
 
-  const TcpEventsConfig& getTcpEventsConfig() const {
-    return tcpEvents_;
-  }
+  /**
+   * The number of milliseconds a connection can be idle before we close it.
+   */
+  std::chrono::milliseconds connectionIdleTimeout{600000};
 
-  void setUseNativeCodec(bool useNative) {
-    nativeCodec_ = useNative;
-  }
-  bool getUseNativeCodec() const {
-    return nativeCodec_;
-  }
+  /**
+   * The number of milliseconds a transaction can be idle before we close it.
+   */
+  std::chrono::milliseconds transactionIdleTimeout{600000};
 
-  void setCompressionLevel(int spdyCompressionLevel) {
-    spdyCompressionLevel_ = spdyCompressionLevel;
-  }
-  int getSPDYCompressionLevel() const {
-    return spdyCompressionLevel_;
-  }
+  /**
+   * The address to bind to.
+   */
+  apache::thrift::transport::TSocketAddress bindAddress;
+
+  /**
+   * Determines if the Acceptor does strict checking when loading the ssl
+   * contexts.
+   */
+  bool strictSSL{true};
+
+  /**
+   * The compression level to use for SPDY headers with responses from
+   * this Acceptor.
+   */
+  int spdyCompressionLevel{Z_NO_COMPRESSION};
+
+  /**
+   * The name of the protocol to use on non-TLS connections.
+   */
+  std::string plaintextProtocol;
 
  private:
-  apache::thrift::transport::TSocketAddress addr_;
-  bool internal_{false};
-  uint32_t acceptBacklog_{1024};
-  std::chrono::milliseconds connIdleTime_{600000};
-  std::chrono::milliseconds transactionIdleTime_{600000};
-  std::string name_;
-  std::string plaintextProtocol_;
   apache::thrift::async::TAsyncSocket::OptionMap socketOptions_;
-  bool nativeCodec_{false};
-  int spdyCompressionLevel_{Z_NO_COMPRESSION};
-  TcpEventsConfig tcpEvents_;
 };
 
 }} // facebook::proxygen

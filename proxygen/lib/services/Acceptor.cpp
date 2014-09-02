@@ -1,18 +1,18 @@
 // Copyright 2004-present Facebook.  All rights reserved.
 #include "proxygen/lib/services/Acceptor.h"
 
-#include "folly/ScopeGuard.h"
-#include "thrift/lib/cpp/async/TAsyncSocket.h"
-#include "thrift/lib/cpp/async/TEventBase.h"
 #include "proxygen/lib/services/ManagedConnection.h"
 #include "proxygen/lib/utils/Time.h"
 #include "stubs/glog/portability.h"
 
 #include <boost/cast.hpp>
 #include <fcntl.h>
+#include <folly/ScopeGuard.h>
 #include <fstream>
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <thrift/lib/cpp/async/TAsyncSocket.h>
+#include <thrift/lib/cpp/async/TEventBase.h>
 #include <unistd.h>
 
 using apache::thrift::async::TAsyncServerSocket;
@@ -21,15 +21,18 @@ using apache::thrift::async::TAsyncTimeoutSet;
 using apache::thrift::async::TEventBase;
 using apache::thrift::transport::TSocketAddress;
 using apache::thrift::transport::TTransportException;
-using std::shared_ptr;
-using std::chrono::milliseconds;
 using std::chrono::microseconds;
-using std::string;
+using std::chrono::milliseconds;
 using std::filebuf;
 using std::ifstream;
 using std::ios;
+using std::shared_ptr;
+using std::string;
 
 namespace facebook { namespace proxygen {
+
+DEFINE_int32(shutdown_idle_grace_ms, 5000, "milliseconds to wait before "
+             "closing idle conns");
 
 static const std::string empty_string;
 
@@ -39,20 +42,16 @@ Acceptor::Acceptor(const AcceptorConfiguration& accConfig) :
 }
 
 void
-Acceptor::init(TAsyncServerSocket *serverSocket,
-               TEventBase *eventBase) {
+Acceptor::init(TAsyncServerSocket* serverSocket,
+               TEventBase* eventBase) {
   CHECK_NULL(this->base_);
 
   base_ = eventBase;
   state_ = State::kRunning;
-  downstreamConnectionManager_.reset(new ConnectionManager(
-      eventBase, accConfig_.getConnectionIdleTime(), this));
-  upstreamConnectionManager_.reset(new ConnectionManager(
-      eventBase, accConfig_.getConnectionIdleTime()));
+  downstreamConnectionManager_ = ConnectionManager::makeUnique(
+    eventBase, accConfig_.connectionIdleTimeout, this);
   transactionTimeouts_.reset(new TAsyncTimeoutSet(
-      eventBase, accConfig_.getTransactionIdleTime()));
-  tcpEventsTimeouts_.reset(new TAsyncTimeoutSet(
-      eventBase, accConfig_.getTcpEventsConfig().getTimeout()));
+      eventBase, accConfig_.transactionIdleTimeout));
 
   serverSocket->addAcceptCallback(this, eventBase);
   // SO_KEEPALIVE is the only setting that is inherited by accepted
@@ -70,15 +69,16 @@ Acceptor::~Acceptor(void) {
 }
 
 void
-Acceptor::closeIdleConnections() {
+Acceptor::drainAllConnections() {
   if (downstreamConnectionManager_) {
-    downstreamConnectionManager_->closeIdleConnections();
+    downstreamConnectionManager_->initiateGracefulShutdown(
+      std::chrono::milliseconds(FLAGS_shutdown_idle_grace_ms));
   }
 }
 
 bool Acceptor::canAccept(const TSocketAddress& address) {
-    return true;
-  }
+  return true;
+}
 
 void
 Acceptor::connectionAccepted(
@@ -88,11 +88,15 @@ Acceptor::connectionAccepted(
     return;
   }
   auto acceptTime = getCurrentTime();
-    TransportInfo tinfo;
-    tinfo.acceptTime = acceptTime;
-    TAsyncSocket::UniquePtr sock(new TAsyncSocket(base_, fd));
-    connectionReady(std::move(sock), clientAddr, empty_string, tinfo);
+  for (const auto& opt: socketOptions_) {
+    opt.first.apply(fd, opt.second);
   }
+  TransportInfo tinfo;
+  tinfo.ssl = false;
+  tinfo.acceptTime = acceptTime;
+  TAsyncSocket::UniquePtr sock(new TAsyncSocket(base_, fd));
+  connectionReady(std::move(sock), clientAddr, empty_string, tinfo);
+}
 
 void
 Acceptor::connectionReady(
@@ -105,9 +109,6 @@ Acceptor::connectionReady(
   // writing client from starving other connections.
   sock->setMaxReadsPerEvent(16);
   tinfo.initWithSocket(sock.get());
-  for (const auto& opt: socketOptions_) {
-    opt.first.apply(sock->getFd(), opt.second);
-  }
   onNewConnection(std::move(sock), &clientAddr, nextProtocolName, tinfo);
 }
 
@@ -122,8 +123,9 @@ Acceptor::acceptError(const std::exception& ex) noexcept {
 
 void
 Acceptor::acceptStopped() noexcept {
-  // Close all of the idle connections
-  closeIdleConnections();
+  VLOG(3) << "Acceptor " << this << " acceptStopped()";
+  // Drain the open client connections
+  drainAllConnections();
 
   // If we haven't yet finished draining, begin doing so by marking ourselves
   // as in the draining state. We must be sure to hit checkDrained() here, as
@@ -138,6 +140,7 @@ Acceptor::acceptStopped() noexcept {
 
 void
 Acceptor::onEmpty(const ConnectionManager& cm) {
+  VLOG(3) << "Acceptor=" << this << " onEmpty()";
   if (state_ == State::kDraining) {
     checkDrained();
   }
@@ -151,8 +154,8 @@ Acceptor::checkDrained() {
     return;
   }
 
-  LOG(INFO) << "All connections drained from Acceptor=" << this << " in thread "
-            << base_;
+  VLOG(2) << "All connections drained from Acceptor=" << this << " in thread "
+          << base_;
 
   downstreamConnectionManager_.reset();
 
@@ -163,10 +166,10 @@ Acceptor::checkDrained() {
 
 milliseconds
 Acceptor::getConnTimeout() const {
-  return accConfig_.getConnectionIdleTime();
+  return accConfig_.connectionIdleTimeout;
 }
 
-void Acceptor::addConnection(ManagedConnection *conn) {
+void Acceptor::addConnection(ManagedConnection* conn) {
   // Add the socket to the timeout manager so that it can be cleaned
   // up after being left idle for a long time.
   downstreamConnectionManager_->addConnection(conn, true);
@@ -185,10 +188,12 @@ Acceptor::dropAllConnections() {
     assert(base_->isInEventBaseThread());
     forceShutdownInProgress_ = true;
     downstreamConnectionManager_->dropAllConnections();
+    CHECK(downstreamConnectionManager_->getNumConnections() == 0);
+    downstreamConnectionManager_.reset();
   }
-}
 
-void Acceptor::flushStats() {
+  state_ = State::kDone;
+  onConnectionsDrained();
 }
 
 }} // facebook::proxygen
