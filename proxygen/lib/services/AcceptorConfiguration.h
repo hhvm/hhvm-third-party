@@ -12,7 +12,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <thrift/lib/cpp/async/TAsyncSocket.h>
-#include <thrift/lib/cpp/transport/TSSLSocket.h>
 #include <thrift/lib/cpp/transport/TSocketAddress.h>
 #include <zlib.h>
 
