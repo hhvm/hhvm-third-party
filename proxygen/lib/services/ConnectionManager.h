@@ -1,18 +1,21 @@
 // Copyright 2004-present Facebook.  All rights reserved.
 #pragma once
+
 #include "proxygen/lib/services/ManagedConnection.h"
 
-#include "thrift/lib/cpp/async/TAsyncTimeoutSet.h"
-#include "thrift/lib/cpp/async/TEventBase.h"
-
 #include <chrono>
+#include <folly/Memory.h>
+#include <thrift/lib/cpp/async/TAsyncTimeout.h>
+#include <thrift/lib/cpp/async/TAsyncTimeoutSet.h>
+#include <thrift/lib/cpp/async/TDelayedDestruction.h>
+#include <thrift/lib/cpp/async/TEventBase.h>
 
 namespace facebook { namespace proxygen {
 
 /**
  * A ConnectionManager keeps track of ManagedConnections.
  */
-class ConnectionManager {
+class ConnectionManager: public apache::thrift::async::TDelayedDestruction {
  public:
 
   /**
@@ -40,8 +43,23 @@ class ConnectionManager {
     virtual void onConnectionRemoved(const ConnectionManager& cm) = 0;
   };
 
+  typedef std::unique_ptr<ConnectionManager, Destructor> UniquePtr;
+
+  /**
+   * Returns a new instance of ConnectionManager wrapped in a unique_ptr
+   */
+  template<typename... Args>
+  static UniquePtr makeUnique(Args&&... args) {
+    return folly::make_unique<ConnectionManager, Destructor>(
+      std::forward<Args>(args)...);
+  }
+
+  /**
+   * Constructor not to be used by itself.
+   */
   ConnectionManager(apache::thrift::async::TEventBase* eventBase,
-      std::chrono::milliseconds timeout, Callback* callback = nullptr);
+                    std::chrono::milliseconds timeout,
+                    Callback* callback = nullptr);
 
   /**
    * Add a connection to the set of connections managed by this
@@ -68,12 +86,11 @@ class ConnectionManager {
    */
   void removeConnection(ManagedConnection* connection);
 
-  /**
-   * Destroy all connections managed by this ConnectionManager that
-   * are currently idle, as determined by a call to each ManagedConnection's
-   * isBusy() method.
+  /* Begin gracefully shutting down connections in this ConnectionManager.
+   * Notify all connections of pending shutdown, and after idleGrace,
+   * begin closing idle connections.
    */
-  void closeIdleConnections();
+  void initiateGracefulShutdown(std::chrono::milliseconds idleGrace);
 
   /**
    * Destroy all connections Managed by this ConnectionManager, even
@@ -85,21 +102,49 @@ class ConnectionManager {
 
  private:
   class CloseIdleConnsCallback :
-    public apache::thrift::async::TEventBase::LoopCallback {
+      public apache::thrift::async::TEventBase::LoopCallback,
+      public apache::thrift::async::TAsyncTimeout {
    public:
     explicit CloseIdleConnsCallback(ConnectionManager* manager)
-      : manager_(manager) {}
+        : apache::thrift::async::TAsyncTimeout(manager->eventBase_),
+          manager_(manager) {}
 
-    virtual void runLoopCallback() noexcept {
-      manager_->closeIdleConnections();
+    void runLoopCallback() noexcept override {
+      VLOG(3) << "Draining more conns from loop callback";
+      manager_->drainAllConnections();
+    }
+
+    void timeoutExpired() noexcept override {
+      VLOG(3) << "Idle grace expired";
+      manager_->drainAllConnections();
     }
 
    private:
     ConnectionManager* manager_;
   };
 
+  enum class ShutdownAction : uint8_t {
+    /**
+     * Drain part 1: inform remote that you will soon reject new requests.
+     */
+    DRAIN1 = 0,
+    /**
+     * Drain part 2: start rejecting new requests.
+     */
+    DRAIN2 = 1,
+  };
+
+  ~ConnectionManager() {}
+
   ConnectionManager(const ConnectionManager&) = delete;
   ConnectionManager& operator=(ConnectionManager&) = delete;
+
+  /**
+   * Destroy all connections managed by this ConnectionManager that
+   * are currently idle, as determined by a call to each ManagedConnection's
+   * isBusy() method.
+   */
+  void drainAllConnections();
 
   /** All connections */
   folly::CountedIntrusiveList<
@@ -112,13 +157,13 @@ class ConnectionManager {
   Callback* callback_;
 
   /** Event base in which we run */
-  apache::thrift::async::TEventBase *eventBase_;
+  apache::thrift::async::TEventBase* eventBase_;
 
-  /** Iterator to the next connection to shed; used by closeIdleConnections() */
+  /** Iterator to the next connection to shed; used by drainAllConnections() */
   folly::CountedIntrusiveList<
     ManagedConnection,&ManagedConnection::listHook_>::iterator idleIterator_;
   CloseIdleConnsCallback idleLoopCallback_;
+  ShutdownAction action_{ShutdownAction::DRAIN1};
 };
 
 }} // facebook::proxygen
-

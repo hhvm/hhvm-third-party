@@ -1,7 +1,8 @@
 // Copyright 2004-present Facebook.  All rights reserved.
 #include "proxygen/lib/services/ConnectionManager.h"
 
-#include "thrift/lib/cpp/async/TEventBase.h"
+#include <glog/logging.h>
+#include <thrift/lib/cpp/async/TEventBase.h>
 
 using apache::thrift::async::TAsyncTimeoutSet;
 using apache::thrift::async::TEventBase;
@@ -70,40 +71,62 @@ ConnectionManager::removeConnection(ManagedConnection* connection) {
 }
 
 void
-ConnectionManager::closeIdleConnections() {
+ConnectionManager::initiateGracefulShutdown(
+  std::chrono::milliseconds idleGrace) {
+  if (idleGrace.count() > 0) {
+    idleLoopCallback_.scheduleTimeout(idleGrace);
+    VLOG(3) << "Scheduling idle grace period of " << idleGrace.count() << "ms";
+  } else {
+    action_ = ShutdownAction::DRAIN2;
+    VLOG(3) << "proceeding directly to closing idle connections";
+  }
+  drainAllConnections();
+}
+
+void
+ConnectionManager::drainAllConnections() {
+  DestructorGuard g(this);
   size_t numCleared = 0;
   size_t numKept = 0;
 
-  auto it = conns_.begin();
-  if (idleIterator_ != conns_.end()) {
-    it = idleIterator_;
-  }
+  auto it = idleIterator_ == conns_.end() ?
+    conns_.begin() : idleIterator_;
 
-  while (it != conns_.end() && numCleared < 64) {
+  while (it != conns_.end() && (numKept + numCleared) < 64) {
     ManagedConnection& conn = *it++;
-    if (conn.isBusy()) {
+    if (action_ == ShutdownAction::DRAIN1) {
       conn.notifyPendingShutdown();
-      numKept++;
     } else {
-      conn.cancelTimeout();
-      conn.timeoutExpired();
-      numCleared++;
+      // Second time around: close idle sessions. If they aren't idle yet,
+      // have them close when they are idle
+      if (conn.isBusy()) {
+        numKept++;
+      } else {
+        numCleared++;
+      }
+      conn.closeWhenIdle();
     }
   }
 
-  VLOG(2) << "Idle connections cleared: " << numCleared <<
+  if (action_ == ShutdownAction::DRAIN2) {
+    VLOG(2) << "Idle connections cleared: " << numCleared <<
       ", busy conns kept: " << numKept;
-
+  }
   if (it != conns_.end()) {
     idleIterator_ = it;
     eventBase_->runInLoop(&idleLoopCallback_);
+  } else {
+    action_ = ShutdownAction::DRAIN2;
   }
 }
 
 void
 ConnectionManager::dropAllConnections() {
+  DestructorGuard g(this);
+
   // Iterate through our connection list, and drop each connection.
   VLOG(3) << "connections to drop: " << conns_.size();
+  idleLoopCallback_.cancelTimeout();
   unsigned i = 0;
   while (!conns_.empty()) {
     ManagedConnection& conn = conns_.front();

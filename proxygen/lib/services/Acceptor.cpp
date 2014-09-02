@@ -9,6 +9,7 @@
 #include <fcntl.h>
 #include <folly/ScopeGuard.h>
 #include <fstream>
+#include <gflags/gflags.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <thrift/lib/cpp/async/TAsyncSocket.h>
@@ -92,7 +93,6 @@ Acceptor::connectionAccepted(
     opt.first.apply(fd, opt.second);
   }
   TransportInfo tinfo;
-  tinfo.ssl = false;
   tinfo.acceptTime = acceptTime;
   TAsyncSocket::UniquePtr sock(new TAsyncSocket(base_, fd));
   connectionReady(std::move(sock), clientAddr, empty_string, tinfo);

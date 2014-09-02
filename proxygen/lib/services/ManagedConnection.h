@@ -1,12 +1,11 @@
 // Copyright 2004-present Facebook.  All rights reserved.
 #pragma once
 
-#include "folly/IntrusiveList.h"
-#include "thrift/lib/cpp/async/TAsyncTimeoutSet.h"
-#include "thrift/lib/cpp/async/TDelayedDestruction.h"
-#include "thrift/lib/cpp/transport/TSocketAddress.h"
-
+#include <folly/IntrusiveList.h>
 #include <ostream>
+#include <thrift/lib/cpp/async/TAsyncTimeoutSet.h>
+#include <thrift/lib/cpp/async/TDelayedDestruction.h>
+#include <thrift/lib/cpp/transport/TSocketAddress.h>
 
 namespace facebook { namespace proxygen {
 
@@ -19,8 +18,8 @@ class ConnectionManager;
 class ManagedConnection:
     public apache::thrift::async::TAsyncTimeoutSet::Callback,
     public apache::thrift::async::TDelayedDestruction {
-
  public:
+
   ManagedConnection();
 
   // TAsyncTimeoutSet::Callback API (left for subclasses to implement).
@@ -38,9 +37,16 @@ class ManagedConnection:
   virtual bool isBusy() const = 0;
 
   /**
-   * Notify a connection that a shutdown is pending.
+   * Notify the connection that a shutdown is pending. This method will be
+   * called at the beginning of graceful shutdown.
    */
   virtual void notifyPendingShutdown() = 0;
+
+  /**
+   * Instruct the connection that it should shutdown as soon as it is
+   * safe. This is called after notifyPendingShutdown().
+   */
+  virtual void closeWhenIdle() = 0;
 
   /**
    * Forcibly drop a connection.
@@ -88,4 +94,3 @@ class ManagedConnection:
 std::ostream& operator<<(std::ostream& os, const ManagedConnection& conn);
 
 }} // facebook::proxygen
-
