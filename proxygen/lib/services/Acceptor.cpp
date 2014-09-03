@@ -9,7 +9,6 @@
 #include <fcntl.h>
 #include <folly/ScopeGuard.h>
 #include <fstream>
-#include <gflags/gflags.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <thrift/lib/cpp/async/TAsyncSocket.h>
@@ -31,9 +30,6 @@ using std::shared_ptr;
 using std::string;
 
 namespace facebook { namespace proxygen {
-
-DEFINE_int32(shutdown_idle_grace_ms, 5000, "milliseconds to wait before "
-             "closing idle conns");
 
 static const std::string empty_string;
 
@@ -73,7 +69,7 @@ void
 Acceptor::drainAllConnections() {
   if (downstreamConnectionManager_) {
     downstreamConnectionManager_->initiateGracefulShutdown(
-      std::chrono::milliseconds(FLAGS_shutdown_idle_grace_ms));
+      std::chrono::milliseconds(5000));
   }
 }
 
