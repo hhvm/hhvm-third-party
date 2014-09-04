@@ -9,7 +9,7 @@ namespace apache { namespace thrift { namespace async {
 class TEventBaseManager;
 }}}
 
-namespace facebook { namespace proxygen {
+namespace proxygen {
 
 /**
  * A WorkerThread represents an independent event loop that runs in its own
@@ -112,4 +112,4 @@ class WorkerThread {
   static __thread WorkerThread *currentWorker_;
 };
 
-}} // facebook::proxygen
+} // proxygen

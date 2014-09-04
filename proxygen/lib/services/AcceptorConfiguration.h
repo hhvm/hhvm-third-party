@@ -15,7 +15,7 @@
 #include <thrift/lib/cpp/transport/TSocketAddress.h>
 #include <zlib.h>
 
-namespace facebook { namespace proxygen {
+namespace proxygen {
 
 /**
  * Configuration for a single Acceptor.
@@ -94,4 +94,4 @@ struct AcceptorConfiguration {
   apache::thrift::async::TAsyncSocket::OptionMap socketOptions_;
 };
 
-}} // facebook::proxygen
+} // proxygen

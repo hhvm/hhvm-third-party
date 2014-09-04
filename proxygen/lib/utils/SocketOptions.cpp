@@ -2,7 +2,7 @@
 #include <sys/socket.h>
 #include <netinet/tcp.h>
 
-namespace facebook { namespace proxygen {
+namespace proxygen {
 
 apache::thrift::async::TAsyncSocket::OptionMap filterIPSocketOptions(
   const apache::thrift::async::TAsyncSocket::OptionMap& allOptions,
@@ -25,4 +25,4 @@ apache::thrift::async::TAsyncSocket::OptionMap filterIPSocketOptions(
   return opts;
 }
 
-}}
+}

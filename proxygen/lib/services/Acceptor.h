@@ -23,7 +23,7 @@ namespace facebook { namespace stats {
 class ExportedStatMap;
 }}
 
-namespace facebook { namespace proxygen {
+namespace proxygen {
 
 class ManagedConnection;
 
@@ -272,4 +272,4 @@ class Acceptor :
   bool forceShutdownInProgress_{false};
 };
 
-}} // facebook::proxygen
+} // proxygen

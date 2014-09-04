@@ -8,7 +8,7 @@ namespace apache { namespace thrift { namespace async {
 class TAsyncSocket;
 }}}
 
-namespace facebook { namespace proxygen {
+namespace proxygen {
 
 struct TransportInfo {
 
@@ -118,4 +118,4 @@ struct TransportInfo {
 #endif
 };
 
-}} // facebook::proxygen
+} // proxygen
