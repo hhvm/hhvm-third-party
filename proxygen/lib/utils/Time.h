@@ -6,7 +6,7 @@
 #include <chrono>
 #include <cinttypes>
 
-namespace facebook { namespace proxygen {
+namespace proxygen {
 
 typedef std::chrono::system_clock::time_point TimePoint;
 
@@ -64,4 +64,4 @@ class TimeUtil {
   }
 };
 
-}}
+}

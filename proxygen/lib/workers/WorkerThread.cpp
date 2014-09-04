@@ -10,7 +10,7 @@
 
 using apache::thrift::async::TEventBaseManager;
 
-namespace facebook { namespace proxygen {
+namespace proxygen {
 
 __thread WorkerThread *WorkerThread::currentWorker_ = nullptr;
 
@@ -139,4 +139,4 @@ void WorkerThread::runLoop() {
   VLOG(1) << "WorkerThread " << this << " terminated";
 }
 
-}} // facebook::proxygen
+} // proxygen

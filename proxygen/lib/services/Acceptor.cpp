@@ -29,7 +29,7 @@ using std::ios;
 using std::shared_ptr;
 using std::string;
 
-namespace facebook { namespace proxygen {
+namespace proxygen {
 
 static const std::string empty_string;
 
@@ -192,4 +192,4 @@ Acceptor::dropAllConnections() {
   onConnectionsDrained();
 }
 
-}} // facebook::proxygen
+} // proxygen

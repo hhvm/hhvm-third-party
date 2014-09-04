@@ -7,7 +7,7 @@
 #include <thrift/lib/cpp/async/TDelayedDestruction.h>
 #include <thrift/lib/cpp/transport/TSocketAddress.h>
 
-namespace facebook { namespace proxygen {
+namespace proxygen {
 
 class ConnectionManager;
 
@@ -93,4 +93,4 @@ class ManagedConnection:
 
 std::ostream& operator<<(std::ostream& os, const ManagedConnection& conn);
 
-}} // facebook::proxygen
+} // proxygen

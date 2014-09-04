@@ -3,7 +3,7 @@
 
 #include "proxygen/lib/services/ConnectionManager.h"
 
-namespace facebook { namespace proxygen {
+namespace proxygen {
 
 ManagedConnection::ManagedConnection()
   : connectionManager_(nullptr) {
@@ -30,4 +30,4 @@ operator<<(std::ostream& os, const ManagedConnection& conn) {
   return os;
 }
 
-}} // facebook::proxygen
+} // proxygen

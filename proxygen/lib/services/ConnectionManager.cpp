@@ -8,7 +8,7 @@ using apache::thrift::async::TAsyncTimeoutSet;
 using apache::thrift::async::TEventBase;
 using std::chrono::milliseconds;
 
-namespace facebook { namespace proxygen {
+namespace proxygen {
 
 ConnectionManager::ConnectionManager(TEventBase* eventBase,
     milliseconds timeout, Callback* callback)
@@ -149,4 +149,4 @@ ConnectionManager::dropAllConnections() {
   }
 }
 
-}} // facebook::proxygen
+} // proxygen

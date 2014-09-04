@@ -11,7 +11,7 @@ using std::chrono::microseconds;
 using std::map;
 using std::string;
 
-namespace facebook { namespace proxygen {
+namespace proxygen {
 
 TransportInfo::TransportInfo()
     : acceptTime(),
@@ -72,4 +72,4 @@ bool TransportInfo::readTcpInfo(struct tcp_info* tcpinfo,
 TransportInfo::~TransportInfo() {
 }
 
-}} // facebook::proxygen
+} // proxygen

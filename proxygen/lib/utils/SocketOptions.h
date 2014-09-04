@@ -2,7 +2,7 @@
 #pragma once
 #include "thrift/lib/cpp/async/TAsyncSocket.h"
 
-namespace facebook { namespace proxygen {
+namespace proxygen {
 
 // this is the name of OPTNAME that starts TCP events tracking
 const int TCP_TRACKING_OPTNAME = 21;
@@ -15,4 +15,4 @@ apache::thrift::async::TAsyncSocket::OptionMap filterIPSocketOptions(
   const apache::thrift::async::TAsyncSocket::OptionMap& allOptions,
   const int addrFamily);
 
-}}
+}

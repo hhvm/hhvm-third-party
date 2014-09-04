@@ -10,7 +10,7 @@
 #include <thrift/lib/cpp/async/TDelayedDestruction.h>
 #include <thrift/lib/cpp/async/TEventBase.h>
 
-namespace facebook { namespace proxygen {
+namespace proxygen {
 
 /**
  * A ConnectionManager keeps track of ManagedConnections.
@@ -166,4 +166,4 @@ class ConnectionManager: public apache::thrift::async::TDelayedDestruction {
   ShutdownAction action_{ShutdownAction::DRAIN1};
 };
 
-}} // facebook::proxygen
+} // proxygen
