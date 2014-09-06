@@ -2,12 +2,15 @@
 #define THRIFT_PORTABILITY_H
 
 #ifndef __APPLE__
-#include <time.h>
-#include <features.h>
+# include <time.h>
+# if !defined(__APPLE__) && !defined(__FreeBSD__) && \
+     !defined(__OpenBSD__) && !defined(__NetBSD__)
+#  include <features.h>
+# endif
 #else
-#include <mach/clock.h>
-#include <mach/mach.h>
-#include <sys/time.h>
+# include <mach/clock.h>
+# include <mach/mach.h>
+# include <sys/time.h>
 #endif
 
 #ifndef __GLIBC_PREREQ
@@ -20,13 +23,14 @@
     ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
 #endif
 
-#ifdef __APPLE__
-#ifndef s6_addr16
-#define s6_addr16 __u6_addr.__u6_addr16
-#endif
-#ifndef s6_addr32
-#define s6_addr32 __u6_addr.__u6_addr32
-#endif
+# if defined(__APPLE__) || defined(__FreeBSD__) || \
+     defined(__OpenBSD__) || defined(__NetBSD__)
+# ifndef s6_addr16
+#  define s6_addr16 __u6_addr.__u6_addr16
+# endif
+# ifndef s6_addr32
+#  define s6_addr32 __u6_addr.__u6_addr32
+# endif
 #endif
 
 class Timer {
