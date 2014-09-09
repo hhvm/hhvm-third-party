@@ -5,6 +5,8 @@ if (NOT EXISTS "${FOLLY_DIR}/Portability.h")
                       "run `git submodule update --init --recursive`?")
 endif()
 
+add_definitions(-DNO_LIB_GFLAGS)
+
 # Generated files from folly/build/generate_*.py
 auto_sources(genfiles "*.cpp" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}/gen")
 
