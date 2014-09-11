@@ -40,9 +40,6 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/symbolizer/ElfCache.cpp
   ${FOLLY_DIR}/experimental/symbolizer/ElfUtil.cpp
   ${FOLLY_DIR}/experimental/symbolizer/SignalHandler.cpp
-  ${FOLLY_DIR}/io/async/AsyncTimeout.cpp
-  ${FOLLY_DIR}/io/async/EventBase.cpp
-  ${FOLLY_DIR}/io/async/Request.cpp
   ${FOLLY_DIR}/wangle/ThreadGate.cpp
   )
 
