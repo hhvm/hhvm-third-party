@@ -40,7 +40,6 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/symbolizer/ElfCache.cpp
   ${FOLLY_DIR}/experimental/symbolizer/ElfUtil.cpp
   ${FOLLY_DIR}/experimental/symbolizer/SignalHandler.cpp
-  ${FOLLY_DIR}/wangle/ThreadGate.cpp
   )
 
 check_include_file(INCLUDE "bits/functexcept.h" VARIABLE functexcept_present)
@@ -70,7 +69,7 @@ list(REMOVE_ITEM files ${FOLLY_DIR}/io/Compression.cpp)
 
 add_library(folly STATIC ${files} ${genfiles} ${cfiles} )
 
-find_package(Boost 1.48.0 COMPONENTS system program_options filesystem regex 
+find_package(Boost 1.48.0 COMPONENTS system program_options filesystem regex
              REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})

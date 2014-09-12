@@ -1,3 +1,6 @@
 [submodule "folly"]
 	path = folly/src
 	url = https://github.com/facebook/folly.git
+[submodule "thrift/src"]
+	path = thrift/src
+	url = https://github.com/facebook/fbthrift.git
