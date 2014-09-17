@@ -1,7 +1,7 @@
 // Copyright 2004-present Facebook.  All rights reserved.
 #include "proxygen/lib/services/Acceptor.h"
 
-#include "proxygen/lib/services/ManagedConnection.h"
+#include "folly/experimental/wangle//ManagedConnection.h"
 #include "proxygen/lib/utils/Time.h"
 #include "stubs/glog/portability.h"
 
@@ -45,7 +45,7 @@ Acceptor::init(TAsyncServerSocket* serverSocket,
 
   base_ = eventBase;
   state_ = State::kRunning;
-  downstreamConnectionManager_ = ConnectionManager::makeUnique(
+  downstreamConnectionManager_ = folly::wangle::ConnectionManager::makeUnique(
     eventBase, accConfig_.connectionIdleTimeout, this);
   transactionTimeouts_.reset(new TAsyncTimeoutSet(
       eventBase, accConfig_.transactionIdleTimeout));
@@ -135,7 +135,7 @@ Acceptor::acceptStopped() noexcept {
 }
 
 void
-Acceptor::onEmpty(const ConnectionManager& cm) {
+Acceptor::onEmpty(const folly::wangle::ConnectionManager& cm) {
   VLOG(3) << "Acceptor=" << this << " onEmpty()";
   if (state_ == State::kDraining) {
     checkDrained();
@@ -165,7 +165,7 @@ Acceptor::getConnTimeout() const {
   return accConfig_.connectionIdleTimeout;
 }
 
-void Acceptor::addConnection(ManagedConnection* conn) {
+void Acceptor::addConnection(folly::wangle::ManagedConnection* conn) {
   // Add the socket to the timeout manager so that it can be cleaned
   // up after being left idle for a long time.
   downstreamConnectionManager_->addConnection(conn, true);
