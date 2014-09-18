@@ -2,7 +2,7 @@
 #pragma once
 
 #include "proxygen/lib/services/AcceptorConfiguration.h"
-#include "folly/experimental/wangle/ConnectionManager.h"
+#include "proxygen/lib/services/ConnectionManager.h"
 #include "proxygen/lib/transport/TransportInfo.h"
 
 #include <chrono>
@@ -19,15 +19,13 @@ class TSocketAddress;
 }
 }}
 
-namespace folly { namespace wangle {
-class ManagedConnection;
-}}
-
 namespace facebook { namespace stats {
 class ExportedStatMap;
 }}
 
 namespace proxygen {
+
+class ManagedConnection;
 
 /**
  * An abstract acceptor for TCP-based network services.
@@ -67,7 +65,7 @@ namespace proxygen {
  */
 class Acceptor :
   public apache::thrift::async::TAsyncServerSocket::AcceptCallback,
-  public folly::wangle::ConnectionManager::Callback {
+  public ConnectionManager::Callback {
  public:
 
   enum class State : uint32_t {
@@ -106,7 +104,7 @@ class Acceptor :
   /**
    * Access the Acceptor's downstream (client-side) ConnectionManager
    */
-  virtual folly::wangle::ConnectionManager* getConnectionManager() {
+  virtual ConnectionManager* getConnectionManager() {
     return downstreamConnectionManager_.get();
   }
 
@@ -124,7 +122,7 @@ class Acceptor :
    * for tracking timeouts and for ensuring that all connections have been
    * drained on shutdown.
    */
-  void addConnection(folly::wangle::ManagedConnection* connection);
+  void addConnection(ManagedConnection* connection);
 
   /**
    * Get this acceptor's current state.
@@ -234,9 +232,9 @@ class Acceptor :
   void acceptStopped() noexcept;
 
   // ConnectionManager::Callback methods
-  void onEmpty(const folly::wangle::ConnectionManager& cm);
-  void onConnectionAdded(const folly::wangle::ConnectionManager& cm) {}
-  void onConnectionRemoved(const folly::wangle::ConnectionManager& cm) {}
+  void onEmpty(const ConnectionManager& cm);
+  void onConnectionAdded(const ConnectionManager& cm) {}
+  void onConnectionRemoved(const ConnectionManager& cm) {}
 
   /**
    * Process a connection that is to ready to receive L7 traffic.
@@ -268,7 +266,7 @@ class Acceptor :
 
   State state_{State::kInit};
 
-  folly::wangle::ConnectionManager::UniquePtr downstreamConnectionManager_;
+  ConnectionManager::UniquePtr downstreamConnectionManager_;
   apache::thrift::async::TAsyncTimeoutSet::UniquePtr transactionTimeouts_;
 
   bool forceShutdownInProgress_{false};
