@@ -25,6 +25,7 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/build/GenerateFingerprintTables.cpp
   ${FOLLY_DIR}/detail/Clock.cpp
   ${FOLLY_DIR}/detail/Futex.cpp
+  ${FOLLY_DIR}/detail/FunctionalExcept.cpp
   ${FOLLY_DIR}/LifoSem.cpp
   ${FOLLY_DIR}/detail/MemoryIdler.cpp
   ${FOLLY_DIR}/experimental/File.cpp
@@ -41,13 +42,6 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/symbolizer/ElfUtil.cpp
   ${FOLLY_DIR}/experimental/symbolizer/SignalHandler.cpp
   )
-
-check_include_file(INCLUDE "bits/functexcept.h" VARIABLE functexcept_present)
-if (functexcept_present)
-  list(REMOVE_ITEM files
-    ${FOLLY_DIR}/detail/FunctionalExcept.cpp
-  )
-endif()
 
 # Remove non-portable items
 if (NOT LINUX)
