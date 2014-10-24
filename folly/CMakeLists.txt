@@ -24,9 +24,7 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/Benchmark.cpp
   ${FOLLY_DIR}/build/GenerateFingerprintTables.cpp
   ${FOLLY_DIR}/detail/Clock.cpp
-  ${FOLLY_DIR}/detail/Futex.cpp
   ${FOLLY_DIR}/detail/FunctionalExcept.cpp
-  ${FOLLY_DIR}/LifoSem.cpp
   ${FOLLY_DIR}/detail/MemoryIdler.cpp
   ${FOLLY_DIR}/experimental/File.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracer.cpp
