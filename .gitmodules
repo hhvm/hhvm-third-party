@@ -4,3 +4,6 @@
 [submodule "thrift/src"]
 	path = thrift/src
 	url = https://github.com/facebook/fbthrift.git
+[submodule "proxygen/src"]
+	path = proxygen/src
+	url = https://github.com/facebook/proxygen

@@ -1,6 +1,15 @@
 set(CXX_SOURCES)
-auto_sources(files "*.cpp" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}")
+auto_sources(files "*.cpp" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}/lib")
+foreach (file ${files})
+  if (${file} MATCHES "/(test|http)/")
+    list(REMOVE_ITEM files ${file})
+  endif()
+  if (${file} MATCHES "/lib/utils/(Null)?TraceEvent")
+    list(REMOVE_ITEM files ${file})
+  endif()
+endforeach()
 list(APPEND CXX_SOURCES ${files})
+list(APPEND CXX_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/external/http_parser/http_parser_cpp.cpp")
 
 add_definitions(-DNO_LIB_GFLAGS)
 
