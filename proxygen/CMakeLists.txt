@@ -19,7 +19,7 @@ link_directories(${Boost_LIBRARY_DIRS})
 
 include_directories("${HPHP_HOME}/third-party")
 include_directories("${HPHP_HOME}/third-party/thrift/")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variables");
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variables")
 add_library(hphp_proxygen STATIC ${CXX_SOURCES})
 
 add_dependencies(hphp_proxygen hphp_thrift)
