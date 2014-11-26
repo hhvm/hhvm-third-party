@@ -24,7 +24,6 @@ set(THIRD_PARTY_MODULES)
 set(THIRD_PARTY_HEADERS)
 
 list(APPEND THIRD_PARTY_MODULES
-  pcre
   fastlz
   libafdt
   libmbfl
@@ -32,11 +31,20 @@ list(APPEND THIRD_PARTY_MODULES
   timelib
   lz4
   double-conversion
-  folly
-  libzip)
+  folly)
 if(ENABLE_FASTCGI)
   list(APPEND THIRD_PARTY_MODULES proxygen)
   list(APPEND THIRD_PARTY_MODULES thrift)
+endif()
+
+# Add bundled PCRE if the system one will not be used
+if (NOT PCRE_LIBRARY)
+  list(APPEND THIRD_PARTY_MODULES pcre)
+endif()
+
+# Add bundled libzip if the system one will not be used
+if (NOT LIBZIP_LIBRARY)
+  list(APPEND THIRD_PARTY_MODULES libzip)
 endif()
 
 function(TP_INSTALL_HEADERS TARGET SRCDIR DEST)

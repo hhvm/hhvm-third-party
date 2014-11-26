@@ -846,37 +846,6 @@ echo RunTest.bat tests successfully completed
 
 ENDIF(PCRE_BUILD_TESTS)
 
-# Installation
-SET(CMAKE_INSTALL_ALWAYS 1)
-
-INSTALL(TARGETS ${targets}
-        RUNTIME DESTINATION bin
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib)
-
-INSTALL(FILES ${PCRE_HEADERS} ${PCREPOSIX_HEADERS} DESTINATION include)
-
-FILE(GLOB html ${PROJECT_SOURCE_DIR}/doc/html/*.html)
-FILE(GLOB man1 ${PROJECT_SOURCE_DIR}/doc/*.1)
-FILE(GLOB man3 ${PROJECT_SOURCE_DIR}/doc/*.3)
-
-IF(PCRE_BUILD_PCRECPP)
-        INSTALL(FILES ${PCRECPP_HEADERS} DESTINATION include)
-ELSE(PCRE_BUILD_PCRECPP)
-        # Remove pcrecpp.3
-        FOREACH(man ${man3})
-                GET_FILENAME_COMPONENT(man_tmp ${man} NAME)
-                IF(NOT man_tmp STREQUAL "pcrecpp.3")
-                        SET(man3_new ${man3} ${man})
-                ENDIF(NOT man_tmp STREQUAL "pcrecpp.3")
-        ENDFOREACH(man ${man3})
-        SET(man3 ${man3_new})
-ENDIF(PCRE_BUILD_PCRECPP)
-
-INSTALL(FILES ${man1} DESTINATION man/man1)
-INSTALL(FILES ${man3} DESTINATION man/man3)
-INSTALL(FILES ${html} DESTINATION share/doc/pcre/html)
-
 # help, only for nice output
 IF(BUILD_SHARED_LIBS)
   SET(BUILD_STATIC_LIBS OFF)
@@ -896,7 +865,6 @@ IF(PCRE_SHOW_REPORT)
   MESSAGE(STATUS "")
   MESSAGE(STATUS "PCRE configuration summary:")
   MESSAGE(STATUS "")
-  MESSAGE(STATUS "  Install prefix .................. : ${CMAKE_INSTALL_PREFIX}")
   MESSAGE(STATUS "  C compiler ...................... : ${CMAKE_C_COMPILER}")
   MESSAGE(STATUS "  C++ compiler .................... : ${CMAKE_CXX_COMPILER}")
   MESSAGE(STATUS "  C compiler flags ................ : ${CMAKE_C_FLAGS}${cfsp}${CMAKE_C_FLAGS_${buildtype}}")
