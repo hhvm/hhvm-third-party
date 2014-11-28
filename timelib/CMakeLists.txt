@@ -35,6 +35,12 @@ CHECK_FUNCTION_EXISTS("atoll" HAVE_ATOLL)
 CHECK_FUNCTION_EXISTS("strftime" HAVE_STRFTIME)
 CHECK_FUNCTION_EXISTS("setlocale" HAVE_SETLOCALE)
 
+# Only use /usr/share/zoneinfo on Linux for now, on the assumption that
+# the file format is platform-specific.
+if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux" AND EXISTS /usr/share/zoneinfo)
+  add_definitions(-DHAVE_SYSTEM_TZDATA)
+endif()
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/timelib_config.h.cmake 
                ${CMAKE_CURRENT_SOURCE_DIR}/timelib_config.h)
 
