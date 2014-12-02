@@ -57,11 +57,19 @@
 #include "filters/mbfilter_euc_kr.h"
 #include "filters/mbfilter_iso2022_kr.h"
 #include "filters/mbfilter_sjis.h"
+#include "filters/mbfilter_sjis_open.h"
+#include "filters/mbfilter_sjis_mobile.h"
+#include "filters/mbfilter_sjis_mac.h"
+#include "filters/mbfilter_sjis_2004.h"
 #include "filters/mbfilter_cp51932.h"
 #include "filters/mbfilter_jis.h"
 #include "filters/mbfilter_iso2022_jp_ms.h"
+#include "filters/mbfilter_iso2022jp_2004.h"
+#include "filters/mbfilter_iso2022jp_mobile.h"
 #include "filters/mbfilter_euc_jp.h"
 #include "filters/mbfilter_euc_jp_win.h"
+#include "filters/mbfilter_euc_jp_2004.h"
+#include "filters/mbfilter_gb18030.h"
 #include "filters/mbfilter_ascii.h"
 #include "filters/mbfilter_koi8r.h"
 #include "filters/mbfilter_koi8u.h"
@@ -71,6 +79,7 @@
 #include "filters/mbfilter_cp1251.h"
 #include "filters/mbfilter_cp1252.h"
 #include "filters/mbfilter_cp1254.h"
+#include "filters/mbfilter_cp5022x.h"
 #include "filters/mbfilter_iso8859_1.h"
 #include "filters/mbfilter_iso8859_2.h"
 #include "filters/mbfilter_iso8859_3.h"
@@ -92,6 +101,7 @@
 #include "filters/mbfilter_utf7.h"
 #include "filters/mbfilter_utf7imap.h"
 #include "filters/mbfilter_utf8.h"
+#include "filters/mbfilter_utf8_mobile.h"
 #include "filters/mbfilter_utf16.h"
 #include "filters/mbfilter_utf32.h"
 #include "filters/mbfilter_byte2.h"
@@ -153,11 +163,23 @@ static const mbfl_encoding *mbfl_encoding_ptr_list[] = {
 	&mbfl_encoding_euc_jp,
 	&mbfl_encoding_sjis,
 	&mbfl_encoding_eucjp_win,
-	&mbfl_encoding_sjis_win,
+	&mbfl_encoding_eucjp2004,
+	&mbfl_encoding_sjis_open,
+ 	&mbfl_encoding_sjis_docomo,
+ 	&mbfl_encoding_sjis_kddi,
+ 	&mbfl_encoding_sjis_sb,
+ 	&mbfl_encoding_sjis_mac,
+	&mbfl_encoding_sjis2004,
+	&mbfl_encoding_utf8_docomo,
+	&mbfl_encoding_utf8_kddi_a,
+	&mbfl_encoding_utf8_kddi_b,
+	&mbfl_encoding_utf8_sb,
+	&mbfl_encoding_cp932,
 	&mbfl_encoding_cp51932,
 	&mbfl_encoding_jis,
 	&mbfl_encoding_2022jp,
 	&mbfl_encoding_2022jpms,
+	&mbfl_encoding_gb18030,
 	&mbfl_encoding_cp1252,
 	&mbfl_encoding_cp1254,
 	&mbfl_encoding_8859_1,
@@ -179,6 +201,7 @@ static const mbfl_encoding *mbfl_encoding_ptr_list[] = {
 	&mbfl_encoding_hz,
 	&mbfl_encoding_euc_tw,
 	&mbfl_encoding_big5,
+	&mbfl_encoding_cp950,
 	&mbfl_encoding_euc_kr,
 	&mbfl_encoding_uhc,
 	&mbfl_encoding_2022kr,
@@ -188,6 +211,13 @@ static const mbfl_encoding *mbfl_encoding_ptr_list[] = {
 	&mbfl_encoding_koi8u,
 	&mbfl_encoding_armscii8,
 	&mbfl_encoding_cp850,
+	&mbfl_encoding_jis_ms,
+	&mbfl_encoding_2022jp_2004,
+	&mbfl_encoding_2022jp_kddi,
+	&mbfl_encoding_cp50220,
+	&mbfl_encoding_cp50220raw,
+	&mbfl_encoding_cp50221,
+	&mbfl_encoding_cp50222,
 	NULL
 };
 
@@ -209,7 +239,7 @@ mbfl_name2encoding(const char *name)
 		}
 	}
 
- 	/* search MIME charset name */
+ 	/* serch MIME charset name */
  	i = 0;
  	while ((encoding = mbfl_encoding_ptr_list[i++]) != NULL) {
 		if (encoding->mime_name != NULL) {
@@ -219,7 +249,7 @@ mbfl_name2encoding(const char *name)
 		}
 	}
 
- 	/* search aliases */
+ 	/* serch aliases */
  	i = 0;
  	while ((encoding = mbfl_encoding_ptr_list[i++]) != NULL) {
 		if (encoding->aliases != NULL) {

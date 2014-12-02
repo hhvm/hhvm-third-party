@@ -57,7 +57,7 @@ const mbfl_encoding mbfl_encoding_utf7 = {
 	"UTF-7",
 	(const char *(*)[])&mbfl_encoding_utf7_aliases,
 	NULL,
-	MBFL_ENCTYPE_MBCS | MBFL_ENCTYPE_SHFTCODE
+	MBFL_ENCTYPE_MBCS | MBFL_ENCTYPE_SHFTCODE | MBFL_ENCTYPE_GL_UNSAFE
 };
 
 const struct mbfl_identify_vtbl vtbl_identify_utf7 = {
@@ -405,6 +405,11 @@ int mbfl_filt_conv_wchar_utf7_flush(mbfl_convert_filter *filter)
 		CK((*filter->output_function)(0x2d, filter->data));		/* '-' */
 		break;
 	}
+
+	if (filter->flush_function != NULL) {
+		(*filter->flush_function)(filter->data);
+	}
+
 	return 0;
 }
 

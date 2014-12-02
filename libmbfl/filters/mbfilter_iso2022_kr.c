@@ -43,7 +43,7 @@ const mbfl_encoding mbfl_encoding_2022kr = {
 	"ISO-2022-KR",
 	NULL,
 	NULL,
-	MBFL_ENCTYPE_MBCS | MBFL_ENCTYPE_SHFTCODE
+	MBFL_ENCTYPE_MBCS | MBFL_ENCTYPE_SHFTCODE | MBFL_ENCTYPE_GL_UNSAFE
 };
 
 const struct mbfl_identify_vtbl vtbl_identify_2022kr = {
@@ -276,7 +276,13 @@ mbfl_filt_conv_any_2022kr_flush(mbfl_convert_filter *filter)
 	if ((filter->status & 0xff00) != 0) {
 		CK((*filter->output_function)(0x0f, filter->data));		/* SI */
 	}
+
 	filter->status &= 0xff;
+
+	if (filter->flush_function != NULL) {
+		return (*filter->flush_function)(filter->data);
+	}
+
 	return 0;
 }
 

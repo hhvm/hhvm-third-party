@@ -37,7 +37,7 @@
 #include "unicode_table_cp932_ext.h"
 #include "unicode_table_jis.h"
 
-static int mbfl_filt_ident_sjiswin(int c, mbfl_identify_filter *filter);
+static int mbfl_filt_ident_cp932(int c, mbfl_identify_filter *filter);
 
 static const unsigned char mblen_table_sjis[] = { /* 0x80-0x9f,0xE0-0xFF */
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -58,39 +58,39 @@ static const unsigned char mblen_table_sjis[] = { /* 0x80-0x9f,0xE0-0xFF */
   2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
 };
 
-static const char *mbfl_encoding_sjis_win_aliases[] = {"SJIS-open", "CP932", "Windows-31J", "MS_Kanji", NULL};
+static const char *mbfl_encoding_cp932_aliases[] = {"MS932", "Windows-31J", "MS_Kanji", NULL};
 
-const mbfl_encoding mbfl_encoding_sjis_win = {
-	mbfl_no_encoding_sjis_win,
-	"SJIS-win",
+const mbfl_encoding mbfl_encoding_cp932 = {
+	mbfl_no_encoding_cp932,
+	"CP932",
 	"Shift_JIS",
-	(const char *(*)[])&mbfl_encoding_sjis_win_aliases,
+	(const char *(*)[])&mbfl_encoding_cp932_aliases,
 	mblen_table_sjis,
-	MBFL_ENCTYPE_MBCS
+	MBFL_ENCTYPE_MBCS | MBFL_ENCTYPE_GL_UNSAFE
 };
 
-const struct mbfl_identify_vtbl vtbl_identify_sjiswin = {
-	mbfl_no_encoding_sjis_win,
+const struct mbfl_identify_vtbl vtbl_identify_cp932 = {
+	mbfl_no_encoding_cp932,
 	mbfl_filt_ident_common_ctor,
 	mbfl_filt_ident_common_dtor,
-	mbfl_filt_ident_sjiswin
+	mbfl_filt_ident_cp932
 };
 
-const struct mbfl_convert_vtbl vtbl_sjiswin_wchar = {
-	mbfl_no_encoding_sjis_win,
+const struct mbfl_convert_vtbl vtbl_cp932_wchar = {
+	mbfl_no_encoding_cp932,
 	mbfl_no_encoding_wchar,
 	mbfl_filt_conv_common_ctor,
 	mbfl_filt_conv_common_dtor,
-	mbfl_filt_conv_sjiswin_wchar,
+	mbfl_filt_conv_cp932_wchar,
 	mbfl_filt_conv_common_flush
 };
 
-const struct mbfl_convert_vtbl vtbl_wchar_sjiswin = {
+const struct mbfl_convert_vtbl vtbl_wchar_cp932 = {
 	mbfl_no_encoding_wchar,
-	mbfl_no_encoding_sjis_win,
+	mbfl_no_encoding_cp932,
 	mbfl_filt_conv_common_ctor,
 	mbfl_filt_conv_common_dtor,
-	mbfl_filt_conv_wchar_sjiswin,
+	mbfl_filt_conv_wchar_cp932,
 	mbfl_filt_conv_common_flush
 };
 
@@ -144,7 +144,7 @@ const struct mbfl_convert_vtbl vtbl_wchar_sjiswin = {
  * SJIS-win => wchar
  */
 int
-mbfl_filt_conv_sjiswin_wchar(int c, mbfl_convert_filter *filter)
+mbfl_filt_conv_cp932_wchar(int c, mbfl_convert_filter *filter)
 {
 	int c1, s, s1, s2, w;
 
@@ -229,7 +229,7 @@ mbfl_filt_conv_sjiswin_wchar(int c, mbfl_convert_filter *filter)
  * wchar => SJIS-win
  */
 int
-mbfl_filt_conv_wchar_sjiswin(int c, mbfl_convert_filter *filter)
+mbfl_filt_conv_wchar_cp932(int c, mbfl_convert_filter *filter)
 {
 	int c1, c2, s1, s2;
 
@@ -261,9 +261,9 @@ mbfl_filt_conv_wchar_sjiswin(int c, mbfl_convert_filter *filter)
 			s1 = c & MBFL_WCSPLANE_MASK;
 			s1 |= 0x8080;
 		} else if (c == 0xa5) {		/* YEN SIGN */
-			s1 = 0x216f;	/* FULLWIDTH YEN SIGN */
+			s1 = 0x005c;	/* YEN SIGN */
 		} else if (c == 0x203e) {	/* OVER LINE */
-			s1 = 0x2131;	/* FULLWIDTH MACRON */
+			s1 = 0x007e;	/* FULLWIDTH MACRON */
 		} else if (c == 0xff3c) {	/* FULLWIDTH REVERSE SOLIDUS */
 			s1 = 0x2140;
 		} else if (c == 0xff5e) {	/* FULLWIDTH TILDE */
@@ -327,7 +327,7 @@ mbfl_filt_conv_wchar_sjiswin(int c, mbfl_convert_filter *filter)
 	return c;
 }
 
-static int mbfl_filt_ident_sjiswin(int c, mbfl_identify_filter *filter)
+static int mbfl_filt_ident_cp932(int c, mbfl_identify_filter *filter)
 {
 	if (filter->status) {		/* kanji second char */
 		if (c < 0x40 || c > 0xfc || c == 0x7f) {	/* bad */
