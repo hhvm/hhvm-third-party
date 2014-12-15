@@ -57,6 +57,7 @@ filters/8859-13.TXT
 filters/8859-14.TXT
 filters/8859-15.TXT
 filters/8859-16.TXT
+mbfl/eaw_table.h
 
 #CMake stuff
 /CMakeCache.txt
