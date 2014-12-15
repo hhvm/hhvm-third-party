@@ -1,5 +1,5 @@
 
-FIND_PROGRAM(AWK_EXECUTABLE NAMES gawk awk)
+FIND_PROGRAM(AWK_EXECUTABLE NAMES gawk)
 if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/EastAsianWidth.txt")
 	message(STATUS "Downloading EastAsianWidth.txt")
 	file(DOWNLOAD "http://ftp.unicode.org/Public/UNIDATA/EastAsianWidth.txt" "${CMAKE_CURRENT_SOURCE_DIR}/EastAsianWidth.txt")
