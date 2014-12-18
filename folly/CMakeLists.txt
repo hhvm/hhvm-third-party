@@ -38,6 +38,7 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/symbolizer/ElfCache.cpp
   ${FOLLY_DIR}/experimental/symbolizer/ElfUtil.cpp
   ${FOLLY_DIR}/experimental/symbolizer/SignalHandler.cpp
+  ${FOLLY_DIR}/wangle/bootstrap/BootstrapTest.cpp
   )
 
 # Remove non-portable items
