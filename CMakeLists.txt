@@ -38,12 +38,12 @@ if(ENABLE_FASTCGI)
 endif()
 
 # Add bundled PCRE if the system one will not be used
-if (NOT PCRE_LIBRARY)
+if(NOT PCRE_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES pcre)
 endif()
 
 # Add bundled libzip if the system one will not be used
-if (NOT LIBZIP_LIBRARY)
+if(NOT LIBZIP_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES libzip)
 endif()
 
