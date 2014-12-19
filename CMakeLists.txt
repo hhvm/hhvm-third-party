@@ -24,17 +24,33 @@ set(THIRD_PARTY_MODULES)
 set(THIRD_PARTY_HEADERS)
 
 list(APPEND THIRD_PARTY_MODULES
-  fastlz
   libafdt
   libmbfl
-  libsqlite3
   timelib
-  lz4
-  double-conversion
   folly)
 if(ENABLE_FASTCGI)
   list(APPEND THIRD_PARTY_MODULES proxygen)
   list(APPEND THIRD_PARTY_MODULES thrift)
+endif()
+
+# Add bundled fastlz if the system one will not be used
+if(NOT FASTLZ_LIBRARY)
+  list(APPEND THIRD_PARTY_MODULES fastlz)
+endif()
+
+# Add bundled libsqlite3 if the system one will not be used
+if(NOT LIBSQLITE3_LIBRARY)
+  list(APPEND THIRD_PARTY_MODULES libsqlite3)
+endif()
+
+# Add bundled lz4 if the system one will not be used
+if(NOT LZ4_LIBRARY)
+  list(APPEND THIRD_PARTY_MODULES lz4)
+endif()
+
+# Add bundled double-conversion if the system one will not be used
+if(NOT DOUBLE_CONVERSION_LIBRARY)
+  list(APPEND THIRD_PARTY_MODULES double-conversion)
 endif()
 
 # Add bundled PCRE if the system one will not be used
@@ -64,7 +80,7 @@ foreach(MODULE ${THIRD_PARTY_MODULES})
   # can easily control the destination. Put them in include/hphp/third-party.
   if(MODULE STREQUAL folly)
     TP_INSTALL_HEADERS(folly folly/src/folly folly)
-  elseif(MODULE STREQUAL double-conversion)
+  elseif(NOT DOUBLE_CONVERSION_LIBRARY AND MODULE STREQUAL double-conversion)
     TP_INSTALL_HEADERS(double-conversion double-conversion/src double-conversion)
   else()
     TP_INSTALL_HEADERS(${MODULE} ${MODULE} ${MODULE})
