@@ -24,13 +24,21 @@ set(THIRD_PARTY_MODULES)
 set(THIRD_PARTY_HEADERS)
 
 list(APPEND THIRD_PARTY_MODULES
-  libafdt
-  libmbfl
   timelib
   folly)
 if(ENABLE_FASTCGI)
   list(APPEND THIRD_PARTY_MODULES proxygen)
   list(APPEND THIRD_PARTY_MODULES thrift)
+endif()
+
+# Add bundled libafdt if the system one will not be used
+if(NOT LIBAFDT_LIBRARY)
+  list(APPEND THIRD_PARTY_MODULES libafdt)
+endif()
+
+# Add bundled libmbfl if the system one will not be used
+if(NOT LIBMBFL_LIBRARY)
+  list(APPEND THIRD_PARTY_MODULES libmbfl)
 endif()
 
 # Add bundled fastlz if the system one will not be used
