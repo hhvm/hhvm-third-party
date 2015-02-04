@@ -43,6 +43,16 @@ if(NOT LIBMBFL_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES libmbfl)
 endif()
 
+if(ENABLE_ASYNC_MYSQL)
+  find_package(RE2)
+  if(NOT RE2_LIBRARY)
+    message(STATUS "Building RE2 from third-party")
+    list(APPEND THIRD_PARTY_MODULES re2)
+  endif()
+  list(APPEND THIRD_PARTY_MODULES squangle)
+  list(APPEND THIRD_PARTY_MODULES webscalesqlclient)
+endif()
+
 # Add bundled fastlz if the system one will not be used
 if(NOT FASTLZ_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES fastlz)

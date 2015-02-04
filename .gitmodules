@@ -10,3 +10,12 @@
 [submodule "mcrouter/src"]
 	path = mcrouter/src
 	url = https://github.com/facebook/mcrouter
+[submodule "re2/src"]
+	path = re2/src
+	url = git@github.com:google/re2.git
+[submodule "webscalesqlclient/webscalesql-5.6"]
+	path = webscalesqlclient/webscalesql-5.6
+	url = https://github.com/webscalesql/webscalesql-5.6.git
+[submodule "squangle/squangle"]
+	path = squangle/squangle
+	url = https://github.com/facebook/squangle.git
