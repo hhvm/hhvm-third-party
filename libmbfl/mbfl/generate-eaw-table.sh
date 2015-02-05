@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 awk_exec=$1
 source_dir=$2
 file="$source_dir/eaw_table.h"
