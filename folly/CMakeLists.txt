@@ -46,11 +46,14 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/io/AsyncIO.cpp
   ${FOLLY_DIR}/experimental/io/HugePageUtil.cpp
   ${FOLLY_DIR}/experimental/io/IOBufQueue.cpp
+  ${FOLLY_DIR}/experimental/SingletonStackTrace.cpp
   ${FOLLY_DIR}/experimental/symbolizer/StackTrace.cpp
   ${FOLLY_DIR}/experimental/symbolizer/ElfCache.cpp
   ${FOLLY_DIR}/experimental/symbolizer/ElfUtil.cpp
   ${FOLLY_DIR}/experimental/symbolizer/SignalHandler.cpp
   ${FOLLY_DIR}/wangle/bootstrap/BootstrapTest.cpp
+  ${FOLLY_DIR}/wangle/codec/CodecTest.cpp
+  ${FOLLY_DIR}/wangle/service/ServiceTest.cpp
   )
 
 # Remove non-portable items
