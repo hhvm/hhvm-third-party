@@ -31,6 +31,9 @@ foreach (file ${files})
   if (${file} MATCHES "/test/")
     list(REMOVE_ITEM files ${file})
   endif()
+  if (${file} MATCHES "Test.cpp$")
+    list(REMOVE_ITEM files ${file})
+  endif()
 endforeach()
 list(REMOVE_ITEM files
   ${FOLLY_DIR}/Benchmark.cpp
@@ -41,7 +44,6 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracer.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracerBenchmark.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracerLib.cpp
-  ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracerTest.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/StackTrace.cpp
   ${FOLLY_DIR}/experimental/io/AsyncIO.cpp
   ${FOLLY_DIR}/experimental/io/HugePageUtil.cpp
@@ -51,9 +53,6 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/symbolizer/ElfCache.cpp
   ${FOLLY_DIR}/experimental/symbolizer/ElfUtil.cpp
   ${FOLLY_DIR}/experimental/symbolizer/SignalHandler.cpp
-  ${FOLLY_DIR}/wangle/bootstrap/BootstrapTest.cpp
-  ${FOLLY_DIR}/wangle/codec/CodecTest.cpp
-  ${FOLLY_DIR}/wangle/service/ServiceTest.cpp
   )
 
 # Remove non-portable items
