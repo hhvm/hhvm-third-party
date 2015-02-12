@@ -25,7 +25,9 @@ set(THIRD_PARTY_HEADERS)
 
 list(APPEND THIRD_PARTY_MODULES
   timelib
-  folly)
+  folly
+  mcrouter
+)
 if(ENABLE_FASTCGI)
   list(APPEND THIRD_PARTY_MODULES proxygen)
   list(APPEND THIRD_PARTY_MODULES thrift)
