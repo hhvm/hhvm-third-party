@@ -7,3 +7,6 @@
 [submodule "proxygen/src"]
 	path = proxygen/src
 	url = https://github.com/facebook/proxygen
+[submodule "mcrouter/src"]
+	path = mcrouter/src
+	url = https://github.com/facebook/mcrouter
