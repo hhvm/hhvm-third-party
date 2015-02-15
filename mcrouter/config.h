@@ -8,8 +8,6 @@
 # define LIBMC_FBTRACE_DISABLE
 #endif
 
-#define MCROUTER_NO_MCROUTER_INSTANCE
-
 #include "mcrouter/mcrouter_config.h"
 
 #endif // incl_THIRD_PARTY_MCROUTER_CONFIG_H
