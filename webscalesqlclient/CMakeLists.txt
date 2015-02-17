@@ -3,7 +3,10 @@ include(ExternalProject)
 ExternalProject_Add(
   webscalesqlclient
   SOURCE_DIR webscalesql-5.6/
-  CMAKE_ARGS -DWITHOUT_SERVER=TRUE -DDISABLE_SHARED=TRUE
+  CMAKE_ARGS
+  -DWITHOUT_SERVER=TRUE
+  -DDISABLE_SHARED=TRUE
+  -DCMAKE_C_FLAGS=-Wno-maybe-uninitialized
   BUILD_COMMAND $(MAKE) -C libmysql
   PREFIX build
   BUILD_IN_SOURCE true
