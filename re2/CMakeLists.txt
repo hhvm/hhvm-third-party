@@ -8,6 +8,7 @@ SET(util_sources
   src/util/rune.cc
   src/util/stringpiece.cc
   src/util/stringprintf.cc
+  src/util/strutil.cc
   src/util/valgrind.cc
 )
 
