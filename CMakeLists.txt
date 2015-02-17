@@ -26,7 +26,6 @@ set(THIRD_PARTY_HEADERS)
 list(APPEND THIRD_PARTY_MODULES
   timelib
   folly
-  mcrouter
 )
 if(ENABLE_FASTCGI)
   list(APPEND THIRD_PARTY_MODULES proxygen)
@@ -51,6 +50,10 @@ if(ENABLE_ASYNC_MYSQL)
   endif()
   list(APPEND THIRD_PARTY_MODULES squangle)
   list(APPEND THIRD_PARTY_MODULES webscalesqlclient)
+endif()
+
+if (ENABLE_MCROUTER)
+  list(APPEND THIRD_PARTY_MODULES mcrouter)
 endif()
 
 # Add bundled fastlz if the system one will not be used
