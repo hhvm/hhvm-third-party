@@ -4,12 +4,14 @@ set(FOLLY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/folly")
 # like malloc_usable_size() from either malloc.h
 # or stdlib.h. Default is stdlib.h
 INCLUDE(CheckCXXSourceCompiles)
-CHECK_CXX_SOURCE_COMPILES("#include <folly/Malloc.h>
+CHECK_CXX_SOURCE_COMPILES("#include <malloc.h>
 int main() {
   return 0;
 }" FOLLY_MALLOC)
-if (NOT FOLLY_MALLOC)
+if (FOLLY_MALLOC)
   add_definitions("-DFOLLY_HAVE_MALLOC_H=1")
+else()
+  add_definitions("-DFOLLY_HAVE_MALLOC_H=0")
 endif()
 
 if (NOT EXISTS "${FOLLY_DIR}/Portability.h")
