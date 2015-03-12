@@ -25,7 +25,7 @@ add_definitions(-DNO_LIB_GFLAGS)
 add_definitions(-DLIBMC_FBTRACE_DISABLE)
 add_definitions(-DHAVE_CONFIG_H)
 
-find_package(Boost 1.48.0 COMPONENTS context regex system filesystem REQUIRED)
+find_package(Boost 1.51.0 COMPONENTS context regex system filesystem REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
