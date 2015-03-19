@@ -18,5 +18,5 @@
 	url = https://github.com/webscalesql/webscalesql-5.6.git
   ignore = dirty
 [submodule "squangle/squangle"]
-	path = squangle/squangle
+	path = squangle/src
 	url = https://github.com/facebook/squangle.git
