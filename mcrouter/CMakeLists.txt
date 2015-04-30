@@ -19,6 +19,11 @@ foreach (file ${files})
     list(REMOVE_ITEM files ${file})
   endif()
 endforeach()
+# McAsciiParser-gen.cpp is generated from mcrouter/lib/network/McAsciiParser.rl
+# using ragel
+# So ran the command found in mcrouter/Makefile.am manually and put the file
+# here -- this avoids linking errors
+list(APPEND CXX_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/McAsciiParser-gen.cpp")
 list(APPEND CXX_SOURCES ${files})
 
 add_definitions(-DNO_LIB_GFLAGS)

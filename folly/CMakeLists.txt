@@ -36,9 +36,6 @@ foreach (file ${files})
   if (${file} MATCHES "Test.cpp$")
     list(REMOVE_ITEM files ${file})
   endif()
-  if (${file} MATCHES "/experimental/fibers/")
-    list(REMOVE_ITEM files ${file})
-  endif()
 endforeach()
 list(REMOVE_ITEM files
   ${FOLLY_DIR}/Benchmark.cpp
