@@ -42,7 +42,6 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/build/GenerateFingerprintTables.cpp
   ${FOLLY_DIR}/detail/Clock.cpp
   ${FOLLY_DIR}/detail/FunctionalExcept.cpp
-  ${FOLLY_DIR}/experimental/File.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracer.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracerBenchmark.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracerLib.cpp
@@ -50,11 +49,13 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/io/AsyncIO.cpp
   ${FOLLY_DIR}/experimental/io/HugePageUtil.cpp
   ${FOLLY_DIR}/experimental/io/IOBufQueue.cpp
-  ${FOLLY_DIR}/experimental/SingletonStackTrace.cpp
   ${FOLLY_DIR}/experimental/symbolizer/StackTrace.cpp
   ${FOLLY_DIR}/experimental/symbolizer/ElfCache.cpp
   ${FOLLY_DIR}/experimental/symbolizer/ElfUtil.cpp
   ${FOLLY_DIR}/experimental/symbolizer/SignalHandler.cpp
+  ${FOLLY_DIR}/File.cpp
+  ${FOLLY_DIR}/SingletonStackTrace.cpp
+  ${FOLLY_DIR}/wangle/bootstrap/ServerBootstrap.cpp
   )
 
 # Remove non-portable items
