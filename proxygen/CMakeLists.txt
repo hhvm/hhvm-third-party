@@ -1,5 +1,8 @@
+set(PROXYGEN_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/proxygen/lib")
+set(PROXYGEN_EXTERNAL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/proxygen/external")
+
 set(CXX_SOURCES)
-auto_sources(files "*.cpp" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}/lib")
+auto_sources(files "*.cpp" "RECURSE" "${PROXYGEN_LIB_DIR}")
 foreach (file ${files})
   if (${file} MATCHES "/test/")
     list(REMOVE_ITEM files ${file})
@@ -9,17 +12,17 @@ foreach (file ${files})
   endif()
 endforeach()
 list(APPEND CXX_SOURCES ${files})
-list(APPEND CXX_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/external/http_parser/http_parser_cpp.cpp")
-list(APPEND CXX_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.cpp")
-list(APPEND CXX_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.h")
+list(APPEND CXX_SOURCES "${PROXYGEN_EXTERNAL_DIR}/http_parser/http_parser_cpp.cpp")
+list(APPEND CXX_SOURCES "${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.cpp")
+list(APPEND CXX_SOURCES "${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.h")
 
 add_custom_command(
-  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.h
-  COMMAND HEADERS_LIST=${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.txt FBCODE_DIR=${CMAKE_CURRENT_SOURCE_DIR}/.. INSTALL_DIR=${CMAKE_CURRENT_SOURCE_DIR}/lib/http ${CMAKE_CURRENT_SOURCE_DIR}/lib/http/gen_HTTPCommonHeaders.h.sh
+  OUTPUT ${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.h
+  COMMAND HEADERS_LIST=${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.txt FBCODE_DIR=${CMAKE_CURRENT_SOURCE_DIR}/.. INSTALL_DIR=${PROXYGEN_LIB_DIR}/http ${PROXYGEN_LIB_DIR}/http/gen_HTTPCommonHeaders.h.sh
 )
 add_custom_command(
-  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.cpp
-  COMMAND HEADERS_LIST=${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.txt FBCODE_DIR=${CMAKE_CURRENT_SOURCE_DIR}/.. INSTALL_DIR=${CMAKE_CURRENT_SOURCE_DIR}/lib/http ${CMAKE_CURRENT_SOURCE_DIR}/lib/http/gen_HTTPCommonHeaders.cpp.sh
+  OUTPUT ${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.cpp
+  COMMAND HEADERS_LIST=${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.txt FBCODE_DIR=${CMAKE_CURRENT_SOURCE_DIR}/.. INSTALL_DIR=${PROXYGEN_LIB_DIR}/http ${PROXYGEN_LIB_DIR}/http/gen_HTTPCommonHeaders.cpp.sh
 )
 
 add_definitions(-DNO_LIB_GFLAGS)
