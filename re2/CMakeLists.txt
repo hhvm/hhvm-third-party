@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.0)
 project(re2 CXX C)
 
+add_definitions(-Wno-narrowing)
+
 auto_sources(sources "*.cc" RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/src/re2")
 SET(util_sources
   src/util/arena.cc
