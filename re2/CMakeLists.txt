@@ -3,10 +3,8 @@ project(re2 CXX C)
 
 auto_sources(sources "*.cc" RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/src/re2")
 SET(util_sources
-  src/util/arena.cc
   src/util/hash.cc
   src/util/rune.cc
-  src/util/stringpiece.cc
   src/util/stringprintf.cc
   src/util/strutil.cc
   src/util/valgrind.cc
