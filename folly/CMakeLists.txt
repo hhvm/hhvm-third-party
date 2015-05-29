@@ -36,6 +36,9 @@ foreach (file ${files})
   if (${file} MATCHES "Test.cpp$")
     list(REMOVE_ITEM files ${file})
   endif()
+  if (${file} MATCHES "/futures/exercises/")
+    list(REMOVE_ITEM files ${file})
+  endif()
 endforeach()
 list(REMOVE_ITEM files
   ${FOLLY_DIR}/Benchmark.cpp
@@ -91,6 +94,12 @@ include_directories(${LIBPTHREAD_INCLUDE_DIRS})
 target_link_libraries(folly ${Boost_LIBRARIES}
                             ${LIBGLOG_LIBRARY}
                             ${LIBPTHREAD_LIBRARIES})
+
+if (DOUBLE_CONVERSION_LIBRARY)
+  target_link_libraries(folly ${DOUBLE_CONVERSION_LIBRARY})
+else()
+  target_link_libraries(folly double-conversion)
+endif()
 
 if (JEMALLOC_ENABLED)
   target_link_libraries(folly ${JEMALLOC_LIB})
