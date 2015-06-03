@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8.0)
 include(ExternalProject)
 ExternalProject_Add(
   webscalesqlclient
+  URL file://${CMAKE_CURRENT_SOURCE_DIR}/webscalesql-5.6
   SOURCE_DIR webscalesql-5.6/
   CMAKE_ARGS
   -DWITHOUT_SERVER=TRUE
