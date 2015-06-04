@@ -44,7 +44,6 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/Benchmark.cpp
   ${FOLLY_DIR}/build/GenerateFingerprintTables.cpp
   ${FOLLY_DIR}/detail/Clock.cpp
-  ${FOLLY_DIR}/detail/FunctionalExcept.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracer.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracerBenchmark.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracerLib.cpp
@@ -59,6 +58,16 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/SingletonStackTrace.cpp
   ${FOLLY_DIR}/wangle/bootstrap/ServerBootstrap.cpp
   )
+
+CHECK_CXX_SOURCE_COMPILES("#include <bits/functexcept.h>
+int main() {
+  return 0;
+}" FOLLY_FUNCTEXCEPT)
+if (FOLLY_FUNCTEXCEPT)
+  list(REMOVE_ITEM files
+    ${FOLLY_DIR}/detail/FunctionalExcept.cpp
+  )
+endif()
 
 # Remove non-portable items
 if (NOT LINUX)
