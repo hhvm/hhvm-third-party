@@ -48,6 +48,7 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracerBenchmark.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracerLib.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/StackTrace.cpp
+  ${FOLLY_DIR}/experimental/JSONSchemaTester.cpp
   ${FOLLY_DIR}/experimental/io/AsyncIO.cpp
   ${FOLLY_DIR}/experimental/io/HugePageUtil.cpp
   ${FOLLY_DIR}/experimental/io/IOBufQueue.cpp
