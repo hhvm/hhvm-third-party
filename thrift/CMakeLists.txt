@@ -47,6 +47,7 @@ foreach (file ${files})
 endforeach()
 
 list(REMOVE_ITEM files
+  ${THRIFT_DIR}/contrib/thrift_dump.cpp
   ${THRIFT_DIR}/lib/cpp/transport/HDFS.cpp
   ${THRIFT_DIR}/lib/cpp/transport/THDFSFileTransport.cpp
   ${THRIFT_DIR}/lib/cpp/transport/THeaderTransport.cpp
@@ -55,6 +56,8 @@ list(REMOVE_ITEM files
   ${THRIFT_DIR}/lib/cpp/transport/THeader.cpp
   ${THRIFT_DIR}/lib/cpp/protocol/TSimpleJSONProtocol.cpp
   ${THRIFT_DIR}/lib/cpp/concurrency/NumaThreadManager.cpp
+  ${THRIFT_DIR}/lib/cpp/util/TThreadedServerCreator.cpp
+  ${THRIFT_DIR}/lib/cpp/util/TNonblockingServerCreator.cpp
 )
 
 list(APPEND CXX_SOURCES ${files})
