@@ -91,7 +91,7 @@ list(REMOVE_ITEM files ${FOLLY_DIR}/io/Compression.cpp)
 add_library(folly STATIC ${files} ${genfiles} ${cfiles} )
 
 find_package(Boost 1.48.0 COMPONENTS system program_options filesystem regex
-             REQUIRED)
+             context REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
