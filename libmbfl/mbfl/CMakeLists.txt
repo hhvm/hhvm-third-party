@@ -12,10 +12,8 @@ mbfilter_pass.c mbfilter_wchar.c mbfilter_8bit.c)
 add_library(mbfl STATIC ${mbfl_files} ${mbfl_filters_files} ${mbfl_nls_files})
 
 # Generate eaw_table.h
-add_custom_target(
-  eaw_table
-  DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/mk_eaw_tbl.awk" "${CMAKE_CURRENT_SOURCE_DIR}/EastAsianWidth.txt"
-  COMMAND sh ${CMAKE_CURRENT_SOURCE_DIR}/generate-eaw-table.sh ${AWK_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR} 
+execute_process(
+  COMMAND ${AWK_EXECUTABLE} -v TABLE_NAME=mbfl_eaw_table -f mk_eaw_tbl.awk EastAsianWidth.txt
+  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+  OUTPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/mbfl/eaw_table.h
 )
-set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "${CMAKE_CURRENT_SOURCE_DIR}/eaw_table.h")
-add_dependencies(mbfl eaw_table)
