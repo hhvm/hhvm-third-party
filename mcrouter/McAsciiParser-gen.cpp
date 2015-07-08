@@ -33,12 +33,12 @@ namespace facebook { namespace memcache {
  */
 
 
-#line 184 "mcrouter/lib/network/McAsciiParser.rl"
+#line 170 "mcrouter/lib/network/McAsciiParser.rl"
 
 
 // McGet reply.
 
-#line 42 "McAsciiParser-gen.cpp"
+#line 42 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 static const int mc_ascii_get_reply_start = 1;
 static const int mc_ascii_get_reply_first_final = 59;
 static const int mc_ascii_get_reply_error = 0;
@@ -46,7 +46,7 @@ static const int mc_ascii_get_reply_error = 0;
 static const int mc_ascii_get_reply_en_get_reply = 1;
 
 
-#line 194 "mcrouter/lib/network/McAsciiParser.rl"
+#line 180 "mcrouter/lib/network/McAsciiParser.rl"
 
 
 template<>
@@ -54,11 +54,11 @@ void McAsciiParser::consumeMessage<McReply, McOperation<mc_op_get>>(
     folly::IOBuf& buffer) {
   McReply& reply = currentMessage_.get<McReply>();
   
-#line 58 "McAsciiParser-gen.cpp"
+#line 58 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	}
 
-#line 62 "McAsciiParser-gen.cpp"
+#line 62 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	if ( ( p_) == ( pe_) )
 		goto _test_eof;
@@ -497,7 +497,7 @@ f4:
 }
 	goto _again;
 f7:
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -505,29 +505,29 @@ f7:
 }
 	goto _again;
 f19:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
 	goto _again;
 f18:
-#line 125 "mcrouter/lib/network/McAsciiParser.rl"
+#line 111 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setFlags(currentUInt_);
 }
 	goto _again;
 f21:
-#line 129 "mcrouter/lib/network/McAsciiParser.rl"
+#line 115 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   remainingIOBufLength_ = static_cast<size_t>(currentUInt_);
 }
 	goto _again;
 f16:
-#line 154 "mcrouter/lib/network/McAsciiParser.rl"
+#line 140 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_found); }
 	goto _again;
 f11:
-#line 162 "mcrouter/lib/network/McAsciiParser.rl"
+#line 148 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // This is unexpected error reply, just put ourself into error state.
   state_ = State::ERROR;
@@ -535,7 +535,7 @@ f11:
 }
 	goto _again;
 f15:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -545,23 +545,23 @@ f15:
                }
 	goto _again;
 f6:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f0:
-#line 191 "mcrouter/lib/network/McAsciiParser.rl"
+#line 177 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_notfound); }
 	goto _again;
 f17:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{ currentUInt_ = 0; }
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
 	goto _again;
 f10:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
@@ -583,7 +583,7 @@ f10:
 }
 	goto _again;
 f20:
-#line 129 "mcrouter/lib/network/McAsciiParser.rl"
+#line 115 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   remainingIOBufLength_ = static_cast<size_t>(currentUInt_);
 }
@@ -617,7 +617,7 @@ f20:
 }
 	goto _again;
 f9:
-#line 146 "mcrouter/lib/network/McAsciiParser.rl"
+#line 132 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setAppSpecificErrorCode(static_cast<uint32_t>(currentUInt_));
 }
@@ -639,7 +639,7 @@ f9:
 }
 	goto _again;
 f14:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -647,7 +647,7 @@ f14:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -655,9 +655,9 @@ f14:
 }
 	goto _again;
 f5:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -665,11 +665,11 @@ f5:
 }
 	goto _again;
 f1:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -689,13 +689,13 @@ f1:
 }
 	goto _again;
 f13:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -705,23 +705,23 @@ f13:
                }
 	goto _again;
 f3:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f12:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -729,7 +729,7 @@ f12:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -737,15 +737,15 @@ f12:
 }
 	goto _again;
 f2:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -753,17 +753,17 @@ f2:
 }
 	goto _again;
 f8:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{ currentUInt_ = 0; }
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -792,13 +792,13 @@ _again:
 	_out: {}
 	}
 
-#line 204 "mcrouter/lib/network/McAsciiParser.rl"
+#line 190 "mcrouter/lib/network/McAsciiParser.rl"
 
 }
 
 // McGets reply.
 
-#line 802 "McAsciiParser-gen.cpp"
+#line 802 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 static const int mc_ascii_gets_reply_start = 1;
 static const int mc_ascii_gets_reply_first_final = 61;
 static const int mc_ascii_gets_reply_error = 0;
@@ -806,7 +806,7 @@ static const int mc_ascii_gets_reply_error = 0;
 static const int mc_ascii_gets_reply_en_gets_reply = 1;
 
 
-#line 215 "mcrouter/lib/network/McAsciiParser.rl"
+#line 201 "mcrouter/lib/network/McAsciiParser.rl"
 
 
 template<>
@@ -814,11 +814,11 @@ void McAsciiParser::consumeMessage<McReply, McOperation<mc_op_gets>>(
     folly::IOBuf& buffer) {
   McReply& reply = currentMessage_.get<McReply>();
   
-#line 818 "McAsciiParser-gen.cpp"
+#line 818 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	}
 
-#line 822 "McAsciiParser-gen.cpp"
+#line 822 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	if ( ( p_) == ( pe_) )
 		goto _test_eof;
@@ -1273,7 +1273,7 @@ f4:
 }
 	goto _again;
 f7:
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -1281,35 +1281,35 @@ f7:
 }
 	goto _again;
 f19:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
 	goto _again;
 f18:
-#line 125 "mcrouter/lib/network/McAsciiParser.rl"
+#line 111 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setFlags(currentUInt_);
 }
 	goto _again;
 f20:
-#line 129 "mcrouter/lib/network/McAsciiParser.rl"
+#line 115 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   remainingIOBufLength_ = static_cast<size_t>(currentUInt_);
 }
 	goto _again;
 f22:
-#line 133 "mcrouter/lib/network/McAsciiParser.rl"
+#line 119 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setCas(currentUInt_);
 }
 	goto _again;
 f16:
-#line 154 "mcrouter/lib/network/McAsciiParser.rl"
+#line 140 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_found); }
 	goto _again;
 f11:
-#line 162 "mcrouter/lib/network/McAsciiParser.rl"
+#line 148 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // This is unexpected error reply, just put ourself into error state.
   state_ = State::ERROR;
@@ -1317,7 +1317,7 @@ f11:
 }
 	goto _again;
 f15:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -1327,23 +1327,23 @@ f15:
                }
 	goto _again;
 f6:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f0:
-#line 212 "mcrouter/lib/network/McAsciiParser.rl"
+#line 198 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_notfound); }
 	goto _again;
 f17:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{ currentUInt_ = 0; }
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
 	goto _again;
 f10:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
@@ -1365,7 +1365,7 @@ f10:
 }
 	goto _again;
 f21:
-#line 133 "mcrouter/lib/network/McAsciiParser.rl"
+#line 119 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setCas(currentUInt_);
 }
@@ -1399,7 +1399,7 @@ f21:
 }
 	goto _again;
 f9:
-#line 146 "mcrouter/lib/network/McAsciiParser.rl"
+#line 132 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setAppSpecificErrorCode(static_cast<uint32_t>(currentUInt_));
 }
@@ -1421,7 +1421,7 @@ f9:
 }
 	goto _again;
 f14:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -1429,7 +1429,7 @@ f14:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -1437,9 +1437,9 @@ f14:
 }
 	goto _again;
 f5:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -1447,11 +1447,11 @@ f5:
 }
 	goto _again;
 f1:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -1471,13 +1471,13 @@ f1:
 }
 	goto _again;
 f13:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -1487,23 +1487,23 @@ f13:
                }
 	goto _again;
 f3:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f12:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -1511,7 +1511,7 @@ f12:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -1519,15 +1519,15 @@ f12:
 }
 	goto _again;
 f2:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -1535,17 +1535,17 @@ f2:
 }
 	goto _again;
 f8:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{ currentUInt_ = 0; }
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -1574,13 +1574,13 @@ _again:
 	_out: {}
 	}
 
-#line 225 "mcrouter/lib/network/McAsciiParser.rl"
+#line 211 "mcrouter/lib/network/McAsciiParser.rl"
 
 }
 
 // McLeaseGet reply.
 
-#line 1584 "McAsciiParser-gen.cpp"
+#line 1584 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 static const int mc_ascii_lease_get_reply_start = 1;
 static const int mc_ascii_lease_get_reply_first_final = 76;
 static const int mc_ascii_lease_get_reply_error = 0;
@@ -1588,7 +1588,7 @@ static const int mc_ascii_lease_get_reply_error = 0;
 static const int mc_ascii_lease_get_reply_en_lease_get_reply = 1;
 
 
-#line 242 "mcrouter/lib/network/McAsciiParser.rl"
+#line 228 "mcrouter/lib/network/McAsciiParser.rl"
 
 
 template<>
@@ -1596,11 +1596,11 @@ void McAsciiParser::consumeMessage<McReply, McOperation<mc_op_lease_get>>(
     folly::IOBuf& buffer) {
   McReply& reply = currentMessage_.get<McReply>();
   
-#line 1600 "McAsciiParser-gen.cpp"
+#line 1600 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	}
 
-#line 1604 "McAsciiParser-gen.cpp"
+#line 1604 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	if ( ( p_) == ( pe_) )
 		goto _test_eof;
@@ -2154,7 +2154,7 @@ f3:
 }
 	goto _again;
 f6:
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -2162,36 +2162,36 @@ f6:
 }
 	goto _again;
 f13:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
 	goto _again;
 f14:
-#line 125 "mcrouter/lib/network/McAsciiParser.rl"
+#line 111 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setFlags(currentUInt_);
 }
 	goto _again;
 f16:
-#line 129 "mcrouter/lib/network/McAsciiParser.rl"
+#line 115 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   remainingIOBufLength_ = static_cast<size_t>(currentUInt_);
 }
 	goto _again;
 f12:
-#line 141 "mcrouter/lib/network/McAsciiParser.rl"
+#line 127 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // NOTE: we don't support -1 lease token.
   reply.setLeaseToken(currentUInt_);
 }
 	goto _again;
 f23:
-#line 154 "mcrouter/lib/network/McAsciiParser.rl"
+#line 140 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_found); }
 	goto _again;
 f10:
-#line 162 "mcrouter/lib/network/McAsciiParser.rl"
+#line 148 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // This is unexpected error reply, just put ourself into error state.
   state_ = State::ERROR;
@@ -2199,7 +2199,7 @@ f10:
 }
 	goto _again;
 f22:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -2209,23 +2209,23 @@ f22:
                }
 	goto _again;
 f5:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f17:
-#line 236 "mcrouter/lib/network/McAsciiParser.rl"
+#line 222 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_notfound); }
 	goto _again;
 f11:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{ currentUInt_ = 0; }
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
 	goto _again;
 f9:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
@@ -2247,7 +2247,7 @@ f9:
 }
 	goto _again;
 f15:
-#line 129 "mcrouter/lib/network/McAsciiParser.rl"
+#line 115 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   remainingIOBufLength_ = static_cast<size_t>(currentUInt_);
 }
@@ -2281,7 +2281,7 @@ f15:
 }
 	goto _again;
 f8:
-#line 146 "mcrouter/lib/network/McAsciiParser.rl"
+#line 132 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setAppSpecificErrorCode(static_cast<uint32_t>(currentUInt_));
 }
@@ -2303,7 +2303,7 @@ f8:
 }
 	goto _again;
 f21:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -2311,7 +2311,7 @@ f21:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -2319,9 +2319,9 @@ f21:
 }
 	goto _again;
 f4:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -2329,11 +2329,11 @@ f4:
 }
 	goto _again;
 f0:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -2353,13 +2353,13 @@ f0:
 }
 	goto _again;
 f20:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -2369,23 +2369,23 @@ f20:
                }
 	goto _again;
 f2:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f19:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -2393,7 +2393,7 @@ f19:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -2401,15 +2401,15 @@ f19:
 }
 	goto _again;
 f1:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -2417,17 +2417,17 @@ f1:
 }
 	goto _again;
 f7:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{ currentUInt_ = 0; }
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -2456,13 +2456,13 @@ _again:
 	_out: {}
 	}
 
-#line 252 "mcrouter/lib/network/McAsciiParser.rl"
+#line 238 "mcrouter/lib/network/McAsciiParser.rl"
 
 }
 
 // McStorage reply.
 
-#line 2466 "McAsciiParser-gen.cpp"
+#line 2466 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 static const int mc_ascii_storage_reply_start = 1;
 static const int mc_ascii_storage_reply_first_final = 78;
 static const int mc_ascii_storage_reply_error = 0;
@@ -2470,17 +2470,17 @@ static const int mc_ascii_storage_reply_error = 0;
 static const int mc_ascii_storage_reply_en_storage_reply = 1;
 
 
-#line 269 "mcrouter/lib/network/McAsciiParser.rl"
+#line 255 "mcrouter/lib/network/McAsciiParser.rl"
 
 
 void McAsciiParser::consumeStorageReplyCommon(folly::IOBuf& buffer) {
   McReply& reply = currentMessage_.get<McReply>();
   
-#line 2480 "McAsciiParser-gen.cpp"
+#line 2480 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	}
 
-#line 2484 "McAsciiParser-gen.cpp"
+#line 2484 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	if ( ( p_) == ( pe_) )
 		goto _test_eof;
@@ -2971,7 +2971,7 @@ f3:
 }
 	goto _again;
 f6:
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -2979,15 +2979,15 @@ f6:
 }
 	goto _again;
 f13:
-#line 151 "mcrouter/lib/network/McAsciiParser.rl"
+#line 137 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_notfound); }
 	goto _again;
 f10:
-#line 152 "mcrouter/lib/network/McAsciiParser.rl"
+#line 138 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_deleted); }
 	goto _again;
 f11:
-#line 162 "mcrouter/lib/network/McAsciiParser.rl"
+#line 148 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // This is unexpected error reply, just put ourself into error state.
   state_ = State::ERROR;
@@ -2995,7 +2995,7 @@ f11:
 }
 	goto _again;
 f18:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -3005,27 +3005,27 @@ f18:
                }
 	goto _again;
 f5:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f20:
-#line 260 "mcrouter/lib/network/McAsciiParser.rl"
+#line 246 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_stored); }
 	goto _again;
 f19:
-#line 261 "mcrouter/lib/network/McAsciiParser.rl"
+#line 247 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_stalestored); }
 	goto _again;
 f14:
-#line 262 "mcrouter/lib/network/McAsciiParser.rl"
+#line 248 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_notstored); }
 	goto _again;
 f12:
-#line 263 "mcrouter/lib/network/McAsciiParser.rl"
+#line 249 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_exists); }
 	goto _again;
 f9:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
@@ -3047,7 +3047,7 @@ f9:
 }
 	goto _again;
 f8:
-#line 146 "mcrouter/lib/network/McAsciiParser.rl"
+#line 132 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setAppSpecificErrorCode(static_cast<uint32_t>(currentUInt_));
 }
@@ -3069,7 +3069,7 @@ f8:
 }
 	goto _again;
 f17:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -3077,7 +3077,7 @@ f17:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -3085,9 +3085,9 @@ f17:
 }
 	goto _again;
 f4:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -3095,11 +3095,11 @@ f4:
 }
 	goto _again;
 f0:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -3119,13 +3119,13 @@ f0:
 }
 	goto _again;
 f16:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -3135,23 +3135,23 @@ f16:
                }
 	goto _again;
 f2:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f15:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -3159,7 +3159,7 @@ f15:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -3167,15 +3167,15 @@ f15:
 }
 	goto _again;
 f1:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -3183,17 +3183,17 @@ f1:
 }
 	goto _again;
 f7:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{ currentUInt_ = 0; }
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -3222,13 +3222,13 @@ _again:
 	_out: {}
 	}
 
-#line 277 "mcrouter/lib/network/McAsciiParser.rl"
+#line 263 "mcrouter/lib/network/McAsciiParser.rl"
 
 }
 
 // McArithm reply.
 
-#line 3232 "McAsciiParser-gen.cpp"
+#line 3232 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 static const int mc_ascii_arithm_reply_start = 1;
 static const int mc_ascii_arithm_reply_first_final = 52;
 static const int mc_ascii_arithm_reply_error = 0;
@@ -3236,17 +3236,17 @@ static const int mc_ascii_arithm_reply_error = 0;
 static const int mc_ascii_arithm_reply_en_arithm_reply = 1;
 
 
-#line 289 "mcrouter/lib/network/McAsciiParser.rl"
+#line 275 "mcrouter/lib/network/McAsciiParser.rl"
 
 
 void McAsciiParser::consumeArithmReplyCommon(folly::IOBuf& buffer) {
   McReply& reply = currentMessage_.get<McReply>();
   
-#line 3246 "McAsciiParser-gen.cpp"
+#line 3246 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	}
 
-#line 3250 "McAsciiParser-gen.cpp"
+#line 3250 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	if ( ( p_) == ( pe_) )
 		goto _test_eof;
@@ -3607,7 +3607,7 @@ f8:
 }
 	goto _again;
 f4:
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -3615,17 +3615,17 @@ f4:
 }
 	goto _again;
 f2:
-#line 137 "mcrouter/lib/network/McAsciiParser.rl"
+#line 123 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setDelta(currentUInt_);
 }
 	goto _again;
 f15:
-#line 151 "mcrouter/lib/network/McAsciiParser.rl"
+#line 137 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_notfound); }
 	goto _again;
 f14:
-#line 162 "mcrouter/lib/network/McAsciiParser.rl"
+#line 148 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // This is unexpected error reply, just put ourself into error state.
   state_ = State::ERROR;
@@ -3633,7 +3633,7 @@ f14:
 }
 	goto _again;
 f19:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -3643,11 +3643,11 @@ f19:
                }
 	goto _again;
 f10:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f13:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
@@ -3669,19 +3669,19 @@ f13:
 }
 	goto _again;
 f3:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
-#line 285 "mcrouter/lib/network/McAsciiParser.rl"
+#line 271 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_stored); }
 	goto _again;
 f1:
-#line 137 "mcrouter/lib/network/McAsciiParser.rl"
+#line 123 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setDelta(currentUInt_);
 }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -3689,7 +3689,7 @@ f1:
 }
 	goto _again;
 f12:
-#line 146 "mcrouter/lib/network/McAsciiParser.rl"
+#line 132 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setAppSpecificErrorCode(static_cast<uint32_t>(currentUInt_));
 }
@@ -3711,7 +3711,7 @@ f12:
 }
 	goto _again;
 f18:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -3719,7 +3719,7 @@ f18:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -3727,9 +3727,9 @@ f18:
 }
 	goto _again;
 f9:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -3737,11 +3737,11 @@ f9:
 }
 	goto _again;
 f5:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -3761,13 +3761,13 @@ f5:
 }
 	goto _again;
 f17:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -3777,33 +3777,33 @@ f17:
                }
 	goto _again;
 f7:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f0:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{ currentUInt_ = 0; }
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
-#line 285 "mcrouter/lib/network/McAsciiParser.rl"
+#line 271 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_stored); }
 	goto _again;
 f16:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -3811,7 +3811,7 @@ f16:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -3819,15 +3819,15 @@ f16:
 }
 	goto _again;
 f6:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -3835,17 +3835,17 @@ f6:
 }
 	goto _again;
 f11:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{ currentUInt_ = 0; }
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -3874,13 +3874,13 @@ _again:
 	_out: {}
 	}
 
-#line 297 "mcrouter/lib/network/McAsciiParser.rl"
+#line 283 "mcrouter/lib/network/McAsciiParser.rl"
 
 }
 
 // McVersion reply.
 
-#line 3884 "McAsciiParser-gen.cpp"
+#line 3884 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 static const int mc_ascii_version_reply_start = 1;
 static const int mc_ascii_version_reply_first_final = 50;
 static const int mc_ascii_version_reply_error = 0;
@@ -3888,7 +3888,7 @@ static const int mc_ascii_version_reply_error = 0;
 static const int mc_ascii_version_reply_en_version_reply = 1;
 
 
-#line 310 "mcrouter/lib/network/McAsciiParser.rl"
+#line 296 "mcrouter/lib/network/McAsciiParser.rl"
 
 
 template<>
@@ -3896,11 +3896,11 @@ void McAsciiParser::consumeMessage<McReply, McOperation<mc_op_version>>(
     folly::IOBuf& buffer) {
   McReply& reply = currentMessage_.get<McReply>();
   
-#line 3900 "McAsciiParser-gen.cpp"
+#line 3900 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	}
 
-#line 3904 "McAsciiParser-gen.cpp"
+#line 3904 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	if ( ( p_) == ( pe_) )
 		goto _test_eof;
@@ -4239,7 +4239,7 @@ f3:
 }
 	goto _again;
 f6:
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -4247,7 +4247,7 @@ f6:
 }
 	goto _again;
 f10:
-#line 162 "mcrouter/lib/network/McAsciiParser.rl"
+#line 148 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // This is unexpected error reply, just put ourself into error state.
   state_ = State::ERROR;
@@ -4255,7 +4255,7 @@ f10:
 }
 	goto _again;
 f14:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -4265,15 +4265,15 @@ f14:
                }
 	goto _again;
 f5:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f15:
-#line 305 "mcrouter/lib/network/McAsciiParser.rl"
+#line 291 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_ok); }
 	goto _again;
 f9:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
@@ -4295,7 +4295,7 @@ f9:
 }
 	goto _again;
 f8:
-#line 146 "mcrouter/lib/network/McAsciiParser.rl"
+#line 132 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setAppSpecificErrorCode(static_cast<uint32_t>(currentUInt_));
 }
@@ -4317,7 +4317,7 @@ f8:
 }
 	goto _again;
 f13:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -4325,7 +4325,7 @@ f13:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -4333,9 +4333,9 @@ f13:
 }
 	goto _again;
 f4:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -4343,11 +4343,11 @@ f4:
 }
 	goto _again;
 f0:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -4367,13 +4367,13 @@ f0:
 }
 	goto _again;
 f12:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -4383,23 +4383,23 @@ f12:
                }
 	goto _again;
 f2:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f11:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -4407,7 +4407,7 @@ f11:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -4415,15 +4415,15 @@ f11:
 }
 	goto _again;
 f1:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -4431,17 +4431,17 @@ f1:
 }
 	goto _again;
 f7:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{ currentUInt_ = 0; }
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -4470,13 +4470,13 @@ _again:
 	_out: {}
 	}
 
-#line 320 "mcrouter/lib/network/McAsciiParser.rl"
+#line 306 "mcrouter/lib/network/McAsciiParser.rl"
 
 }
 
 // McDelete reply.
 
-#line 4480 "McAsciiParser-gen.cpp"
+#line 4480 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 static const int mc_ascii_delete_reply_start = 1;
 static const int mc_ascii_delete_reply_first_final = 56;
 static const int mc_ascii_delete_reply_error = 0;
@@ -4484,7 +4484,7 @@ static const int mc_ascii_delete_reply_error = 0;
 static const int mc_ascii_delete_reply_en_delete_reply = 1;
 
 
-#line 332 "mcrouter/lib/network/McAsciiParser.rl"
+#line 318 "mcrouter/lib/network/McAsciiParser.rl"
 
 
 template<>
@@ -4492,11 +4492,11 @@ void McAsciiParser::consumeMessage<McReply, McOperation<mc_op_delete>>(
     folly::IOBuf& buffer) {
   McReply& reply = currentMessage_.get<McReply>();
   
-#line 4496 "McAsciiParser-gen.cpp"
+#line 4496 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	}
 
-#line 4500 "McAsciiParser-gen.cpp"
+#line 4500 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	if ( ( p_) == ( pe_) )
 		goto _test_eof;
@@ -4865,7 +4865,7 @@ f3:
 }
 	goto _again;
 f6:
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -4873,15 +4873,15 @@ f6:
 }
 	goto _again;
 f12:
-#line 151 "mcrouter/lib/network/McAsciiParser.rl"
+#line 137 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_notfound); }
 	goto _again;
 f10:
-#line 152 "mcrouter/lib/network/McAsciiParser.rl"
+#line 138 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_deleted); }
 	goto _again;
 f11:
-#line 162 "mcrouter/lib/network/McAsciiParser.rl"
+#line 148 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // This is unexpected error reply, just put ourself into error state.
   state_ = State::ERROR;
@@ -4889,7 +4889,7 @@ f11:
 }
 	goto _again;
 f16:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -4899,11 +4899,11 @@ f16:
                }
 	goto _again;
 f5:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f9:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
@@ -4925,7 +4925,7 @@ f9:
 }
 	goto _again;
 f8:
-#line 146 "mcrouter/lib/network/McAsciiParser.rl"
+#line 132 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setAppSpecificErrorCode(static_cast<uint32_t>(currentUInt_));
 }
@@ -4947,7 +4947,7 @@ f8:
 }
 	goto _again;
 f15:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -4955,7 +4955,7 @@ f15:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -4963,9 +4963,9 @@ f15:
 }
 	goto _again;
 f4:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -4973,11 +4973,11 @@ f4:
 }
 	goto _again;
 f0:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -4997,13 +4997,13 @@ f0:
 }
 	goto _again;
 f14:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -5013,23 +5013,23 @@ f14:
                }
 	goto _again;
 f2:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f13:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -5037,7 +5037,7 @@ f13:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -5045,15 +5045,15 @@ f13:
 }
 	goto _again;
 f1:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -5061,17 +5061,17 @@ f1:
 }
 	goto _again;
 f7:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{ currentUInt_ = 0; }
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -5100,13 +5100,13 @@ _again:
 	_out: {}
 	}
 
-#line 342 "mcrouter/lib/network/McAsciiParser.rl"
+#line 328 "mcrouter/lib/network/McAsciiParser.rl"
 
 }
 
 //McMetaget reply.
 
-#line 5110 "McAsciiParser-gen.cpp"
+#line 5110 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 static const int mc_ascii_metaget_reply_start = 1;
 static const int mc_ascii_metaget_reply_first_final = 107;
 static const int mc_ascii_metaget_reply_error = 0;
@@ -5114,7 +5114,7 @@ static const int mc_ascii_metaget_reply_error = 0;
 static const int mc_ascii_metaget_reply_en_metaget_reply = 1;
 
 
-#line 386 "mcrouter/lib/network/McAsciiParser.rl"
+#line 371 "mcrouter/lib/network/McAsciiParser.rl"
 
 template<>
 void McAsciiParser::consumeMessage<McReply, McOperation<mc_op_metaget>>(
@@ -5122,11 +5122,11 @@ void McAsciiParser::consumeMessage<McReply, McOperation<mc_op_metaget>>(
   McReply& reply = currentMessage_.get<McReply>();
   mc_msg_t* mcMsgT = const_cast<mc_msg_t*>(reply.msg_.get());
   
-#line 5126 "McAsciiParser-gen.cpp"
+#line 5126 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	}
 
-#line 5130 "McAsciiParser-gen.cpp"
+#line 5130 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	if ( ( p_) == ( pe_) )
 		goto _test_eof;
@@ -5687,8 +5687,8 @@ case 106:
 	tr33: ( savedCs_) = 15; goto _again;
 	tr18: ( savedCs_) = 15; goto f3;
 	tr22: ( savedCs_) = 15; goto f6;
-	tr122: ( savedCs_) = 15; goto f22;
-	tr126: ( savedCs_) = 15; goto f24;
+	tr122: ( savedCs_) = 15; goto f21;
+	tr126: ( savedCs_) = 15; goto f23;
 	tr19: ( savedCs_) = 16; goto f1;
 	tr24: ( savedCs_) = 17; goto f8;
 	tr26: ( savedCs_) = 17; goto f10;
@@ -5719,7 +5719,7 @@ case 106:
 	tr50: ( savedCs_) = 39; goto f14;
 	tr52: ( savedCs_) = 40; goto _again;
 	tr51: ( savedCs_) = 40; goto f15;
-	tr108: ( savedCs_) = 40; goto f20;
+	tr108: ( savedCs_) = 40; goto f19;
 	tr53: ( savedCs_) = 41; goto _again;
 	tr54: ( savedCs_) = 42; goto _again;
 	tr55: ( savedCs_) = 43; goto _again;
@@ -5737,9 +5737,9 @@ case 106:
 	tr67: ( savedCs_) = 53; goto _again;
 	tr68: ( savedCs_) = 54; goto _again;
 	tr69: ( savedCs_) = 55; goto _again;
-	tr70: ( savedCs_) = 56; goto f17;
+	tr70: ( savedCs_) = 56; goto f4;
 	tr73: ( savedCs_) = 57; goto _again;
-	tr72: ( savedCs_) = 57; goto f18;
+	tr72: ( savedCs_) = 57; goto f17;
 	tr74: ( savedCs_) = 58; goto _again;
 	tr75: ( savedCs_) = 59; goto _again;
 	tr76: ( savedCs_) = 60; goto _again;
@@ -5756,12 +5756,12 @@ case 106:
 	tr87: ( savedCs_) = 71; goto f13;
 	tr91: ( savedCs_) = 71; goto f14;
 	tr93: ( savedCs_) = 72; goto _again;
-	tr88: ( savedCs_) = 72; goto f19;
+	tr88: ( savedCs_) = 72; goto f18;
 	tr92: ( savedCs_) = 73; goto _again;
 	tr94: ( savedCs_) = 74; goto _again;
-	tr89: ( savedCs_) = 74; goto f19;
+	tr89: ( savedCs_) = 74; goto f18;
 	tr95: ( savedCs_) = 75; goto _again;
-	tr90: ( savedCs_) = 75; goto f19;
+	tr90: ( savedCs_) = 75; goto f18;
 	tr71: ( savedCs_) = 76; goto _again;
 	tr96: ( savedCs_) = 77; goto _again;
 	tr97: ( savedCs_) = 78; goto _again;
@@ -5798,8 +5798,8 @@ case 106:
 	tr17: ( savedCs_) = 107; goto f2;
 	tr21: ( savedCs_) = 107; goto f5;
 	tr23: ( savedCs_) = 107; goto f7;
-	tr121: ( savedCs_) = 107; goto f21;
-	tr125: ( savedCs_) = 107; goto f23;
+	tr121: ( savedCs_) = 107; goto f20;
+	tr125: ( savedCs_) = 107; goto f22;
 
 f4:
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
@@ -5819,23 +5819,8 @@ f4:
   }
 }
 	goto _again;
-f17:
-#line 89 "mcrouter/lib/network/McAsciiParser.rl"
-	{
-  if (!ipBuffer_) {
-    // Clone current buffer.
-    ipBuffer_ = buffer.cloneOne();
-    size_t offset = p_ - reinterpret_cast<const char*>(buffer.data());
-    ipBuffer_->trimStart(offset);
-    ipBuffer_->trimEnd(buffer.length() - offset - 1);
-  } else {
-    auto tail = ipBuffer_->prev();
-    appendCurrentCharTo(buffer, *tail);
-  }
-}
-	goto _again;
 f7:
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -5843,27 +5828,27 @@ f7:
 }
 	goto _again;
 f14:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
 	goto _again;
-f19:
-#line 125 "mcrouter/lib/network/McAsciiParser.rl"
+f18:
+#line 111 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setFlags(currentUInt_);
 }
 	goto _again;
 f11:
-#line 162 "mcrouter/lib/network/McAsciiParser.rl"
+#line 148 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // This is unexpected error reply, just put ourself into error state.
   state_ = State::ERROR;
   {( p_)++; goto _out; }
 }
 	goto _again;
-f24:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+f23:
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -5873,36 +5858,35 @@ f24:
                }
 	goto _again;
 f6:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f15:
-#line 350 "mcrouter/lib/network/McAsciiParser.rl"
+#line 336 "mcrouter/lib/network/McAsciiParser.rl"
 	{
-  mcMsgT->number = static_cast<uint32_t>(currentUInt_);
+  reply.setNumber(static_cast<uint32_t>(currentUInt_));
 }
 	goto _again;
-f20:
-#line 353 "mcrouter/lib/network/McAsciiParser.rl"
+f19:
+#line 339 "mcrouter/lib/network/McAsciiParser.rl"
 	{
-  mcMsgT->number = -1;
+  reply.setNumber(static_cast<uint32_t>(-1));
 }
 	goto _again;
 f16:
-#line 356 "mcrouter/lib/network/McAsciiParser.rl"
+#line 342 "mcrouter/lib/network/McAsciiParser.rl"
 	{
-  mcMsgT->exptime = static_cast<uint32_t>(currentUInt_);
+  reply.setExptime(static_cast<uint32_t>(currentUInt_));
 }
 	goto _again;
-f18:
-#line 359 "mcrouter/lib/network/McAsciiParser.rl"
+f17:
+#line 345 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Max ip address is 45 chars.
-  if (ipBuffer_->length() < 46) {
+  if (reply.valueData_->length() < 46) {
     char addr[46] = {0};
-    ipBuffer_->coalesce();
-    memcpy(addr, ipBuffer_->data(), ipBuffer_->length());
-    ipBuffer_.reset();
+    reply.valueData_->coalesce();
+    memcpy(addr, reply.valueData_->data(), reply.valueData_->length());
     mcMsgT->ipv = 0;
     if (strchr(addr, ':') == nullptr) {
       if (inet_pton(AF_INET, addr, &mcMsgT->ip_addr) > 0) {
@@ -5917,23 +5901,23 @@ f18:
 }
 	goto _again;
 f12:
-#line 378 "mcrouter/lib/network/McAsciiParser.rl"
+#line 363 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_found); }
 	goto _again;
 f0:
-#line 382 "mcrouter/lib/network/McAsciiParser.rl"
+#line 367 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_notfound); }
 	goto _again;
 f13:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{ currentUInt_ = 0; }
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
 	goto _again;
 f10:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
@@ -5955,7 +5939,7 @@ f10:
 }
 	goto _again;
 f9:
-#line 146 "mcrouter/lib/network/McAsciiParser.rl"
+#line 132 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setAppSpecificErrorCode(static_cast<uint32_t>(currentUInt_));
 }
@@ -5976,8 +5960,8 @@ f9:
   }
 }
 	goto _again;
-f23:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+f22:
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -5985,7 +5969,7 @@ f23:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -5993,9 +5977,9 @@ f23:
 }
 	goto _again;
 f5:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -6003,11 +5987,11 @@ f5:
 }
 	goto _again;
 f1:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -6026,14 +6010,14 @@ f1:
   }
 }
 	goto _again;
-f22:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+f21:
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -6043,23 +6027,23 @@ f22:
                }
 	goto _again;
 f3:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
-f21:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+f20:
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -6067,7 +6051,7 @@ f21:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -6075,15 +6059,15 @@ f21:
 }
 	goto _again;
 f2:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -6091,17 +6075,17 @@ f2:
 }
 	goto _again;
 f8:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{ currentUInt_ = 0; }
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -6130,13 +6114,13 @@ _again:
 	_out: {}
 	}
 
-#line 396 "mcrouter/lib/network/McAsciiParser.rl"
+#line 381 "mcrouter/lib/network/McAsciiParser.rl"
 
 }
 
 // McFlushAll reply.
 
-#line 6140 "McAsciiParser-gen.cpp"
+#line 6124 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 static const int mc_ascii_flushall_reply_start = 1;
 static const int mc_ascii_flushall_reply_first_final = 43;
 static const int mc_ascii_flushall_reply_error = 0;
@@ -6144,7 +6128,7 @@ static const int mc_ascii_flushall_reply_error = 0;
 static const int mc_ascii_flushall_reply_en_flushall_reply = 1;
 
 
-#line 408 "mcrouter/lib/network/McAsciiParser.rl"
+#line 393 "mcrouter/lib/network/McAsciiParser.rl"
 
 
 template<>
@@ -6152,11 +6136,11 @@ void McAsciiParser::consumeMessage<McReply, McOperation<mc_op_flushall>>(
     folly::IOBuf& buffer) {
   McReply& reply = currentMessage_.get<McReply>();
   
-#line 6156 "McAsciiParser-gen.cpp"
+#line 6140 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	}
 
-#line 6160 "McAsciiParser-gen.cpp"
+#line 6144 "mcrouter/lib/network/McAsciiParser-gen.cpp"
 	{
 	if ( ( p_) == ( pe_) )
 		goto _test_eof;
@@ -6458,7 +6442,7 @@ f4:
 }
 	goto _again;
 f7:
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -6466,7 +6450,7 @@ f7:
 }
 	goto _again;
 f11:
-#line 162 "mcrouter/lib/network/McAsciiParser.rl"
+#line 148 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // This is unexpected error reply, just put ourself into error state.
   state_ = State::ERROR;
@@ -6474,7 +6458,7 @@ f11:
 }
 	goto _again;
 f15:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -6484,15 +6468,15 @@ f15:
                }
 	goto _again;
 f6:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f0:
-#line 404 "mcrouter/lib/network/McAsciiParser.rl"
+#line 389 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_ok); }
 	goto _again;
 f10:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
@@ -6514,7 +6498,7 @@ f10:
 }
 	goto _again;
 f9:
-#line 146 "mcrouter/lib/network/McAsciiParser.rl"
+#line 132 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.setAppSpecificErrorCode(static_cast<uint32_t>(currentUInt_));
 }
@@ -6536,7 +6520,7 @@ f9:
 }
 	goto _again;
 f14:
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -6544,7 +6528,7 @@ f14:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -6552,9 +6536,9 @@ f14:
 }
 	goto _again;
 f5:
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -6562,11 +6546,11 @@ f5:
 }
 	goto _again;
 f1:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -6586,13 +6570,13 @@ f1:
 }
 	goto _again;
 f13:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -6602,23 +6586,23 @@ f13:
                }
 	goto _again;
 f3:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
 	goto _again;
 f12:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 172 "mcrouter/lib/network/McAsciiParser.rl"
+#line 158 "mcrouter/lib/network/McAsciiParser.rl"
 	{
                  if (reply.appSpecificErrorCode() == SERVER_ERROR_BUSY) {
                    reply.setResult(mc_res_busy);
@@ -6626,7 +6610,7 @@ f12:
                    reply.setResult(mc_res_remote_error);
                  }
                }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -6634,15 +6618,15 @@ f12:
 }
 	goto _again;
 f2:
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
-#line 181 "mcrouter/lib/network/McAsciiParser.rl"
+#line 167 "mcrouter/lib/network/McAsciiParser.rl"
 	{ reply.setResult(mc_res_client_error); }
-#line 110 "mcrouter/lib/network/McAsciiParser.rl"
+#line 96 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   // Message is complete, so exit the state machine and return to the caller.
   state_ = State::COMPLETE;
@@ -6650,17 +6634,17 @@ f2:
 }
 	goto _again;
 f8:
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{ currentUInt_ = 0; }
-#line 120 "mcrouter/lib/network/McAsciiParser.rl"
+#line 106 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   currentUInt_ = currentUInt_ * 10 + ((*( p_)) - '0');
 }
-#line 103 "mcrouter/lib/network/McAsciiParser.rl"
+#line 89 "mcrouter/lib/network/McAsciiParser.rl"
 	{
   reply.valueData_.clear();
 }
-#line 168 "mcrouter/lib/network/McAsciiParser.rl"
+#line 154 "mcrouter/lib/network/McAsciiParser.rl"
 	{ stripped_ = false; }
 #line 72 "mcrouter/lib/network/McAsciiParser.rl"
 	{
@@ -6689,7 +6673,7 @@ _again:
 	_out: {}
 	}
 
-#line 418 "mcrouter/lib/network/McAsciiParser.rl"
+#line 403 "mcrouter/lib/network/McAsciiParser.rl"
 
 }
 
@@ -6778,7 +6762,6 @@ void McAsciiParser::initializeReplyParser<McOperation<mc_op_metaget>, McRequest>
   // now.
   McReply& reply = currentMessage_.get<McReply>();
   reply.msg_ = createMcMsgRef();
-  ipBuffer_.reset();
   savedCs_ = mc_ascii_metaget_reply_en_metaget_reply;
   errorCs_ = mc_ascii_metaget_reply_error;
   consumer_ = &McAsciiParser::consumeMessage<McReply,
