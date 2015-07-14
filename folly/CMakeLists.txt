@@ -1,5 +1,8 @@
 set(FOLLY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/folly")
 
+# Needed for fcntl w/ F_SETPIPE_SZ
+add_definitions("-D_GNU_SOURCE")
+
 # Ensure that we are either getting malloc functions
 # like malloc_usable_size() from either malloc.h
 # or stdlib.h. Default is stdlib.h
