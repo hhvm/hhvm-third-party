@@ -61,6 +61,7 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/symbolizer/SignalHandler.cpp
   ${FOLLY_DIR}/SingletonStackTrace.cpp
   ${FOLLY_DIR}/wangle/bootstrap/ServerBootstrap.cpp
+  ${FOLLY_DIR}/wangle/channel/FileRegion.cpp
   )
 
 CHECK_CXX_SOURCE_COMPILES("#include <bits/functexcept.h>
