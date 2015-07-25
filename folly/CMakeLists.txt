@@ -1,4 +1,4 @@
-set(FOLLY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/folly")
+set(FOLLY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/folly")
 
 # Ensure that we are either getting malloc functions
 # like malloc_usable_size() from either malloc.h
