@@ -1,4 +1,4 @@
-set(THRIFT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/thrift")
+set(THRIFT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/thrift")
 
 set(CXX_SOURCES)
 

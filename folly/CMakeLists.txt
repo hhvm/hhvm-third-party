@@ -1,4 +1,4 @@
-set(FOLLY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/folly")
+set(FOLLY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/folly")
 
 # Needed for fcntl w/ F_SETPIPE_SZ
 add_definitions("-D_GNU_SOURCE")
