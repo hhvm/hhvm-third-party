@@ -26,6 +26,7 @@ set(THIRD_PARTY_HEADERS)
 list(APPEND THIRD_PARTY_MODULES
   timelib
   folly
+  wangle
 )
 if(ENABLE_FASTCGI)
   list(APPEND THIRD_PARTY_MODULES proxygen)

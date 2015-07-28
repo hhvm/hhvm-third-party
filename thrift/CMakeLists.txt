@@ -72,6 +72,6 @@ include_directories("${HPHP_HOME}/third-party")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 add_library(hphp_thrift STATIC ${CXX_SOURCES})
 
-target_link_libraries(hphp_thrift ${Boost_LIBRARIES}
-                                  ${LIBGLOG_LIBRARY}
-                                  ${LIBPTHREAD_LIBRARIES})
+target_link_libraries(hphp_thrift wangle ${Boost_LIBRARIES}
+                                         ${LIBGLOG_LIBRARY}
+                                         ${LIBPTHREAD_LIBRARIES})

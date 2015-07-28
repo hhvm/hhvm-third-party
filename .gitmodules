@@ -20,3 +20,6 @@
 [submodule "squangle/squangle"]
 	path = squangle/src
 	url = https://github.com/facebook/squangle.git
+[submodule "wangle/src"]
+	path = wangle/src
+	url = https://github.com/facebook/wangle
