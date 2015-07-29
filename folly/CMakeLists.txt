@@ -82,11 +82,6 @@ if (NOT LINUX)
     )
 endif()
 
-# Subprocess requires flatmap from boost 1.48
-# and some other folly pieces we're not including yet
-# For now, that's not actually a requirement, so skip it
-list(REMOVE_ITEM files ${FOLLY_DIR}/Subprocess.cpp)
-
 # io/Compression requires snappy library
 # Don't add dep until we need it
 list(REMOVE_ITEM files ${FOLLY_DIR}/io/Compression.cpp)
