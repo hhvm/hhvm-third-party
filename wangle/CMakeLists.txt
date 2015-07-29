@@ -39,8 +39,8 @@ foreach (file ${files})
 endforeach()
 
 list(REMOVE_ITEM files
-  ${WANGLE_DIR}/wangle/bootstrap/ServerBootstrap.cpp
-  ${WANGLE_DIR}/wangle/channel/FileRegion.cpp
+  ${WANGLE_DIR}/bootstrap/ServerBootstrap.cpp
+  ${WANGLE_DIR}/channel/FileRegion.cpp
 )
 
 add_library(wangle STATIC ${files})
