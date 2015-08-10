@@ -30,19 +30,11 @@ auto_sources(genfiles "*.cpp" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}/gen")
 # Main folly library files
 auto_sources(files "*.cpp" "RECURSE" "${FOLLY_DIR}")
 auto_sources(cfiles "*.c" "RECURSE" "${FOLLY_DIR}")
+auto_sources(hfiles "*.h" "RECURSE" "${FOLLY_DIR}")
 
 # No need for tests, Benchmarks, Utils, or most experimental stuff
-foreach (file ${files})
-  if (${file} MATCHES "/test/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "Test.cpp$")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "/futures/exercises/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-endforeach()
+HHVM_REMOVE_MATCHES_FROM_LISTS(files cfiles hfiles
+  MATCHES "/test/" "Test.cpp$" "/futures/exercises/")
 list(REMOVE_ITEM files
   ${FOLLY_DIR}/Benchmark.cpp
   ${FOLLY_DIR}/build/GenerateFingerprintTables.cpp
@@ -86,7 +78,9 @@ endif()
 # Don't add dep until we need it
 list(REMOVE_ITEM files ${FOLLY_DIR}/io/Compression.cpp)
 
-add_library(folly STATIC ${files} ${genfiles} ${cfiles} )
+add_library(folly STATIC ${files} ${genfiles} ${cfiles} ${hfiles})
+auto_source_group("folly" "${FOLLY_DIR}"
+  ${files} ${genfiles} ${cfiles} ${hfiles})
 
 find_package(Boost 1.51.0 COMPONENTS system program_options filesystem regex
              context REQUIRED)
