@@ -33,8 +33,7 @@ if(ENABLE_FASTCGI)
   list(APPEND THIRD_PARTY_MODULES thrift)
 endif()
 
-# Add bundled libafdt if the system one will not be used
-if(NOT LIBAFDT_LIBRARY)
+if (NOT MSVC)
   list(APPEND THIRD_PARTY_MODULES libafdt)
 endif()
 
