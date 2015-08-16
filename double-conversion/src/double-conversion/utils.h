@@ -295,7 +295,7 @@ class StringBuilder {
 // another thus avoiding the warning.
 template <class Dest, class Source>
 inline Dest BitCast(const Source& source) {
-  static_assert(sizeof(Dest) == sizeof(Source));
+  static_assert(sizeof(Dest) == sizeof(Source), "");
   Dest dest;
   memmove(&dest, &source, sizeof(dest));
   return dest;
