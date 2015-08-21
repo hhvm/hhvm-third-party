@@ -60,6 +60,7 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/symbolizer/ElfCache.cpp
   ${FOLLY_DIR}/experimental/symbolizer/ElfUtil.cpp
   ${FOLLY_DIR}/experimental/symbolizer/SignalHandler.cpp
+  ${FOLLY_DIR}/experimental/TestUtil.cpp
   ${FOLLY_DIR}/SingletonStackTrace.cpp
   )
 
