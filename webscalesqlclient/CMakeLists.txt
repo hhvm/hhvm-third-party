@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.0)
 include(ExternalProject)
-SET(CMAKE_C_FLAGS "-Wno-maybe-unitialized ${CMAKE_C_FLAGS}")
+SET(CMAKE_C_FLAGS "-Wno-maybe-uninitialized ${CMAKE_C_FLAGS}")
 ExternalProject_Add(
   webscalesqlclient
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/webscalesql-5.6/
