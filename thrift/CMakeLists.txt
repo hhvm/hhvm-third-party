@@ -44,6 +44,9 @@ foreach (file ${files})
   if (${file} MATCHES "/protocol/")
     list(REMOVE_ITEM files ${file})
   endif()
+  if (${file} MATCHES "/kerberos/")
+    list(REMOVE_ITEM files ${file})
+  endif()
 endforeach()
 
 list(REMOVE_ITEM files
