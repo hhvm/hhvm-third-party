@@ -15,7 +15,7 @@
 	url = https://github.com/google/re2.git
 [submodule "webscalesqlclient/webscalesql-5.6"]
 	path = webscalesqlclient/webscalesql-5.6
-	url = https://github.com/webscalesql/webscalesql-5.6.git
+	url = https://github.com/facebook/mysql-5.6.git
   ignore = dirty
 [submodule "squangle/squangle"]
 	path = squangle/src
