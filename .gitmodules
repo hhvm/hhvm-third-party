@@ -13,13 +13,12 @@
 [submodule "re2/src"]
 	path = re2/src
 	url = https://github.com/google/re2.git
-[submodule "webscalesqlclient/webscalesql-5.6"]
-	path = webscalesqlclient/webscalesql-5.6
-	url = https://github.com/webscalesql/webscalesql-5.6.git
-  ignore = dirty
 [submodule "squangle/squangle"]
 	path = squangle/src
 	url = https://github.com/facebook/squangle.git
 [submodule "wangle/src"]
 	path = wangle/src
 	url = https://github.com/facebook/wangle
+[submodule "webscalesqlclient/mysql-5.6"]
+	path = webscalesqlclient/webscalesql-5.6
+	url = https://github.com/facebook/mysql-5.6.git
