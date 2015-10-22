@@ -3,7 +3,7 @@ include(ExternalProject)
 SET(CMAKE_C_FLAGS "-Wno-maybe-uninitialized ${CMAKE_C_FLAGS}")
 ExternalProject_Add(
   webscalesqlclient
-  SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/webscalesql-5.6/
+  SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/
   CMAKE_ARGS
   -DWITHOUT_SERVER=TRUE
   -DDISABLE_SHARED=TRUE
