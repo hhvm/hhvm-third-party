@@ -26,6 +26,23 @@ endforeach()
 list(APPEND CXX_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/McAsciiParser-gen.cpp")
 list(APPEND CXX_SOURCES ${files})
 
+# We need to create several symlinks.
+execute_process(
+  COMMAND ln -s
+    "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/CaretReplyConverterImpl.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/CaretReplyConverter.h"
+)
+execute_process(
+  COMMAND ln -s
+    "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/CaretSerializedMessageImpl.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/CaretSerializedMessage.h"
+)
+execute_process(
+  COMMAND ln -s
+    "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/ServerOnRequestImpl.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/ServerOnRequest.h"
+)
+
 add_definitions(-DNO_LIB_GFLAGS)
 add_definitions(-DLIBMC_FBTRACE_DISABLE)
 add_definitions(-DHAVE_CONFIG_H)
