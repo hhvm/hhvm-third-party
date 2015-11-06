@@ -110,7 +110,11 @@ else()
   target_link_libraries(folly double-conversion)
 endif()
 
-if (JEMALLOC_ENABLED)
+# This will ensure that the _init_ in libnuma is always called first before 
+# jemalloc _init_ when the program loads.
+if (JEMALLOC_ENABLED AND LIBNUMA_ENABLED)
+  target_link_libraries(folly ${JEMALLOC_LIB} ${LIBNUMA_LIBRARIES}) 
+elseif(JEMALLOC_ENABLED)
   target_link_libraries(folly ${JEMALLOC_LIB})
 endif()
 
