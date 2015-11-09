@@ -28,19 +28,22 @@ list(APPEND CXX_SOURCES ${files})
 
 # We need to create several symlinks.
 execute_process(
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/"
   COMMAND ln -s
-    "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/CaretReplyConverterImpl.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/CaretReplyConverter.h"
+    "CaretReplyConverterImpl.h"
+    "CaretReplyConverter.h"
 )
 execute_process(
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/"
   COMMAND ln -s
-    "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/CaretSerializedMessageImpl.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/CaretSerializedMessage.h"
+    "CaretSerializedMessageImpl.h"
+    "CaretSerializedMessage.h"
 )
 execute_process(
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/"
   COMMAND ln -s
-    "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/ServerOnRequestImpl.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/ServerOnRequest.h"
+    "ServerOnRequestImpl.h"
+    "ServerOnRequest.h"
 )
 
 add_definitions(-DNO_LIB_GFLAGS)
