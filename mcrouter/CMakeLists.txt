@@ -26,25 +26,13 @@ endforeach()
 list(APPEND CXX_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/McAsciiParser-gen.cpp")
 list(APPEND CXX_SOURCES ${files})
 
-# We need to create several symlinks.
-execute_process(
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/"
-  COMMAND ln -s
-    "CaretReplyConverterImpl.h"
-    "CaretReplyConverter.h"
-)
-execute_process(
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/"
-  COMMAND ln -s
-    "CaretSerializedMessageImpl.h"
-    "CaretSerializedMessage.h"
-)
-execute_process(
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/"
-  COMMAND ln -s
-    "ServerOnRequestImpl.h"
-    "ServerOnRequest.h"
-)
+# We need to make sure several files are the same
+file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/CaretReplyConverter.h"
+  "#include \"CaretReplyConverterImpl.h\"")
+file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/CaretSerializedMessage.h"
+  "#include \"CaretSerializedMessageImpl.h\"")
+file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/ServerOnRequest.h"
+  "#include \"ServerOnRequestImpl.h\"")
 
 add_definitions(-DNO_LIB_GFLAGS)
 add_definitions(-DLIBMC_FBTRACE_DISABLE)
