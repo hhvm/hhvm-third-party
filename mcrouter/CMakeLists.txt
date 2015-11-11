@@ -26,25 +26,21 @@ endforeach()
 list(APPEND CXX_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/McAsciiParser-gen.cpp")
 list(APPEND CXX_SOURCES ${files})
 
-# We need to create several symlinks.
-execute_process(
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/"
-  COMMAND ln -s
-    "CaretReplyConverterImpl.h"
-    "CaretReplyConverter.h"
-)
-execute_process(
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/"
-  COMMAND ln -s
-    "CaretSerializedMessageImpl.h"
-    "CaretSerializedMessage.h"
-)
-execute_process(
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/"
-  COMMAND ln -s
-    "ServerOnRequestImpl.h"
-    "ServerOnRequest.h"
-)
+# We need to make sure several files are the same
+macro(WRITE_IMPL_FILE dirName sourceName)
+  # These were previously symlinks, causing issues when trying to
+  # install the headers, so, if it's either a symlink, or it doesn't
+  # exist, create it.
+  if (IS_SYMLINK "${dirName}/${sourceName}.h")
+    file(REMOVE "${dirName}/${sourceName}.h")
+  endif()
+  if (NOT EXISTS "${dirName}/${sourceName}.h")
+    file(WRITE "${dirName}/${sourceName}.h" "#include \"${sourceName}Impl.h\"")
+  endif()
+endmacro()
+WRITE_IMPL_FILE("${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/" "CaretReplyConverter")
+WRITE_IMPL_FILE("${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/" "CaretSerializedMessage")
+WRITE_IMPL_FILE("${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/" "ServerOnRequest")
 
 add_definitions(-DNO_LIB_GFLAGS)
 add_definitions(-DLIBMC_FBTRACE_DISABLE)
