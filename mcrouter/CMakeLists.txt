@@ -1,3 +1,17 @@
+# Ensure that we are either getting malloc functions
+# like malloc_usable_size() from either malloc.h
+# or stdlib.h. Default is stdlib.h
+INCLUDE(CheckCXXSourceCompiles)
+CHECK_CXX_SOURCE_COMPILES("#include <malloc.h>
+int main() {
+  return 0;
+}" FOLLY_MALLOC)
+if (FOLLY_MALLOC)
+  add_definitions("-DFOLLY_HAVE_MALLOC_H=1")
+else()
+  add_definitions("-DFOLLY_HAVE_MALLOC_H=0")
+endif()
+
 set(C_SOURCES)
 auto_sources(files "*.c" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter")
 foreach (file ${files})
