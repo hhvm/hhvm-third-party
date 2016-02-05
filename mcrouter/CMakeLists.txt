@@ -12,6 +12,10 @@ else()
   add_definitions("-DFOLLY_HAVE_MALLOC_H=0")
 endif()
 
+# Pre-generated thrift files
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/gen-cpp2"
+     DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/")
+
 set(C_SOURCES)
 auto_sources(files "*.c" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter")
 foreach (file ${files})
@@ -69,4 +73,5 @@ include_directories("${HPHP_HOME}/third-party/mcrouter/")
 #include_directories("${HPHP_HOME}/third-party/mcrouter/mcrouter/lib/fbi")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable")
 add_library(mcrouter STATIC ${C_SOURCES} ${CXX_SOURCES})
-target_link_libraries(mcrouter folly ${Boost_LIBRARIES})
+target_link_libraries(mcrouter folly hphp_thrift ${Boost_LIBRARIES})
+
