@@ -16,7 +16,7 @@ add_library(mbfl STATIC ${mbfl_files} ${mbfl_filters_files} ${mbfl_nls_files})
 add_custom_target(
   eaw_table
   DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/mk_eaw_tbl.awk" "${CMAKE_CURRENT_SOURCE_DIR}/EastAsianWidth.txt"
-  COMMAND sh ${CMAKE_CURRENT_SOURCE_DIR}/generate-eaw-table.sh ${AWK_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR} 
+  COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/generate-eaw-table.sh ${AWK_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}
 )
 set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "${CMAKE_CURRENT_SOURCE_DIR}/eaw_table.h")
 add_dependencies(mbfl eaw_table)
