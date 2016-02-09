@@ -24,6 +24,7 @@ set(THIRD_PARTY_MODULES)
 set(THIRD_PARTY_HEADERS)
 
 list(APPEND THIRD_PARTY_MODULES
+  libmbfl
   timelib
   folly
   wangle
@@ -35,11 +36,6 @@ endif()
 
 if (NOT MSVC)
   list(APPEND THIRD_PARTY_MODULES libafdt)
-endif()
-
-# Add bundled libmbfl if the system one will not be used
-if(NOT LIBMBFL_LIBRARY)
-  list(APPEND THIRD_PARTY_MODULES libmbfl)
 endif()
 
 if(ENABLE_ASYNC_MYSQL)
