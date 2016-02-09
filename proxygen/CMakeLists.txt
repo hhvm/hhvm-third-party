@@ -29,7 +29,9 @@ include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
 include_directories("${HPHP_HOME}/third-party")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable")
+if (NOT MSVC)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable")
+endif()
 add_library(hphp_proxygen STATIC ${CXX_SOURCES})
 target_link_libraries(hphp_proxygen wangle ${Boost_LIBRARIES}
                                            ${LIBGLOG_LIBRARY}
