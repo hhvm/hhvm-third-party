@@ -40,11 +40,15 @@
 #endif 
 
 #ifdef WIN32
+#ifdef MBFL_STATIC
+#define MBFLAPI
+#else
 #ifdef MBFL_DLL_EXPORT
 #define MBFLAPI __declspec(dllexport)
 #else
 #define MBFLAPI __declspec(dllimport)
 #endif /* MBFL_DLL_EXPORT */
+#endif
 #else
 #if defined(__GNUC__) && __GNUC__ >= 4
 #define MBFLAPI __attribute__((visibility("default")))
