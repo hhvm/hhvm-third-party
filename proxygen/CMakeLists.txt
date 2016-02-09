@@ -13,13 +13,18 @@ list(APPEND CXX_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/external/http_parser/http_p
 list(APPEND CXX_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.cpp")
 list(APPEND CXX_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.h")
 
+FIND_PROGRAM(GPERF_EXECUTABLE NAMES gperf)
+IF(NOT GPERF_EXECUTABLE)
+  MESSAGE(FATAL_ERROR "HHVM requires gperf for proxygen")
+ENDIF()
+
 add_custom_command(
   OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.h
-  COMMAND HEADERS_LIST=${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.txt FBCODE_DIR=${CMAKE_CURRENT_SOURCE_DIR}/.. INSTALL_DIR=${CMAKE_CURRENT_SOURCE_DIR}/lib/http ${CMAKE_CURRENT_SOURCE_DIR}/lib/http/gen_HTTPCommonHeaders.h.sh
+  COMMAND ${PROXYGEN_LIB_DIR}/http/gen_HTTPCommonHeaders.h.sh "${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.txt" "${CMAKE_CURRENT_SOURCE_DIR}/src" "${PROXYGEN_LIB_DIR}/http" ${GPERF_EXECUTABLE}
 )
 add_custom_command(
   OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.cpp
-  COMMAND HEADERS_LIST=${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.txt FBCODE_DIR=${CMAKE_CURRENT_SOURCE_DIR}/.. INSTALL_DIR=${CMAKE_CURRENT_SOURCE_DIR}/lib/http ${CMAKE_CURRENT_SOURCE_DIR}/lib/http/gen_HTTPCommonHeaders.cpp.sh
+  COMMAND ${PROXYGEN_LIB_DIR}/http/gen_HTTPCommonHeaders.cpp.sh "${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.txt" "${CMAKE_CURRENT_SOURCE_DIR}/src" "${PROXYGEN_LIB_DIR}/http"
 )
 
 add_definitions(-DNO_LIB_GFLAGS)
