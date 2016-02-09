@@ -1,5 +1,8 @@
+set(PROXYGEN_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/proxygen/lib")
+set(PROXYGEN_EXTERNAL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/proxygen/external")
+
 set(CXX_SOURCES)
-auto_sources(files "*.cpp" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}/lib")
+auto_sources(files "*.cpp" "RECURSE" "${PROXYGEN_LIB_DIR}")
 foreach (file ${files})
   if (${file} MATCHES "/test/")
     list(REMOVE_ITEM files ${file})
@@ -9,9 +12,9 @@ foreach (file ${files})
   endif()
 endforeach()
 list(APPEND CXX_SOURCES ${files})
-list(APPEND CXX_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/external/http_parser/http_parser_cpp.cpp")
-list(APPEND CXX_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.cpp")
-list(APPEND CXX_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.h")
+list(APPEND CXX_SOURCES "${PROXYGEN_EXTERNAL_DIR}/http_parser/http_parser_cpp.cpp")
+list(APPEND CXX_SOURCES "${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.cpp")
+list(APPEND CXX_SOURCES "${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.h")
 
 FIND_PROGRAM(GPERF_EXECUTABLE NAMES gperf)
 IF(NOT GPERF_EXECUTABLE)
@@ -19,12 +22,14 @@ IF(NOT GPERF_EXECUTABLE)
 ENDIF()
 
 add_custom_command(
-  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.h
+  OUTPUT ${PROXYGEN_LIB_DIR}//http/HTTPCommonHeaders.h
   COMMAND ${PROXYGEN_LIB_DIR}/http/gen_HTTPCommonHeaders.h.sh "${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.txt" "${CMAKE_CURRENT_SOURCE_DIR}/src" "${PROXYGEN_LIB_DIR}/http" ${GPERF_EXECUTABLE}
+  DEPENDS ${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.txt ${PROXYGEN_LIB_DIR}/http/gen_HTTPCommonHeaders.h.sh
 )
 add_custom_command(
-  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/lib/http/HTTPCommonHeaders.cpp
+  OUTPUT ${PROXYGEN_LIB_DIR}//http/HTTPCommonHeaders.cpp
   COMMAND ${PROXYGEN_LIB_DIR}/http/gen_HTTPCommonHeaders.cpp.sh "${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.txt" "${CMAKE_CURRENT_SOURCE_DIR}/src" "${PROXYGEN_LIB_DIR}/http"
+  DEPENDS ${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.txt ${PROXYGEN_LIB_DIR}/http/gen_HTTPCommonHeaders.cpp.sh
 )
 
 add_definitions(-DNO_LIB_GFLAGS)
