@@ -75,6 +75,11 @@ endif()
 # Add bundled PCRE if the system one will not be used
 if(NOT PCRE_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES pcre)
+  # Disable building a few parts of PCRE by default that we don't
+  # actually use.
+  set(PCRE_BUILD_PCRECPP OFF CACHE BOOL "Build the PCRE C++ library (pcrecpp).")
+  set(PCRE_BUILD_PCREGREP OFF CACHE BOOL "Build pcregrep")
+  set(PCRE_BUILD_TESTS OFF CACHE BOOL "Build the tests")
 endif()
 
 # Add bundled libzip if the system one will not be used
