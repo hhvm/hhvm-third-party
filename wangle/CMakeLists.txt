@@ -24,26 +24,16 @@ endif()
 
 # Main wangle library files
 auto_sources(files "*.cpp" "RECURSE" "${WANGLE_DIR}")
+auto_sources(hfiles "*.h" "RECURSE" "${WANGLE_DIR}")
 
 # No need for tests, Benchmarks, Utils, or most experimental stuff
-foreach (file ${files})
-  if (${file} MATCHES "/test/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "Test.cpp$")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "/example/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-endforeach()
+HHVM_REMOVE_MATCHES_FROM_LISTS(files hfiles MATCHES "/test/" "Test.cpp$" "/example/" "/bootstrap/")
 
-list(REMOVE_ITEM files
-  ${WANGLE_DIR}/bootstrap/ServerBootstrap.cpp
-  ${WANGLE_DIR}/channel/FileRegion.cpp
-)
+list(REMOVE_ITEM files ${WANGLE_DIR}/channel/FileRegion.cpp)
+list(REMOVE_ITEM hfiles ${WANGLE_DIR}/channel/FileRegion.h)
 
-add_library(wangle STATIC ${files})
+add_library(wangle STATIC ${files} ${hfiles})
+auto_source_group(wangle "${WANGLE_DIR}" ${files} ${hfiles})
 
 find_package(Boost 1.51.0 COMPONENTS system thread REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
