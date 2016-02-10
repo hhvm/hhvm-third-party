@@ -41,7 +41,6 @@ link_directories(${Boost_LIBRARY_DIRS})
 
 find_package(OpenSSL REQUIRED)
 include_directories(${OPENSSL_INCLUDE_DIR})
-link_directories(${OPENSSL_LIBRARIES})
 
 target_link_libraries(wangle folly ${Boost_LIBRARIES}
                                    ${OPENSSL_LIBRARIES})
