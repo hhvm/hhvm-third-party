@@ -116,6 +116,7 @@ void timelib_time_tz_abbr_update(timelib_time* tm, char* tz_abbr);
 void timelib_time_tz_name_update(timelib_time* tm, char* tz_name);
 void timelib_tzinfo_dtor(timelib_tzinfo *tz);
 timelib_tzinfo* timelib_tzinfo_clone(timelib_tzinfo *tz);
+int timelib_time_compare(timelib_time *t1, timelib_time *t2);
 
 timelib_rel_time* timelib_rel_time_ctor(void);
 void timelib_rel_time_dtor(timelib_rel_time* t);
