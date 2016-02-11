@@ -39,6 +39,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
 include_directories("${HPHP_HOME}/third-party")
+include_directories("${HPHP_HOME}/third-party/proxygen/gen")
 if (NOT MSVC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable")
 endif()
