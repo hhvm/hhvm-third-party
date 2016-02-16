@@ -1,11 +1,16 @@
 
-#if defined(__x86_64__) || defined(__i386__)
+#include <folly/Portability.h>
+
 #include <stdint.h>
+
+#if (FOLLY_X64 || defined(__i386__)) && (FOLLY_SSE >= 2)
 #include <x86intrin.h>
+#endif
 
 namespace folly {
 namespace detail {
 
+#if (FOLLY_X64 || defined(__i386__)) && (FOLLY_SSE >= 2)
 extern const __m128i groupVarintSSEMasks[] = {
   {static_cast<int64_t>(0xffffff01ffffff00), static_cast<int64_t>(0xffffff03ffffff02)},
   {static_cast<int64_t>(0xffffff02ffff0100), static_cast<int64_t>(0xffffff04ffffff03)},
@@ -264,6 +269,7 @@ extern const __m128i groupVarintSSEMasks[] = {
   {static_cast<int64_t>(0x06050403ff020100), static_cast<int64_t>(0x0e0d0c0b0a090807)},
   {static_cast<int64_t>(0x0706050403020100), static_cast<int64_t>(0x0f0e0d0c0b0a0908)},
 };
+#endif /*#if (FOLLY_X64 || defined(__i386__)) && (FOLLY_SSE >= 2)*/
 
 extern const uint8_t groupVarintLengths[] = {
   5,
@@ -527,4 +533,3 @@ extern const uint8_t groupVarintLengths[] = {
 
 }  // namespace detail
 }  // namespace folly
-#endif /* defined(__x86_64__) || defined(__i386__) */
