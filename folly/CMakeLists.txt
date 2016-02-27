@@ -42,6 +42,8 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/RCUUtils.cpp
   ${FOLLY_DIR}/experimental/ProgramOptions.cpp
   ${FOLLY_DIR}/experimental/TestUtil.cpp
+  ${FOLLY_DIR}/experimental/exception_tracer/ExceptionCounterLib.cpp
+  ${FOLLY_DIR}/experimental/exception_tracer/ExceptionStackTraceLib.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracer.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracerBenchmark.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracerLib.cpp
@@ -63,6 +65,7 @@ list(REMOVE_ITEM hfiles
   ${FOLLY_DIR}/experimental/ProgramOptions.h
   ${FOLLY_DIR}/experimental/TestUtil.h
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionAbi.h
+  ${FOLLY_DIR}/experimental/exception_tracer/ExceptionCounterLib.h
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracer.h
   ${FOLLY_DIR}/experimental/exception_tracer/StackTrace.h
   ${FOLLY_DIR}/experimental/io/AsyncIO.h
