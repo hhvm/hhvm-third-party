@@ -22,3 +22,6 @@
 [submodule "webscalesqlclient/mysql-5.6"]
 	path = webscalesqlclient/mysql-5.6
 	url = https://github.com/facebook/mysql-5.6.git
+[submodule "brotli/src"]
+	path = brotli/src
+	url = https://github.com/google/brotli

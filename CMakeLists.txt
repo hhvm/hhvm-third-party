@@ -28,6 +28,7 @@ list(APPEND THIRD_PARTY_MODULES
   timelib
   folly
   wangle
+  brotli
 )
 if(ENABLE_FASTCGI)
   list(APPEND THIRD_PARTY_MODULES proxygen)
