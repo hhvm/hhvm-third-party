@@ -65,8 +65,6 @@ list(APPEND CXX_SOURCES ${files})
 auto_sources(files "*.cpp" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}/gen")
 list(APPEND CXX_SOURCES ${files})
 
-add_definitions(-DNO_LIB_GFLAGS)
-
 find_package(Boost 1.48.0 COMPONENTS thread system REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
