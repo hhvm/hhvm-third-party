@@ -4,47 +4,21 @@ set(CXX_SOURCES)
 
 auto_sources(files "*.cpp" "RECURSE" "${THRIFT_DIR}")
 
-foreach (file ${files})
-  if (${file} MATCHES "/perf/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "/test/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "/tests/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "/lib/d/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "/lib/node/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "/lib/cpp2/(security|async|server)/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "/lib/py/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "/lib/php/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "/tutorial/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "/example/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "Test.cpp")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "/neutronium/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-  if (${file} MATCHES "/kerberos/")
-    list(REMOVE_ITEM files ${file})
-  endif()
-endforeach()
+HHVM_REMOVE_MATCHES_FROM_LISTS(files MATCHES
+  "/perf/"
+  "/test/"
+  "/tests/"
+  "/lib/d/"
+  "/lib/node/"
+  "/lib/cpp2/(security|async|server)/"
+  "/lib/py/"
+  "/lib/php/"
+  "/tutorial/"
+  "/example/"
+  "Test.cpp"
+  "/neutronium/"
+  "/kerberos/"
+)
 
 list(REMOVE_ITEM files
   ${THRIFT_DIR}/contrib/thrift_dump.cpp
