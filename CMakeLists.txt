@@ -50,6 +50,7 @@ if(ENABLE_ASYNC_MYSQL)
 endif()
 
 if (ENABLE_MCROUTER)
+  list(APPEND THIRD_PARTY_MODULES ragel)
   list(APPEND THIRD_PARTY_MODULES mcrouter)
 endif()
 
