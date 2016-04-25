@@ -1,8 +1,10 @@
 /* ragel/config.h.  Generated from config.h.in by configure.  */
 /* ragel/config.h.in.  Generated from configure.in by autoheader.  */
 
+#ifndef PACKAGE
 /* Name of package */
 #define PACKAGE "ragel"
+#endif
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT ""
@@ -19,8 +21,10 @@
 /* Define to the home page for this package. */
 #define PACKAGE_URL ""
 
+#ifndef PACKAGE_VERSION
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "6.9"
+#endif
 
 /* Version number of package */
 #define VERSION "6.9"
