@@ -41,6 +41,14 @@ uint32_t McGetRequest::read(Protocol_* iprot) {
         fid = 1;
         ftype = apache::thrift::protocol::T_STRING;
       }
+      else if (fname == "flags") {
+        fid = 2;
+        ftype = apache::thrift::protocol::T_I64;
+      }
+      else if (fname == "exptime") {
+        fid = 3;
+        ftype = apache::thrift::protocol::T_I32;
+      }
     }
     switch (fid) {
       case 1:
@@ -48,6 +56,26 @@ uint32_t McGetRequest::read(Protocol_* iprot) {
         if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readBinary(this->key);
           this->__isset.key = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 2:
+      {
+        if (ftype == apache::thrift::protocol::T_I64) {
+          xfer += iprot->readI64(this->flags);
+          this->__isset.flags = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
+        if (ftype == apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->exptime);
+          this->__isset.exptime = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -72,6 +100,14 @@ uint32_t McGetRequest::serializedSize(Protocol_* prot_) const {
   xfer += prot_->serializedStructSize("McGetRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
   xfer += prot_->serializedSizeBinary(this->key);
+  if (this->__isset.flags) {
+    xfer += prot_->serializedFieldSize("flags", apache::thrift::protocol::T_I64, 2);
+    xfer += prot_->serializedSizeI64(this->flags);
+  }
+  if (this->__isset.exptime) {
+    xfer += prot_->serializedFieldSize("exptime", apache::thrift::protocol::T_I32, 3);
+    xfer += prot_->serializedSizeI32(this->exptime);
+  }
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -82,6 +118,14 @@ uint32_t McGetRequest::serializedSizeZC(Protocol_* prot_) const {
   xfer += prot_->serializedStructSize("McGetRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
   xfer += prot_->serializedSizeZCBinary(this->key);
+  if (this->__isset.flags) {
+    xfer += prot_->serializedFieldSize("flags", apache::thrift::protocol::T_I64, 2);
+    xfer += prot_->serializedSizeI64(this->flags);
+  }
+  if (this->__isset.exptime) {
+    xfer += prot_->serializedFieldSize("exptime", apache::thrift::protocol::T_I32, 3);
+    xfer += prot_->serializedSizeI32(this->exptime);
+  }
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -93,6 +137,16 @@ uint32_t McGetRequest::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldBegin("key", apache::thrift::protocol::T_STRING, 1);
   xfer += prot_->writeBinary(this->key);
   xfer += prot_->writeFieldEnd();
+  if (this->__isset.flags) {
+    xfer += prot_->writeFieldBegin("flags", apache::thrift::protocol::T_I64, 2);
+    xfer += prot_->writeI64(this->flags);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.exptime) {
+    xfer += prot_->writeFieldBegin("exptime", apache::thrift::protocol::T_I32, 3);
+    xfer += prot_->writeI32(this->exptime);
+    xfer += prot_->writeFieldEnd();
+  }
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();
   return xfer;
@@ -138,6 +192,10 @@ uint32_t McGetReply::read(Protocol_* iprot) {
         fid = 4;
         ftype = apache::thrift::protocol::T_STRING;
       }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 5;
+        ftype = apache::thrift::protocol::T_I16;
+      }
     }
     switch (fid) {
       case 1:
@@ -173,8 +231,18 @@ uint32_t McGetReply::read(Protocol_* iprot) {
       case 4:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 5:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -209,7 +277,11 @@ uint32_t McGetReply::serializedSize(Protocol_* prot_) const {
   }
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 4);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 5);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -231,7 +303,11 @@ uint32_t McGetReply::serializedSizeZC(Protocol_* prot_) const {
   }
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 4);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 5);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -256,7 +332,12 @@ uint32_t McGetReply::write(Protocol_* prot_) const {
   }
   if (this->__isset.message) {
     xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 4);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 5);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -440,9 +521,21 @@ uint32_t McSetReply::read(Protocol_* iprot) {
         fid = 1;
         ftype = apache::thrift::protocol::T_I16;
       }
-      else if (fname == "message") {
+      else if (fname == "flags") {
         fid = 2;
+        ftype = apache::thrift::protocol::T_I64;
+      }
+      else if (fname == "value") {
+        fid = 3;
         ftype = apache::thrift::protocol::T_STRING;
+      }
+      else if (fname == "message") {
+        fid = 4;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 5;
+        ftype = apache::thrift::protocol::T_I16;
       }
     }
     switch (fid) {
@@ -458,9 +551,39 @@ uint32_t McSetReply::read(Protocol_* iprot) {
       }
       case 2:
       {
+        if (ftype == apache::thrift::protocol::T_I64) {
+          xfer += iprot->readI64(this->flags);
+          this->__isset.flags = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readBinary(this->value);
+          this->__isset.value = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 4:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 5:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -485,9 +608,21 @@ uint32_t McSetReply::serializedSize(Protocol_* prot_) const {
   xfer += prot_->serializedStructSize("McSetReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
   xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.flags) {
+    xfer += prot_->serializedFieldSize("flags", apache::thrift::protocol::T_I64, 2);
+    xfer += prot_->serializedSizeI64(this->flags);
+  }
+  if (this->__isset.value) {
+    xfer += prot_->serializedFieldSize("value", apache::thrift::protocol::T_STRING, 3);
+    xfer += prot_->serializedSizeBinary(this->value);
+  }
   if (this->__isset.message) {
-    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 4);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 5);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -499,9 +634,21 @@ uint32_t McSetReply::serializedSizeZC(Protocol_* prot_) const {
   xfer += prot_->serializedStructSize("McSetReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
   xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.flags) {
+    xfer += prot_->serializedFieldSize("flags", apache::thrift::protocol::T_I64, 2);
+    xfer += prot_->serializedSizeI64(this->flags);
+  }
+  if (this->__isset.value) {
+    xfer += prot_->serializedFieldSize("value", apache::thrift::protocol::T_STRING, 3);
+    xfer += prot_->serializedSizeZCBinary(this->value);
+  }
   if (this->__isset.message) {
-    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 4);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 5);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -514,9 +661,24 @@ uint32_t McSetReply::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldBegin("result", apache::thrift::protocol::T_I16, 1);
   xfer += prot_->writeI16(this->result);
   xfer += prot_->writeFieldEnd();
+  if (this->__isset.flags) {
+    xfer += prot_->writeFieldBegin("flags", apache::thrift::protocol::T_I64, 2);
+    xfer += prot_->writeI64(this->flags);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.value) {
+    xfer += prot_->writeFieldBegin("value", apache::thrift::protocol::T_STRING, 3);
+    xfer += prot_->writeBinary(this->value);
+    xfer += prot_->writeFieldEnd();
+  }
   if (this->__isset.message) {
-    xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 4);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 5);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -552,9 +714,17 @@ uint32_t McDeleteRequest::read(Protocol_* iprot) {
         fid = 1;
         ftype = apache::thrift::protocol::T_STRING;
       }
-      else if (fname == "exptime") {
+      else if (fname == "flags") {
         fid = 2;
+        ftype = apache::thrift::protocol::T_I64;
+      }
+      else if (fname == "exptime") {
+        fid = 3;
         ftype = apache::thrift::protocol::T_I32;
+      }
+      else if (fname == "value") {
+        fid = 4;
+        ftype = apache::thrift::protocol::T_STRING;
       }
     }
     switch (fid) {
@@ -570,9 +740,29 @@ uint32_t McDeleteRequest::read(Protocol_* iprot) {
       }
       case 2:
       {
+        if (ftype == apache::thrift::protocol::T_I64) {
+          xfer += iprot->readI64(this->flags);
+          this->__isset.flags = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
         if (ftype == apache::thrift::protocol::T_I32) {
           xfer += iprot->readI32(this->exptime);
           this->__isset.exptime = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 4:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readBinary(this->value);
+          this->__isset.value = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -597,9 +787,17 @@ uint32_t McDeleteRequest::serializedSize(Protocol_* prot_) const {
   xfer += prot_->serializedStructSize("McDeleteRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
   xfer += prot_->serializedSizeBinary(this->key);
+  if (this->__isset.flags) {
+    xfer += prot_->serializedFieldSize("flags", apache::thrift::protocol::T_I64, 2);
+    xfer += prot_->serializedSizeI64(this->flags);
+  }
   if (this->__isset.exptime) {
-    xfer += prot_->serializedFieldSize("exptime", apache::thrift::protocol::T_I32, 2);
+    xfer += prot_->serializedFieldSize("exptime", apache::thrift::protocol::T_I32, 3);
     xfer += prot_->serializedSizeI32(this->exptime);
+  }
+  if (this->__isset.value) {
+    xfer += prot_->serializedFieldSize("value", apache::thrift::protocol::T_STRING, 4);
+    xfer += prot_->serializedSizeBinary(this->value);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -611,9 +809,17 @@ uint32_t McDeleteRequest::serializedSizeZC(Protocol_* prot_) const {
   xfer += prot_->serializedStructSize("McDeleteRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
   xfer += prot_->serializedSizeZCBinary(this->key);
+  if (this->__isset.flags) {
+    xfer += prot_->serializedFieldSize("flags", apache::thrift::protocol::T_I64, 2);
+    xfer += prot_->serializedSizeI64(this->flags);
+  }
   if (this->__isset.exptime) {
-    xfer += prot_->serializedFieldSize("exptime", apache::thrift::protocol::T_I32, 2);
+    xfer += prot_->serializedFieldSize("exptime", apache::thrift::protocol::T_I32, 3);
     xfer += prot_->serializedSizeI32(this->exptime);
+  }
+  if (this->__isset.value) {
+    xfer += prot_->serializedFieldSize("value", apache::thrift::protocol::T_STRING, 4);
+    xfer += prot_->serializedSizeZCBinary(this->value);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -626,9 +832,19 @@ uint32_t McDeleteRequest::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldBegin("key", apache::thrift::protocol::T_STRING, 1);
   xfer += prot_->writeBinary(this->key);
   xfer += prot_->writeFieldEnd();
+  if (this->__isset.flags) {
+    xfer += prot_->writeFieldBegin("flags", apache::thrift::protocol::T_I64, 2);
+    xfer += prot_->writeI64(this->flags);
+    xfer += prot_->writeFieldEnd();
+  }
   if (this->__isset.exptime) {
-    xfer += prot_->writeFieldBegin("exptime", apache::thrift::protocol::T_I32, 2);
+    xfer += prot_->writeFieldBegin("exptime", apache::thrift::protocol::T_I32, 3);
     xfer += prot_->writeI32(this->exptime);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.value) {
+    xfer += prot_->writeFieldBegin("value", apache::thrift::protocol::T_STRING, 4);
+    xfer += prot_->writeBinary(this->value);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -664,9 +880,21 @@ uint32_t McDeleteReply::read(Protocol_* iprot) {
         fid = 1;
         ftype = apache::thrift::protocol::T_I16;
       }
-      else if (fname == "message") {
+      else if (fname == "flags") {
         fid = 2;
+        ftype = apache::thrift::protocol::T_I64;
+      }
+      else if (fname == "value") {
+        fid = 3;
         ftype = apache::thrift::protocol::T_STRING;
+      }
+      else if (fname == "message") {
+        fid = 4;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 5;
+        ftype = apache::thrift::protocol::T_I16;
       }
     }
     switch (fid) {
@@ -682,9 +910,39 @@ uint32_t McDeleteReply::read(Protocol_* iprot) {
       }
       case 2:
       {
+        if (ftype == apache::thrift::protocol::T_I64) {
+          xfer += iprot->readI64(this->flags);
+          this->__isset.flags = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readBinary(this->value);
+          this->__isset.value = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 4:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 5:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -709,9 +967,21 @@ uint32_t McDeleteReply::serializedSize(Protocol_* prot_) const {
   xfer += prot_->serializedStructSize("McDeleteReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
   xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.flags) {
+    xfer += prot_->serializedFieldSize("flags", apache::thrift::protocol::T_I64, 2);
+    xfer += prot_->serializedSizeI64(this->flags);
+  }
+  if (this->__isset.value) {
+    xfer += prot_->serializedFieldSize("value", apache::thrift::protocol::T_STRING, 3);
+    xfer += prot_->serializedSizeBinary(this->value);
+  }
   if (this->__isset.message) {
-    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 4);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 5);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -723,9 +993,21 @@ uint32_t McDeleteReply::serializedSizeZC(Protocol_* prot_) const {
   xfer += prot_->serializedStructSize("McDeleteReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
   xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.flags) {
+    xfer += prot_->serializedFieldSize("flags", apache::thrift::protocol::T_I64, 2);
+    xfer += prot_->serializedSizeI64(this->flags);
+  }
+  if (this->__isset.value) {
+    xfer += prot_->serializedFieldSize("value", apache::thrift::protocol::T_STRING, 3);
+    xfer += prot_->serializedSizeZCBinary(this->value);
+  }
   if (this->__isset.message) {
-    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 4);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 5);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -738,9 +1020,24 @@ uint32_t McDeleteReply::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldBegin("result", apache::thrift::protocol::T_I16, 1);
   xfer += prot_->writeI16(this->result);
   xfer += prot_->writeFieldEnd();
+  if (this->__isset.flags) {
+    xfer += prot_->writeFieldBegin("flags", apache::thrift::protocol::T_I64, 2);
+    xfer += prot_->writeI64(this->flags);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.value) {
+    xfer += prot_->writeFieldBegin("value", apache::thrift::protocol::T_STRING, 3);
+    xfer += prot_->writeBinary(this->value);
+    xfer += prot_->writeFieldEnd();
+  }
   if (this->__isset.message) {
-    xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 4);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 5);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -877,6 +1174,10 @@ uint32_t McLeaseGetReply::read(Protocol_* iprot) {
         fid = 5;
         ftype = apache::thrift::protocol::T_STRING;
       }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 6;
+        ftype = apache::thrift::protocol::T_I16;
+      }
     }
     switch (fid) {
       case 1:
@@ -922,8 +1223,18 @@ uint32_t McLeaseGetReply::read(Protocol_* iprot) {
       case 5:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 6:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -962,7 +1273,11 @@ uint32_t McLeaseGetReply::serializedSize(Protocol_* prot_) const {
   }
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 5);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 6);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -988,7 +1303,11 @@ uint32_t McLeaseGetReply::serializedSizeZC(Protocol_* prot_) const {
   }
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 5);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 6);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -1018,7 +1337,12 @@ uint32_t McLeaseGetReply::write(Protocol_* prot_) const {
   }
   if (this->__isset.message) {
     xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 5);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 6);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -1227,6 +1551,10 @@ uint32_t McLeaseSetReply::read(Protocol_* iprot) {
         fid = 2;
         ftype = apache::thrift::protocol::T_STRING;
       }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 3;
+        ftype = apache::thrift::protocol::T_I16;
+      }
     }
     switch (fid) {
       case 1:
@@ -1242,8 +1570,18 @@ uint32_t McLeaseSetReply::read(Protocol_* iprot) {
       case 2:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -1270,7 +1608,11 @@ uint32_t McLeaseSetReply::serializedSize(Protocol_* prot_) const {
   xfer += prot_->serializedSizeI16(this->result);
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -1284,7 +1626,11 @@ uint32_t McLeaseSetReply::serializedSizeZC(Protocol_* prot_) const {
   xfer += prot_->serializedSizeI16(this->result);
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -1299,7 +1645,12 @@ uint32_t McLeaseSetReply::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldEnd();
   if (this->__isset.message) {
     xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -1487,6 +1838,10 @@ uint32_t McAddReply::read(Protocol_* iprot) {
         fid = 2;
         ftype = apache::thrift::protocol::T_STRING;
       }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 3;
+        ftype = apache::thrift::protocol::T_I16;
+      }
     }
     switch (fid) {
       case 1:
@@ -1502,8 +1857,18 @@ uint32_t McAddReply::read(Protocol_* iprot) {
       case 2:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -1530,7 +1895,11 @@ uint32_t McAddReply::serializedSize(Protocol_* prot_) const {
   xfer += prot_->serializedSizeI16(this->result);
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -1544,7 +1913,11 @@ uint32_t McAddReply::serializedSizeZC(Protocol_* prot_) const {
   xfer += prot_->serializedSizeI16(this->result);
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -1559,7 +1932,12 @@ uint32_t McAddReply::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldEnd();
   if (this->__isset.message) {
     xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -1747,6 +2125,10 @@ uint32_t McReplaceReply::read(Protocol_* iprot) {
         fid = 2;
         ftype = apache::thrift::protocol::T_STRING;
       }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 3;
+        ftype = apache::thrift::protocol::T_I16;
+      }
     }
     switch (fid) {
       case 1:
@@ -1762,8 +2144,18 @@ uint32_t McReplaceReply::read(Protocol_* iprot) {
       case 2:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -1790,7 +2182,11 @@ uint32_t McReplaceReply::serializedSize(Protocol_* prot_) const {
   xfer += prot_->serializedSizeI16(this->result);
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -1804,7 +2200,11 @@ uint32_t McReplaceReply::serializedSizeZC(Protocol_* prot_) const {
   xfer += prot_->serializedSizeI16(this->result);
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -1819,7 +2219,12 @@ uint32_t McReplaceReply::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldEnd();
   if (this->__isset.message) {
     xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -1956,6 +2361,10 @@ uint32_t McGetsReply::read(Protocol_* iprot) {
         fid = 5;
         ftype = apache::thrift::protocol::T_STRING;
       }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 6;
+        ftype = apache::thrift::protocol::T_I16;
+      }
     }
     switch (fid) {
       case 1:
@@ -2001,8 +2410,18 @@ uint32_t McGetsReply::read(Protocol_* iprot) {
       case 5:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 6:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -2041,7 +2460,11 @@ uint32_t McGetsReply::serializedSize(Protocol_* prot_) const {
   }
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 5);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 6);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -2067,7 +2490,11 @@ uint32_t McGetsReply::serializedSizeZC(Protocol_* prot_) const {
   }
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 5);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 6);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -2097,7 +2524,12 @@ uint32_t McGetsReply::write(Protocol_* prot_) const {
   }
   if (this->__isset.message) {
     xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 5);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 6);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -2306,6 +2738,10 @@ uint32_t McCasReply::read(Protocol_* iprot) {
         fid = 2;
         ftype = apache::thrift::protocol::T_STRING;
       }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 3;
+        ftype = apache::thrift::protocol::T_I16;
+      }
     }
     switch (fid) {
       case 1:
@@ -2321,8 +2757,18 @@ uint32_t McCasReply::read(Protocol_* iprot) {
       case 2:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -2349,7 +2795,11 @@ uint32_t McCasReply::serializedSize(Protocol_* prot_) const {
   xfer += prot_->serializedSizeI16(this->result);
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -2363,7 +2813,11 @@ uint32_t McCasReply::serializedSizeZC(Protocol_* prot_) const {
   xfer += prot_->serializedSizeI16(this->result);
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -2378,7 +2832,12 @@ uint32_t McCasReply::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldEnd();
   if (this->__isset.message) {
     xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -2528,6 +2987,10 @@ uint32_t McIncrReply::read(Protocol_* iprot) {
         fid = 3;
         ftype = apache::thrift::protocol::T_STRING;
       }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 4;
+        ftype = apache::thrift::protocol::T_I16;
+      }
     }
     switch (fid) {
       case 1:
@@ -2553,8 +3016,18 @@ uint32_t McIncrReply::read(Protocol_* iprot) {
       case 3:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 4:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -2585,7 +3058,11 @@ uint32_t McIncrReply::serializedSize(Protocol_* prot_) const {
   }
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 3);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 4);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -2603,7 +3080,11 @@ uint32_t McIncrReply::serializedSizeZC(Protocol_* prot_) const {
   }
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 3);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 4);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -2623,7 +3104,12 @@ uint32_t McIncrReply::write(Protocol_* prot_) const {
   }
   if (this->__isset.message) {
     xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 3);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 4);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -2773,6 +3259,10 @@ uint32_t McDecrReply::read(Protocol_* iprot) {
         fid = 3;
         ftype = apache::thrift::protocol::T_STRING;
       }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 4;
+        ftype = apache::thrift::protocol::T_I16;
+      }
     }
     switch (fid) {
       case 1:
@@ -2798,8 +3288,18 @@ uint32_t McDecrReply::read(Protocol_* iprot) {
       case 3:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 4:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -2830,7 +3330,11 @@ uint32_t McDecrReply::serializedSize(Protocol_* prot_) const {
   }
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 3);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 4);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -2848,7 +3352,11 @@ uint32_t McDecrReply::serializedSizeZC(Protocol_* prot_) const {
   }
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 3);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 4);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -2868,7 +3376,12 @@ uint32_t McDecrReply::write(Protocol_* prot_) const {
   }
   if (this->__isset.message) {
     xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 3);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 4);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -2997,21 +3510,21 @@ uint32_t McMetagetReply::read(Protocol_* iprot) {
         fid = 3;
         ftype = apache::thrift::protocol::T_I32;
       }
-      else if (fname == "isTransient") {
-        fid = 4;
-        ftype = apache::thrift::protocol::T_BOOL;
-      }
       else if (fname == "ipv") {
-        fid = 5;
+        fid = 4;
         ftype = apache::thrift::protocol::T_I16;
       }
       else if (fname == "ipAddress") {
-        fid = 6;
+        fid = 5;
         ftype = apache::thrift::protocol::T_STRING;
       }
       else if (fname == "message") {
-        fid = 7;
+        fid = 6;
         ftype = apache::thrift::protocol::T_STRING;
+      }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 7;
+        ftype = apache::thrift::protocol::T_I16;
       }
     }
     switch (fid) {
@@ -3047,16 +3560,6 @@ uint32_t McMetagetReply::read(Protocol_* iprot) {
       }
       case 4:
       {
-        if (ftype == apache::thrift::protocol::T_BOOL) {
-          xfer += iprot->readBool(this->isTransient);
-          this->__isset.isTransient = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      }
-      case 5:
-      {
         if (ftype == apache::thrift::protocol::T_I16) {
           xfer += iprot->readI16(this->ipv);
           this->__isset.ipv = true;
@@ -3065,7 +3568,7 @@ uint32_t McMetagetReply::read(Protocol_* iprot) {
         }
         break;
       }
-      case 6:
+      case 5:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->ipAddress);
@@ -3075,11 +3578,21 @@ uint32_t McMetagetReply::read(Protocol_* iprot) {
         }
         break;
       }
-      case 7:
+      case 6:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 7:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -3112,21 +3625,21 @@ uint32_t McMetagetReply::serializedSize(Protocol_* prot_) const {
     xfer += prot_->serializedFieldSize("exptime", apache::thrift::protocol::T_I32, 3);
     xfer += prot_->serializedSizeI32(this->exptime);
   }
-  if (this->__isset.isTransient) {
-    xfer += prot_->serializedFieldSize("isTransient", apache::thrift::protocol::T_BOOL, 4);
-    xfer += prot_->serializedSizeBool(this->isTransient);
-  }
   if (this->__isset.ipv) {
-    xfer += prot_->serializedFieldSize("ipv", apache::thrift::protocol::T_I16, 5);
+    xfer += prot_->serializedFieldSize("ipv", apache::thrift::protocol::T_I16, 4);
     xfer += prot_->serializedSizeI16(this->ipv);
   }
   if (this->__isset.ipAddress) {
-    xfer += prot_->serializedFieldSize("ipAddress", apache::thrift::protocol::T_STRING, 6);
+    xfer += prot_->serializedFieldSize("ipAddress", apache::thrift::protocol::T_STRING, 5);
     xfer += prot_->serializedSizeString(this->ipAddress);
   }
   if (this->__isset.message) {
-    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 7);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 6);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 7);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -3146,21 +3659,21 @@ uint32_t McMetagetReply::serializedSizeZC(Protocol_* prot_) const {
     xfer += prot_->serializedFieldSize("exptime", apache::thrift::protocol::T_I32, 3);
     xfer += prot_->serializedSizeI32(this->exptime);
   }
-  if (this->__isset.isTransient) {
-    xfer += prot_->serializedFieldSize("isTransient", apache::thrift::protocol::T_BOOL, 4);
-    xfer += prot_->serializedSizeBool(this->isTransient);
-  }
   if (this->__isset.ipv) {
-    xfer += prot_->serializedFieldSize("ipv", apache::thrift::protocol::T_I16, 5);
+    xfer += prot_->serializedFieldSize("ipv", apache::thrift::protocol::T_I16, 4);
     xfer += prot_->serializedSizeI16(this->ipv);
   }
   if (this->__isset.ipAddress) {
-    xfer += prot_->serializedFieldSize("ipAddress", apache::thrift::protocol::T_STRING, 6);
+    xfer += prot_->serializedFieldSize("ipAddress", apache::thrift::protocol::T_STRING, 5);
     xfer += prot_->serializedSizeString(this->ipAddress);
   }
   if (this->__isset.message) {
-    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 7);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 6);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 7);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -3183,24 +3696,24 @@ uint32_t McMetagetReply::write(Protocol_* prot_) const {
     xfer += prot_->writeI32(this->exptime);
     xfer += prot_->writeFieldEnd();
   }
-  if (this->__isset.isTransient) {
-    xfer += prot_->writeFieldBegin("isTransient", apache::thrift::protocol::T_BOOL, 4);
-    xfer += prot_->writeBool(this->isTransient);
-    xfer += prot_->writeFieldEnd();
-  }
   if (this->__isset.ipv) {
-    xfer += prot_->writeFieldBegin("ipv", apache::thrift::protocol::T_I16, 5);
+    xfer += prot_->writeFieldBegin("ipv", apache::thrift::protocol::T_I16, 4);
     xfer += prot_->writeI16(this->ipv);
     xfer += prot_->writeFieldEnd();
   }
   if (this->__isset.ipAddress) {
-    xfer += prot_->writeFieldBegin("ipAddress", apache::thrift::protocol::T_STRING, 6);
+    xfer += prot_->writeFieldBegin("ipAddress", apache::thrift::protocol::T_STRING, 5);
     xfer += prot_->writeString(this->ipAddress);
     xfer += prot_->writeFieldEnd();
   }
   if (this->__isset.message) {
-    xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 7);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 6);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 7);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -3231,8 +3744,23 @@ uint32_t McVersionRequest::read(Protocol_* iprot) {
     if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
-    if (fid == std::numeric_limits<int16_t>::min()) {}
+    if (fid == std::numeric_limits<int16_t>::min()) {
+      if (fname == "key") {
+        fid = 1;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+    }
     switch (fid) {
+      case 1:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readBinary(this->key);
+          this->__isset.key = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
       default:
       {
         xfer += iprot->skip(ftype);
@@ -3250,6 +3778,8 @@ template <class Protocol_>
 uint32_t McVersionRequest::serializedSize(Protocol_* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McVersionRequest");
+  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedSizeBinary(this->key);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -3258,6 +3788,8 @@ template <class Protocol_>
 uint32_t McVersionRequest::serializedSizeZC(Protocol_* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McVersionRequest");
+  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedSizeZCBinary(this->key);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -3266,6 +3798,9 @@ template <class Protocol_>
 uint32_t McVersionRequest::write(Protocol_* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->writeStructBegin("McVersionRequest");
+  xfer += prot_->writeFieldBegin("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->writeBinary(this->key);
+  xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();
   return xfer;
@@ -3299,13 +3834,17 @@ uint32_t McVersionReply::read(Protocol_* iprot) {
         fid = 1;
         ftype = apache::thrift::protocol::T_I16;
       }
-      else if (fname == "version") {
+      else if (fname == "value") {
         fid = 2;
         ftype = apache::thrift::protocol::T_STRING;
       }
       else if (fname == "message") {
         fid = 3;
         ftype = apache::thrift::protocol::T_STRING;
+      }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 4;
+        ftype = apache::thrift::protocol::T_I16;
       }
     }
     switch (fid) {
@@ -3322,8 +3861,8 @@ uint32_t McVersionReply::read(Protocol_* iprot) {
       case 2:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->version);
-          this->__isset.version = true;
+          xfer += iprot->readBinary(this->value);
+          this->__isset.value = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -3332,8 +3871,18 @@ uint32_t McVersionReply::read(Protocol_* iprot) {
       case 3:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 4:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -3358,13 +3907,17 @@ uint32_t McVersionReply::serializedSize(Protocol_* prot_) const {
   xfer += prot_->serializedStructSize("McVersionReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
   xfer += prot_->serializedSizeI16(this->result);
-  if (this->__isset.version) {
-    xfer += prot_->serializedFieldSize("version", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeString(this->version);
+  if (this->__isset.value) {
+    xfer += prot_->serializedFieldSize("value", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->serializedSizeBinary(this->value);
   }
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 3);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 4);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -3376,13 +3929,17 @@ uint32_t McVersionReply::serializedSizeZC(Protocol_* prot_) const {
   xfer += prot_->serializedStructSize("McVersionReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
   xfer += prot_->serializedSizeI16(this->result);
-  if (this->__isset.version) {
-    xfer += prot_->serializedFieldSize("version", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeString(this->version);
+  if (this->__isset.value) {
+    xfer += prot_->serializedFieldSize("value", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->serializedSizeZCBinary(this->value);
   }
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 3);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 4);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -3395,14 +3952,19 @@ uint32_t McVersionReply::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldBegin("result", apache::thrift::protocol::T_I16, 1);
   xfer += prot_->writeI16(this->result);
   xfer += prot_->writeFieldEnd();
-  if (this->__isset.version) {
-    xfer += prot_->writeFieldBegin("version", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->writeString(this->version);
+  if (this->__isset.value) {
+    xfer += prot_->writeFieldBegin("value", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->writeBinary(this->value);
     xfer += prot_->writeFieldEnd();
   }
   if (this->__isset.message) {
     xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 3);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 4);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -3590,6 +4152,10 @@ uint32_t McAppendReply::read(Protocol_* iprot) {
         fid = 2;
         ftype = apache::thrift::protocol::T_STRING;
       }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 3;
+        ftype = apache::thrift::protocol::T_I16;
+      }
     }
     switch (fid) {
       case 1:
@@ -3605,8 +4171,18 @@ uint32_t McAppendReply::read(Protocol_* iprot) {
       case 2:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -3633,7 +4209,11 @@ uint32_t McAppendReply::serializedSize(Protocol_* prot_) const {
   xfer += prot_->serializedSizeI16(this->result);
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -3647,7 +4227,11 @@ uint32_t McAppendReply::serializedSizeZC(Protocol_* prot_) const {
   xfer += prot_->serializedSizeI16(this->result);
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -3662,7 +4246,12 @@ uint32_t McAppendReply::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldEnd();
   if (this->__isset.message) {
     xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -3850,6 +4439,10 @@ uint32_t McPrependReply::read(Protocol_* iprot) {
         fid = 2;
         ftype = apache::thrift::protocol::T_STRING;
       }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 3;
+        ftype = apache::thrift::protocol::T_I16;
+      }
     }
     switch (fid) {
       case 1:
@@ -3865,8 +4458,18 @@ uint32_t McPrependReply::read(Protocol_* iprot) {
       case 2:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -3893,7 +4496,11 @@ uint32_t McPrependReply::serializedSize(Protocol_* prot_) const {
   xfer += prot_->serializedSizeI16(this->result);
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -3907,7 +4514,11 @@ uint32_t McPrependReply::serializedSizeZC(Protocol_* prot_) const {
   xfer += prot_->serializedSizeI16(this->result);
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -3922,7 +4533,12 @@ uint32_t McPrependReply::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldEnd();
   if (this->__isset.message) {
     xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -4003,10 +4619,8 @@ uint32_t McTouchRequest::serializedSize(Protocol_* prot_) const {
   xfer += prot_->serializedStructSize("McTouchRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
   xfer += prot_->serializedSizeBinary(this->key);
-  if (this->__isset.exptime) {
-    xfer += prot_->serializedFieldSize("exptime", apache::thrift::protocol::T_I32, 2);
-    xfer += prot_->serializedSizeI32(this->exptime);
-  }
+  xfer += prot_->serializedFieldSize("exptime", apache::thrift::protocol::T_I32, 2);
+  xfer += prot_->serializedSizeI32(this->exptime);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -4017,10 +4631,8 @@ uint32_t McTouchRequest::serializedSizeZC(Protocol_* prot_) const {
   xfer += prot_->serializedStructSize("McTouchRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
   xfer += prot_->serializedSizeZCBinary(this->key);
-  if (this->__isset.exptime) {
-    xfer += prot_->serializedFieldSize("exptime", apache::thrift::protocol::T_I32, 2);
-    xfer += prot_->serializedSizeI32(this->exptime);
-  }
+  xfer += prot_->serializedFieldSize("exptime", apache::thrift::protocol::T_I32, 2);
+  xfer += prot_->serializedSizeI32(this->exptime);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -4032,11 +4644,9 @@ uint32_t McTouchRequest::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldBegin("key", apache::thrift::protocol::T_STRING, 1);
   xfer += prot_->writeBinary(this->key);
   xfer += prot_->writeFieldEnd();
-  if (this->__isset.exptime) {
-    xfer += prot_->writeFieldBegin("exptime", apache::thrift::protocol::T_I32, 2);
-    xfer += prot_->writeI32(this->exptime);
-    xfer += prot_->writeFieldEnd();
-  }
+  xfer += prot_->writeFieldBegin("exptime", apache::thrift::protocol::T_I32, 2);
+  xfer += prot_->writeI32(this->exptime);
+  xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();
   return xfer;
@@ -4074,6 +4684,10 @@ uint32_t McTouchReply::read(Protocol_* iprot) {
         fid = 2;
         ftype = apache::thrift::protocol::T_STRING;
       }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 3;
+        ftype = apache::thrift::protocol::T_I16;
+      }
     }
     switch (fid) {
       case 1:
@@ -4089,8 +4703,18 @@ uint32_t McTouchReply::read(Protocol_* iprot) {
       case 2:
       {
         if (ftype == apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readBinary(this->message);
+          xfer += iprot->readString(this->message);
           this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -4117,7 +4741,11 @@ uint32_t McTouchReply::serializedSize(Protocol_* prot_) const {
   xfer += prot_->serializedSizeI16(this->result);
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -4131,7 +4759,11 @@ uint32_t McTouchReply::serializedSizeZC(Protocol_* prot_) const {
   xfer += prot_->serializedSizeI16(this->result);
   if (this->__isset.message) {
     xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->serializedSizeZCBinary(this->message);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -4146,7 +4778,1473 @@ uint32_t McTouchReply::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldEnd();
   if (this->__isset.message) {
     xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 2);
-    xfer += prot_->writeBinary(this->message);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
+    xfer += prot_->writeFieldEnd();
+  }
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template <class Protocol_>
+uint32_t McStatsRequest::read(Protocol_* iprot) {
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::TProtocolException;
+
+
+  while (true) {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    if (fid == std::numeric_limits<int16_t>::min()) {
+      if (fname == "key") {
+        fid = 1;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+    }
+    switch (fid) {
+      case 1:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readBinary(this->key);
+          this->__isset.key = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      default:
+      {
+        xfer += iprot->skip(ftype);
+        break;
+      }
+    }
+    xfer += iprot->readFieldEnd();
+  }
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McStatsRequest::serializedSize(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McStatsRequest");
+  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedSizeBinary(this->key);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McStatsRequest::serializedSizeZC(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McStatsRequest");
+  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedSizeZCBinary(this->key);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McStatsRequest::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("McStatsRequest");
+  xfer += prot_->writeFieldBegin("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->writeBinary(this->key);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template <typename T_McStatsReply_stats_struct_setter>
+std::vector<std::string>& McStatsReply::set_stats(T_McStatsReply_stats_struct_setter&& stats_) {
+  stats = std::forward<T_McStatsReply_stats_struct_setter>(stats_);
+  __isset.stats = true;
+  return stats;
+}
+
+template <class Protocol_>
+uint32_t McStatsReply::read(Protocol_* iprot) {
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::TProtocolException;
+
+
+  while (true) {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    if (fid == std::numeric_limits<int16_t>::min()) {
+      if (fname == "result") {
+        fid = 1;
+        ftype = apache::thrift::protocol::T_I16;
+      }
+      else if (fname == "message") {
+        fid = 2;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+      else if (fname == "stats") {
+        fid = 3;
+        ftype = apache::thrift::protocol::T_LIST;
+      }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 4;
+        ftype = apache::thrift::protocol::T_I16;
+      }
+    }
+    switch (fid) {
+      case 1:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->result);
+          this->__isset.result = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 2:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->message);
+          this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
+        if (ftype == apache::thrift::protocol::T_LIST) {
+          this->stats = std::vector<std::string>();
+          uint32_t _size0;
+          apache::thrift::protocol::TType _etype3;
+          xfer += iprot->readListBegin(_etype3, _size0);
+          uint32_t _i4;
+          if (_size0 == std::numeric_limits<uint32_t>::max()) {
+            for (_i4 = 0; iprot->peekList(); _i4++) {
+              this->stats.resize(_i4 + 1);
+              xfer += iprot->readString(this->stats[_i4]);
+            }
+          }
+          else {
+            this->stats.resize(_size0);
+            for (_i4 = 0; _i4 < _size0; ++_i4) {
+              xfer += iprot->readString(this->stats[_i4]);
+            }
+          }
+          xfer += iprot->readListEnd();
+          this->__isset.stats = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 4:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      default:
+      {
+        xfer += iprot->skip(ftype);
+        break;
+      }
+    }
+    xfer += iprot->readFieldEnd();
+  }
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McStatsReply::serializedSize(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McStatsReply");
+  xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.message) {
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.stats) {
+    xfer += prot_->serializedFieldSize("stats", apache::thrift::protocol::T_LIST, 3);
+    xfer += prot_->serializedSizeListBegin(apache::thrift::protocol::T_STRING, this->stats.size());
+    for (auto _iter5 = this->stats.begin(); _iter5 != this->stats.end(); ++_iter5) {
+      xfer += prot_->serializedSizeString((*_iter5));
+    }
+    xfer += prot_->serializedSizeListEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 4);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McStatsReply::serializedSizeZC(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McStatsReply");
+  xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.message) {
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.stats) {
+    xfer += prot_->serializedFieldSize("stats", apache::thrift::protocol::T_LIST, 3);
+    xfer += prot_->serializedSizeListBegin(apache::thrift::protocol::T_STRING, this->stats.size());
+    for (auto _iter6 = this->stats.begin(); _iter6 != this->stats.end(); ++_iter6) {
+      xfer += prot_->serializedSizeString((*_iter6));
+    }
+    xfer += prot_->serializedSizeListEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 4);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McStatsReply::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("McStatsReply");
+  xfer += prot_->writeFieldBegin("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->writeI16(this->result);
+  xfer += prot_->writeFieldEnd();
+  if (this->__isset.message) {
+    xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.stats) {
+    xfer += prot_->writeFieldBegin("stats", apache::thrift::protocol::T_LIST, 3);
+    xfer += prot_->writeListBegin(apache::thrift::protocol::T_STRING, this->stats.size());
+    for (auto _iter7 = this->stats.begin(); _iter7 != this->stats.end(); ++_iter7) {
+      xfer += prot_->writeString((*_iter7));
+    }
+    xfer += prot_->writeListEnd();
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 4);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
+    xfer += prot_->writeFieldEnd();
+  }
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template <class Protocol_>
+uint32_t McShutdownRequest::read(Protocol_* iprot) {
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::TProtocolException;
+
+
+  while (true) {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    if (fid == std::numeric_limits<int16_t>::min()) {
+      if (fname == "key") {
+        fid = 1;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+    }
+    switch (fid) {
+      case 1:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readBinary(this->key);
+          this->__isset.key = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      default:
+      {
+        xfer += iprot->skip(ftype);
+        break;
+      }
+    }
+    xfer += iprot->readFieldEnd();
+  }
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McShutdownRequest::serializedSize(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McShutdownRequest");
+  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedSizeBinary(this->key);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McShutdownRequest::serializedSizeZC(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McShutdownRequest");
+  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedSizeZCBinary(this->key);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McShutdownRequest::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("McShutdownRequest");
+  xfer += prot_->writeFieldBegin("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->writeBinary(this->key);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template <class Protocol_>
+uint32_t McShutdownReply::read(Protocol_* iprot) {
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::TProtocolException;
+
+
+  while (true) {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    if (fid == std::numeric_limits<int16_t>::min()) {
+      if (fname == "result") {
+        fid = 1;
+        ftype = apache::thrift::protocol::T_I16;
+      }
+      else if (fname == "message") {
+        fid = 2;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 3;
+        ftype = apache::thrift::protocol::T_I16;
+      }
+    }
+    switch (fid) {
+      case 1:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->result);
+          this->__isset.result = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 2:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->message);
+          this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      default:
+      {
+        xfer += iprot->skip(ftype);
+        break;
+      }
+    }
+    xfer += iprot->readFieldEnd();
+  }
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McShutdownReply::serializedSize(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McShutdownReply");
+  xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.message) {
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McShutdownReply::serializedSizeZC(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McShutdownReply");
+  xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.message) {
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McShutdownReply::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("McShutdownReply");
+  xfer += prot_->writeFieldBegin("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->writeI16(this->result);
+  xfer += prot_->writeFieldEnd();
+  if (this->__isset.message) {
+    xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
+    xfer += prot_->writeFieldEnd();
+  }
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template <class Protocol_>
+uint32_t McQuitRequest::read(Protocol_* iprot) {
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::TProtocolException;
+
+
+  while (true) {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    if (fid == std::numeric_limits<int16_t>::min()) {
+      if (fname == "key") {
+        fid = 1;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+    }
+    switch (fid) {
+      case 1:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readBinary(this->key);
+          this->__isset.key = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      default:
+      {
+        xfer += iprot->skip(ftype);
+        break;
+      }
+    }
+    xfer += iprot->readFieldEnd();
+  }
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McQuitRequest::serializedSize(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McQuitRequest");
+  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedSizeBinary(this->key);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McQuitRequest::serializedSizeZC(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McQuitRequest");
+  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedSizeZCBinary(this->key);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McQuitRequest::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("McQuitRequest");
+  xfer += prot_->writeFieldBegin("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->writeBinary(this->key);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template <class Protocol_>
+uint32_t McQuitReply::read(Protocol_* iprot) {
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::TProtocolException;
+
+
+  while (true) {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    if (fid == std::numeric_limits<int16_t>::min()) {
+      if (fname == "result") {
+        fid = 1;
+        ftype = apache::thrift::protocol::T_I16;
+      }
+      else if (fname == "message") {
+        fid = 2;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 3;
+        ftype = apache::thrift::protocol::T_I16;
+      }
+    }
+    switch (fid) {
+      case 1:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->result);
+          this->__isset.result = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 2:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->message);
+          this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      default:
+      {
+        xfer += iprot->skip(ftype);
+        break;
+      }
+    }
+    xfer += iprot->readFieldEnd();
+  }
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McQuitReply::serializedSize(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McQuitReply");
+  xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.message) {
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McQuitReply::serializedSizeZC(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McQuitReply");
+  xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.message) {
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McQuitReply::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("McQuitReply");
+  xfer += prot_->writeFieldBegin("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->writeI16(this->result);
+  xfer += prot_->writeFieldEnd();
+  if (this->__isset.message) {
+    xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
+    xfer += prot_->writeFieldEnd();
+  }
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template <class Protocol_>
+uint32_t McExecRequest::read(Protocol_* iprot) {
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::TProtocolException;
+
+
+  while (true) {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    if (fid == std::numeric_limits<int16_t>::min()) {
+      if (fname == "key") {
+        fid = 1;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+    }
+    switch (fid) {
+      case 1:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readBinary(this->key);
+          this->__isset.key = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      default:
+      {
+        xfer += iprot->skip(ftype);
+        break;
+      }
+    }
+    xfer += iprot->readFieldEnd();
+  }
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McExecRequest::serializedSize(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McExecRequest");
+  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedSizeBinary(this->key);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McExecRequest::serializedSizeZC(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McExecRequest");
+  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedSizeZCBinary(this->key);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McExecRequest::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("McExecRequest");
+  xfer += prot_->writeFieldBegin("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->writeBinary(this->key);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template <class Protocol_>
+uint32_t McExecReply::read(Protocol_* iprot) {
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::TProtocolException;
+
+
+  while (true) {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    if (fid == std::numeric_limits<int16_t>::min()) {
+      if (fname == "result") {
+        fid = 1;
+        ftype = apache::thrift::protocol::T_I16;
+      }
+      else if (fname == "response") {
+        fid = 2;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+      else if (fname == "message") {
+        fid = 3;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 4;
+        ftype = apache::thrift::protocol::T_I16;
+      }
+    }
+    switch (fid) {
+      case 1:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->result);
+          this->__isset.result = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 2:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->response);
+          this->__isset.response = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->message);
+          this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 4:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      default:
+      {
+        xfer += iprot->skip(ftype);
+        break;
+      }
+    }
+    xfer += iprot->readFieldEnd();
+  }
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McExecReply::serializedSize(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McExecReply");
+  xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.response) {
+    xfer += prot_->serializedFieldSize("response", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->serializedSizeString(this->response);
+  }
+  if (this->__isset.message) {
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 3);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 4);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McExecReply::serializedSizeZC(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McExecReply");
+  xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.response) {
+    xfer += prot_->serializedFieldSize("response", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->serializedSizeString(this->response);
+  }
+  if (this->__isset.message) {
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 3);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 4);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McExecReply::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("McExecReply");
+  xfer += prot_->writeFieldBegin("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->writeI16(this->result);
+  xfer += prot_->writeFieldEnd();
+  if (this->__isset.response) {
+    xfer += prot_->writeFieldBegin("response", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->writeString(this->response);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.message) {
+    xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 3);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 4);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
+    xfer += prot_->writeFieldEnd();
+  }
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template <class Protocol_>
+uint32_t McFlushReRequest::read(Protocol_* iprot) {
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::TProtocolException;
+
+
+  while (true) {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    if (fid == std::numeric_limits<int16_t>::min()) {
+      if (fname == "key") {
+        fid = 1;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+    }
+    switch (fid) {
+      case 1:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readBinary(this->key);
+          this->__isset.key = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      default:
+      {
+        xfer += iprot->skip(ftype);
+        break;
+      }
+    }
+    xfer += iprot->readFieldEnd();
+  }
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McFlushReRequest::serializedSize(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McFlushReRequest");
+  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedSizeBinary(this->key);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McFlushReRequest::serializedSizeZC(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McFlushReRequest");
+  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedSizeZCBinary(this->key);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McFlushReRequest::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("McFlushReRequest");
+  xfer += prot_->writeFieldBegin("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->writeBinary(this->key);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template <class Protocol_>
+uint32_t McFlushReReply::read(Protocol_* iprot) {
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::TProtocolException;
+
+
+  while (true) {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    if (fid == std::numeric_limits<int16_t>::min()) {
+      if (fname == "result") {
+        fid = 1;
+        ftype = apache::thrift::protocol::T_I16;
+      }
+      else if (fname == "message") {
+        fid = 2;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 3;
+        ftype = apache::thrift::protocol::T_I16;
+      }
+    }
+    switch (fid) {
+      case 1:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->result);
+          this->__isset.result = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 2:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->message);
+          this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      default:
+      {
+        xfer += iprot->skip(ftype);
+        break;
+      }
+    }
+    xfer += iprot->readFieldEnd();
+  }
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McFlushReReply::serializedSize(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McFlushReReply");
+  xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.message) {
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McFlushReReply::serializedSizeZC(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McFlushReReply");
+  xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.message) {
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McFlushReReply::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("McFlushReReply");
+  xfer += prot_->writeFieldBegin("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->writeI16(this->result);
+  xfer += prot_->writeFieldEnd();
+  if (this->__isset.message) {
+    xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
+    xfer += prot_->writeFieldEnd();
+  }
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template <class Protocol_>
+uint32_t McFlushAllRequest::read(Protocol_* iprot) {
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::TProtocolException;
+
+
+  while (true) {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    if (fid == std::numeric_limits<int16_t>::min()) {
+      if (fname == "key") {
+        fid = 1;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+      else if (fname == "delay") {
+        fid = 2;
+        ftype = apache::thrift::protocol::T_I32;
+      }
+    }
+    switch (fid) {
+      case 1:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readBinary(this->key);
+          this->__isset.key = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 2:
+      {
+        if (ftype == apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->delay);
+          this->__isset.delay = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      default:
+      {
+        xfer += iprot->skip(ftype);
+        break;
+      }
+    }
+    xfer += iprot->readFieldEnd();
+  }
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McFlushAllRequest::serializedSize(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McFlushAllRequest");
+  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedSizeBinary(this->key);
+  if (this->__isset.delay) {
+    xfer += prot_->serializedFieldSize("delay", apache::thrift::protocol::T_I32, 2);
+    xfer += prot_->serializedSizeI32(this->delay);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McFlushAllRequest::serializedSizeZC(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McFlushAllRequest");
+  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedSizeZCBinary(this->key);
+  if (this->__isset.delay) {
+    xfer += prot_->serializedFieldSize("delay", apache::thrift::protocol::T_I32, 2);
+    xfer += prot_->serializedSizeI32(this->delay);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McFlushAllRequest::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("McFlushAllRequest");
+  xfer += prot_->writeFieldBegin("key", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->writeBinary(this->key);
+  xfer += prot_->writeFieldEnd();
+  if (this->__isset.delay) {
+    xfer += prot_->writeFieldBegin("delay", apache::thrift::protocol::T_I32, 2);
+    xfer += prot_->writeI32(this->delay);
+    xfer += prot_->writeFieldEnd();
+  }
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template <class Protocol_>
+uint32_t McFlushAllReply::read(Protocol_* iprot) {
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::TProtocolException;
+
+
+  while (true) {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    if (fid == std::numeric_limits<int16_t>::min()) {
+      if (fname == "result") {
+        fid = 1;
+        ftype = apache::thrift::protocol::T_I16;
+      }
+      else if (fname == "message") {
+        fid = 2;
+        ftype = apache::thrift::protocol::T_STRING;
+      }
+      else if (fname == "appSpecificErrorCode") {
+        fid = 3;
+        ftype = apache::thrift::protocol::T_I16;
+      }
+    }
+    switch (fid) {
+      case 1:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->result);
+          this->__isset.result = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 2:
+      {
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->message);
+          this->__isset.message = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      case 3:
+      {
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->appSpecificErrorCode);
+          this->__isset.appSpecificErrorCode = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      }
+      default:
+      {
+        xfer += iprot->skip(ftype);
+        break;
+      }
+    }
+    xfer += iprot->readFieldEnd();
+  }
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McFlushAllReply::serializedSize(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McFlushAllReply");
+  xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.message) {
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McFlushAllReply::serializedSizeZC(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("McFlushAllReply");
+  xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->serializedSizeI16(this->result);
+  if (this->__isset.message) {
+    xfer += prot_->serializedFieldSize("message", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->serializedSizeString(this->message);
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->serializedFieldSize("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->serializedSizeI16(this->appSpecificErrorCode);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t McFlushAllReply::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("McFlushAllReply");
+  xfer += prot_->writeFieldBegin("result", apache::thrift::protocol::T_I16, 1);
+  xfer += prot_->writeI16(this->result);
+  xfer += prot_->writeFieldEnd();
+  if (this->__isset.message) {
+    xfer += prot_->writeFieldBegin("message", apache::thrift::protocol::T_STRING, 2);
+    xfer += prot_->writeString(this->message);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->__isset.appSpecificErrorCode) {
+    xfer += prot_->writeFieldBegin("appSpecificErrorCode", apache::thrift::protocol::T_I16, 3);
+    xfer += prot_->writeI16(this->appSpecificErrorCode);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();

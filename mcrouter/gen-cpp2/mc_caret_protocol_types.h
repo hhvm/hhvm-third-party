@@ -50,16 +50,57 @@ class McPrependRequest;
 class McPrependReply;
 class McTouchRequest;
 class McTouchReply;
+class McStatsRequest;
+class McStatsReply;
+class McShutdownRequest;
+class McShutdownReply;
+class McQuitRequest;
+class McQuitReply;
+class McExecRequest;
+class McExecReply;
+class McFlushReRequest;
+class McFlushReReply;
+class McFlushAllRequest;
+class McFlushAllReply;
 typedef folly::IOBuf IOBuf;
 
 class McGetRequest : private boost::totally_ordered<McGetRequest> {
  public:
 
-  McGetRequest() {}
+  McGetRequest() :
+      flags(0),
+      exptime(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McGetRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg) :
-      key(std::move(key__arg)) {}
+  McGetRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg, int64_t flags__arg, int32_t exptime__arg) :
+      key(std::move(key__arg)),
+      flags(std::move(flags__arg)),
+      exptime(std::move(exptime__arg)) {
+    __isset.key = true;
+    __isset.flags = true;
+    __isset.exptime = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McGetRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McGetRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McGetRequest(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McGetRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    flags = arg.move();
+    __isset.flags = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McGetRequest(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McGetRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    exptime = arg.move();
+    __isset.exptime = true;
+  }
 
   McGetRequest(McGetRequest&&) = default;
 
@@ -73,20 +114,67 @@ class McGetRequest : private boost::totally_ordered<McGetRequest> {
   virtual ~McGetRequest() throw() {}
 
    ::facebook::memcache::cpp2::IOBuf key;
+  int64_t flags;
+  int32_t exptime;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       key = false;
+      flags = false;
+      exptime = false;
     }
 
-    bool key;
+    bool key = false;
+    bool flags = false;
+    bool exptime = false;
   } __isset;
   bool operator==(const McGetRequest& rhs) const;
   bool operator < (const McGetRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McGetRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McGetRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McGetRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  const int64_t* get_flags() const& {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+
+  int64_t* get_flags() & {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+  int64_t* get_flags() && = delete;
+
+  int64_t& set_flags(int64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
+  }
+
+  const int32_t* get_exptime() const& {
+    return __isset.exptime ? std::addressof(exptime) : nullptr;
+  }
+
+  int32_t* get_exptime() & {
+    return __isset.exptime ? std::addressof(exptime) : nullptr;
+  }
+  int32_t* get_exptime() && = delete;
+
+  int32_t& set_exptime(int32_t exptime_) {
+    exptime = exptime_;
+    __isset.exptime = true;
+    return exptime;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -135,14 +223,57 @@ class McGetReply : private boost::totally_ordered<McGetReply> {
 
   McGetReply() :
       result(0),
-      flags(0) {}
+      flags(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McGetReply(apache::thrift::FragileConstructor, int16_t result__arg,  ::facebook::memcache::cpp2::IOBuf value__arg, int64_t flags__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McGetReply(apache::thrift::FragileConstructor, int16_t result__arg,  ::facebook::memcache::cpp2::IOBuf value__arg, int64_t flags__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
       value(std::move(value__arg)),
       flags(std::move(flags__arg)),
-      message(std::move(message__arg)) {}
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.value = true;
+    __isset.flags = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McGetReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McGetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McGetReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McGetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    value = arg.move();
+    __isset.value = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McGetReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McGetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    flags = arg.move();
+    __isset.flags = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McGetReply(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McGetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McGetReply(::apache::thrift::detail::argument_wrapper<5, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McGetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McGetReply(McGetReply&&) = default;
 
@@ -158,27 +289,98 @@ class McGetReply : private boost::totally_ordered<McGetReply> {
   int16_t result;
    ::facebook::memcache::cpp2::IOBuf value;
   int64_t flags;
-   ::facebook::memcache::cpp2::IOBuf message;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
       value = false;
       flags = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool value;
-    bool flags;
-    bool message;
+    bool result = false;
+    bool value = false;
+    bool flags = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McGetReply& rhs) const;
   bool operator < (const McGetReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const  ::facebook::memcache::cpp2::IOBuf* get_value() const& {
+    return __isset.value ? std::addressof(value) : nullptr;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf* get_value() & {
+    return __isset.value ? std::addressof(value) : nullptr;
+  }
+   ::facebook::memcache::cpp2::IOBuf* get_value() && = delete;
+
+  template <typename T_McGetReply_value_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_value(T_McGetReply_value_struct_setter&& value_) {
+    value = std::forward<T_McGetReply_value_struct_setter>(value_);
+    __isset.value = true;
+    return value;
+  }
+
+  const int64_t* get_flags() const& {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+
+  int64_t* get_flags() & {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+  int64_t* get_flags() && = delete;
+
+  int64_t& set_flags(int64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McGetReply_message_struct_setter>
+  std::string& set_message(T_McGetReply_message_struct_setter&& message_) {
+    message = std::forward<T_McGetReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -234,7 +436,40 @@ class McSetRequest : private boost::totally_ordered<McSetRequest> {
       key(std::move(key__arg)),
       exptime(std::move(exptime__arg)),
       flags(std::move(flags__arg)),
-      value(std::move(value__arg)) {}
+      value(std::move(value__arg)) {
+    __isset.key = true;
+    __isset.exptime = true;
+    __isset.flags = true;
+    __isset.value = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McSetRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McSetRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McSetRequest(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McSetRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    exptime = arg.move();
+    __isset.exptime = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McSetRequest(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McSetRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    flags = arg.move();
+    __isset.flags = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McSetRequest(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McSetRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    value = arg.move();
+    __isset.value = true;
+  }
 
   McSetRequest(McSetRequest&&) = default;
 
@@ -253,10 +488,6 @@ class McSetRequest : private boost::totally_ordered<McSetRequest> {
    ::facebook::memcache::cpp2::IOBuf value;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       key = false;
       exptime = false;
@@ -264,13 +495,63 @@ class McSetRequest : private boost::totally_ordered<McSetRequest> {
       value = false;
     }
 
-    bool key;
-    bool exptime;
-    bool flags;
-    bool value;
+    bool key = false;
+    bool exptime = false;
+    bool flags = false;
+    bool value = false;
   } __isset;
   bool operator==(const McSetRequest& rhs) const;
   bool operator < (const McSetRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McSetRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McSetRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McSetRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  int32_t get_exptime() const {
+    return exptime;
+  }
+
+  int32_t& set_exptime(int32_t exptime_) {
+    exptime = exptime_;
+    __isset.exptime = true;
+    return exptime;
+  }
+
+  int64_t get_flags() const {
+    return flags;
+  }
+
+  int64_t& set_flags(int64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
+  }
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_value() const& {
+    return value;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_value() && {
+    return std::move(value);
+  }
+
+  template <typename T_McSetRequest_value_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_value(T_McSetRequest_value_struct_setter&& value_) {
+    value = std::forward<T_McSetRequest_value_struct_setter>(value_);
+    __isset.value = true;
+    return value;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -318,12 +599,58 @@ class McSetReply : private boost::totally_ordered<McSetReply> {
  public:
 
   McSetReply() :
-      result(0) {}
+      result(0),
+      flags(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McSetReply(apache::thrift::FragileConstructor, int16_t result__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McSetReply(apache::thrift::FragileConstructor, int16_t result__arg, int64_t flags__arg,  ::facebook::memcache::cpp2::IOBuf value__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
-      message(std::move(message__arg)) {}
+      flags(std::move(flags__arg)),
+      value(std::move(value__arg)),
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.flags = true;
+    __isset.value = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McSetReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McSetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McSetReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McSetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    flags = arg.move();
+    __isset.flags = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McSetReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McSetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    value = arg.move();
+    __isset.value = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McSetReply(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McSetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McSetReply(::apache::thrift::detail::argument_wrapper<5, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McSetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McSetReply(McSetReply&&) = default;
 
@@ -337,23 +664,100 @@ class McSetReply : private boost::totally_ordered<McSetReply> {
   virtual ~McSetReply() throw() {}
 
   int16_t result;
-   ::facebook::memcache::cpp2::IOBuf message;
+  int64_t flags;
+   ::facebook::memcache::cpp2::IOBuf value;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
+      flags = false;
+      value = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool message;
+    bool result = false;
+    bool flags = false;
+    bool value = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McSetReply& rhs) const;
   bool operator < (const McSetReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const int64_t* get_flags() const& {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+
+  int64_t* get_flags() & {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+  int64_t* get_flags() && = delete;
+
+  int64_t& set_flags(int64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
+  }
+
+  const  ::facebook::memcache::cpp2::IOBuf* get_value() const& {
+    return __isset.value ? std::addressof(value) : nullptr;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf* get_value() & {
+    return __isset.value ? std::addressof(value) : nullptr;
+  }
+   ::facebook::memcache::cpp2::IOBuf* get_value() && = delete;
+
+  template <typename T_McSetReply_value_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_value(T_McSetReply_value_struct_setter&& value_) {
+    value = std::forward<T_McSetReply_value_struct_setter>(value_);
+    __isset.value = true;
+    return value;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McSetReply_message_struct_setter>
+  std::string& set_message(T_McSetReply_message_struct_setter&& message_) {
+    message = std::forward<T_McSetReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -401,12 +805,48 @@ class McDeleteRequest : private boost::totally_ordered<McDeleteRequest> {
  public:
 
   McDeleteRequest() :
+      flags(0),
       exptime(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McDeleteRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg, int32_t exptime__arg) :
+  McDeleteRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg, int64_t flags__arg, int32_t exptime__arg,  ::facebook::memcache::cpp2::IOBuf value__arg) :
       key(std::move(key__arg)),
-      exptime(std::move(exptime__arg)) {}
+      flags(std::move(flags__arg)),
+      exptime(std::move(exptime__arg)),
+      value(std::move(value__arg)) {
+    __isset.key = true;
+    __isset.flags = true;
+    __isset.exptime = true;
+    __isset.value = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McDeleteRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McDeleteRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McDeleteRequest(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McDeleteRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    flags = arg.move();
+    __isset.flags = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McDeleteRequest(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McDeleteRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    exptime = arg.move();
+    __isset.exptime = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McDeleteRequest(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McDeleteRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    value = arg.move();
+    __isset.value = true;
+  }
 
   McDeleteRequest(McDeleteRequest&&) = default;
 
@@ -420,23 +860,86 @@ class McDeleteRequest : private boost::totally_ordered<McDeleteRequest> {
   virtual ~McDeleteRequest() throw() {}
 
    ::facebook::memcache::cpp2::IOBuf key;
+  int64_t flags;
   int32_t exptime;
+   ::facebook::memcache::cpp2::IOBuf value;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       key = false;
+      flags = false;
       exptime = false;
+      value = false;
     }
 
-    bool key;
-    bool exptime;
+    bool key = false;
+    bool flags = false;
+    bool exptime = false;
+    bool value = false;
   } __isset;
   bool operator==(const McDeleteRequest& rhs) const;
   bool operator < (const McDeleteRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McDeleteRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McDeleteRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McDeleteRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  const int64_t* get_flags() const& {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+
+  int64_t* get_flags() & {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+  int64_t* get_flags() && = delete;
+
+  int64_t& set_flags(int64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
+  }
+
+  const int32_t* get_exptime() const& {
+    return __isset.exptime ? std::addressof(exptime) : nullptr;
+  }
+
+  int32_t* get_exptime() & {
+    return __isset.exptime ? std::addressof(exptime) : nullptr;
+  }
+  int32_t* get_exptime() && = delete;
+
+  int32_t& set_exptime(int32_t exptime_) {
+    exptime = exptime_;
+    __isset.exptime = true;
+    return exptime;
+  }
+
+  const  ::facebook::memcache::cpp2::IOBuf* get_value() const& {
+    return __isset.value ? std::addressof(value) : nullptr;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf* get_value() & {
+    return __isset.value ? std::addressof(value) : nullptr;
+  }
+   ::facebook::memcache::cpp2::IOBuf* get_value() && = delete;
+
+  template <typename T_McDeleteRequest_value_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_value(T_McDeleteRequest_value_struct_setter&& value_) {
+    value = std::forward<T_McDeleteRequest_value_struct_setter>(value_);
+    __isset.value = true;
+    return value;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -484,12 +987,58 @@ class McDeleteReply : private boost::totally_ordered<McDeleteReply> {
  public:
 
   McDeleteReply() :
-      result(0) {}
+      result(0),
+      flags(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McDeleteReply(apache::thrift::FragileConstructor, int16_t result__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McDeleteReply(apache::thrift::FragileConstructor, int16_t result__arg, int64_t flags__arg,  ::facebook::memcache::cpp2::IOBuf value__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
-      message(std::move(message__arg)) {}
+      flags(std::move(flags__arg)),
+      value(std::move(value__arg)),
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.flags = true;
+    __isset.value = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McDeleteReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McDeleteReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McDeleteReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McDeleteReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    flags = arg.move();
+    __isset.flags = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McDeleteReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McDeleteReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    value = arg.move();
+    __isset.value = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McDeleteReply(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McDeleteReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McDeleteReply(::apache::thrift::detail::argument_wrapper<5, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McDeleteReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McDeleteReply(McDeleteReply&&) = default;
 
@@ -503,23 +1052,100 @@ class McDeleteReply : private boost::totally_ordered<McDeleteReply> {
   virtual ~McDeleteReply() throw() {}
 
   int16_t result;
-   ::facebook::memcache::cpp2::IOBuf message;
+  int64_t flags;
+   ::facebook::memcache::cpp2::IOBuf value;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
+      flags = false;
+      value = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool message;
+    bool result = false;
+    bool flags = false;
+    bool value = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McDeleteReply& rhs) const;
   bool operator < (const McDeleteReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const int64_t* get_flags() const& {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+
+  int64_t* get_flags() & {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+  int64_t* get_flags() && = delete;
+
+  int64_t& set_flags(int64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
+  }
+
+  const  ::facebook::memcache::cpp2::IOBuf* get_value() const& {
+    return __isset.value ? std::addressof(value) : nullptr;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf* get_value() & {
+    return __isset.value ? std::addressof(value) : nullptr;
+  }
+   ::facebook::memcache::cpp2::IOBuf* get_value() && = delete;
+
+  template <typename T_McDeleteReply_value_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_value(T_McDeleteReply_value_struct_setter&& value_) {
+    value = std::forward<T_McDeleteReply_value_struct_setter>(value_);
+    __isset.value = true;
+    return value;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McDeleteReply_message_struct_setter>
+  std::string& set_message(T_McDeleteReply_message_struct_setter&& message_) {
+    message = std::forward<T_McDeleteReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -570,7 +1196,16 @@ class McLeaseGetRequest : private boost::totally_ordered<McLeaseGetRequest> {
   // FragileConstructor for use in initialization lists only
 
   McLeaseGetRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg) :
-      key(std::move(key__arg)) {}
+      key(std::move(key__arg)) {
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McLeaseGetRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McLeaseGetRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
 
   McLeaseGetRequest(McLeaseGetRequest&&) = default;
 
@@ -586,18 +1221,29 @@ class McLeaseGetRequest : private boost::totally_ordered<McLeaseGetRequest> {
    ::facebook::memcache::cpp2::IOBuf key;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       key = false;
     }
 
-    bool key;
+    bool key = false;
   } __isset;
   bool operator==(const McLeaseGetRequest& rhs) const;
   bool operator < (const McLeaseGetRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McLeaseGetRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McLeaseGetRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McLeaseGetRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -647,15 +1293,66 @@ class McLeaseGetReply : private boost::totally_ordered<McLeaseGetReply> {
   McLeaseGetReply() :
       result(0),
       leaseToken(0),
-      flags(0) {}
+      flags(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McLeaseGetReply(apache::thrift::FragileConstructor, int16_t result__arg, int64_t leaseToken__arg,  ::facebook::memcache::cpp2::IOBuf value__arg, int64_t flags__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McLeaseGetReply(apache::thrift::FragileConstructor, int16_t result__arg, int64_t leaseToken__arg,  ::facebook::memcache::cpp2::IOBuf value__arg, int64_t flags__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
       leaseToken(std::move(leaseToken__arg)),
       value(std::move(value__arg)),
       flags(std::move(flags__arg)),
-      message(std::move(message__arg)) {}
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.leaseToken = true;
+    __isset.value = true;
+    __isset.flags = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McLeaseGetReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McLeaseGetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McLeaseGetReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McLeaseGetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    leaseToken = arg.move();
+    __isset.leaseToken = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McLeaseGetReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McLeaseGetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    value = arg.move();
+    __isset.value = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McLeaseGetReply(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McLeaseGetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    flags = arg.move();
+    __isset.flags = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McLeaseGetReply(::apache::thrift::detail::argument_wrapper<5, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McLeaseGetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McLeaseGetReply(::apache::thrift::detail::argument_wrapper<6, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McLeaseGetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McLeaseGetReply(McLeaseGetReply&&) = default;
 
@@ -672,29 +1369,115 @@ class McLeaseGetReply : private boost::totally_ordered<McLeaseGetReply> {
   int64_t leaseToken;
    ::facebook::memcache::cpp2::IOBuf value;
   int64_t flags;
-   ::facebook::memcache::cpp2::IOBuf message;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
       leaseToken = false;
       value = false;
       flags = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool leaseToken;
-    bool value;
-    bool flags;
-    bool message;
+    bool result = false;
+    bool leaseToken = false;
+    bool value = false;
+    bool flags = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McLeaseGetReply& rhs) const;
   bool operator < (const McLeaseGetReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const int64_t* get_leaseToken() const& {
+    return __isset.leaseToken ? std::addressof(leaseToken) : nullptr;
+  }
+
+  int64_t* get_leaseToken() & {
+    return __isset.leaseToken ? std::addressof(leaseToken) : nullptr;
+  }
+  int64_t* get_leaseToken() && = delete;
+
+  int64_t& set_leaseToken(int64_t leaseToken_) {
+    leaseToken = leaseToken_;
+    __isset.leaseToken = true;
+    return leaseToken;
+  }
+
+  const  ::facebook::memcache::cpp2::IOBuf* get_value() const& {
+    return __isset.value ? std::addressof(value) : nullptr;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf* get_value() & {
+    return __isset.value ? std::addressof(value) : nullptr;
+  }
+   ::facebook::memcache::cpp2::IOBuf* get_value() && = delete;
+
+  template <typename T_McLeaseGetReply_value_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_value(T_McLeaseGetReply_value_struct_setter&& value_) {
+    value = std::forward<T_McLeaseGetReply_value_struct_setter>(value_);
+    __isset.value = true;
+    return value;
+  }
+
+  const int64_t* get_flags() const& {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+
+  int64_t* get_flags() & {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+  int64_t* get_flags() && = delete;
+
+  int64_t& set_flags(int64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McLeaseGetReply_message_struct_setter>
+  std::string& set_message(T_McLeaseGetReply_message_struct_setter&& message_) {
+    message = std::forward<T_McLeaseGetReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -752,7 +1535,48 @@ class McLeaseSetRequest : private boost::totally_ordered<McLeaseSetRequest> {
       exptime(std::move(exptime__arg)),
       flags(std::move(flags__arg)),
       value(std::move(value__arg)),
-      leaseToken(std::move(leaseToken__arg)) {}
+      leaseToken(std::move(leaseToken__arg)) {
+    __isset.key = true;
+    __isset.exptime = true;
+    __isset.flags = true;
+    __isset.value = true;
+    __isset.leaseToken = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McLeaseSetRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McLeaseSetRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McLeaseSetRequest(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McLeaseSetRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    exptime = arg.move();
+    __isset.exptime = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McLeaseSetRequest(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McLeaseSetRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    flags = arg.move();
+    __isset.flags = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McLeaseSetRequest(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McLeaseSetRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    value = arg.move();
+    __isset.value = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McLeaseSetRequest(::apache::thrift::detail::argument_wrapper<5, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McLeaseSetRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    leaseToken = arg.move();
+    __isset.leaseToken = true;
+  }
 
   McLeaseSetRequest(McLeaseSetRequest&&) = default;
 
@@ -772,10 +1596,6 @@ class McLeaseSetRequest : private boost::totally_ordered<McLeaseSetRequest> {
   int64_t leaseToken;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       key = false;
       exptime = false;
@@ -784,14 +1604,74 @@ class McLeaseSetRequest : private boost::totally_ordered<McLeaseSetRequest> {
       leaseToken = false;
     }
 
-    bool key;
-    bool exptime;
-    bool flags;
-    bool value;
-    bool leaseToken;
+    bool key = false;
+    bool exptime = false;
+    bool flags = false;
+    bool value = false;
+    bool leaseToken = false;
   } __isset;
   bool operator==(const McLeaseSetRequest& rhs) const;
   bool operator < (const McLeaseSetRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McLeaseSetRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McLeaseSetRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McLeaseSetRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  int32_t get_exptime() const {
+    return exptime;
+  }
+
+  int32_t& set_exptime(int32_t exptime_) {
+    exptime = exptime_;
+    __isset.exptime = true;
+    return exptime;
+  }
+
+  int64_t get_flags() const {
+    return flags;
+  }
+
+  int64_t& set_flags(int64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
+  }
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_value() const& {
+    return value;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_value() && {
+    return std::move(value);
+  }
+
+  template <typename T_McLeaseSetRequest_value_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_value(T_McLeaseSetRequest_value_struct_setter&& value_) {
+    value = std::forward<T_McLeaseSetRequest_value_struct_setter>(value_);
+    __isset.value = true;
+    return value;
+  }
+
+  int64_t get_leaseToken() const {
+    return leaseToken;
+  }
+
+  int64_t& set_leaseToken(int64_t leaseToken_) {
+    leaseToken = leaseToken_;
+    __isset.leaseToken = true;
+    return leaseToken;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -839,12 +1719,39 @@ class McLeaseSetReply : private boost::totally_ordered<McLeaseSetReply> {
  public:
 
   McLeaseSetReply() :
-      result(0) {}
+      result(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McLeaseSetReply(apache::thrift::FragileConstructor, int16_t result__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McLeaseSetReply(apache::thrift::FragileConstructor, int16_t result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
-      message(std::move(message__arg)) {}
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McLeaseSetReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McLeaseSetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McLeaseSetReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McLeaseSetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McLeaseSetReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McLeaseSetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McLeaseSetReply(McLeaseSetReply&&) = default;
 
@@ -858,23 +1765,63 @@ class McLeaseSetReply : private boost::totally_ordered<McLeaseSetReply> {
   virtual ~McLeaseSetReply() throw() {}
 
   int16_t result;
-   ::facebook::memcache::cpp2::IOBuf message;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool message;
+    bool result = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McLeaseSetReply& rhs) const;
   bool operator < (const McLeaseSetReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McLeaseSetReply_message_struct_setter>
+  std::string& set_message(T_McLeaseSetReply_message_struct_setter&& message_) {
+    message = std::forward<T_McLeaseSetReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -930,7 +1877,40 @@ class McAddRequest : private boost::totally_ordered<McAddRequest> {
       key(std::move(key__arg)),
       exptime(std::move(exptime__arg)),
       flags(std::move(flags__arg)),
-      value(std::move(value__arg)) {}
+      value(std::move(value__arg)) {
+    __isset.key = true;
+    __isset.exptime = true;
+    __isset.flags = true;
+    __isset.value = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McAddRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McAddRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McAddRequest(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McAddRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    exptime = arg.move();
+    __isset.exptime = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McAddRequest(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McAddRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    flags = arg.move();
+    __isset.flags = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McAddRequest(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McAddRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    value = arg.move();
+    __isset.value = true;
+  }
 
   McAddRequest(McAddRequest&&) = default;
 
@@ -949,10 +1929,6 @@ class McAddRequest : private boost::totally_ordered<McAddRequest> {
    ::facebook::memcache::cpp2::IOBuf value;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       key = false;
       exptime = false;
@@ -960,13 +1936,63 @@ class McAddRequest : private boost::totally_ordered<McAddRequest> {
       value = false;
     }
 
-    bool key;
-    bool exptime;
-    bool flags;
-    bool value;
+    bool key = false;
+    bool exptime = false;
+    bool flags = false;
+    bool value = false;
   } __isset;
   bool operator==(const McAddRequest& rhs) const;
   bool operator < (const McAddRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McAddRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McAddRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McAddRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  int32_t get_exptime() const {
+    return exptime;
+  }
+
+  int32_t& set_exptime(int32_t exptime_) {
+    exptime = exptime_;
+    __isset.exptime = true;
+    return exptime;
+  }
+
+  int64_t get_flags() const {
+    return flags;
+  }
+
+  int64_t& set_flags(int64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
+  }
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_value() const& {
+    return value;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_value() && {
+    return std::move(value);
+  }
+
+  template <typename T_McAddRequest_value_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_value(T_McAddRequest_value_struct_setter&& value_) {
+    value = std::forward<T_McAddRequest_value_struct_setter>(value_);
+    __isset.value = true;
+    return value;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -1014,12 +2040,39 @@ class McAddReply : private boost::totally_ordered<McAddReply> {
  public:
 
   McAddReply() :
-      result(0) {}
+      result(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McAddReply(apache::thrift::FragileConstructor, int16_t result__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McAddReply(apache::thrift::FragileConstructor, int16_t result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
-      message(std::move(message__arg)) {}
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McAddReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McAddReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McAddReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McAddReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McAddReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McAddReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McAddReply(McAddReply&&) = default;
 
@@ -1033,23 +2086,63 @@ class McAddReply : private boost::totally_ordered<McAddReply> {
   virtual ~McAddReply() throw() {}
 
   int16_t result;
-   ::facebook::memcache::cpp2::IOBuf message;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool message;
+    bool result = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McAddReply& rhs) const;
   bool operator < (const McAddReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McAddReply_message_struct_setter>
+  std::string& set_message(T_McAddReply_message_struct_setter&& message_) {
+    message = std::forward<T_McAddReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -1105,7 +2198,40 @@ class McReplaceRequest : private boost::totally_ordered<McReplaceRequest> {
       key(std::move(key__arg)),
       exptime(std::move(exptime__arg)),
       flags(std::move(flags__arg)),
-      value(std::move(value__arg)) {}
+      value(std::move(value__arg)) {
+    __isset.key = true;
+    __isset.exptime = true;
+    __isset.flags = true;
+    __isset.value = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McReplaceRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McReplaceRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McReplaceRequest(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McReplaceRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    exptime = arg.move();
+    __isset.exptime = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McReplaceRequest(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McReplaceRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    flags = arg.move();
+    __isset.flags = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McReplaceRequest(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McReplaceRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    value = arg.move();
+    __isset.value = true;
+  }
 
   McReplaceRequest(McReplaceRequest&&) = default;
 
@@ -1124,10 +2250,6 @@ class McReplaceRequest : private boost::totally_ordered<McReplaceRequest> {
    ::facebook::memcache::cpp2::IOBuf value;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       key = false;
       exptime = false;
@@ -1135,13 +2257,63 @@ class McReplaceRequest : private boost::totally_ordered<McReplaceRequest> {
       value = false;
     }
 
-    bool key;
-    bool exptime;
-    bool flags;
-    bool value;
+    bool key = false;
+    bool exptime = false;
+    bool flags = false;
+    bool value = false;
   } __isset;
   bool operator==(const McReplaceRequest& rhs) const;
   bool operator < (const McReplaceRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McReplaceRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McReplaceRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McReplaceRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  int32_t get_exptime() const {
+    return exptime;
+  }
+
+  int32_t& set_exptime(int32_t exptime_) {
+    exptime = exptime_;
+    __isset.exptime = true;
+    return exptime;
+  }
+
+  int64_t get_flags() const {
+    return flags;
+  }
+
+  int64_t& set_flags(int64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
+  }
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_value() const& {
+    return value;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_value() && {
+    return std::move(value);
+  }
+
+  template <typename T_McReplaceRequest_value_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_value(T_McReplaceRequest_value_struct_setter&& value_) {
+    value = std::forward<T_McReplaceRequest_value_struct_setter>(value_);
+    __isset.value = true;
+    return value;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -1189,12 +2361,39 @@ class McReplaceReply : private boost::totally_ordered<McReplaceReply> {
  public:
 
   McReplaceReply() :
-      result(0) {}
+      result(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McReplaceReply(apache::thrift::FragileConstructor, int16_t result__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McReplaceReply(apache::thrift::FragileConstructor, int16_t result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
-      message(std::move(message__arg)) {}
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McReplaceReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McReplaceReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McReplaceReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McReplaceReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McReplaceReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McReplaceReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McReplaceReply(McReplaceReply&&) = default;
 
@@ -1208,23 +2407,63 @@ class McReplaceReply : private boost::totally_ordered<McReplaceReply> {
   virtual ~McReplaceReply() throw() {}
 
   int16_t result;
-   ::facebook::memcache::cpp2::IOBuf message;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool message;
+    bool result = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McReplaceReply& rhs) const;
   bool operator < (const McReplaceReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McReplaceReply_message_struct_setter>
+  std::string& set_message(T_McReplaceReply_message_struct_setter&& message_) {
+    message = std::forward<T_McReplaceReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -1275,7 +2514,16 @@ class McGetsRequest : private boost::totally_ordered<McGetsRequest> {
   // FragileConstructor for use in initialization lists only
 
   McGetsRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg) :
-      key(std::move(key__arg)) {}
+      key(std::move(key__arg)) {
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McGetsRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McGetsRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
 
   McGetsRequest(McGetsRequest&&) = default;
 
@@ -1291,18 +2539,29 @@ class McGetsRequest : private boost::totally_ordered<McGetsRequest> {
    ::facebook::memcache::cpp2::IOBuf key;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       key = false;
     }
 
-    bool key;
+    bool key = false;
   } __isset;
   bool operator==(const McGetsRequest& rhs) const;
   bool operator < (const McGetsRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McGetsRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McGetsRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McGetsRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -1352,15 +2611,66 @@ class McGetsReply : private boost::totally_ordered<McGetsReply> {
   McGetsReply() :
       result(0),
       casToken(0),
-      flags(0) {}
+      flags(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McGetsReply(apache::thrift::FragileConstructor, int16_t result__arg, int64_t casToken__arg,  ::facebook::memcache::cpp2::IOBuf value__arg, int64_t flags__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McGetsReply(apache::thrift::FragileConstructor, int16_t result__arg, int64_t casToken__arg,  ::facebook::memcache::cpp2::IOBuf value__arg, int64_t flags__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
       casToken(std::move(casToken__arg)),
       value(std::move(value__arg)),
       flags(std::move(flags__arg)),
-      message(std::move(message__arg)) {}
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.casToken = true;
+    __isset.value = true;
+    __isset.flags = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McGetsReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McGetsReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McGetsReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McGetsReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    casToken = arg.move();
+    __isset.casToken = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McGetsReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McGetsReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    value = arg.move();
+    __isset.value = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McGetsReply(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McGetsReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    flags = arg.move();
+    __isset.flags = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McGetsReply(::apache::thrift::detail::argument_wrapper<5, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McGetsReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McGetsReply(::apache::thrift::detail::argument_wrapper<6, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McGetsReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McGetsReply(McGetsReply&&) = default;
 
@@ -1377,29 +2687,115 @@ class McGetsReply : private boost::totally_ordered<McGetsReply> {
   int64_t casToken;
    ::facebook::memcache::cpp2::IOBuf value;
   int64_t flags;
-   ::facebook::memcache::cpp2::IOBuf message;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
       casToken = false;
       value = false;
       flags = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool casToken;
-    bool value;
-    bool flags;
-    bool message;
+    bool result = false;
+    bool casToken = false;
+    bool value = false;
+    bool flags = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McGetsReply& rhs) const;
   bool operator < (const McGetsReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const int64_t* get_casToken() const& {
+    return __isset.casToken ? std::addressof(casToken) : nullptr;
+  }
+
+  int64_t* get_casToken() & {
+    return __isset.casToken ? std::addressof(casToken) : nullptr;
+  }
+  int64_t* get_casToken() && = delete;
+
+  int64_t& set_casToken(int64_t casToken_) {
+    casToken = casToken_;
+    __isset.casToken = true;
+    return casToken;
+  }
+
+  const  ::facebook::memcache::cpp2::IOBuf* get_value() const& {
+    return __isset.value ? std::addressof(value) : nullptr;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf* get_value() & {
+    return __isset.value ? std::addressof(value) : nullptr;
+  }
+   ::facebook::memcache::cpp2::IOBuf* get_value() && = delete;
+
+  template <typename T_McGetsReply_value_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_value(T_McGetsReply_value_struct_setter&& value_) {
+    value = std::forward<T_McGetsReply_value_struct_setter>(value_);
+    __isset.value = true;
+    return value;
+  }
+
+  const int64_t* get_flags() const& {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+
+  int64_t* get_flags() & {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+  int64_t* get_flags() && = delete;
+
+  int64_t& set_flags(int64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McGetsReply_message_struct_setter>
+  std::string& set_message(T_McGetsReply_message_struct_setter&& message_) {
+    message = std::forward<T_McGetsReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -1457,7 +2853,48 @@ class McCasRequest : private boost::totally_ordered<McCasRequest> {
       exptime(std::move(exptime__arg)),
       flags(std::move(flags__arg)),
       value(std::move(value__arg)),
-      casToken(std::move(casToken__arg)) {}
+      casToken(std::move(casToken__arg)) {
+    __isset.key = true;
+    __isset.exptime = true;
+    __isset.flags = true;
+    __isset.value = true;
+    __isset.casToken = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McCasRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McCasRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McCasRequest(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McCasRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    exptime = arg.move();
+    __isset.exptime = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McCasRequest(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McCasRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    flags = arg.move();
+    __isset.flags = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McCasRequest(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McCasRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    value = arg.move();
+    __isset.value = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McCasRequest(::apache::thrift::detail::argument_wrapper<5, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McCasRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    casToken = arg.move();
+    __isset.casToken = true;
+  }
 
   McCasRequest(McCasRequest&&) = default;
 
@@ -1477,10 +2914,6 @@ class McCasRequest : private boost::totally_ordered<McCasRequest> {
   int64_t casToken;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       key = false;
       exptime = false;
@@ -1489,14 +2922,74 @@ class McCasRequest : private boost::totally_ordered<McCasRequest> {
       casToken = false;
     }
 
-    bool key;
-    bool exptime;
-    bool flags;
-    bool value;
-    bool casToken;
+    bool key = false;
+    bool exptime = false;
+    bool flags = false;
+    bool value = false;
+    bool casToken = false;
   } __isset;
   bool operator==(const McCasRequest& rhs) const;
   bool operator < (const McCasRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McCasRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McCasRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McCasRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  int32_t get_exptime() const {
+    return exptime;
+  }
+
+  int32_t& set_exptime(int32_t exptime_) {
+    exptime = exptime_;
+    __isset.exptime = true;
+    return exptime;
+  }
+
+  int64_t get_flags() const {
+    return flags;
+  }
+
+  int64_t& set_flags(int64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
+  }
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_value() const& {
+    return value;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_value() && {
+    return std::move(value);
+  }
+
+  template <typename T_McCasRequest_value_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_value(T_McCasRequest_value_struct_setter&& value_) {
+    value = std::forward<T_McCasRequest_value_struct_setter>(value_);
+    __isset.value = true;
+    return value;
+  }
+
+  int64_t get_casToken() const {
+    return casToken;
+  }
+
+  int64_t& set_casToken(int64_t casToken_) {
+    casToken = casToken_;
+    __isset.casToken = true;
+    return casToken;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -1544,12 +3037,39 @@ class McCasReply : private boost::totally_ordered<McCasReply> {
  public:
 
   McCasReply() :
-      result(0) {}
+      result(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McCasReply(apache::thrift::FragileConstructor, int16_t result__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McCasReply(apache::thrift::FragileConstructor, int16_t result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
-      message(std::move(message__arg)) {}
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McCasReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McCasReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McCasReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McCasReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McCasReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McCasReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McCasReply(McCasReply&&) = default;
 
@@ -1563,23 +3083,63 @@ class McCasReply : private boost::totally_ordered<McCasReply> {
   virtual ~McCasReply() throw() {}
 
   int16_t result;
-   ::facebook::memcache::cpp2::IOBuf message;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool message;
+    bool result = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McCasReply& rhs) const;
   bool operator < (const McCasReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McCasReply_message_struct_setter>
+  std::string& set_message(T_McCasReply_message_struct_setter&& message_) {
+    message = std::forward<T_McCasReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -1632,7 +3192,24 @@ class McIncrRequest : private boost::totally_ordered<McIncrRequest> {
 
   McIncrRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg, int64_t delta__arg) :
       key(std::move(key__arg)),
-      delta(std::move(delta__arg)) {}
+      delta(std::move(delta__arg)) {
+    __isset.key = true;
+    __isset.delta = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McIncrRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McIncrRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McIncrRequest(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McIncrRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    delta = arg.move();
+    __isset.delta = true;
+  }
 
   McIncrRequest(McIncrRequest&&) = default;
 
@@ -1649,20 +3226,41 @@ class McIncrRequest : private boost::totally_ordered<McIncrRequest> {
   int64_t delta;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       key = false;
       delta = false;
     }
 
-    bool key;
-    bool delta;
+    bool key = false;
+    bool delta = false;
   } __isset;
   bool operator==(const McIncrRequest& rhs) const;
   bool operator < (const McIncrRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McIncrRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McIncrRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McIncrRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  int64_t get_delta() const {
+    return delta;
+  }
+
+  int64_t& set_delta(int64_t delta_) {
+    delta = delta_;
+    __isset.delta = true;
+    return delta;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -1711,13 +3309,48 @@ class McIncrReply : private boost::totally_ordered<McIncrReply> {
 
   McIncrReply() :
       result(0),
-      delta(0) {}
+      delta(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McIncrReply(apache::thrift::FragileConstructor, int16_t result__arg, int64_t delta__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McIncrReply(apache::thrift::FragileConstructor, int16_t result__arg, int64_t delta__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
       delta(std::move(delta__arg)),
-      message(std::move(message__arg)) {}
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.delta = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McIncrReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McIncrReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McIncrReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McIncrReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    delta = arg.move();
+    __isset.delta = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McIncrReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McIncrReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McIncrReply(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McIncrReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McIncrReply(McIncrReply&&) = default;
 
@@ -1732,25 +3365,80 @@ class McIncrReply : private boost::totally_ordered<McIncrReply> {
 
   int16_t result;
   int64_t delta;
-   ::facebook::memcache::cpp2::IOBuf message;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
       delta = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool delta;
-    bool message;
+    bool result = false;
+    bool delta = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McIncrReply& rhs) const;
   bool operator < (const McIncrReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const int64_t* get_delta() const& {
+    return __isset.delta ? std::addressof(delta) : nullptr;
+  }
+
+  int64_t* get_delta() & {
+    return __isset.delta ? std::addressof(delta) : nullptr;
+  }
+  int64_t* get_delta() && = delete;
+
+  int64_t& set_delta(int64_t delta_) {
+    delta = delta_;
+    __isset.delta = true;
+    return delta;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McIncrReply_message_struct_setter>
+  std::string& set_message(T_McIncrReply_message_struct_setter&& message_) {
+    message = std::forward<T_McIncrReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -1803,7 +3491,24 @@ class McDecrRequest : private boost::totally_ordered<McDecrRequest> {
 
   McDecrRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg, int64_t delta__arg) :
       key(std::move(key__arg)),
-      delta(std::move(delta__arg)) {}
+      delta(std::move(delta__arg)) {
+    __isset.key = true;
+    __isset.delta = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McDecrRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McDecrRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McDecrRequest(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McDecrRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    delta = arg.move();
+    __isset.delta = true;
+  }
 
   McDecrRequest(McDecrRequest&&) = default;
 
@@ -1820,20 +3525,41 @@ class McDecrRequest : private boost::totally_ordered<McDecrRequest> {
   int64_t delta;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       key = false;
       delta = false;
     }
 
-    bool key;
-    bool delta;
+    bool key = false;
+    bool delta = false;
   } __isset;
   bool operator==(const McDecrRequest& rhs) const;
   bool operator < (const McDecrRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McDecrRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McDecrRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McDecrRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  int64_t get_delta() const {
+    return delta;
+  }
+
+  int64_t& set_delta(int64_t delta_) {
+    delta = delta_;
+    __isset.delta = true;
+    return delta;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -1882,13 +3608,48 @@ class McDecrReply : private boost::totally_ordered<McDecrReply> {
 
   McDecrReply() :
       result(0),
-      delta(0) {}
+      delta(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McDecrReply(apache::thrift::FragileConstructor, int16_t result__arg, int64_t delta__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McDecrReply(apache::thrift::FragileConstructor, int16_t result__arg, int64_t delta__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
       delta(std::move(delta__arg)),
-      message(std::move(message__arg)) {}
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.delta = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McDecrReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McDecrReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McDecrReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McDecrReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    delta = arg.move();
+    __isset.delta = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McDecrReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McDecrReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McDecrReply(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McDecrReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McDecrReply(McDecrReply&&) = default;
 
@@ -1903,25 +3664,80 @@ class McDecrReply : private boost::totally_ordered<McDecrReply> {
 
   int16_t result;
   int64_t delta;
-   ::facebook::memcache::cpp2::IOBuf message;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
       delta = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool delta;
-    bool message;
+    bool result = false;
+    bool delta = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McDecrReply& rhs) const;
   bool operator < (const McDecrReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const int64_t* get_delta() const& {
+    return __isset.delta ? std::addressof(delta) : nullptr;
+  }
+
+  int64_t* get_delta() & {
+    return __isset.delta ? std::addressof(delta) : nullptr;
+  }
+  int64_t* get_delta() && = delete;
+
+  int64_t& set_delta(int64_t delta_) {
+    delta = delta_;
+    __isset.delta = true;
+    return delta;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McDecrReply_message_struct_setter>
+  std::string& set_message(T_McDecrReply_message_struct_setter&& message_) {
+    message = std::forward<T_McDecrReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -1972,7 +3788,16 @@ class McMetagetRequest : private boost::totally_ordered<McMetagetRequest> {
   // FragileConstructor for use in initialization lists only
 
   McMetagetRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg) :
-      key(std::move(key__arg)) {}
+      key(std::move(key__arg)) {
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McMetagetRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McMetagetRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
 
   McMetagetRequest(McMetagetRequest&&) = default;
 
@@ -1988,18 +3813,29 @@ class McMetagetRequest : private boost::totally_ordered<McMetagetRequest> {
    ::facebook::memcache::cpp2::IOBuf key;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       key = false;
     }
 
-    bool key;
+    bool key = false;
   } __isset;
   bool operator==(const McMetagetRequest& rhs) const;
   bool operator < (const McMetagetRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McMetagetRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McMetagetRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McMetagetRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -2050,18 +3886,75 @@ class McMetagetReply : private boost::totally_ordered<McMetagetReply> {
       result(0),
       age(0),
       exptime(0),
-      isTransient(0),
-      ipv(0) {}
+      ipv(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McMetagetReply(apache::thrift::FragileConstructor, int16_t result__arg, int32_t age__arg, int32_t exptime__arg, bool isTransient__arg, int16_t ipv__arg, std::string ipAddress__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McMetagetReply(apache::thrift::FragileConstructor, int16_t result__arg, int32_t age__arg, int32_t exptime__arg, int16_t ipv__arg, std::string ipAddress__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
       age(std::move(age__arg)),
       exptime(std::move(exptime__arg)),
-      isTransient(std::move(isTransient__arg)),
       ipv(std::move(ipv__arg)),
       ipAddress(std::move(ipAddress__arg)),
-      message(std::move(message__arg)) {}
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.age = true;
+    __isset.exptime = true;
+    __isset.ipv = true;
+    __isset.ipAddress = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McMetagetReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McMetagetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McMetagetReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McMetagetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    age = arg.move();
+    __isset.age = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McMetagetReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McMetagetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    exptime = arg.move();
+    __isset.exptime = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McMetagetReply(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McMetagetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    ipv = arg.move();
+    __isset.ipv = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McMetagetReply(::apache::thrift::detail::argument_wrapper<5, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McMetagetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    ipAddress = arg.move();
+    __isset.ipAddress = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McMetagetReply(::apache::thrift::detail::argument_wrapper<6, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McMetagetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McMetagetReply(::apache::thrift::detail::argument_wrapper<7, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McMetagetReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McMetagetReply(McMetagetReply&&) = default;
 
@@ -2077,36 +3970,134 @@ class McMetagetReply : private boost::totally_ordered<McMetagetReply> {
   int16_t result;
   int32_t age;
   int32_t exptime;
-  bool isTransient;
   int16_t ipv;
   std::string ipAddress;
-   ::facebook::memcache::cpp2::IOBuf message;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
       age = false;
       exptime = false;
-      isTransient = false;
       ipv = false;
       ipAddress = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool age;
-    bool exptime;
-    bool isTransient;
-    bool ipv;
-    bool ipAddress;
-    bool message;
+    bool result = false;
+    bool age = false;
+    bool exptime = false;
+    bool ipv = false;
+    bool ipAddress = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McMetagetReply& rhs) const;
   bool operator < (const McMetagetReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const int32_t* get_age() const& {
+    return __isset.age ? std::addressof(age) : nullptr;
+  }
+
+  int32_t* get_age() & {
+    return __isset.age ? std::addressof(age) : nullptr;
+  }
+  int32_t* get_age() && = delete;
+
+  int32_t& set_age(int32_t age_) {
+    age = age_;
+    __isset.age = true;
+    return age;
+  }
+
+  const int32_t* get_exptime() const& {
+    return __isset.exptime ? std::addressof(exptime) : nullptr;
+  }
+
+  int32_t* get_exptime() & {
+    return __isset.exptime ? std::addressof(exptime) : nullptr;
+  }
+  int32_t* get_exptime() && = delete;
+
+  int32_t& set_exptime(int32_t exptime_) {
+    exptime = exptime_;
+    __isset.exptime = true;
+    return exptime;
+  }
+
+  const int16_t* get_ipv() const& {
+    return __isset.ipv ? std::addressof(ipv) : nullptr;
+  }
+
+  int16_t* get_ipv() & {
+    return __isset.ipv ? std::addressof(ipv) : nullptr;
+  }
+  int16_t* get_ipv() && = delete;
+
+  int16_t& set_ipv(int16_t ipv_) {
+    ipv = ipv_;
+    __isset.ipv = true;
+    return ipv;
+  }
+
+  const std::string* get_ipAddress() const& {
+    return __isset.ipAddress ? std::addressof(ipAddress) : nullptr;
+  }
+
+  std::string* get_ipAddress() & {
+    return __isset.ipAddress ? std::addressof(ipAddress) : nullptr;
+  }
+  std::string* get_ipAddress() && = delete;
+
+  template <typename T_McMetagetReply_ipAddress_struct_setter>
+  std::string& set_ipAddress(T_McMetagetReply_ipAddress_struct_setter&& ipAddress_) {
+    ipAddress = std::forward<T_McMetagetReply_ipAddress_struct_setter>(ipAddress_);
+    __isset.ipAddress = true;
+    return ipAddress;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McMetagetReply_message_struct_setter>
+  std::string& set_message(T_McMetagetReply_message_struct_setter&& message_) {
+    message = std::forward<T_McMetagetReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -2156,7 +4147,17 @@ class McVersionRequest : private boost::totally_ordered<McVersionRequest> {
   McVersionRequest() {}
   // FragileConstructor for use in initialization lists only
 
-  McVersionRequest(apache::thrift::FragileConstructor) {}
+  McVersionRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg) :
+      key(std::move(key__arg)) {
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McVersionRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McVersionRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
 
   McVersionRequest(McVersionRequest&&) = default;
 
@@ -2165,13 +4166,35 @@ class McVersionRequest : private boost::totally_ordered<McVersionRequest> {
   McVersionRequest& operator=(McVersionRequest&&) = default;
 
   McVersionRequest& operator=(const McVersionRequest&) = default;
+  void __clear();
 
   virtual ~McVersionRequest() throw() {}
 
-  bool operator==(const McVersionRequest& /* rhs */) const;
+   ::facebook::memcache::cpp2::IOBuf key;
 
-  bool operator < (const McVersionRequest& rhs) const {
-    return false;
+  struct __isset {
+    void __clear() {
+      key = false;
+    }
+
+    bool key = false;
+  } __isset;
+  bool operator==(const McVersionRequest& rhs) const;
+  bool operator < (const McVersionRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McVersionRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McVersionRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McVersionRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
   }
 
   template <class Protocol_>
@@ -2188,6 +4211,10 @@ void swap(McVersionRequest& a, McVersionRequest& b);
 
 }}} // facebook::memcache::cpp2
 namespace apache { namespace thrift {
+
+template <> inline void Cpp2Ops< ::facebook::memcache::cpp2::McVersionRequest>::clear( ::facebook::memcache::cpp2::McVersionRequest* obj) {
+  return obj->__clear();
+}
 
 template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook::memcache::cpp2::McVersionRequest>::thriftType() {
   return apache::thrift::protocol::T_STRUCT;
@@ -2216,13 +4243,48 @@ class McVersionReply : private boost::totally_ordered<McVersionReply> {
  public:
 
   McVersionReply() :
-      result(0) {}
+      result(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McVersionReply(apache::thrift::FragileConstructor, int16_t result__arg, std::string version__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McVersionReply(apache::thrift::FragileConstructor, int16_t result__arg,  ::facebook::memcache::cpp2::IOBuf value__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
-      version(std::move(version__arg)),
-      message(std::move(message__arg)) {}
+      value(std::move(value__arg)),
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.value = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McVersionReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McVersionReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McVersionReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McVersionReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    value = arg.move();
+    __isset.value = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McVersionReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McVersionReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McVersionReply(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McVersionReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McVersionReply(McVersionReply&&) = default;
 
@@ -2236,26 +4298,82 @@ class McVersionReply : private boost::totally_ordered<McVersionReply> {
   virtual ~McVersionReply() throw() {}
 
   int16_t result;
-  std::string version;
-   ::facebook::memcache::cpp2::IOBuf message;
+   ::facebook::memcache::cpp2::IOBuf value;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
-      version = false;
+      value = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool version;
-    bool message;
+    bool result = false;
+    bool value = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McVersionReply& rhs) const;
   bool operator < (const McVersionReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const  ::facebook::memcache::cpp2::IOBuf* get_value() const& {
+    return __isset.value ? std::addressof(value) : nullptr;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf* get_value() & {
+    return __isset.value ? std::addressof(value) : nullptr;
+  }
+   ::facebook::memcache::cpp2::IOBuf* get_value() && = delete;
+
+  template <typename T_McVersionReply_value_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_value(T_McVersionReply_value_struct_setter&& value_) {
+    value = std::forward<T_McVersionReply_value_struct_setter>(value_);
+    __isset.value = true;
+    return value;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McVersionReply_message_struct_setter>
+  std::string& set_message(T_McVersionReply_message_struct_setter&& message_) {
+    message = std::forward<T_McVersionReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -2311,7 +4429,40 @@ class McAppendRequest : private boost::totally_ordered<McAppendRequest> {
       key(std::move(key__arg)),
       exptime(std::move(exptime__arg)),
       flags(std::move(flags__arg)),
-      value(std::move(value__arg)) {}
+      value(std::move(value__arg)) {
+    __isset.key = true;
+    __isset.exptime = true;
+    __isset.flags = true;
+    __isset.value = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McAppendRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McAppendRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McAppendRequest(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McAppendRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    exptime = arg.move();
+    __isset.exptime = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McAppendRequest(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McAppendRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    flags = arg.move();
+    __isset.flags = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McAppendRequest(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McAppendRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    value = arg.move();
+    __isset.value = true;
+  }
 
   McAppendRequest(McAppendRequest&&) = default;
 
@@ -2330,10 +4481,6 @@ class McAppendRequest : private boost::totally_ordered<McAppendRequest> {
    ::facebook::memcache::cpp2::IOBuf value;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       key = false;
       exptime = false;
@@ -2341,13 +4488,63 @@ class McAppendRequest : private boost::totally_ordered<McAppendRequest> {
       value = false;
     }
 
-    bool key;
-    bool exptime;
-    bool flags;
-    bool value;
+    bool key = false;
+    bool exptime = false;
+    bool flags = false;
+    bool value = false;
   } __isset;
   bool operator==(const McAppendRequest& rhs) const;
   bool operator < (const McAppendRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McAppendRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McAppendRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McAppendRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  int32_t get_exptime() const {
+    return exptime;
+  }
+
+  int32_t& set_exptime(int32_t exptime_) {
+    exptime = exptime_;
+    __isset.exptime = true;
+    return exptime;
+  }
+
+  int64_t get_flags() const {
+    return flags;
+  }
+
+  int64_t& set_flags(int64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
+  }
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_value() const& {
+    return value;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_value() && {
+    return std::move(value);
+  }
+
+  template <typename T_McAppendRequest_value_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_value(T_McAppendRequest_value_struct_setter&& value_) {
+    value = std::forward<T_McAppendRequest_value_struct_setter>(value_);
+    __isset.value = true;
+    return value;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -2395,12 +4592,39 @@ class McAppendReply : private boost::totally_ordered<McAppendReply> {
  public:
 
   McAppendReply() :
-      result(0) {}
+      result(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McAppendReply(apache::thrift::FragileConstructor, int16_t result__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McAppendReply(apache::thrift::FragileConstructor, int16_t result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
-      message(std::move(message__arg)) {}
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McAppendReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McAppendReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McAppendReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McAppendReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McAppendReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McAppendReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McAppendReply(McAppendReply&&) = default;
 
@@ -2414,23 +4638,63 @@ class McAppendReply : private boost::totally_ordered<McAppendReply> {
   virtual ~McAppendReply() throw() {}
 
   int16_t result;
-   ::facebook::memcache::cpp2::IOBuf message;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool message;
+    bool result = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McAppendReply& rhs) const;
   bool operator < (const McAppendReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McAppendReply_message_struct_setter>
+  std::string& set_message(T_McAppendReply_message_struct_setter&& message_) {
+    message = std::forward<T_McAppendReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -2486,7 +4750,40 @@ class McPrependRequest : private boost::totally_ordered<McPrependRequest> {
       key(std::move(key__arg)),
       exptime(std::move(exptime__arg)),
       flags(std::move(flags__arg)),
-      value(std::move(value__arg)) {}
+      value(std::move(value__arg)) {
+    __isset.key = true;
+    __isset.exptime = true;
+    __isset.flags = true;
+    __isset.value = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McPrependRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McPrependRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McPrependRequest(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McPrependRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    exptime = arg.move();
+    __isset.exptime = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McPrependRequest(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McPrependRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    flags = arg.move();
+    __isset.flags = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McPrependRequest(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McPrependRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    value = arg.move();
+    __isset.value = true;
+  }
 
   McPrependRequest(McPrependRequest&&) = default;
 
@@ -2505,10 +4802,6 @@ class McPrependRequest : private boost::totally_ordered<McPrependRequest> {
    ::facebook::memcache::cpp2::IOBuf value;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       key = false;
       exptime = false;
@@ -2516,13 +4809,63 @@ class McPrependRequest : private boost::totally_ordered<McPrependRequest> {
       value = false;
     }
 
-    bool key;
-    bool exptime;
-    bool flags;
-    bool value;
+    bool key = false;
+    bool exptime = false;
+    bool flags = false;
+    bool value = false;
   } __isset;
   bool operator==(const McPrependRequest& rhs) const;
   bool operator < (const McPrependRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McPrependRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McPrependRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McPrependRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  int32_t get_exptime() const {
+    return exptime;
+  }
+
+  int32_t& set_exptime(int32_t exptime_) {
+    exptime = exptime_;
+    __isset.exptime = true;
+    return exptime;
+  }
+
+  int64_t get_flags() const {
+    return flags;
+  }
+
+  int64_t& set_flags(int64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
+  }
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_value() const& {
+    return value;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_value() && {
+    return std::move(value);
+  }
+
+  template <typename T_McPrependRequest_value_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_value(T_McPrependRequest_value_struct_setter&& value_) {
+    value = std::forward<T_McPrependRequest_value_struct_setter>(value_);
+    __isset.value = true;
+    return value;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -2570,12 +4913,39 @@ class McPrependReply : private boost::totally_ordered<McPrependReply> {
  public:
 
   McPrependReply() :
-      result(0) {}
+      result(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McPrependReply(apache::thrift::FragileConstructor, int16_t result__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McPrependReply(apache::thrift::FragileConstructor, int16_t result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
-      message(std::move(message__arg)) {}
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McPrependReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McPrependReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McPrependReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McPrependReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McPrependReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McPrependReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McPrependReply(McPrependReply&&) = default;
 
@@ -2589,23 +4959,63 @@ class McPrependReply : private boost::totally_ordered<McPrependReply> {
   virtual ~McPrependReply() throw() {}
 
   int16_t result;
-   ::facebook::memcache::cpp2::IOBuf message;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool message;
+    bool result = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McPrependReply& rhs) const;
   bool operator < (const McPrependReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McPrependReply_message_struct_setter>
+  std::string& set_message(T_McPrependReply_message_struct_setter&& message_) {
+    message = std::forward<T_McPrependReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -2658,7 +5068,24 @@ class McTouchRequest : private boost::totally_ordered<McTouchRequest> {
 
   McTouchRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg, int32_t exptime__arg) :
       key(std::move(key__arg)),
-      exptime(std::move(exptime__arg)) {}
+      exptime(std::move(exptime__arg)) {
+    __isset.key = true;
+    __isset.exptime = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McTouchRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McTouchRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McTouchRequest(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McTouchRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    exptime = arg.move();
+    __isset.exptime = true;
+  }
 
   McTouchRequest(McTouchRequest&&) = default;
 
@@ -2675,20 +5102,41 @@ class McTouchRequest : private boost::totally_ordered<McTouchRequest> {
   int32_t exptime;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       key = false;
       exptime = false;
     }
 
-    bool key;
-    bool exptime;
+    bool key = false;
+    bool exptime = false;
   } __isset;
   bool operator==(const McTouchRequest& rhs) const;
   bool operator < (const McTouchRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McTouchRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McTouchRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McTouchRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  int32_t get_exptime() const {
+    return exptime;
+  }
+
+  int32_t& set_exptime(int32_t exptime_) {
+    exptime = exptime_;
+    __isset.exptime = true;
+    return exptime;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -2736,12 +5184,39 @@ class McTouchReply : private boost::totally_ordered<McTouchReply> {
  public:
 
   McTouchReply() :
-      result(0) {}
+      result(0),
+      appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McTouchReply(apache::thrift::FragileConstructor, int16_t result__arg,  ::facebook::memcache::cpp2::IOBuf message__arg) :
+  McTouchReply(apache::thrift::FragileConstructor, int16_t result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
       result(std::move(result__arg)),
-      message(std::move(message__arg)) {}
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McTouchReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McTouchReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McTouchReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McTouchReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McTouchReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McTouchReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
 
   McTouchReply(McTouchReply&&) = default;
 
@@ -2755,23 +5230,63 @@ class McTouchReply : private boost::totally_ordered<McTouchReply> {
   virtual ~McTouchReply() throw() {}
 
   int16_t result;
-   ::facebook::memcache::cpp2::IOBuf message;
+  std::string message;
+  int16_t appSpecificErrorCode;
 
   struct __isset {
-    __isset() {
-      __clear();
-    }
-
     void __clear() {
       result = false;
       message = false;
+      appSpecificErrorCode = false;
     }
 
-    bool result;
-    bool message;
+    bool result = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
   } __isset;
   bool operator==(const McTouchReply& rhs) const;
   bool operator < (const McTouchReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McTouchReply_message_struct_setter>
+  std::string& set_message(T_McTouchReply_message_struct_setter&& message_) {
+    message = std::forward<T_McTouchReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -2809,6 +5324,1567 @@ template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memca
 }
 
 template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McTouchReply* obj) {
+  return obj->serializedSizeZC(proto);
+}
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+class McStatsRequest : private boost::totally_ordered<McStatsRequest> {
+ public:
+
+  McStatsRequest() {}
+  // FragileConstructor for use in initialization lists only
+
+  McStatsRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg) :
+      key(std::move(key__arg)) {
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McStatsRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McStatsRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+
+  McStatsRequest(McStatsRequest&&) = default;
+
+  McStatsRequest(const McStatsRequest&) = default;
+
+  McStatsRequest& operator=(McStatsRequest&&) = default;
+
+  McStatsRequest& operator=(const McStatsRequest&) = default;
+  void __clear();
+
+  virtual ~McStatsRequest() throw() {}
+
+   ::facebook::memcache::cpp2::IOBuf key;
+
+  struct __isset {
+    void __clear() {
+      key = false;
+    }
+
+    bool key = false;
+  } __isset;
+  bool operator==(const McStatsRequest& rhs) const;
+  bool operator < (const McStatsRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McStatsRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McStatsRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McStatsRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+};
+
+void swap(McStatsRequest& a, McStatsRequest& b);
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+template <> inline void Cpp2Ops< ::facebook::memcache::cpp2::McStatsRequest>::clear( ::facebook::memcache::cpp2::McStatsRequest* obj) {
+  return obj->__clear();
+}
+
+template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook::memcache::cpp2::McStatsRequest>::thriftType() {
+  return apache::thrift::protocol::T_STRUCT;
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McStatsRequest* obj) {
+  return obj->write(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McStatsRequest* obj) {
+  return obj->read(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McStatsRequest* obj) {
+  return obj->serializedSize(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McStatsRequest* obj) {
+  return obj->serializedSizeZC(proto);
+}
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+class McStatsReply : private boost::totally_ordered<McStatsReply> {
+ public:
+
+  McStatsReply() :
+      result(0),
+      appSpecificErrorCode(0) {}
+  // FragileConstructor for use in initialization lists only
+
+  McStatsReply(apache::thrift::FragileConstructor, int16_t result__arg, std::string message__arg, std::vector<std::string> stats__arg, int16_t appSpecificErrorCode__arg) :
+      result(std::move(result__arg)),
+      message(std::move(message__arg)),
+      stats(std::move(stats__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.message = true;
+    __isset.stats = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McStatsReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McStatsReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McStatsReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McStatsReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McStatsReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McStatsReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    stats = arg.move();
+    __isset.stats = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McStatsReply(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McStatsReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
+
+  McStatsReply(McStatsReply&&) = default;
+
+  McStatsReply(const McStatsReply&) = default;
+
+  McStatsReply& operator=(McStatsReply&&) = default;
+
+  McStatsReply& operator=(const McStatsReply&) = default;
+  void __clear();
+
+  virtual ~McStatsReply() throw() {}
+
+  int16_t result;
+  std::string message;
+  std::vector<std::string> stats;
+  int16_t appSpecificErrorCode;
+
+  struct __isset {
+    void __clear() {
+      result = false;
+      message = false;
+      stats = false;
+      appSpecificErrorCode = false;
+    }
+
+    bool result = false;
+    bool message = false;
+    bool stats = false;
+    bool appSpecificErrorCode = false;
+  } __isset;
+  bool operator==(const McStatsReply& rhs) const;
+  bool operator < (const McStatsReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McStatsReply_message_struct_setter>
+  std::string& set_message(T_McStatsReply_message_struct_setter&& message_) {
+    message = std::forward<T_McStatsReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+  const std::vector<std::string>* get_stats() const&;
+  std::vector<std::string>* get_stats() &;
+  std::vector<std::string>* get_stats() && = delete;
+  template <typename T_McStatsReply_stats_struct_setter>
+  std::vector<std::string>& set_stats(T_McStatsReply_stats_struct_setter&& stats_);
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+};
+
+void swap(McStatsReply& a, McStatsReply& b);
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+template <> inline void Cpp2Ops< ::facebook::memcache::cpp2::McStatsReply>::clear( ::facebook::memcache::cpp2::McStatsReply* obj) {
+  return obj->__clear();
+}
+
+template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook::memcache::cpp2::McStatsReply>::thriftType() {
+  return apache::thrift::protocol::T_STRUCT;
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McStatsReply* obj) {
+  return obj->write(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McStatsReply* obj) {
+  return obj->read(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McStatsReply* obj) {
+  return obj->serializedSize(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McStatsReply* obj) {
+  return obj->serializedSizeZC(proto);
+}
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+class McShutdownRequest : private boost::totally_ordered<McShutdownRequest> {
+ public:
+
+  McShutdownRequest() {}
+  // FragileConstructor for use in initialization lists only
+
+  McShutdownRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg) :
+      key(std::move(key__arg)) {
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McShutdownRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McShutdownRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+
+  McShutdownRequest(McShutdownRequest&&) = default;
+
+  McShutdownRequest(const McShutdownRequest&) = default;
+
+  McShutdownRequest& operator=(McShutdownRequest&&) = default;
+
+  McShutdownRequest& operator=(const McShutdownRequest&) = default;
+  void __clear();
+
+  virtual ~McShutdownRequest() throw() {}
+
+   ::facebook::memcache::cpp2::IOBuf key;
+
+  struct __isset {
+    void __clear() {
+      key = false;
+    }
+
+    bool key = false;
+  } __isset;
+  bool operator==(const McShutdownRequest& rhs) const;
+  bool operator < (const McShutdownRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McShutdownRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McShutdownRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McShutdownRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+};
+
+void swap(McShutdownRequest& a, McShutdownRequest& b);
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+template <> inline void Cpp2Ops< ::facebook::memcache::cpp2::McShutdownRequest>::clear( ::facebook::memcache::cpp2::McShutdownRequest* obj) {
+  return obj->__clear();
+}
+
+template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook::memcache::cpp2::McShutdownRequest>::thriftType() {
+  return apache::thrift::protocol::T_STRUCT;
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McShutdownRequest* obj) {
+  return obj->write(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McShutdownRequest* obj) {
+  return obj->read(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McShutdownRequest* obj) {
+  return obj->serializedSize(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McShutdownRequest* obj) {
+  return obj->serializedSizeZC(proto);
+}
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+class McShutdownReply : private boost::totally_ordered<McShutdownReply> {
+ public:
+
+  McShutdownReply() :
+      result(0),
+      appSpecificErrorCode(0) {}
+  // FragileConstructor for use in initialization lists only
+
+  McShutdownReply(apache::thrift::FragileConstructor, int16_t result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+      result(std::move(result__arg)),
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McShutdownReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McShutdownReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McShutdownReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McShutdownReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McShutdownReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McShutdownReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
+
+  McShutdownReply(McShutdownReply&&) = default;
+
+  McShutdownReply(const McShutdownReply&) = default;
+
+  McShutdownReply& operator=(McShutdownReply&&) = default;
+
+  McShutdownReply& operator=(const McShutdownReply&) = default;
+  void __clear();
+
+  virtual ~McShutdownReply() throw() {}
+
+  int16_t result;
+  std::string message;
+  int16_t appSpecificErrorCode;
+
+  struct __isset {
+    void __clear() {
+      result = false;
+      message = false;
+      appSpecificErrorCode = false;
+    }
+
+    bool result = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
+  } __isset;
+  bool operator==(const McShutdownReply& rhs) const;
+  bool operator < (const McShutdownReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McShutdownReply_message_struct_setter>
+  std::string& set_message(T_McShutdownReply_message_struct_setter&& message_) {
+    message = std::forward<T_McShutdownReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+};
+
+void swap(McShutdownReply& a, McShutdownReply& b);
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+template <> inline void Cpp2Ops< ::facebook::memcache::cpp2::McShutdownReply>::clear( ::facebook::memcache::cpp2::McShutdownReply* obj) {
+  return obj->__clear();
+}
+
+template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook::memcache::cpp2::McShutdownReply>::thriftType() {
+  return apache::thrift::protocol::T_STRUCT;
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McShutdownReply* obj) {
+  return obj->write(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McShutdownReply* obj) {
+  return obj->read(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McShutdownReply* obj) {
+  return obj->serializedSize(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McShutdownReply* obj) {
+  return obj->serializedSizeZC(proto);
+}
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+class McQuitRequest : private boost::totally_ordered<McQuitRequest> {
+ public:
+
+  McQuitRequest() {}
+  // FragileConstructor for use in initialization lists only
+
+  McQuitRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg) :
+      key(std::move(key__arg)) {
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McQuitRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McQuitRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+
+  McQuitRequest(McQuitRequest&&) = default;
+
+  McQuitRequest(const McQuitRequest&) = default;
+
+  McQuitRequest& operator=(McQuitRequest&&) = default;
+
+  McQuitRequest& operator=(const McQuitRequest&) = default;
+  void __clear();
+
+  virtual ~McQuitRequest() throw() {}
+
+   ::facebook::memcache::cpp2::IOBuf key;
+
+  struct __isset {
+    void __clear() {
+      key = false;
+    }
+
+    bool key = false;
+  } __isset;
+  bool operator==(const McQuitRequest& rhs) const;
+  bool operator < (const McQuitRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McQuitRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McQuitRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McQuitRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+};
+
+void swap(McQuitRequest& a, McQuitRequest& b);
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+template <> inline void Cpp2Ops< ::facebook::memcache::cpp2::McQuitRequest>::clear( ::facebook::memcache::cpp2::McQuitRequest* obj) {
+  return obj->__clear();
+}
+
+template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook::memcache::cpp2::McQuitRequest>::thriftType() {
+  return apache::thrift::protocol::T_STRUCT;
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McQuitRequest* obj) {
+  return obj->write(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McQuitRequest* obj) {
+  return obj->read(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McQuitRequest* obj) {
+  return obj->serializedSize(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McQuitRequest* obj) {
+  return obj->serializedSizeZC(proto);
+}
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+class McQuitReply : private boost::totally_ordered<McQuitReply> {
+ public:
+
+  McQuitReply() :
+      result(0),
+      appSpecificErrorCode(0) {}
+  // FragileConstructor for use in initialization lists only
+
+  McQuitReply(apache::thrift::FragileConstructor, int16_t result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+      result(std::move(result__arg)),
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McQuitReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McQuitReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McQuitReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McQuitReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McQuitReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McQuitReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
+
+  McQuitReply(McQuitReply&&) = default;
+
+  McQuitReply(const McQuitReply&) = default;
+
+  McQuitReply& operator=(McQuitReply&&) = default;
+
+  McQuitReply& operator=(const McQuitReply&) = default;
+  void __clear();
+
+  virtual ~McQuitReply() throw() {}
+
+  int16_t result;
+  std::string message;
+  int16_t appSpecificErrorCode;
+
+  struct __isset {
+    void __clear() {
+      result = false;
+      message = false;
+      appSpecificErrorCode = false;
+    }
+
+    bool result = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
+  } __isset;
+  bool operator==(const McQuitReply& rhs) const;
+  bool operator < (const McQuitReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McQuitReply_message_struct_setter>
+  std::string& set_message(T_McQuitReply_message_struct_setter&& message_) {
+    message = std::forward<T_McQuitReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+};
+
+void swap(McQuitReply& a, McQuitReply& b);
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+template <> inline void Cpp2Ops< ::facebook::memcache::cpp2::McQuitReply>::clear( ::facebook::memcache::cpp2::McQuitReply* obj) {
+  return obj->__clear();
+}
+
+template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook::memcache::cpp2::McQuitReply>::thriftType() {
+  return apache::thrift::protocol::T_STRUCT;
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McQuitReply* obj) {
+  return obj->write(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McQuitReply* obj) {
+  return obj->read(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McQuitReply* obj) {
+  return obj->serializedSize(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McQuitReply* obj) {
+  return obj->serializedSizeZC(proto);
+}
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+class McExecRequest : private boost::totally_ordered<McExecRequest> {
+ public:
+
+  McExecRequest() {}
+  // FragileConstructor for use in initialization lists only
+
+  McExecRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg) :
+      key(std::move(key__arg)) {
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McExecRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McExecRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+
+  McExecRequest(McExecRequest&&) = default;
+
+  McExecRequest(const McExecRequest&) = default;
+
+  McExecRequest& operator=(McExecRequest&&) = default;
+
+  McExecRequest& operator=(const McExecRequest&) = default;
+  void __clear();
+
+  virtual ~McExecRequest() throw() {}
+
+   ::facebook::memcache::cpp2::IOBuf key;
+
+  struct __isset {
+    void __clear() {
+      key = false;
+    }
+
+    bool key = false;
+  } __isset;
+  bool operator==(const McExecRequest& rhs) const;
+  bool operator < (const McExecRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McExecRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McExecRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McExecRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+};
+
+void swap(McExecRequest& a, McExecRequest& b);
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+template <> inline void Cpp2Ops< ::facebook::memcache::cpp2::McExecRequest>::clear( ::facebook::memcache::cpp2::McExecRequest* obj) {
+  return obj->__clear();
+}
+
+template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook::memcache::cpp2::McExecRequest>::thriftType() {
+  return apache::thrift::protocol::T_STRUCT;
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McExecRequest* obj) {
+  return obj->write(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McExecRequest* obj) {
+  return obj->read(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McExecRequest* obj) {
+  return obj->serializedSize(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McExecRequest* obj) {
+  return obj->serializedSizeZC(proto);
+}
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+class McExecReply : private boost::totally_ordered<McExecReply> {
+ public:
+
+  McExecReply() :
+      result(0),
+      appSpecificErrorCode(0) {}
+  // FragileConstructor for use in initialization lists only
+
+  McExecReply(apache::thrift::FragileConstructor, int16_t result__arg, std::string response__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+      result(std::move(result__arg)),
+      response(std::move(response__arg)),
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.response = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McExecReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McExecReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McExecReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McExecReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    response = arg.move();
+    __isset.response = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McExecReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McExecReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McExecReply(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McExecReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
+
+  McExecReply(McExecReply&&) = default;
+
+  McExecReply(const McExecReply&) = default;
+
+  McExecReply& operator=(McExecReply&&) = default;
+
+  McExecReply& operator=(const McExecReply&) = default;
+  void __clear();
+
+  virtual ~McExecReply() throw() {}
+
+  int16_t result;
+  std::string response;
+  std::string message;
+  int16_t appSpecificErrorCode;
+
+  struct __isset {
+    void __clear() {
+      result = false;
+      response = false;
+      message = false;
+      appSpecificErrorCode = false;
+    }
+
+    bool result = false;
+    bool response = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
+  } __isset;
+  bool operator==(const McExecReply& rhs) const;
+  bool operator < (const McExecReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const std::string* get_response() const& {
+    return __isset.response ? std::addressof(response) : nullptr;
+  }
+
+  std::string* get_response() & {
+    return __isset.response ? std::addressof(response) : nullptr;
+  }
+  std::string* get_response() && = delete;
+
+  template <typename T_McExecReply_response_struct_setter>
+  std::string& set_response(T_McExecReply_response_struct_setter&& response_) {
+    response = std::forward<T_McExecReply_response_struct_setter>(response_);
+    __isset.response = true;
+    return response;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McExecReply_message_struct_setter>
+  std::string& set_message(T_McExecReply_message_struct_setter&& message_) {
+    message = std::forward<T_McExecReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+};
+
+void swap(McExecReply& a, McExecReply& b);
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+template <> inline void Cpp2Ops< ::facebook::memcache::cpp2::McExecReply>::clear( ::facebook::memcache::cpp2::McExecReply* obj) {
+  return obj->__clear();
+}
+
+template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook::memcache::cpp2::McExecReply>::thriftType() {
+  return apache::thrift::protocol::T_STRUCT;
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McExecReply* obj) {
+  return obj->write(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McExecReply* obj) {
+  return obj->read(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McExecReply* obj) {
+  return obj->serializedSize(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McExecReply* obj) {
+  return obj->serializedSizeZC(proto);
+}
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+class McFlushReRequest : private boost::totally_ordered<McFlushReRequest> {
+ public:
+
+  McFlushReRequest() {}
+  // FragileConstructor for use in initialization lists only
+
+  McFlushReRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg) :
+      key(std::move(key__arg)) {
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McFlushReRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McFlushReRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+
+  McFlushReRequest(McFlushReRequest&&) = default;
+
+  McFlushReRequest(const McFlushReRequest&) = default;
+
+  McFlushReRequest& operator=(McFlushReRequest&&) = default;
+
+  McFlushReRequest& operator=(const McFlushReRequest&) = default;
+  void __clear();
+
+  virtual ~McFlushReRequest() throw() {}
+
+   ::facebook::memcache::cpp2::IOBuf key;
+
+  struct __isset {
+    void __clear() {
+      key = false;
+    }
+
+    bool key = false;
+  } __isset;
+  bool operator==(const McFlushReRequest& rhs) const;
+  bool operator < (const McFlushReRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McFlushReRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McFlushReRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McFlushReRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+};
+
+void swap(McFlushReRequest& a, McFlushReRequest& b);
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+template <> inline void Cpp2Ops< ::facebook::memcache::cpp2::McFlushReRequest>::clear( ::facebook::memcache::cpp2::McFlushReRequest* obj) {
+  return obj->__clear();
+}
+
+template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook::memcache::cpp2::McFlushReRequest>::thriftType() {
+  return apache::thrift::protocol::T_STRUCT;
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushReRequest* obj) {
+  return obj->write(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McFlushReRequest* obj) {
+  return obj->read(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushReRequest* obj) {
+  return obj->serializedSize(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushReRequest* obj) {
+  return obj->serializedSizeZC(proto);
+}
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+class McFlushReReply : private boost::totally_ordered<McFlushReReply> {
+ public:
+
+  McFlushReReply() :
+      result(0),
+      appSpecificErrorCode(0) {}
+  // FragileConstructor for use in initialization lists only
+
+  McFlushReReply(apache::thrift::FragileConstructor, int16_t result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+      result(std::move(result__arg)),
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McFlushReReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McFlushReReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McFlushReReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McFlushReReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McFlushReReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McFlushReReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
+
+  McFlushReReply(McFlushReReply&&) = default;
+
+  McFlushReReply(const McFlushReReply&) = default;
+
+  McFlushReReply& operator=(McFlushReReply&&) = default;
+
+  McFlushReReply& operator=(const McFlushReReply&) = default;
+  void __clear();
+
+  virtual ~McFlushReReply() throw() {}
+
+  int16_t result;
+  std::string message;
+  int16_t appSpecificErrorCode;
+
+  struct __isset {
+    void __clear() {
+      result = false;
+      message = false;
+      appSpecificErrorCode = false;
+    }
+
+    bool result = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
+  } __isset;
+  bool operator==(const McFlushReReply& rhs) const;
+  bool operator < (const McFlushReReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McFlushReReply_message_struct_setter>
+  std::string& set_message(T_McFlushReReply_message_struct_setter&& message_) {
+    message = std::forward<T_McFlushReReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+};
+
+void swap(McFlushReReply& a, McFlushReReply& b);
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+template <> inline void Cpp2Ops< ::facebook::memcache::cpp2::McFlushReReply>::clear( ::facebook::memcache::cpp2::McFlushReReply* obj) {
+  return obj->__clear();
+}
+
+template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook::memcache::cpp2::McFlushReReply>::thriftType() {
+  return apache::thrift::protocol::T_STRUCT;
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushReReply* obj) {
+  return obj->write(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McFlushReReply* obj) {
+  return obj->read(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushReReply* obj) {
+  return obj->serializedSize(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushReReply* obj) {
+  return obj->serializedSizeZC(proto);
+}
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+class McFlushAllRequest : private boost::totally_ordered<McFlushAllRequest> {
+ public:
+
+  McFlushAllRequest() :
+      delay(0) {}
+  // FragileConstructor for use in initialization lists only
+
+  McFlushAllRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg, int32_t delay__arg) :
+      key(std::move(key__arg)),
+      delay(std::move(delay__arg)) {
+    __isset.key = true;
+    __isset.delay = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McFlushAllRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McFlushAllRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    key = arg.move();
+    __isset.key = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McFlushAllRequest(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McFlushAllRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    delay = arg.move();
+    __isset.delay = true;
+  }
+
+  McFlushAllRequest(McFlushAllRequest&&) = default;
+
+  McFlushAllRequest(const McFlushAllRequest&) = default;
+
+  McFlushAllRequest& operator=(McFlushAllRequest&&) = default;
+
+  McFlushAllRequest& operator=(const McFlushAllRequest&) = default;
+  void __clear();
+
+  virtual ~McFlushAllRequest() throw() {}
+
+   ::facebook::memcache::cpp2::IOBuf key;
+  int32_t delay;
+
+  struct __isset {
+    void __clear() {
+      key = false;
+      delay = false;
+    }
+
+    bool key = false;
+    bool delay = false;
+  } __isset;
+  bool operator==(const McFlushAllRequest& rhs) const;
+  bool operator < (const McFlushAllRequest& rhs) const;
+
+  const  ::facebook::memcache::cpp2::IOBuf& get_key() const& {
+    return key;
+  }
+
+   ::facebook::memcache::cpp2::IOBuf get_key() && {
+    return std::move(key);
+  }
+
+  template <typename T_McFlushAllRequest_key_struct_setter>
+   ::facebook::memcache::cpp2::IOBuf& set_key(T_McFlushAllRequest_key_struct_setter&& key_) {
+    key = std::forward<T_McFlushAllRequest_key_struct_setter>(key_);
+    __isset.key = true;
+    return key;
+  }
+
+  const int32_t* get_delay() const& {
+    return __isset.delay ? std::addressof(delay) : nullptr;
+  }
+
+  int32_t* get_delay() & {
+    return __isset.delay ? std::addressof(delay) : nullptr;
+  }
+  int32_t* get_delay() && = delete;
+
+  int32_t& set_delay(int32_t delay_) {
+    delay = delay_;
+    __isset.delay = true;
+    return delay;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+};
+
+void swap(McFlushAllRequest& a, McFlushAllRequest& b);
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+template <> inline void Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllRequest>::clear( ::facebook::memcache::cpp2::McFlushAllRequest* obj) {
+  return obj->__clear();
+}
+
+template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllRequest>::thriftType() {
+  return apache::thrift::protocol::T_STRUCT;
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushAllRequest* obj) {
+  return obj->write(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McFlushAllRequest* obj) {
+  return obj->read(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushAllRequest* obj) {
+  return obj->serializedSize(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushAllRequest* obj) {
+  return obj->serializedSizeZC(proto);
+}
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+class McFlushAllReply : private boost::totally_ordered<McFlushAllReply> {
+ public:
+
+  McFlushAllReply() :
+      result(0),
+      appSpecificErrorCode(0) {}
+  // FragileConstructor for use in initialization lists only
+
+  McFlushAllReply(apache::thrift::FragileConstructor, int16_t result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+      result(std::move(result__arg)),
+      message(std::move(message__arg)),
+      appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
+    __isset.result = true;
+    __isset.message = true;
+    __isset.appSpecificErrorCode = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McFlushAllReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McFlushAllReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    result = arg.move();
+    __isset.result = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McFlushAllReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McFlushAllReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    message = arg.move();
+    __isset.message = true;
+  }
+  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
+  McFlushAllReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
+    McFlushAllReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
+  {
+    appSpecificErrorCode = arg.move();
+    __isset.appSpecificErrorCode = true;
+  }
+
+  McFlushAllReply(McFlushAllReply&&) = default;
+
+  McFlushAllReply(const McFlushAllReply&) = default;
+
+  McFlushAllReply& operator=(McFlushAllReply&&) = default;
+
+  McFlushAllReply& operator=(const McFlushAllReply&) = default;
+  void __clear();
+
+  virtual ~McFlushAllReply() throw() {}
+
+  int16_t result;
+  std::string message;
+  int16_t appSpecificErrorCode;
+
+  struct __isset {
+    void __clear() {
+      result = false;
+      message = false;
+      appSpecificErrorCode = false;
+    }
+
+    bool result = false;
+    bool message = false;
+    bool appSpecificErrorCode = false;
+  } __isset;
+  bool operator==(const McFlushAllReply& rhs) const;
+  bool operator < (const McFlushAllReply& rhs) const;
+
+  int16_t get_result() const {
+    return result;
+  }
+
+  int16_t& set_result(int16_t result_) {
+    result = result_;
+    __isset.result = true;
+    return result;
+  }
+
+  const std::string* get_message() const& {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+
+  std::string* get_message() & {
+    return __isset.message ? std::addressof(message) : nullptr;
+  }
+  std::string* get_message() && = delete;
+
+  template <typename T_McFlushAllReply_message_struct_setter>
+  std::string& set_message(T_McFlushAllReply_message_struct_setter&& message_) {
+    message = std::forward<T_McFlushAllReply_message_struct_setter>(message_);
+    __isset.message = true;
+    return message;
+  }
+
+  const int16_t* get_appSpecificErrorCode() const& {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+
+  int16_t* get_appSpecificErrorCode() & {
+    return __isset.appSpecificErrorCode ? std::addressof(appSpecificErrorCode) : nullptr;
+  }
+  int16_t* get_appSpecificErrorCode() && = delete;
+
+  int16_t& set_appSpecificErrorCode(int16_t appSpecificErrorCode_) {
+    appSpecificErrorCode = appSpecificErrorCode_;
+    __isset.appSpecificErrorCode = true;
+    return appSpecificErrorCode;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+};
+
+void swap(McFlushAllReply& a, McFlushAllReply& b);
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+template <> inline void Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllReply>::clear( ::facebook::memcache::cpp2::McFlushAllReply* obj) {
+  return obj->__clear();
+}
+
+template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllReply>::thriftType() {
+  return apache::thrift::protocol::T_STRUCT;
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushAllReply* obj) {
+  return obj->write(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McFlushAllReply* obj) {
+  return obj->read(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushAllReply* obj) {
+  return obj->serializedSize(proto);
+}
+
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushAllReply* obj) {
   return obj->serializedSizeZC(proto);
 }
 

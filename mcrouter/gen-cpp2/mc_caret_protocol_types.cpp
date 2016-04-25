@@ -23,11 +23,25 @@ template uint32_t McGetRequest::serializedSizeZC<apache::thrift::CompactProtocol
 
 void McGetRequest::__clear() {
   key = folly::IOBuf();
+  flags = 0;
+  exptime = 0;
   __isset.__clear();
 }
 
 bool McGetRequest::operator==(const McGetRequest& rhs) const {
   if (!(apache::thrift::StringTraits<folly::IOBuf>::isEqual(key, rhs.key))) {
+    return false;
+  }
+  if (__isset.flags != rhs.__isset.flags) {
+    return false;
+  }
+  else if (__isset.flags && !((flags == rhs.flags))) {
+    return false;
+  }
+  if (__isset.exptime != rhs.__isset.exptime) {
+    return false;
+  }
+  else if (__isset.exptime && !((exptime == rhs.exptime))) {
     return false;
   }
   return true;
@@ -36,6 +50,8 @@ bool McGetRequest::operator==(const McGetRequest& rhs) const {
 void swap(McGetRequest& a, McGetRequest& b) {
   using ::std::swap;
   swap(a.key, b.key);
+  swap(a.flags, b.flags);
+  swap(a.exptime, b.exptime);
   swap(a.__isset, b.__isset);
 }
 
@@ -58,7 +74,8 @@ void McGetReply::__clear() {
   result = 0;
   value = folly::IOBuf();
   flags = 0;
-  message = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -81,7 +98,13 @@ bool McGetReply::operator==(const McGetReply& rhs) const {
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -93,6 +116,7 @@ void swap(McGetReply& a, McGetReply& b) {
   swap(a.value, b.value);
   swap(a.flags, b.flags);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 
@@ -161,7 +185,10 @@ template uint32_t McSetReply::serializedSizeZC<apache::thrift::CompactProtocolWr
 
 void McSetReply::__clear() {
   result = 0;
-  message = folly::IOBuf();
+  flags = 0;
+  value = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -169,10 +196,28 @@ bool McSetReply::operator==(const McSetReply& rhs) const {
   if (!((result == rhs.result))) {
     return false;
   }
+  if (__isset.flags != rhs.__isset.flags) {
+    return false;
+  }
+  else if (__isset.flags && !((flags == rhs.flags))) {
+    return false;
+  }
+  if (__isset.value != rhs.__isset.value) {
+    return false;
+  }
+  else if (__isset.value && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(value, rhs.value))) {
+    return false;
+  }
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -181,7 +226,10 @@ bool McSetReply::operator==(const McSetReply& rhs) const {
 void swap(McSetReply& a, McSetReply& b) {
   using ::std::swap;
   swap(a.result, b.result);
+  swap(a.flags, b.flags);
+  swap(a.value, b.value);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 
@@ -202,12 +250,20 @@ template uint32_t McDeleteRequest::serializedSizeZC<apache::thrift::CompactProto
 
 void McDeleteRequest::__clear() {
   key = folly::IOBuf();
+  flags = 0;
   exptime = 0;
+  value = folly::IOBuf();
   __isset.__clear();
 }
 
 bool McDeleteRequest::operator==(const McDeleteRequest& rhs) const {
   if (!(apache::thrift::StringTraits<folly::IOBuf>::isEqual(key, rhs.key))) {
+    return false;
+  }
+  if (__isset.flags != rhs.__isset.flags) {
+    return false;
+  }
+  else if (__isset.flags && !((flags == rhs.flags))) {
     return false;
   }
   if (__isset.exptime != rhs.__isset.exptime) {
@@ -216,13 +272,21 @@ bool McDeleteRequest::operator==(const McDeleteRequest& rhs) const {
   else if (__isset.exptime && !((exptime == rhs.exptime))) {
     return false;
   }
+  if (__isset.value != rhs.__isset.value) {
+    return false;
+  }
+  else if (__isset.value && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(value, rhs.value))) {
+    return false;
+  }
   return true;
 }
 
 void swap(McDeleteRequest& a, McDeleteRequest& b) {
   using ::std::swap;
   swap(a.key, b.key);
+  swap(a.flags, b.flags);
   swap(a.exptime, b.exptime);
+  swap(a.value, b.value);
   swap(a.__isset, b.__isset);
 }
 
@@ -243,7 +307,10 @@ template uint32_t McDeleteReply::serializedSizeZC<apache::thrift::CompactProtoco
 
 void McDeleteReply::__clear() {
   result = 0;
-  message = folly::IOBuf();
+  flags = 0;
+  value = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -251,10 +318,28 @@ bool McDeleteReply::operator==(const McDeleteReply& rhs) const {
   if (!((result == rhs.result))) {
     return false;
   }
+  if (__isset.flags != rhs.__isset.flags) {
+    return false;
+  }
+  else if (__isset.flags && !((flags == rhs.flags))) {
+    return false;
+  }
+  if (__isset.value != rhs.__isset.value) {
+    return false;
+  }
+  else if (__isset.value && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(value, rhs.value))) {
+    return false;
+  }
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -263,7 +348,10 @@ bool McDeleteReply::operator==(const McDeleteReply& rhs) const {
 void swap(McDeleteReply& a, McDeleteReply& b) {
   using ::std::swap;
   swap(a.result, b.result);
+  swap(a.flags, b.flags);
+  swap(a.value, b.value);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 
@@ -320,7 +408,8 @@ void McLeaseGetReply::__clear() {
   leaseToken = 0;
   value = folly::IOBuf();
   flags = 0;
-  message = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -349,7 +438,13 @@ bool McLeaseGetReply::operator==(const McLeaseGetReply& rhs) const {
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -362,6 +457,7 @@ void swap(McLeaseGetReply& a, McLeaseGetReply& b) {
   swap(a.value, b.value);
   swap(a.flags, b.flags);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 
@@ -435,7 +531,8 @@ template uint32_t McLeaseSetReply::serializedSizeZC<apache::thrift::CompactProto
 
 void McLeaseSetReply::__clear() {
   result = 0;
-  message = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -446,7 +543,13 @@ bool McLeaseSetReply::operator==(const McLeaseSetReply& rhs) const {
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -456,6 +559,7 @@ void swap(McLeaseSetReply& a, McLeaseSetReply& b) {
   using ::std::swap;
   swap(a.result, b.result);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 
@@ -524,7 +628,8 @@ template uint32_t McAddReply::serializedSizeZC<apache::thrift::CompactProtocolWr
 
 void McAddReply::__clear() {
   result = 0;
-  message = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -535,7 +640,13 @@ bool McAddReply::operator==(const McAddReply& rhs) const {
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -545,6 +656,7 @@ void swap(McAddReply& a, McAddReply& b) {
   using ::std::swap;
   swap(a.result, b.result);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 
@@ -613,7 +725,8 @@ template uint32_t McReplaceReply::serializedSizeZC<apache::thrift::CompactProtoc
 
 void McReplaceReply::__clear() {
   result = 0;
-  message = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -624,7 +737,13 @@ bool McReplaceReply::operator==(const McReplaceReply& rhs) const {
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -634,6 +753,7 @@ void swap(McReplaceReply& a, McReplaceReply& b) {
   using ::std::swap;
   swap(a.result, b.result);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 
@@ -690,7 +810,8 @@ void McGetsReply::__clear() {
   casToken = 0;
   value = folly::IOBuf();
   flags = 0;
-  message = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -719,7 +840,13 @@ bool McGetsReply::operator==(const McGetsReply& rhs) const {
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -732,6 +859,7 @@ void swap(McGetsReply& a, McGetsReply& b) {
   swap(a.value, b.value);
   swap(a.flags, b.flags);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 
@@ -805,7 +933,8 @@ template uint32_t McCasReply::serializedSizeZC<apache::thrift::CompactProtocolWr
 
 void McCasReply::__clear() {
   result = 0;
-  message = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -816,7 +945,13 @@ bool McCasReply::operator==(const McCasReply& rhs) const {
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -826,6 +961,7 @@ void swap(McCasReply& a, McCasReply& b) {
   using ::std::swap;
   swap(a.result, b.result);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 
@@ -885,7 +1021,8 @@ template uint32_t McIncrReply::serializedSizeZC<apache::thrift::CompactProtocolW
 void McIncrReply::__clear() {
   result = 0;
   delta = 0;
-  message = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -902,7 +1039,13 @@ bool McIncrReply::operator==(const McIncrReply& rhs) const {
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -913,6 +1056,7 @@ void swap(McIncrReply& a, McIncrReply& b) {
   swap(a.result, b.result);
   swap(a.delta, b.delta);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 
@@ -972,7 +1116,8 @@ template uint32_t McDecrReply::serializedSizeZC<apache::thrift::CompactProtocolW
 void McDecrReply::__clear() {
   result = 0;
   delta = 0;
-  message = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -989,7 +1134,13 @@ bool McDecrReply::operator==(const McDecrReply& rhs) const {
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -1000,6 +1151,7 @@ void swap(McDecrReply& a, McDecrReply& b) {
   swap(a.result, b.result);
   swap(a.delta, b.delta);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 
@@ -1055,10 +1207,10 @@ void McMetagetReply::__clear() {
   result = 0;
   age = 0;
   exptime = 0;
-  isTransient = 0;
   ipv = 0;
   ipAddress = std::string();
-  message = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -1078,12 +1230,6 @@ bool McMetagetReply::operator==(const McMetagetReply& rhs) const {
   else if (__isset.exptime && !((exptime == rhs.exptime))) {
     return false;
   }
-  if (__isset.isTransient != rhs.__isset.isTransient) {
-    return false;
-  }
-  else if (__isset.isTransient && !((isTransient == rhs.isTransient))) {
-    return false;
-  }
   if (__isset.ipv != rhs.__isset.ipv) {
     return false;
   }
@@ -1099,7 +1245,13 @@ bool McMetagetReply::operator==(const McMetagetReply& rhs) const {
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -1110,10 +1262,10 @@ void swap(McMetagetReply& a, McMetagetReply& b) {
   swap(a.result, b.result);
   swap(a.age, b.age);
   swap(a.exptime, b.exptime);
-  swap(a.isTransient, b.isTransient);
   swap(a.ipv, b.ipv);
   swap(a.ipAddress, b.ipAddress);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 
@@ -1132,12 +1284,22 @@ template uint32_t McVersionRequest::write<apache::thrift::CompactProtocolWriter>
 template uint32_t McVersionRequest::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
 template uint32_t McVersionRequest::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
 
-bool McVersionRequest::operator==(const McVersionRequest& /* rhs */) const {
+void McVersionRequest::__clear() {
+  key = folly::IOBuf();
+  __isset.__clear();
+}
+
+bool McVersionRequest::operator==(const McVersionRequest& rhs) const {
+  if (!(apache::thrift::StringTraits<folly::IOBuf>::isEqual(key, rhs.key))) {
+    return false;
+  }
   return true;
 }
 
 void swap(McVersionRequest& a, McVersionRequest& b) {
   using ::std::swap;
+  swap(a.key, b.key);
+  swap(a.__isset, b.__isset);
 }
 
 }}} // facebook::memcache::cpp2
@@ -1157,8 +1319,9 @@ template uint32_t McVersionReply::serializedSizeZC<apache::thrift::CompactProtoc
 
 void McVersionReply::__clear() {
   result = 0;
-  version = std::string();
-  message = folly::IOBuf();
+  value = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -1166,16 +1329,22 @@ bool McVersionReply::operator==(const McVersionReply& rhs) const {
   if (!((result == rhs.result))) {
     return false;
   }
-  if (__isset.version != rhs.__isset.version) {
+  if (__isset.value != rhs.__isset.value) {
     return false;
   }
-  else if (__isset.version && !((version == rhs.version))) {
+  else if (__isset.value && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(value, rhs.value))) {
     return false;
   }
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -1184,8 +1353,9 @@ bool McVersionReply::operator==(const McVersionReply& rhs) const {
 void swap(McVersionReply& a, McVersionReply& b) {
   using ::std::swap;
   swap(a.result, b.result);
-  swap(a.version, b.version);
+  swap(a.value, b.value);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 
@@ -1254,7 +1424,8 @@ template uint32_t McAppendReply::serializedSizeZC<apache::thrift::CompactProtoco
 
 void McAppendReply::__clear() {
   result = 0;
-  message = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -1265,7 +1436,13 @@ bool McAppendReply::operator==(const McAppendReply& rhs) const {
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -1275,6 +1452,7 @@ void swap(McAppendReply& a, McAppendReply& b) {
   using ::std::swap;
   swap(a.result, b.result);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 
@@ -1343,7 +1521,8 @@ template uint32_t McPrependReply::serializedSizeZC<apache::thrift::CompactProtoc
 
 void McPrependReply::__clear() {
   result = 0;
-  message = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -1354,7 +1533,13 @@ bool McPrependReply::operator==(const McPrependReply& rhs) const {
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -1364,6 +1549,7 @@ void swap(McPrependReply& a, McPrependReply& b) {
   using ::std::swap;
   swap(a.result, b.result);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 
@@ -1392,10 +1578,7 @@ bool McTouchRequest::operator==(const McTouchRequest& rhs) const {
   if (!(apache::thrift::StringTraits<folly::IOBuf>::isEqual(key, rhs.key))) {
     return false;
   }
-  if (__isset.exptime != rhs.__isset.exptime) {
-    return false;
-  }
-  else if (__isset.exptime && !((exptime == rhs.exptime))) {
+  if (!((exptime == rhs.exptime))) {
     return false;
   }
   return true;
@@ -1425,7 +1608,8 @@ template uint32_t McTouchReply::serializedSizeZC<apache::thrift::CompactProtocol
 
 void McTouchReply::__clear() {
   result = 0;
-  message = folly::IOBuf();
+  message = std::string();
+  appSpecificErrorCode = 0;
   __isset.__clear();
 }
 
@@ -1436,7 +1620,13 @@ bool McTouchReply::operator==(const McTouchReply& rhs) const {
   if (__isset.message != rhs.__isset.message) {
     return false;
   }
-  else if (__isset.message && !(apache::thrift::StringTraits<folly::IOBuf>::isEqual(message, rhs.message))) {
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
     return false;
   }
   return true;
@@ -1446,6 +1636,531 @@ void swap(McTouchReply& a, McTouchReply& b) {
   using ::std::swap;
   swap(a.result, b.result);
   swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
+  swap(a.__isset, b.__isset);
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template uint32_t McStatsRequest::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
+template uint32_t McStatsRequest::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McStatsRequest::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McStatsRequest::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McStatsRequest::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
+template uint32_t McStatsRequest::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McStatsRequest::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McStatsRequest::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+
+void McStatsRequest::__clear() {
+  key = folly::IOBuf();
+  __isset.__clear();
+}
+
+bool McStatsRequest::operator==(const McStatsRequest& rhs) const {
+  if (!(apache::thrift::StringTraits<folly::IOBuf>::isEqual(key, rhs.key))) {
+    return false;
+  }
+  return true;
+}
+
+void swap(McStatsRequest& a, McStatsRequest& b) {
+  using ::std::swap;
+  swap(a.key, b.key);
+  swap(a.__isset, b.__isset);
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template uint32_t McStatsReply::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
+template uint32_t McStatsReply::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McStatsReply::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McStatsReply::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McStatsReply::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
+template uint32_t McStatsReply::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McStatsReply::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McStatsReply::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+
+void McStatsReply::__clear() {
+  result = 0;
+  message = std::string();
+  stats.clear();
+  appSpecificErrorCode = 0;
+  __isset.__clear();
+}
+
+bool McStatsReply::operator==(const McStatsReply& rhs) const {
+  if (!((result == rhs.result))) {
+    return false;
+  }
+  if (__isset.message != rhs.__isset.message) {
+    return false;
+  }
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.stats != rhs.__isset.stats) {
+    return false;
+  }
+  else if (__isset.stats && !((stats == rhs.stats))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
+    return false;
+  }
+  return true;
+}
+
+const std::vector<std::string>* McStatsReply::get_stats() const& {
+  return __isset.stats ? std::addressof(stats) : nullptr;
+}
+
+std::vector<std::string>* McStatsReply::get_stats() & {
+  return __isset.stats ? std::addressof(stats) : nullptr;
+}
+
+void swap(McStatsReply& a, McStatsReply& b) {
+  using ::std::swap;
+  swap(a.result, b.result);
+  swap(a.message, b.message);
+  swap(a.stats, b.stats);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
+  swap(a.__isset, b.__isset);
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template uint32_t McShutdownRequest::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
+template uint32_t McShutdownRequest::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McShutdownRequest::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McShutdownRequest::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McShutdownRequest::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
+template uint32_t McShutdownRequest::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McShutdownRequest::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McShutdownRequest::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+
+void McShutdownRequest::__clear() {
+  key = folly::IOBuf();
+  __isset.__clear();
+}
+
+bool McShutdownRequest::operator==(const McShutdownRequest& rhs) const {
+  if (!(apache::thrift::StringTraits<folly::IOBuf>::isEqual(key, rhs.key))) {
+    return false;
+  }
+  return true;
+}
+
+void swap(McShutdownRequest& a, McShutdownRequest& b) {
+  using ::std::swap;
+  swap(a.key, b.key);
+  swap(a.__isset, b.__isset);
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template uint32_t McShutdownReply::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
+template uint32_t McShutdownReply::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McShutdownReply::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McShutdownReply::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McShutdownReply::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
+template uint32_t McShutdownReply::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McShutdownReply::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McShutdownReply::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+
+void McShutdownReply::__clear() {
+  result = 0;
+  message = std::string();
+  appSpecificErrorCode = 0;
+  __isset.__clear();
+}
+
+bool McShutdownReply::operator==(const McShutdownReply& rhs) const {
+  if (!((result == rhs.result))) {
+    return false;
+  }
+  if (__isset.message != rhs.__isset.message) {
+    return false;
+  }
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
+    return false;
+  }
+  return true;
+}
+
+void swap(McShutdownReply& a, McShutdownReply& b) {
+  using ::std::swap;
+  swap(a.result, b.result);
+  swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
+  swap(a.__isset, b.__isset);
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template uint32_t McQuitRequest::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
+template uint32_t McQuitRequest::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McQuitRequest::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McQuitRequest::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McQuitRequest::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
+template uint32_t McQuitRequest::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McQuitRequest::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McQuitRequest::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+
+void McQuitRequest::__clear() {
+  key = folly::IOBuf();
+  __isset.__clear();
+}
+
+bool McQuitRequest::operator==(const McQuitRequest& rhs) const {
+  if (!(apache::thrift::StringTraits<folly::IOBuf>::isEqual(key, rhs.key))) {
+    return false;
+  }
+  return true;
+}
+
+void swap(McQuitRequest& a, McQuitRequest& b) {
+  using ::std::swap;
+  swap(a.key, b.key);
+  swap(a.__isset, b.__isset);
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template uint32_t McQuitReply::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
+template uint32_t McQuitReply::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McQuitReply::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McQuitReply::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McQuitReply::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
+template uint32_t McQuitReply::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McQuitReply::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McQuitReply::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+
+void McQuitReply::__clear() {
+  result = 0;
+  message = std::string();
+  appSpecificErrorCode = 0;
+  __isset.__clear();
+}
+
+bool McQuitReply::operator==(const McQuitReply& rhs) const {
+  if (!((result == rhs.result))) {
+    return false;
+  }
+  if (__isset.message != rhs.__isset.message) {
+    return false;
+  }
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
+    return false;
+  }
+  return true;
+}
+
+void swap(McQuitReply& a, McQuitReply& b) {
+  using ::std::swap;
+  swap(a.result, b.result);
+  swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
+  swap(a.__isset, b.__isset);
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template uint32_t McExecRequest::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
+template uint32_t McExecRequest::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McExecRequest::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McExecRequest::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McExecRequest::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
+template uint32_t McExecRequest::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McExecRequest::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McExecRequest::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+
+void McExecRequest::__clear() {
+  key = folly::IOBuf();
+  __isset.__clear();
+}
+
+bool McExecRequest::operator==(const McExecRequest& rhs) const {
+  if (!(apache::thrift::StringTraits<folly::IOBuf>::isEqual(key, rhs.key))) {
+    return false;
+  }
+  return true;
+}
+
+void swap(McExecRequest& a, McExecRequest& b) {
+  using ::std::swap;
+  swap(a.key, b.key);
+  swap(a.__isset, b.__isset);
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template uint32_t McExecReply::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
+template uint32_t McExecReply::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McExecReply::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McExecReply::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McExecReply::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
+template uint32_t McExecReply::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McExecReply::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McExecReply::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+
+void McExecReply::__clear() {
+  result = 0;
+  response = std::string();
+  message = std::string();
+  appSpecificErrorCode = 0;
+  __isset.__clear();
+}
+
+bool McExecReply::operator==(const McExecReply& rhs) const {
+  if (!((result == rhs.result))) {
+    return false;
+  }
+  if (__isset.response != rhs.__isset.response) {
+    return false;
+  }
+  else if (__isset.response && !((response == rhs.response))) {
+    return false;
+  }
+  if (__isset.message != rhs.__isset.message) {
+    return false;
+  }
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
+    return false;
+  }
+  return true;
+}
+
+void swap(McExecReply& a, McExecReply& b) {
+  using ::std::swap;
+  swap(a.result, b.result);
+  swap(a.response, b.response);
+  swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
+  swap(a.__isset, b.__isset);
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template uint32_t McFlushReRequest::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
+template uint32_t McFlushReRequest::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McFlushReRequest::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McFlushReRequest::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McFlushReRequest::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
+template uint32_t McFlushReRequest::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McFlushReRequest::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McFlushReRequest::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+
+void McFlushReRequest::__clear() {
+  key = folly::IOBuf();
+  __isset.__clear();
+}
+
+bool McFlushReRequest::operator==(const McFlushReRequest& rhs) const {
+  if (!(apache::thrift::StringTraits<folly::IOBuf>::isEqual(key, rhs.key))) {
+    return false;
+  }
+  return true;
+}
+
+void swap(McFlushReRequest& a, McFlushReRequest& b) {
+  using ::std::swap;
+  swap(a.key, b.key);
+  swap(a.__isset, b.__isset);
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template uint32_t McFlushReReply::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
+template uint32_t McFlushReReply::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McFlushReReply::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McFlushReReply::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McFlushReReply::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
+template uint32_t McFlushReReply::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McFlushReReply::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McFlushReReply::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+
+void McFlushReReply::__clear() {
+  result = 0;
+  message = std::string();
+  appSpecificErrorCode = 0;
+  __isset.__clear();
+}
+
+bool McFlushReReply::operator==(const McFlushReReply& rhs) const {
+  if (!((result == rhs.result))) {
+    return false;
+  }
+  if (__isset.message != rhs.__isset.message) {
+    return false;
+  }
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
+    return false;
+  }
+  return true;
+}
+
+void swap(McFlushReReply& a, McFlushReReply& b) {
+  using ::std::swap;
+  swap(a.result, b.result);
+  swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
+  swap(a.__isset, b.__isset);
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template uint32_t McFlushAllRequest::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
+template uint32_t McFlushAllRequest::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McFlushAllRequest::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McFlushAllRequest::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McFlushAllRequest::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
+template uint32_t McFlushAllRequest::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McFlushAllRequest::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McFlushAllRequest::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+
+void McFlushAllRequest::__clear() {
+  key = folly::IOBuf();
+  delay = 0;
+  __isset.__clear();
+}
+
+bool McFlushAllRequest::operator==(const McFlushAllRequest& rhs) const {
+  if (!(apache::thrift::StringTraits<folly::IOBuf>::isEqual(key, rhs.key))) {
+    return false;
+  }
+  if (__isset.delay != rhs.__isset.delay) {
+    return false;
+  }
+  else if (__isset.delay && !((delay == rhs.delay))) {
+    return false;
+  }
+  return true;
+}
+
+void swap(McFlushAllRequest& a, McFlushAllRequest& b) {
+  using ::std::swap;
+  swap(a.key, b.key);
+  swap(a.delay, b.delay);
+  swap(a.__isset, b.__isset);
+}
+
+}}} // facebook::memcache::cpp2
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace facebook { namespace memcache { namespace cpp2 {
+
+template uint32_t McFlushAllReply::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
+template uint32_t McFlushAllReply::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McFlushAllReply::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McFlushAllReply::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t McFlushAllReply::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
+template uint32_t McFlushAllReply::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McFlushAllReply::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t McFlushAllReply::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+
+void McFlushAllReply::__clear() {
+  result = 0;
+  message = std::string();
+  appSpecificErrorCode = 0;
+  __isset.__clear();
+}
+
+bool McFlushAllReply::operator==(const McFlushAllReply& rhs) const {
+  if (!((result == rhs.result))) {
+    return false;
+  }
+  if (__isset.message != rhs.__isset.message) {
+    return false;
+  }
+  else if (__isset.message && !((message == rhs.message))) {
+    return false;
+  }
+  if (__isset.appSpecificErrorCode != rhs.__isset.appSpecificErrorCode) {
+    return false;
+  }
+  else if (__isset.appSpecificErrorCode && !((appSpecificErrorCode == rhs.appSpecificErrorCode))) {
+    return false;
+  }
+  return true;
+}
+
+void swap(McFlushAllReply& a, McFlushAllReply& b) {
+  using ::std::swap;
+  swap(a.result, b.result);
+  swap(a.message, b.message);
+  swap(a.appSpecificErrorCode, b.appSpecificErrorCode);
   swap(a.__isset, b.__isset);
 }
 

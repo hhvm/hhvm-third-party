@@ -25,9 +25,15 @@ foreach (file ${files})
   if (${file} MATCHES "/mc_fbtrace_info.c$")
     list(REMOVE_ITEM files ${file})
   endif()
+
 endforeach()
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/mcrouter/lib/mc/ascii_client.c
+  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/mc/ascii_client.rl
+  COMMAND ragel -G1 -o ${CMAKE_CURRENT_BINARY_DIR}/mcrouter/lib/mc/ascii_client.c ${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/mc/ascii_client.rl
+  COMMENT "Generating ascii_client.c")
 # ascii_client.c is generated from lib/mc/ascii_client.rl using ragel
-list(APPEND C_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/ascii_client.c")
+list(APPEND C_SOURCES "${CMAKE_CURRENT_BINARY_DIR}/mcrouter/lib/mc/ascii_client.c")
 list(APPEND C_SOURCES ${files})
 
 set(CXX_SOURCES)
@@ -37,11 +43,12 @@ foreach (file ${files})
     list(REMOVE_ITEM files ${file})
   endif()
 endforeach()
-# McAsciiParser-gen.cpp is generated from mcrouter/lib/network/McAsciiParser.rl
-# using ragel
-# So ran the command found in mcrouter/Makefile.am manually and put the file
-# here -- this avoids linking errors
-list(APPEND CXX_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/McAsciiParser-gen.cpp")
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/mcrouter/lib/network/McAsciiParser-gen.cpp
+  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/McAsciiParser.rl
+  COMMAND ragel -G1 -o ${CMAKE_CURRENT_BINARY_DIR}/mcrouter/lib/network/McAsciiParser-gen.cpp ${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/McAsciiParser.rl
+  COMMENT "Generating McAsciiParser-gen.cpp")
+list(APPEND CXX_SOURCES "${CMAKE_CURRENT_BINARY_DIR}/mcrouter/lib/network/McAsciiParser-gen.cpp")
 list(APPEND CXX_SOURCES ${files})
 
 # We need to make sure several files are the same
