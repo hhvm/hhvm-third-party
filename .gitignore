@@ -5,3 +5,4 @@ Makefile
 cmake_install.cmake
 webscalesqlclient/build
 *.swp
+ragel/ragel
