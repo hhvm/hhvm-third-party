@@ -36,6 +36,7 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/Benchmark.cpp
   ${FOLLY_DIR}/SingletonStackTrace.cpp
   ${FOLLY_DIR}/build/GenerateFingerprintTables.cpp
+  ${FOLLY_DIR}/experimental/DynamicParser.cpp
   ${FOLLY_DIR}/experimental/JSONSchemaTester.cpp
   ${FOLLY_DIR}/experimental/RCUUtils.cpp
   ${FOLLY_DIR}/experimental/ProgramOptions.cpp
@@ -59,6 +60,8 @@ list(REMOVE_ITEM files
 )
 list(REMOVE_ITEM hfiles
   ${FOLLY_DIR}/Benchmark.h
+  ${FOLLY_DIR}/experimental/DynamicParser.h
+  ${FOLLY_DIR}/experimental/DynamicParser-inl.h
   ${FOLLY_DIR}/experimental/RCUUtils.h
   ${FOLLY_DIR}/experimental/ProgramOptions.h
   ${FOLLY_DIR}/experimental/TestUtil.h
