@@ -27,14 +27,6 @@ foreach (file ${files})
   endif()
 
 endforeach()
-add_custom_command(
-  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/mcrouter/lib/mc/ascii_client.c
-  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/mc/ascii_client.rl
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/mcrouter/lib/mc
-  COMMAND ragel -G1 -o ${CMAKE_CURRENT_BINARY_DIR}/mcrouter/lib/mc/ascii_client.c ${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/mc/ascii_client.rl
-  COMMENT "Generating ascii_client.c")
-# ascii_client.c is generated from lib/mc/ascii_client.rl using ragel
-list(APPEND C_SOURCES "${CMAKE_CURRENT_BINARY_DIR}/mcrouter/lib/mc/ascii_client.c")
 list(APPEND C_SOURCES ${files})
 
 set(CXX_SOURCES)

@@ -8,7 +8,6 @@
 
 #include "mcrouter/lib/network/gen-cpp2/mc_caret_protocol_types.h"
 #include <thrift/lib/cpp/TApplicationException.h>
-#include <folly/MoveWrapper.h>
 #include <folly/io/IOBuf.h>
 #include <folly/io/IOBufQueue.h>
 #include <thrift/lib/cpp/transport/THeader.h>
@@ -45,10 +44,6 @@ uint32_t McGetRequest::read(Protocol_* iprot) {
         fid = 2;
         ftype = apache::thrift::protocol::T_I64;
       }
-      else if (fname == "exptime") {
-        fid = 3;
-        ftype = apache::thrift::protocol::T_I32;
-      }
     }
     switch (fid) {
       case 1:
@@ -66,16 +61,6 @@ uint32_t McGetRequest::read(Protocol_* iprot) {
         if (ftype == apache::thrift::protocol::T_I64) {
           xfer += iprot->readI64(this->flags);
           this->__isset.flags = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      }
-      case 3:
-      {
-        if (ftype == apache::thrift::protocol::T_I32) {
-          xfer += iprot->readI32(this->exptime);
-          this->__isset.exptime = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -104,10 +89,6 @@ uint32_t McGetRequest::serializedSize(Protocol_* prot_) const {
     xfer += prot_->serializedFieldSize("flags", apache::thrift::protocol::T_I64, 2);
     xfer += prot_->serializedSizeI64(this->flags);
   }
-  if (this->__isset.exptime) {
-    xfer += prot_->serializedFieldSize("exptime", apache::thrift::protocol::T_I32, 3);
-    xfer += prot_->serializedSizeI32(this->exptime);
-  }
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -121,10 +102,6 @@ uint32_t McGetRequest::serializedSizeZC(Protocol_* prot_) const {
   if (this->__isset.flags) {
     xfer += prot_->serializedFieldSize("flags", apache::thrift::protocol::T_I64, 2);
     xfer += prot_->serializedSizeI64(this->flags);
-  }
-  if (this->__isset.exptime) {
-    xfer += prot_->serializedFieldSize("exptime", apache::thrift::protocol::T_I32, 3);
-    xfer += prot_->serializedSizeI32(this->exptime);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -140,11 +117,6 @@ uint32_t McGetRequest::write(Protocol_* prot_) const {
   if (this->__isset.flags) {
     xfer += prot_->writeFieldBegin("flags", apache::thrift::protocol::T_I64, 2);
     xfer += prot_->writeI64(this->flags);
-    xfer += prot_->writeFieldEnd();
-  }
-  if (this->__isset.exptime) {
-    xfer += prot_->writeFieldBegin("exptime", apache::thrift::protocol::T_I32, 3);
-    xfer += prot_->writeI32(this->exptime);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();

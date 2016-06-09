@@ -68,17 +68,14 @@ class McGetRequest : private boost::totally_ordered<McGetRequest> {
  public:
 
   McGetRequest() :
-      flags(0),
-      exptime(0) {}
+      flags(0) {}
   // FragileConstructor for use in initialization lists only
 
-  McGetRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg, int64_t flags__arg, int32_t exptime__arg) :
+  McGetRequest(apache::thrift::FragileConstructor,  ::facebook::memcache::cpp2::IOBuf key__arg, int64_t flags__arg) :
       key(std::move(key__arg)),
-      flags(std::move(flags__arg)),
-      exptime(std::move(exptime__arg)) {
+      flags(std::move(flags__arg)) {
     __isset.key = true;
     __isset.flags = true;
-    __isset.exptime = true;
   }
   template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
   McGetRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
@@ -94,13 +91,6 @@ class McGetRequest : private boost::totally_ordered<McGetRequest> {
     flags = arg.move();
     __isset.flags = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  McGetRequest(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    McGetRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    exptime = arg.move();
-    __isset.exptime = true;
-  }
 
   McGetRequest(McGetRequest&&) = default;
 
@@ -115,18 +105,15 @@ class McGetRequest : private boost::totally_ordered<McGetRequest> {
 
    ::facebook::memcache::cpp2::IOBuf key;
   int64_t flags;
-  int32_t exptime;
 
   struct __isset {
     void __clear() {
       key = false;
       flags = false;
-      exptime = false;
     }
 
     bool key = false;
     bool flags = false;
-    bool exptime = false;
   } __isset;
   bool operator==(const McGetRequest& rhs) const;
   bool operator < (const McGetRequest& rhs) const;
@@ -159,21 +146,6 @@ class McGetRequest : private boost::totally_ordered<McGetRequest> {
     flags = flags_;
     __isset.flags = true;
     return flags;
-  }
-
-  const int32_t* get_exptime() const& {
-    return __isset.exptime ? std::addressof(exptime) : nullptr;
-  }
-
-  int32_t* get_exptime() & {
-    return __isset.exptime ? std::addressof(exptime) : nullptr;
-  }
-  int32_t* get_exptime() && = delete;
-
-  int32_t& set_exptime(int32_t exptime_) {
-    exptime = exptime_;
-    __isset.exptime = true;
-    return exptime;
   }
 
   template <class Protocol_>

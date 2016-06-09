@@ -24,7 +24,6 @@ template uint32_t McGetRequest::serializedSizeZC<apache::thrift::CompactProtocol
 void McGetRequest::__clear() {
   key = folly::IOBuf();
   flags = 0;
-  exptime = 0;
   __isset.__clear();
 }
 
@@ -38,12 +37,6 @@ bool McGetRequest::operator==(const McGetRequest& rhs) const {
   else if (__isset.flags && !((flags == rhs.flags))) {
     return false;
   }
-  if (__isset.exptime != rhs.__isset.exptime) {
-    return false;
-  }
-  else if (__isset.exptime && !((exptime == rhs.exptime))) {
-    return false;
-  }
   return true;
 }
 
@@ -51,7 +44,6 @@ void swap(McGetRequest& a, McGetRequest& b) {
   using ::std::swap;
   swap(a.key, b.key);
   swap(a.flags, b.flags);
-  swap(a.exptime, b.exptime);
   swap(a.__isset, b.__isset);
 }
 
