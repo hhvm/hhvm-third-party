@@ -57,7 +57,6 @@ macro(WRITE_IMPL_FILE dirName sourceName)
     file(WRITE "${dirName}/${sourceName}.h" "#include \"${sourceName}Impl.h\"")
   endif()
 endmacro()
-WRITE_IMPL_FILE("${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/" "CaretReplyConverter")
 WRITE_IMPL_FILE("${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/" "CaretSerializedMessage")
 WRITE_IMPL_FILE("${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/" "ServerOnRequest")
 
