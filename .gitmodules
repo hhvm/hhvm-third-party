@@ -31,3 +31,6 @@
 [submodule "libzip"]
 	path = libzip
 	url = https://github.com/nih-at/libzip
+[submodule "fastlz/src"]
+	path = fastlz/src
+	url = https://github.com/ariya/FastLZ
