@@ -65,12 +65,15 @@
 #            so it has been removed.
 # 2013-10-08 PH got rid of the "source" command, which is a bash-ism (use ".")
 # 2013-11-05 PH added support for PARENS_NEST_LIMIT
+# 2016-03-01 PH applied Chris Wilson's patch for MSVC static build
 
 PROJECT(PCRE C CXX)
 
-# Increased minimum to 2.8.0 to support newer add_test features
+# Increased minimum to 2.8.0 to support newer add_test features. Set policy
+# CMP0026 to avoid warnings for the use of LOCATION in GET_TARGET_PROPERTY.
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.0)
+CMAKE_POLICY(SET CMP0026 OLD)
 
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake) # for FindReadline.cmake
 
@@ -567,6 +570,20 @@ SET(PCREPOSIX_SOURCES
 ENDIF (EXISTS ${PROJECT_SOURCE_DIR}/pcreposix.rc)
 ENDIF(MSVC AND NOT PCRE_STATIC)
 
+# Fix static compilation with MSVC: https://bugs.exim.org/show_bug.cgi?id=1681
+# This code was taken from the CMake wiki, not from WebM.
+
+IF(MSVC AND PCRE_STATIC)
+  MESSAGE(STATUS "** MSVC and PCRE_STATIC: modifying compiler flags to use static runtime library")
+  foreach(flag_var
+          CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE
+          CMAKE_C_FLAGS_MINSIZEREL CMAKE_C_FLAGS_RELWITHDEBINFO
+          CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
+          CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
+    string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
+  endforeach()
+ENDIF(MSVC AND PCRE_STATIC)
+
 SET(PCRECPP_HEADERS
   pcrecpp.h
   pcre_scanner.h
@@ -861,6 +878,48 @@ echo RunTest.bat tests successfully completed
 
 ENDIF(PCRE_BUILD_TESTS)
 
+# Installation
+SET(CMAKE_INSTALL_ALWAYS 1)
+
+INSTALL(TARGETS ${targets}
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib)
+
+INSTALL(FILES ${PCRE_HEADERS} ${PCREPOSIX_HEADERS} DESTINATION include)
+
+FILE(GLOB html ${PROJECT_SOURCE_DIR}/doc/html/*.html)
+FILE(GLOB man1 ${PROJECT_SOURCE_DIR}/doc/*.1)
+FILE(GLOB man3 ${PROJECT_SOURCE_DIR}/doc/*.3)
+
+IF(PCRE_BUILD_PCRECPP)
+        INSTALL(FILES ${PCRECPP_HEADERS} DESTINATION include)
+ELSE(PCRE_BUILD_PCRECPP)
+        # Remove pcrecpp.3
+        FOREACH(man ${man3})
+                GET_FILENAME_COMPONENT(man_tmp ${man} NAME)
+                IF(NOT man_tmp STREQUAL "pcrecpp.3")
+                        SET(man3_new ${man3} ${man})
+                ENDIF(NOT man_tmp STREQUAL "pcrecpp.3")
+        ENDFOREACH(man ${man3})
+        SET(man3 ${man3_new})
+ENDIF(PCRE_BUILD_PCRECPP)
+
+INSTALL(FILES ${man1} DESTINATION man/man1)
+INSTALL(FILES ${man3} DESTINATION man/man3)
+INSTALL(FILES ${html} DESTINATION share/doc/pcre/html)
+
+IF(MSVC AND INSTALL_MSVC_PDB)
+    INSTALL(FILES ${PROJECT_BINARY_DIR}/pcre.pdb
+                  ${PROJECT_BINARY_DIR}/pcreposix.pdb
+            DESTINATION bin
+            CONFIGURATIONS RelWithDebInfo)
+    INSTALL(FILES ${PROJECT_BINARY_DIR}/pcred.pdb
+                  ${PROJECT_BINARY_DIR}/pcreposixd.pdb
+            DESTINATION bin
+            CONFIGURATIONS Debug)
+ENDIF(MSVC AND INSTALL_MSVC_PDB)
+
 # help, only for nice output
 IF(BUILD_SHARED_LIBS)
   SET(BUILD_STATIC_LIBS OFF)
@@ -880,6 +939,7 @@ IF(PCRE_SHOW_REPORT)
   MESSAGE(STATUS "")
   MESSAGE(STATUS "PCRE configuration summary:")
   MESSAGE(STATUS "")
+  MESSAGE(STATUS "  Install prefix .................. : ${CMAKE_INSTALL_PREFIX}")
   MESSAGE(STATUS "  C compiler ...................... : ${CMAKE_C_COMPILER}")
   MESSAGE(STATUS "  C++ compiler .................... : ${CMAKE_CXX_COMPILER}")
   MESSAGE(STATUS "  C compiler flags ................ : ${CMAKE_C_FLAGS}${cfsp}${CMAKE_C_FLAGS_${buildtype}}")
