@@ -34,3 +34,6 @@
 [submodule "fastlz/src"]
 	path = fastlz/src
 	url = https://github.com/ariya/FastLZ
+[submodule "libafdt/src"]
+	path = libafdt/src
+	url = https://github.com/facebook/libafdt
