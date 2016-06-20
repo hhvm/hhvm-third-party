@@ -28,3 +28,6 @@
 [submodule "double-conversion"]
 	path = double-conversion
 	url = https://github.com/google/double-conversion
+[submodule "libzip"]
+	path = libzip
+	url = https://github.com/nih-at/libzip
