@@ -25,3 +25,6 @@
 [submodule "brotli/src"]
 	path = brotli/src
 	url = https://github.com/google/brotli
+[submodule "double-conversion"]
+	path = double-conversion
+	url = https://github.com/google/double-conversion
