@@ -75,13 +75,13 @@ IF(LibEvent_FOUND)
       message(STATUS "Found libevent 1.4.5+")
     ENDIF()
   ENDIF()
-  set(ASYNC_SOURCE src/async.c)
+  set(ASYNC_SOURCE src/src/async.c)
   include_directories(${LIBEVENT_INCLUDE_DIR})
 ENDIF()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake 
-               ${CMAKE_CURRENT_SOURCE_DIR}/src/config.h)
-add_library(afdt STATIC src/lowlevel.c src/strlcpy.c src/sync.c src/util.c 
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/src/config.h)
+add_library(afdt STATIC src/src/lowlevel.c src/src/strlcpy.c src/src/sync.c src/src/util.c
             ${ASYNC_SOURCE})
 
 IF(LibEvent_FOUND)
