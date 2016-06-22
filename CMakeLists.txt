@@ -120,8 +120,8 @@ endif()
 if(NOT LIBZIP_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES libzip)
   list(APPEND EXTRA_INCLUDE_PATHS
-    "${CMAKE_CURRENT_BINARY_DIR}/libzip"
-    "${TP_DIR}libzip/lib"
+    "${CMAKE_CURRENT_BINARY_DIR}/libzip/src"
+    "${TP_DIR}libzip/src/lib"
   )
   list(APPEND EXTRA_DEFINES "-DZIP_EXTERN=")
 endif()
