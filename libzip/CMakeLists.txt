@@ -100,7 +100,7 @@ ADD_DEFINITIONS("-DZIP_STATIC")
 
 # write out config file
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/cmake-config.h.in
-  ${CMAKE_CURRENT_BINARY_DIR}/src/config.h)
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/config.h)
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/cmake-zipconf.h.in
   ${CMAKE_CURRENT_BINARY_DIR}/src/lib/zipconf.h)
 
