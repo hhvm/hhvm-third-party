@@ -83,7 +83,7 @@ endif()
 # Add bundled fastlz if the system one will not be used
 if(NOT FASTLZ_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES fastlz)
-  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/fastlz/src")
+  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}fastlz/src")
 endif()
 
 # Add bundled libsqlite3 if the system one will not be used
@@ -120,10 +120,10 @@ endif()
 if(NOT LIBZIP_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES libzip)
   list(APPEND EXTRA_INCLUDE_PATHS
-    "${CMAKE_CURRENT_BINARY_DIR}libzip/src"
+    "${CMAKE_CURRENT_BINARY_DIR}/libzip/src/lib"
     "${TP_DIR}libzip/src/lib"
   )
-  list(APPEND EXTRA_DEFINES "-DZIP_EXTERN=" "-DZIP_STATIC")
+  list(APPEND EXTRA_DEFINES "-DZIP_EXTERN=")
 endif()
 
 function(TP_INSTALL_HEADERS TARGET SRCDIR DEST)
