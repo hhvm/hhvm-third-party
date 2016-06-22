@@ -4,6 +4,7 @@ project(re2 CXX C)
 auto_sources(sources "*.cc" "${CMAKE_CURRENT_SOURCE_DIR}/src/re2")
 SET(util_sources
   src/util/hash.cc
+  src/util/logging.cc
   src/util/rune.cc
   src/util/stringprintf.cc
   src/util/strutil.cc
