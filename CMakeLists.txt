@@ -28,38 +28,38 @@ set(THIRD_PARTY_HEADERS)
 
 list(APPEND THIRD_PARTY_MODULES libmbfl)
 list(APPEND EXTRA_INCLUDE_PATHS
-  "${TP_DIR}libmbfl"
-  "${TP_DIR}libmbfl/mbfl"
-  "${TP_DIR}libmbfl/filters"
+  "${TP_DIR}/libmbfl"
+  "${TP_DIR}/libmbfl/mbfl"
+  "${TP_DIR}/libmbfl/filters"
 )
 list(APPEND EXTRA_DEFINES "-DMBFL_STATIC")
 
 list(APPEND THIRD_PARTY_MODULES timelib)
-list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}timelib")
+list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/timelib")
 
 list(APPEND THIRD_PARTY_MODULES folly)
 list(APPEND EXTRA_INCLUDE_PATHS
-  "${TP_DIR}folly"
-  "${TP_DIR}folly/src"
+  "${TP_DIR}/folly"
+  "${TP_DIR}/folly/src"
 )
 
 list(APPEND THIRD_PARTY_MODULES wangle)
-list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}wangle/src")
+list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/wangle/src")
 
 list(APPEND THIRD_PARTY_MODULES brotli)
-list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}brotli/src")
+list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/brotli/src")
 
 if(ENABLE_FASTCGI)
   list(APPEND THIRD_PARTY_MODULES proxygen)
-  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}proxygen/src")
+  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/proxygen/src")
 
   list(APPEND THIRD_PARTY_MODULES thrift)
-  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}thrift/src")
+  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/thrift/src")
 endif()
 
 if (NOT MSVC)
   list(APPEND THIRD_PARTY_MODULES libafdt)
-  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}libafdt/src/src")
+  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/libafdt/src/src")
 endif()
 
 if(ENABLE_ASYNC_MYSQL)
@@ -77,37 +77,37 @@ if (ENABLE_MCROUTER)
   list(APPEND THIRD_PARTY_MODULES ragel)
 
   list(APPEND THIRD_PARTY_MODULES mcrouter)
-  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}mcrouter/src")
+  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/mcrouter/src")
 endif()
 
 # Add bundled fastlz if the system one will not be used
 if(NOT FASTLZ_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES fastlz)
-  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}fastlz/src")
+  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/fastlz/src")
 endif()
 
 # Add bundled libsqlite3 if the system one will not be used
 if(NOT LIBSQLITE3_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES libsqlite3)
-  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}libsqlite3")
+  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/libsqlite3")
 endif()
 
 # Add bundled lz4 if the system one will not be used
 if(NOT LZ4_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES lz4)
-  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}lz4/src/lib")
+  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/lz4/src/lib")
 endif()
 
 # Add bundled double-conversion if the system one will not be used
 if(NOT DOUBLE_CONVERSION_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES double-conversion)
-  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}double-conversion")
+  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/double-conversion")
 endif()
 
 # Add bundled PCRE if the system one will not be used
 if(NOT PCRE_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES pcre)
-  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}pcre")
+  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/pcre")
   list(APPEND EXTRA_DEFINES "-DPCRE_STATIC=1")
   # Disable building a few parts of PCRE by default that we don't
   # actually use.
@@ -121,10 +121,13 @@ if(NOT LIBZIP_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES libzip)
   list(APPEND EXTRA_INCLUDE_PATHS
     "${CMAKE_CURRENT_BINARY_DIR}/libzip/src/lib"
-    "${TP_DIR}libzip/src/lib"
+    "${TP_DIR}/libzip/src/lib"
   )
   list(APPEND EXTRA_DEFINES "-DZIP_EXTERN=")
 endif()
+
+add_definitions(${EXTRA_DEFINES})
+include_directories(${EXTRA_INCLUDE_PATHS})
 
 function(TP_INSTALL_HEADERS TARGET SRCDIR DEST)
   file(GLOB_RECURSE files "${SRCDIR}/*.h")
