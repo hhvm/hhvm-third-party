@@ -40,6 +40,7 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/JSONSchemaTester.cpp
   ${FOLLY_DIR}/experimental/RCUUtils.cpp
   ${FOLLY_DIR}/experimental/ProgramOptions.cpp
+  ${FOLLY_DIR}/experimental/Select64.cpp
   ${FOLLY_DIR}/experimental/TestUtil.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionCounterLib.cpp
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionStackTraceLib.cpp
