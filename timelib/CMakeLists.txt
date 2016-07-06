@@ -44,7 +44,7 @@ endif()
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/timelib_config.h.cmake 
                ${CMAKE_CURRENT_SOURCE_DIR}/timelib_config.h)
 
-add_definitions(-DNDEBUG)
+add_definitions(-DNDEBUG -DHAVE_TIMELIB_CONFIG_H)
 set(TIMELIB_SOURCES astro.c dow.c interval.c parse_date.c parse_iso_intervals.c 
                     parse_tz.c timelib.c tm2unixtime.c unixtime2tm.c)
 
