@@ -100,7 +100,9 @@ void RedFsmAp::depthFirstOrdering()
 		st->onStateList = false;
 	
 	/* Clear out the state list, we will rebuild it. */
+#ifdef DEBUG
 	int stateListLen = stateList.length();
+#endif
 	stateList.abandon();
 
 	/* Add back to the state list from the start state and all other entry
@@ -513,8 +515,7 @@ RedTransAp *RedFsmAp::getErrorTrans( )
 		/* This insert should always succeed since no transition created by
 		 * the user can point to the error state. */
 		errTrans = new RedTransAp( getErrorState(), 0, nextTransId++ );
-		RedTransAp *inRes = transSet.insert( errTrans );
-		assert( inRes != 0 );
+    if ( transSet.insert( errTrans ) == 0 ) assert(false);
 	}
 	return errTrans;
 }
