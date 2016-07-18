@@ -192,7 +192,7 @@ mbfl_filt_conv_big5_wchar(int c, mbfl_convert_filter *filter)
 					 && ((c > 0x39 && c < 0x7f) || (c > 0xa0 && c < 0xff))) ||
 					((c1 == 0xc6) && (c > 0xa0 && c < 0xff))) {
 					c2 = c1 << 8 | c;
-					for (k = 0; k < sizeof(cp950_pua_tbl)/(sizeof(unsigned short)*4); k++) {
+					for (k = 0; k < (int)(sizeof(cp950_pua_tbl)/(sizeof(unsigned short)*4)); k++) {
 						if (c2 >= cp950_pua_tbl[k][2] && c2 <= cp950_pua_tbl[k][3]) {
 							break;
 						}
@@ -259,7 +259,7 @@ mbfl_filt_conv_wchar_big5(int c, mbfl_convert_filter *filter)
 
 	if (filter->to->no_encoding == mbfl_no_encoding_cp950) {
 		if (c >= 0xe000 && c <= 0xf848) { /* PUA for CP950 */
-			for (k = 0; k < sizeof(cp950_pua_tbl)/(sizeof(unsigned short)*4); k++) {
+			for (k = 0; k < (int)(sizeof(cp950_pua_tbl)/(sizeof(unsigned short)*4)); k++) {
 				if (c <= cp950_pua_tbl[k][1]) {
 					break;
 				}

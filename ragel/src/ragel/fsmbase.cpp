@@ -507,7 +507,9 @@ void FsmAp::depthFirstOrdering()
 		st->stateBits &= ~STB_ONLIST;
 	
 	/* Clear out the state list, we will rebuild it. */
+#ifdef DEBUG
 	int stateListLen = stateList.length();
+#endif
 	stateList.abandon();
 
 	/* Add back to the state list from the start state and all other entry
