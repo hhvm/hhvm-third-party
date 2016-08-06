@@ -32,7 +32,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_SOURCE
 add_definitions(-DHAVE_CONFIG_H=1)
 add_definitions(-UPACKAGE -UPACKAGE_VERSION)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbfl)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/nls)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/filters)
