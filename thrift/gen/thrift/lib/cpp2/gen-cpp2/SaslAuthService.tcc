@@ -8,7 +8,6 @@
 
 #include "thrift/lib/cpp2/gen-cpp2/SaslAuthService.h"
 #include <thrift/lib/cpp/TApplicationException.h>
-#include <folly/MoveWrapper.h>
 #include <folly/io/IOBuf.h>
 #include <folly/io/IOBufQueue.h>
 #include <thrift/lib/cpp/transport/THeader.h>
@@ -46,10 +45,8 @@ void SaslAuthServiceAsyncProcessor::process_authFirstRequest(std::unique_ptr<apa
       apache::thrift::TApplicationException x(apache::thrift::TApplicationException::TApplicationExceptionType::PROTOCOL_ERROR, ex.what());
       folly::IOBufQueue queue = serializeException("authFirstRequest", &prot, ctx->getProtoSeqId(), nullptr, x);
       queue.append(apache::thrift::transport::THeader::transform(queue.move(), ctx->getHeader()->getWriteTransforms(), ctx->getHeader()->getMinCompressBytes()));
-      auto queue_mw = folly::makeMoveWrapper(std::move(queue));
-      auto req_mw = folly::makeMoveWrapper(std::move(req));
-      eb->runInEventBaseThread([=]() mutable {
-        (*req_mw)->sendReply(queue_mw->move());
+      eb->runInEventBaseThread([queue = std::move(queue), req = std::move(req)]() mutable {
+        req->sendReply(queue.move());
       }
       );
       return;
@@ -161,10 +158,8 @@ void SaslAuthServiceAsyncProcessor::process_authNextRequest(std::unique_ptr<apac
       apache::thrift::TApplicationException x(apache::thrift::TApplicationException::TApplicationExceptionType::PROTOCOL_ERROR, ex.what());
       folly::IOBufQueue queue = serializeException("authNextRequest", &prot, ctx->getProtoSeqId(), nullptr, x);
       queue.append(apache::thrift::transport::THeader::transform(queue.move(), ctx->getHeader()->getWriteTransforms(), ctx->getHeader()->getMinCompressBytes()));
-      auto queue_mw = folly::makeMoveWrapper(std::move(queue));
-      auto req_mw = folly::makeMoveWrapper(std::move(req));
-      eb->runInEventBaseThread([=]() mutable {
-        (*req_mw)->sendReply(queue_mw->move());
+      eb->runInEventBaseThread([queue = std::move(queue), req = std::move(req)]() mutable {
+        req->sendReply(queue.move());
       }
       );
       return;
@@ -277,7 +272,7 @@ folly::exception_wrapper SaslAuthServiceAsyncClient::recv_wrapped_authFirstReque
   apache::thrift::MessageType mtype;
   ctx->preRead();
   folly::exception_wrapper interior_ew;
-  auto caught_ew = folly::try_and_catch<apache::thrift::TException, apache::thrift::protocol::TProtocolException>([&]() {
+  auto caught_ew = folly::try_and_catch<std::exception, apache::thrift::TException, apache::thrift::protocol::TProtocolException>([&]() {
     prot->readMessageBegin(fname, mtype, protoSeqId);
     if (mtype == apache::thrift::T_EXCEPTION) {
       apache::thrift::TApplicationException x;
@@ -358,7 +353,7 @@ folly::exception_wrapper SaslAuthServiceAsyncClient::recv_wrapped_authNextReques
   apache::thrift::MessageType mtype;
   ctx->preRead();
   folly::exception_wrapper interior_ew;
-  auto caught_ew = folly::try_and_catch<apache::thrift::TException, apache::thrift::protocol::TProtocolException>([&]() {
+  auto caught_ew = folly::try_and_catch<std::exception, apache::thrift::TException, apache::thrift::protocol::TProtocolException>([&]() {
     prot->readMessageBegin(fname, mtype, protoSeqId);
     if (mtype == apache::thrift::T_EXCEPTION) {
       apache::thrift::TApplicationException x;

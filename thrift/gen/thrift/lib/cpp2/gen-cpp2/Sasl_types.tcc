@@ -8,7 +8,6 @@
 
 #include "thrift/lib/cpp2/gen-cpp2/Sasl_types.h"
 #include <thrift/lib/cpp/TApplicationException.h>
-#include <folly/MoveWrapper.h>
 #include <folly/io/IOBuf.h>
 #include <folly/io/IOBufQueue.h>
 #include <thrift/lib/cpp/transport/THeader.h>
@@ -81,7 +80,7 @@ uint32_t SaslOutcome::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t SaslOutcome::serializedSize(Protocol_* prot_) const {
+uint32_t SaslOutcome::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("SaslOutcome");
   xfer += prot_->serializedFieldSize("success", apache::thrift::protocol::T_BOOL, 1);
@@ -95,7 +94,7 @@ uint32_t SaslOutcome::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t SaslOutcome::serializedSizeZC(Protocol_* prot_) const {
+uint32_t SaslOutcome::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("SaslOutcome");
   xfer += prot_->serializedFieldSize("success", apache::thrift::protocol::T_BOOL, 1);
@@ -193,7 +192,7 @@ uint32_t SaslRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t SaslRequest::serializedSize(Protocol_* prot_) const {
+uint32_t SaslRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("SaslRequest");
   if (this->__isset.response) {
@@ -209,7 +208,7 @@ uint32_t SaslRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t SaslRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t SaslRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("SaslRequest");
   if (this->__isset.response) {
@@ -248,6 +247,13 @@ namespace apache { namespace thrift {
 
 }} // apache::thrift
 namespace apache { namespace thrift { namespace sasl {
+
+template <typename T_SaslReply_outcome_struct_setter>
+ ::apache::thrift::sasl::SaslOutcome& SaslReply::set_outcome(T_SaslReply_outcome_struct_setter&& outcome_) {
+  outcome = std::forward<T_SaslReply_outcome_struct_setter>(outcome_);
+  __isset.outcome = true;
+  return outcome;
+}
 
 template <class Protocol_>
 uint32_t SaslReply::read(Protocol_* iprot) {
@@ -325,7 +331,7 @@ uint32_t SaslReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t SaslReply::serializedSize(Protocol_* prot_) const {
+uint32_t SaslReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("SaslReply");
   if (this->__isset.challenge) {
@@ -345,7 +351,7 @@ uint32_t SaslReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t SaslReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t SaslReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("SaslReply");
   if (this->__isset.challenge) {
@@ -393,6 +399,20 @@ namespace apache { namespace thrift {
 
 }} // apache::thrift
 namespace apache { namespace thrift { namespace sasl {
+
+template <typename T_SaslStart_request_struct_setter>
+ ::apache::thrift::sasl::SaslRequest& SaslStart::set_request(T_SaslStart_request_struct_setter&& request_) {
+  request = std::forward<T_SaslStart_request_struct_setter>(request_);
+  __isset.request = true;
+  return request;
+}
+
+template <typename T_SaslStart_mechanisms_struct_setter>
+std::vector<std::string>& SaslStart::set_mechanisms(T_SaslStart_mechanisms_struct_setter&& mechanisms_) {
+  mechanisms = std::forward<T_SaslStart_mechanisms_struct_setter>(mechanisms_);
+  __isset.mechanisms = true;
+  return mechanisms;
+}
 
 template <class Protocol_>
 uint32_t SaslStart::read(Protocol_* iprot) {
@@ -487,7 +507,7 @@ uint32_t SaslStart::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t SaslStart::serializedSize(Protocol_* prot_) const {
+uint32_t SaslStart::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("SaslStart");
   xfer += prot_->serializedFieldSize("mechanism", apache::thrift::protocol::T_STRING, 1);
@@ -509,7 +529,7 @@ uint32_t SaslStart::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t SaslStart::serializedSizeZC(Protocol_* prot_) const {
+uint32_t SaslStart::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("SaslStart");
   xfer += prot_->serializedFieldSize("mechanism", apache::thrift::protocol::T_STRING, 1);

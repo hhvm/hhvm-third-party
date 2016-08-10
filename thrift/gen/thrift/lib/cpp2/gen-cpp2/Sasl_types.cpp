@@ -14,12 +14,12 @@ namespace apache { namespace thrift { namespace sasl {
 
 template uint32_t SaslOutcome::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
 template uint32_t SaslOutcome::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t SaslOutcome::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t SaslOutcome::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t SaslOutcome::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t SaslOutcome::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter const*) const;
 template uint32_t SaslOutcome::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
 template uint32_t SaslOutcome::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t SaslOutcome::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t SaslOutcome::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t SaslOutcome::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t SaslOutcome::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter const*) const;
 
 void SaslOutcome::__clear() {
   success = 0;
@@ -55,12 +55,12 @@ namespace apache { namespace thrift { namespace sasl {
 
 template uint32_t SaslRequest::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
 template uint32_t SaslRequest::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t SaslRequest::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t SaslRequest::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t SaslRequest::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t SaslRequest::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter const*) const;
 template uint32_t SaslRequest::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
 template uint32_t SaslRequest::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t SaslRequest::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t SaslRequest::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t SaslRequest::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t SaslRequest::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter const*) const;
 
 void SaslRequest::__clear() {
   response = std::string();
@@ -99,12 +99,12 @@ namespace apache { namespace thrift { namespace sasl {
 
 template uint32_t SaslReply::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
 template uint32_t SaslReply::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t SaslReply::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t SaslReply::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t SaslReply::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t SaslReply::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter const*) const;
 template uint32_t SaslReply::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
 template uint32_t SaslReply::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t SaslReply::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t SaslReply::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t SaslReply::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t SaslReply::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter const*) const;
 
 void SaslReply::__clear() {
   challenge = std::string();
@@ -135,6 +135,14 @@ bool SaslReply::operator==(const SaslReply& rhs) const {
   return true;
 }
 
+const  ::apache::thrift::sasl::SaslOutcome* SaslReply::get_outcome() const& {
+  return __isset.outcome ? std::addressof(outcome) : nullptr;
+}
+
+ ::apache::thrift::sasl::SaslOutcome* SaslReply::get_outcome() & {
+  return __isset.outcome ? std::addressof(outcome) : nullptr;
+}
+
 void swap(SaslReply& a, SaslReply& b) {
   using ::std::swap;
   swap(a.challenge, b.challenge);
@@ -151,12 +159,12 @@ namespace apache { namespace thrift { namespace sasl {
 
 template uint32_t SaslStart::read<apache::thrift::BinaryProtocolReader>(apache::thrift::BinaryProtocolReader*);
 template uint32_t SaslStart::write<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t SaslStart::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t SaslStart::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t SaslStart::serializedSize<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t SaslStart::serializedSizeZC<apache::thrift::BinaryProtocolWriter>(apache::thrift::BinaryProtocolWriter const*) const;
 template uint32_t SaslStart::read<apache::thrift::CompactProtocolReader>(apache::thrift::CompactProtocolReader*);
 template uint32_t SaslStart::write<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t SaslStart::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t SaslStart::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t SaslStart::serializedSize<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t SaslStart::serializedSizeZC<apache::thrift::CompactProtocolWriter>(apache::thrift::CompactProtocolWriter const*) const;
 
 void SaslStart::__clear() {
   mechanism = std::string();
@@ -182,6 +190,22 @@ bool SaslStart::operator==(const SaslStart& rhs) const {
     return false;
   }
   return true;
+}
+
+const  ::apache::thrift::sasl::SaslRequest* SaslStart::get_request() const& {
+  return __isset.request ? std::addressof(request) : nullptr;
+}
+
+ ::apache::thrift::sasl::SaslRequest* SaslStart::get_request() & {
+  return __isset.request ? std::addressof(request) : nullptr;
+}
+
+const std::vector<std::string>* SaslStart::get_mechanisms() const& {
+  return __isset.mechanisms ? std::addressof(mechanisms) : nullptr;
+}
+
+std::vector<std::string>* SaslStart::get_mechanisms() & {
+  return __isset.mechanisms ? std::addressof(mechanisms) : nullptr;
 }
 
 void swap(SaslStart& a, SaslStart& b) {

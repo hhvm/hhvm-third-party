@@ -11,7 +11,6 @@
 #include <thrift/lib/cpp/TApplicationException.h>
 #include <folly/io/IOBuf.h>
 #include <folly/io/Cursor.h>
-#include <boost/operators.hpp>
 
 
 
@@ -64,7 +63,7 @@ class McFlushAllRequest;
 class McFlushAllReply;
 typedef folly::IOBuf IOBuf;
 
-class McGetRequest : private boost::totally_ordered<McGetRequest> {
+class McGetRequest : private apache::thrift::detail::st::ComparisonOperators<McGetRequest> {
  public:
 
   McGetRequest() :
@@ -151,9 +150,9 @@ class McGetRequest : private boost::totally_ordered<McGetRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -171,26 +170,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McGetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McGetRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McGetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McGetRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McGetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McGetRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McGetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McGetRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McGetReply : private boost::totally_ordered<McGetReply> {
+class McGetReply : private apache::thrift::detail::st::ComparisonOperators<McGetReply> {
  public:
 
   McGetReply() :
@@ -357,9 +356,9 @@ class McGetReply : private boost::totally_ordered<McGetReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -377,26 +376,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McGetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McGetReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McGetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McGetReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McGetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McGetReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McGetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McGetReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McSetRequest : private boost::totally_ordered<McSetRequest> {
+class McSetRequest : private apache::thrift::detail::st::ComparisonOperators<McSetRequest> {
  public:
 
   McSetRequest() :
@@ -528,9 +527,9 @@ class McSetRequest : private boost::totally_ordered<McSetRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -548,26 +547,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McSetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McSetRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McSetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McSetRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McSetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McSetRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McSetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McSetRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McSetReply : private boost::totally_ordered<McSetReply> {
+class McSetReply : private apache::thrift::detail::st::ComparisonOperators<McSetReply> {
  public:
 
   McSetReply() :
@@ -734,9 +733,9 @@ class McSetReply : private boost::totally_ordered<McSetReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -754,26 +753,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McSetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McSetReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McSetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McSetReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McSetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McSetReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McSetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McSetReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McSetReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McDeleteRequest : private boost::totally_ordered<McDeleteRequest> {
+class McDeleteRequest : private apache::thrift::detail::st::ComparisonOperators<McDeleteRequest> {
  public:
 
   McDeleteRequest() :
@@ -916,9 +915,9 @@ class McDeleteRequest : private boost::totally_ordered<McDeleteRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -936,26 +935,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McDeleteRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McDeleteRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McDeleteRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McDeleteRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McDeleteRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McDeleteRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McDeleteRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McDeleteRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McDeleteReply : private boost::totally_ordered<McDeleteReply> {
+class McDeleteReply : private apache::thrift::detail::st::ComparisonOperators<McDeleteReply> {
  public:
 
   McDeleteReply() :
@@ -1122,9 +1121,9 @@ class McDeleteReply : private boost::totally_ordered<McDeleteReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -1142,26 +1141,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McDeleteReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McDeleteReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McDeleteReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McDeleteReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McDeleteReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McDeleteReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McDeleteReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDeleteReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McDeleteReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McLeaseGetRequest : private boost::totally_ordered<McLeaseGetRequest> {
+class McLeaseGetRequest : private apache::thrift::detail::st::ComparisonOperators<McLeaseGetRequest> {
  public:
 
   McLeaseGetRequest() {}
@@ -1220,9 +1219,9 @@ class McLeaseGetRequest : private boost::totally_ordered<McLeaseGetRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -1240,26 +1239,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McLeaseGetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McLeaseGetRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McLeaseGetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McLeaseGetRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McLeaseGetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McLeaseGetRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McLeaseGetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McLeaseGetRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McLeaseGetReply : private boost::totally_ordered<McLeaseGetReply> {
+class McLeaseGetReply : private apache::thrift::detail::st::ComparisonOperators<McLeaseGetReply> {
  public:
 
   McLeaseGetReply() :
@@ -1454,9 +1453,9 @@ class McLeaseGetReply : private boost::totally_ordered<McLeaseGetReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -1474,26 +1473,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McLeaseGetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McLeaseGetReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McLeaseGetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McLeaseGetReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McLeaseGetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McLeaseGetReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McLeaseGetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseGetReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McLeaseGetReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McLeaseSetRequest : private boost::totally_ordered<McLeaseSetRequest> {
+class McLeaseSetRequest : private apache::thrift::detail::st::ComparisonOperators<McLeaseSetRequest> {
  public:
 
   McLeaseSetRequest() :
@@ -1648,9 +1647,9 @@ class McLeaseSetRequest : private boost::totally_ordered<McLeaseSetRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -1668,26 +1667,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McLeaseSetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McLeaseSetRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McLeaseSetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McLeaseSetRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McLeaseSetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McLeaseSetRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McLeaseSetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McLeaseSetRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McLeaseSetReply : private boost::totally_ordered<McLeaseSetReply> {
+class McLeaseSetReply : private apache::thrift::detail::st::ComparisonOperators<McLeaseSetReply> {
  public:
 
   McLeaseSetReply() :
@@ -1798,9 +1797,9 @@ class McLeaseSetReply : private boost::totally_ordered<McLeaseSetReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -1818,26 +1817,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McLeaseSetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McLeaseSetReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McLeaseSetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McLeaseSetReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McLeaseSetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McLeaseSetReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McLeaseSetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McLeaseSetReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McLeaseSetReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McAddRequest : private boost::totally_ordered<McAddRequest> {
+class McAddRequest : private apache::thrift::detail::st::ComparisonOperators<McAddRequest> {
  public:
 
   McAddRequest() :
@@ -1969,9 +1968,9 @@ class McAddRequest : private boost::totally_ordered<McAddRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -1989,26 +1988,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McAddRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McAddRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McAddRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McAddRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McAddRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McAddRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McAddRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McAddRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McAddReply : private boost::totally_ordered<McAddReply> {
+class McAddReply : private apache::thrift::detail::st::ComparisonOperators<McAddReply> {
  public:
 
   McAddReply() :
@@ -2119,9 +2118,9 @@ class McAddReply : private boost::totally_ordered<McAddReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -2139,26 +2138,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McAddReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McAddReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McAddReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McAddReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McAddReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McAddReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McAddReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAddReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McAddReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McReplaceRequest : private boost::totally_ordered<McReplaceRequest> {
+class McReplaceRequest : private apache::thrift::detail::st::ComparisonOperators<McReplaceRequest> {
  public:
 
   McReplaceRequest() :
@@ -2290,9 +2289,9 @@ class McReplaceRequest : private boost::totally_ordered<McReplaceRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -2310,26 +2309,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McReplaceRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McReplaceRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McReplaceRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McReplaceRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McReplaceRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McReplaceRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McReplaceRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McReplaceRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McReplaceReply : private boost::totally_ordered<McReplaceReply> {
+class McReplaceReply : private apache::thrift::detail::st::ComparisonOperators<McReplaceReply> {
  public:
 
   McReplaceReply() :
@@ -2440,9 +2439,9 @@ class McReplaceReply : private boost::totally_ordered<McReplaceReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -2460,26 +2459,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McReplaceReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McReplaceReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McReplaceReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McReplaceReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McReplaceReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McReplaceReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McReplaceReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McReplaceReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McReplaceReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McGetsRequest : private boost::totally_ordered<McGetsRequest> {
+class McGetsRequest : private apache::thrift::detail::st::ComparisonOperators<McGetsRequest> {
  public:
 
   McGetsRequest() {}
@@ -2538,9 +2537,9 @@ class McGetsRequest : private boost::totally_ordered<McGetsRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -2558,26 +2557,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McGetsRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McGetsRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McGetsRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McGetsRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McGetsRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McGetsRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McGetsRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McGetsRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McGetsReply : private boost::totally_ordered<McGetsReply> {
+class McGetsReply : private apache::thrift::detail::st::ComparisonOperators<McGetsReply> {
  public:
 
   McGetsReply() :
@@ -2772,9 +2771,9 @@ class McGetsReply : private boost::totally_ordered<McGetsReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -2792,26 +2791,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McGetsReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McGetsReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McGetsReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McGetsReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McGetsReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McGetsReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McGetsReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McGetsReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McGetsReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McCasRequest : private boost::totally_ordered<McCasRequest> {
+class McCasRequest : private apache::thrift::detail::st::ComparisonOperators<McCasRequest> {
  public:
 
   McCasRequest() :
@@ -2966,9 +2965,9 @@ class McCasRequest : private boost::totally_ordered<McCasRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -2986,26 +2985,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McCasRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McCasRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McCasRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McCasRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McCasRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McCasRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McCasRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McCasRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McCasReply : private boost::totally_ordered<McCasReply> {
+class McCasReply : private apache::thrift::detail::st::ComparisonOperators<McCasReply> {
  public:
 
   McCasReply() :
@@ -3116,9 +3115,9 @@ class McCasReply : private boost::totally_ordered<McCasReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -3136,26 +3135,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McCasReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McCasReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McCasReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McCasReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McCasReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McCasReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McCasReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McCasReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McCasReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McIncrRequest : private boost::totally_ordered<McIncrRequest> {
+class McIncrRequest : private apache::thrift::detail::st::ComparisonOperators<McIncrRequest> {
  public:
 
   McIncrRequest() :
@@ -3237,9 +3236,9 @@ class McIncrRequest : private boost::totally_ordered<McIncrRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -3257,26 +3256,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McIncrRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McIncrRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McIncrRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McIncrRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McIncrRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McIncrRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McIncrRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McIncrRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McIncrReply : private boost::totally_ordered<McIncrReply> {
+class McIncrReply : private apache::thrift::detail::st::ComparisonOperators<McIncrReply> {
  public:
 
   McIncrReply() :
@@ -3415,9 +3414,9 @@ class McIncrReply : private boost::totally_ordered<McIncrReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -3435,26 +3434,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McIncrReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McIncrReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McIncrReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McIncrReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McIncrReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McIncrReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McIncrReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McIncrReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McIncrReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McDecrRequest : private boost::totally_ordered<McDecrRequest> {
+class McDecrRequest : private apache::thrift::detail::st::ComparisonOperators<McDecrRequest> {
  public:
 
   McDecrRequest() :
@@ -3536,9 +3535,9 @@ class McDecrRequest : private boost::totally_ordered<McDecrRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -3556,26 +3555,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McDecrRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McDecrRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McDecrRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McDecrRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McDecrRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McDecrRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McDecrRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McDecrRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McDecrReply : private boost::totally_ordered<McDecrReply> {
+class McDecrReply : private apache::thrift::detail::st::ComparisonOperators<McDecrReply> {
  public:
 
   McDecrReply() :
@@ -3714,9 +3713,9 @@ class McDecrReply : private boost::totally_ordered<McDecrReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -3734,26 +3733,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McDecrReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McDecrReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McDecrReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McDecrReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McDecrReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McDecrReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McDecrReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McDecrReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McDecrReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McMetagetRequest : private boost::totally_ordered<McMetagetRequest> {
+class McMetagetRequest : private apache::thrift::detail::st::ComparisonOperators<McMetagetRequest> {
  public:
 
   McMetagetRequest() {}
@@ -3812,9 +3811,9 @@ class McMetagetRequest : private boost::totally_ordered<McMetagetRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -3832,26 +3831,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McMetagetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McMetagetRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McMetagetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McMetagetRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McMetagetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McMetagetRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McMetagetRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McMetagetRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McMetagetReply : private boost::totally_ordered<McMetagetReply> {
+class McMetagetReply : private apache::thrift::detail::st::ComparisonOperators<McMetagetReply> {
  public:
 
   McMetagetReply() :
@@ -4074,9 +4073,9 @@ class McMetagetReply : private boost::totally_ordered<McMetagetReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -4094,26 +4093,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McMetagetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McMetagetReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McMetagetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McMetagetReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McMetagetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McMetagetReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McMetagetReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McMetagetReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McMetagetReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McVersionRequest : private boost::totally_ordered<McVersionRequest> {
+class McVersionRequest : private apache::thrift::detail::st::ComparisonOperators<McVersionRequest> {
  public:
 
   McVersionRequest() {}
@@ -4172,9 +4171,9 @@ class McVersionRequest : private boost::totally_ordered<McVersionRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -4192,26 +4191,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McVersionRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McVersionRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McVersionRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McVersionRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McVersionRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McVersionRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McVersionRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McVersionRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McVersionReply : private boost::totally_ordered<McVersionReply> {
+class McVersionReply : private apache::thrift::detail::st::ComparisonOperators<McVersionReply> {
  public:
 
   McVersionReply() :
@@ -4350,9 +4349,9 @@ class McVersionReply : private boost::totally_ordered<McVersionReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -4370,26 +4369,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McVersionReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McVersionReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McVersionReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McVersionReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McVersionReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McVersionReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McVersionReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McVersionReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McVersionReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McAppendRequest : private boost::totally_ordered<McAppendRequest> {
+class McAppendRequest : private apache::thrift::detail::st::ComparisonOperators<McAppendRequest> {
  public:
 
   McAppendRequest() :
@@ -4521,9 +4520,9 @@ class McAppendRequest : private boost::totally_ordered<McAppendRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -4541,26 +4540,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McAppendRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McAppendRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McAppendRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McAppendRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McAppendRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McAppendRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McAppendRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McAppendRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McAppendReply : private boost::totally_ordered<McAppendReply> {
+class McAppendReply : private apache::thrift::detail::st::ComparisonOperators<McAppendReply> {
  public:
 
   McAppendReply() :
@@ -4671,9 +4670,9 @@ class McAppendReply : private boost::totally_ordered<McAppendReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -4691,26 +4690,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McAppendReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McAppendReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McAppendReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McAppendReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McAppendReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McAppendReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McAppendReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McAppendReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McAppendReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McPrependRequest : private boost::totally_ordered<McPrependRequest> {
+class McPrependRequest : private apache::thrift::detail::st::ComparisonOperators<McPrependRequest> {
  public:
 
   McPrependRequest() :
@@ -4842,9 +4841,9 @@ class McPrependRequest : private boost::totally_ordered<McPrependRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -4862,26 +4861,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McPrependRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McPrependRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McPrependRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McPrependRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McPrependRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McPrependRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McPrependRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McPrependRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McPrependReply : private boost::totally_ordered<McPrependReply> {
+class McPrependReply : private apache::thrift::detail::st::ComparisonOperators<McPrependReply> {
  public:
 
   McPrependReply() :
@@ -4992,9 +4991,9 @@ class McPrependReply : private boost::totally_ordered<McPrependReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -5012,26 +5011,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McPrependReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McPrependReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McPrependReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McPrependReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McPrependReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McPrependReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McPrependReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McPrependReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McPrependReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McTouchRequest : private boost::totally_ordered<McTouchRequest> {
+class McTouchRequest : private apache::thrift::detail::st::ComparisonOperators<McTouchRequest> {
  public:
 
   McTouchRequest() :
@@ -5113,9 +5112,9 @@ class McTouchRequest : private boost::totally_ordered<McTouchRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -5133,26 +5132,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McTouchRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McTouchRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McTouchRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McTouchRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McTouchRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McTouchRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McTouchRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McTouchRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McTouchReply : private boost::totally_ordered<McTouchReply> {
+class McTouchReply : private apache::thrift::detail::st::ComparisonOperators<McTouchReply> {
  public:
 
   McTouchReply() :
@@ -5263,9 +5262,9 @@ class McTouchReply : private boost::totally_ordered<McTouchReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -5283,26 +5282,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McTouchReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McTouchReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McTouchReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McTouchReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McTouchReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McTouchReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McTouchReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McTouchReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McTouchReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McStatsRequest : private boost::totally_ordered<McStatsRequest> {
+class McStatsRequest : private apache::thrift::detail::st::ComparisonOperators<McStatsRequest> {
  public:
 
   McStatsRequest() {}
@@ -5361,9 +5360,9 @@ class McStatsRequest : private boost::totally_ordered<McStatsRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -5381,26 +5380,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McStatsRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McStatsRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McStatsRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McStatsRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McStatsRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McStatsRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McStatsRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McStatsRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McStatsReply : private boost::totally_ordered<McStatsReply> {
+class McStatsReply : private apache::thrift::detail::st::ComparisonOperators<McStatsReply> {
  public:
 
   McStatsReply() :
@@ -5528,9 +5527,9 @@ class McStatsReply : private boost::totally_ordered<McStatsReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -5548,26 +5547,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McStatsReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McStatsReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McStatsReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McStatsReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McStatsReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McStatsReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McStatsReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McStatsReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McStatsReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McShutdownRequest : private boost::totally_ordered<McShutdownRequest> {
+class McShutdownRequest : private apache::thrift::detail::st::ComparisonOperators<McShutdownRequest> {
  public:
 
   McShutdownRequest() {}
@@ -5626,9 +5625,9 @@ class McShutdownRequest : private boost::totally_ordered<McShutdownRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -5646,26 +5645,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McShutdownRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McShutdownRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McShutdownRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McShutdownRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McShutdownRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McShutdownRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McShutdownRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McShutdownRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McShutdownReply : private boost::totally_ordered<McShutdownReply> {
+class McShutdownReply : private apache::thrift::detail::st::ComparisonOperators<McShutdownReply> {
  public:
 
   McShutdownReply() :
@@ -5776,9 +5775,9 @@ class McShutdownReply : private boost::totally_ordered<McShutdownReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -5796,26 +5795,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McShutdownReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McShutdownReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McShutdownReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McShutdownReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McShutdownReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McShutdownReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McShutdownReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McShutdownReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McShutdownReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McQuitRequest : private boost::totally_ordered<McQuitRequest> {
+class McQuitRequest : private apache::thrift::detail::st::ComparisonOperators<McQuitRequest> {
  public:
 
   McQuitRequest() {}
@@ -5874,9 +5873,9 @@ class McQuitRequest : private boost::totally_ordered<McQuitRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -5894,26 +5893,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McQuitRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McQuitRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McQuitRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McQuitRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McQuitRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McQuitRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McQuitRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McQuitRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McQuitReply : private boost::totally_ordered<McQuitReply> {
+class McQuitReply : private apache::thrift::detail::st::ComparisonOperators<McQuitReply> {
  public:
 
   McQuitReply() :
@@ -6024,9 +6023,9 @@ class McQuitReply : private boost::totally_ordered<McQuitReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -6044,26 +6043,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McQuitReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McQuitReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McQuitReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McQuitReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McQuitReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McQuitReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McQuitReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McQuitReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McQuitReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McExecRequest : private boost::totally_ordered<McExecRequest> {
+class McExecRequest : private apache::thrift::detail::st::ComparisonOperators<McExecRequest> {
  public:
 
   McExecRequest() {}
@@ -6122,9 +6121,9 @@ class McExecRequest : private boost::totally_ordered<McExecRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -6142,26 +6141,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McExecRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McExecRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McExecRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McExecRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McExecRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McExecRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McExecRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McExecRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McExecReply : private boost::totally_ordered<McExecReply> {
+class McExecReply : private apache::thrift::detail::st::ComparisonOperators<McExecReply> {
  public:
 
   McExecReply() :
@@ -6300,9 +6299,9 @@ class McExecReply : private boost::totally_ordered<McExecReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -6320,26 +6319,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McExecReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McExecReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McExecReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McExecReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McExecReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McExecReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McExecReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McExecReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McExecReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McFlushReRequest : private boost::totally_ordered<McFlushReRequest> {
+class McFlushReRequest : private apache::thrift::detail::st::ComparisonOperators<McFlushReRequest> {
  public:
 
   McFlushReRequest() {}
@@ -6398,9 +6397,9 @@ class McFlushReRequest : private boost::totally_ordered<McFlushReRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -6418,26 +6417,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushReRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McFlushReRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McFlushReRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McFlushReRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushReRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McFlushReRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushReRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McFlushReRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McFlushReReply : private boost::totally_ordered<McFlushReReply> {
+class McFlushReReply : private apache::thrift::detail::st::ComparisonOperators<McFlushReReply> {
  public:
 
   McFlushReReply() :
@@ -6548,9 +6547,9 @@ class McFlushReReply : private boost::totally_ordered<McFlushReReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -6568,26 +6567,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushReReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McFlushReReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McFlushReReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McFlushReReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushReReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McFlushReReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushReReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushReReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McFlushReReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McFlushAllRequest : private boost::totally_ordered<McFlushAllRequest> {
+class McFlushAllRequest : private apache::thrift::detail::st::ComparisonOperators<McFlushAllRequest> {
  public:
 
   McFlushAllRequest() :
@@ -6674,9 +6673,9 @@ class McFlushAllRequest : private boost::totally_ordered<McFlushAllRequest> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -6694,26 +6693,26 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllRequest>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushAllRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllRequest>::write(Protocol* proto,  ::facebook::memcache::cpp2::McFlushAllRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllRequest>::read(Protocol* proto,   ::facebook::memcache::cpp2::McFlushAllRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllRequest>::read(Protocol* proto,  ::facebook::memcache::cpp2::McFlushAllRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllRequest>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushAllRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllRequest>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McFlushAllRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllRequest>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushAllRequest* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllRequest>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McFlushAllRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
 }} // apache::thrift
 namespace facebook { namespace memcache { namespace cpp2 {
 
-class McFlushAllReply : private boost::totally_ordered<McFlushAllReply> {
+class McFlushAllReply : private apache::thrift::detail::st::ComparisonOperators<McFlushAllReply> {
  public:
 
   McFlushAllReply() :
@@ -6824,9 +6823,9 @@ class McFlushAllReply : private boost::totally_ordered<McFlushAllReply> {
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
-  uint32_t serializedSize(Protocol_* prot_) const;
+  uint32_t serializedSize(Protocol_ const* prot_) const;
   template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_* prot_) const;
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
 };
@@ -6844,19 +6843,19 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::facebook
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllReply>::write(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushAllReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllReply>::write(Protocol* proto,  ::facebook::memcache::cpp2::McFlushAllReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllReply>::read(Protocol* proto,   ::facebook::memcache::cpp2::McFlushAllReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllReply>::read(Protocol* proto,  ::facebook::memcache::cpp2::McFlushAllReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllReply>::serializedSize(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushAllReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllReply>::serializedSize(Protocol const* proto,  ::facebook::memcache::cpp2::McFlushAllReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllReply>::serializedSizeZC(Protocol* proto, const  ::facebook::memcache::cpp2::McFlushAllReply* obj) {
+template <> template <class Protocol> inline uint32_t Cpp2Ops< ::facebook::memcache::cpp2::McFlushAllReply>::serializedSizeZC(Protocol const* proto,  ::facebook::memcache::cpp2::McFlushAllReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 

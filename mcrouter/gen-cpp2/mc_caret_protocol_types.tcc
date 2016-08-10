@@ -80,7 +80,7 @@ uint32_t McGetRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McGetRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McGetRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McGetRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -94,7 +94,7 @@ uint32_t McGetRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McGetRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McGetRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McGetRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -234,7 +234,7 @@ uint32_t McGetReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McGetReply::serializedSize(Protocol_* prot_) const {
+uint32_t McGetReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McGetReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -260,7 +260,7 @@ uint32_t McGetReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McGetReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McGetReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McGetReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -413,7 +413,7 @@ uint32_t McSetRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McSetRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McSetRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McSetRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -429,7 +429,7 @@ uint32_t McSetRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McSetRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McSetRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McSetRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -575,7 +575,7 @@ uint32_t McSetReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McSetReply::serializedSize(Protocol_* prot_) const {
+uint32_t McSetReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McSetReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -601,7 +601,7 @@ uint32_t McSetReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McSetReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McSetReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McSetReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -754,7 +754,7 @@ uint32_t McDeleteRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McDeleteRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McDeleteRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McDeleteRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -776,7 +776,7 @@ uint32_t McDeleteRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McDeleteRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McDeleteRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McDeleteRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -934,7 +934,7 @@ uint32_t McDeleteReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McDeleteReply::serializedSize(Protocol_* prot_) const {
+uint32_t McDeleteReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McDeleteReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -960,7 +960,7 @@ uint32_t McDeleteReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McDeleteReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McDeleteReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McDeleteReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -1071,7 +1071,7 @@ uint32_t McLeaseGetRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McLeaseGetRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McLeaseGetRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McLeaseGetRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -1081,7 +1081,7 @@ uint32_t McLeaseGetRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McLeaseGetRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McLeaseGetRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McLeaseGetRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -1226,7 +1226,7 @@ uint32_t McLeaseGetReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McLeaseGetReply::serializedSize(Protocol_* prot_) const {
+uint32_t McLeaseGetReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McLeaseGetReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -1256,7 +1256,7 @@ uint32_t McLeaseGetReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McLeaseGetReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McLeaseGetReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McLeaseGetReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -1432,7 +1432,7 @@ uint32_t McLeaseSetRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McLeaseSetRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McLeaseSetRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McLeaseSetRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -1450,7 +1450,7 @@ uint32_t McLeaseSetRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McLeaseSetRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McLeaseSetRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McLeaseSetRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -1573,7 +1573,7 @@ uint32_t McLeaseSetReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McLeaseSetReply::serializedSize(Protocol_* prot_) const {
+uint32_t McLeaseSetReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McLeaseSetReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -1591,7 +1591,7 @@ uint32_t McLeaseSetReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McLeaseSetReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McLeaseSetReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McLeaseSetReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -1726,7 +1726,7 @@ uint32_t McAddRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McAddRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McAddRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McAddRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -1742,7 +1742,7 @@ uint32_t McAddRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McAddRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McAddRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McAddRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -1860,7 +1860,7 @@ uint32_t McAddReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McAddReply::serializedSize(Protocol_* prot_) const {
+uint32_t McAddReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McAddReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -1878,7 +1878,7 @@ uint32_t McAddReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McAddReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McAddReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McAddReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -2013,7 +2013,7 @@ uint32_t McReplaceRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McReplaceRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McReplaceRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McReplaceRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -2029,7 +2029,7 @@ uint32_t McReplaceRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McReplaceRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McReplaceRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McReplaceRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -2147,7 +2147,7 @@ uint32_t McReplaceReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McReplaceReply::serializedSize(Protocol_* prot_) const {
+uint32_t McReplaceReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McReplaceReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -2165,7 +2165,7 @@ uint32_t McReplaceReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McReplaceReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McReplaceReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McReplaceReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -2258,7 +2258,7 @@ uint32_t McGetsRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McGetsRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McGetsRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McGetsRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -2268,7 +2268,7 @@ uint32_t McGetsRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McGetsRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McGetsRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McGetsRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -2413,7 +2413,7 @@ uint32_t McGetsReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McGetsReply::serializedSize(Protocol_* prot_) const {
+uint32_t McGetsReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McGetsReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -2443,7 +2443,7 @@ uint32_t McGetsReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McGetsReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McGetsReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McGetsReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -2619,7 +2619,7 @@ uint32_t McCasRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McCasRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McCasRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McCasRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -2637,7 +2637,7 @@ uint32_t McCasRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McCasRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McCasRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McCasRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -2760,7 +2760,7 @@ uint32_t McCasReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McCasReply::serializedSize(Protocol_* prot_) const {
+uint32_t McCasReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McCasReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -2778,7 +2778,7 @@ uint32_t McCasReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McCasReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McCasReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McCasReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -2885,7 +2885,7 @@ uint32_t McIncrRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McIncrRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McIncrRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McIncrRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -2897,7 +2897,7 @@ uint32_t McIncrRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McIncrRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McIncrRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McIncrRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -3019,7 +3019,7 @@ uint32_t McIncrReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McIncrReply::serializedSize(Protocol_* prot_) const {
+uint32_t McIncrReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McIncrReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -3041,7 +3041,7 @@ uint32_t McIncrReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McIncrReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McIncrReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McIncrReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -3157,7 +3157,7 @@ uint32_t McDecrRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McDecrRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McDecrRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McDecrRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -3169,7 +3169,7 @@ uint32_t McDecrRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McDecrRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McDecrRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McDecrRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -3291,7 +3291,7 @@ uint32_t McDecrReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McDecrReply::serializedSize(Protocol_* prot_) const {
+uint32_t McDecrReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McDecrReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -3313,7 +3313,7 @@ uint32_t McDecrReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McDecrReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McDecrReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McDecrReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -3415,7 +3415,7 @@ uint32_t McMetagetRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McMetagetRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McMetagetRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McMetagetRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -3425,7 +3425,7 @@ uint32_t McMetagetRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McMetagetRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McMetagetRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McMetagetRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -3584,7 +3584,7 @@ uint32_t McMetagetReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McMetagetReply::serializedSize(Protocol_* prot_) const {
+uint32_t McMetagetReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McMetagetReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -3618,7 +3618,7 @@ uint32_t McMetagetReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McMetagetReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McMetagetReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McMetagetReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -3747,7 +3747,7 @@ uint32_t McVersionRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McVersionRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McVersionRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McVersionRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -3757,7 +3757,7 @@ uint32_t McVersionRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McVersionRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McVersionRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McVersionRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -3874,7 +3874,7 @@ uint32_t McVersionReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McVersionReply::serializedSize(Protocol_* prot_) const {
+uint32_t McVersionReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McVersionReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -3896,7 +3896,7 @@ uint32_t McVersionReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McVersionReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McVersionReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McVersionReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -4040,7 +4040,7 @@ uint32_t McAppendRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McAppendRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McAppendRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McAppendRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -4056,7 +4056,7 @@ uint32_t McAppendRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McAppendRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McAppendRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McAppendRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -4174,7 +4174,7 @@ uint32_t McAppendReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McAppendReply::serializedSize(Protocol_* prot_) const {
+uint32_t McAppendReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McAppendReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -4192,7 +4192,7 @@ uint32_t McAppendReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McAppendReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McAppendReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McAppendReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -4327,7 +4327,7 @@ uint32_t McPrependRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McPrependRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McPrependRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McPrependRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -4343,7 +4343,7 @@ uint32_t McPrependRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McPrependRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McPrependRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McPrependRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -4461,7 +4461,7 @@ uint32_t McPrependReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McPrependReply::serializedSize(Protocol_* prot_) const {
+uint32_t McPrependReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McPrependReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -4479,7 +4479,7 @@ uint32_t McPrependReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McPrependReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McPrependReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McPrependReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -4586,7 +4586,7 @@ uint32_t McTouchRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McTouchRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McTouchRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McTouchRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -4598,7 +4598,7 @@ uint32_t McTouchRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McTouchRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McTouchRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McTouchRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -4706,7 +4706,7 @@ uint32_t McTouchReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McTouchReply::serializedSize(Protocol_* prot_) const {
+uint32_t McTouchReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McTouchReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -4724,7 +4724,7 @@ uint32_t McTouchReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McTouchReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McTouchReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McTouchReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -4817,7 +4817,7 @@ uint32_t McStatsRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McStatsRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McStatsRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McStatsRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -4827,7 +4827,7 @@ uint32_t McStatsRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McStatsRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McStatsRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McStatsRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -4968,7 +4968,7 @@ uint32_t McStatsReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McStatsReply::serializedSize(Protocol_* prot_) const {
+uint32_t McStatsReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McStatsReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -4994,7 +4994,7 @@ uint32_t McStatsReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McStatsReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McStatsReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McStatsReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -5104,7 +5104,7 @@ uint32_t McShutdownRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McShutdownRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McShutdownRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McShutdownRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -5114,7 +5114,7 @@ uint32_t McShutdownRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McShutdownRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McShutdownRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McShutdownRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -5217,7 +5217,7 @@ uint32_t McShutdownReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McShutdownReply::serializedSize(Protocol_* prot_) const {
+uint32_t McShutdownReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McShutdownReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -5235,7 +5235,7 @@ uint32_t McShutdownReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McShutdownReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McShutdownReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McShutdownReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -5328,7 +5328,7 @@ uint32_t McQuitRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McQuitRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McQuitRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McQuitRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -5338,7 +5338,7 @@ uint32_t McQuitRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McQuitRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McQuitRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McQuitRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -5441,7 +5441,7 @@ uint32_t McQuitReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McQuitReply::serializedSize(Protocol_* prot_) const {
+uint32_t McQuitReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McQuitReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -5459,7 +5459,7 @@ uint32_t McQuitReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McQuitReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McQuitReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McQuitReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -5552,7 +5552,7 @@ uint32_t McExecRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McExecRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McExecRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McExecRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -5562,7 +5562,7 @@ uint32_t McExecRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McExecRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McExecRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McExecRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -5679,7 +5679,7 @@ uint32_t McExecReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McExecReply::serializedSize(Protocol_* prot_) const {
+uint32_t McExecReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McExecReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -5701,7 +5701,7 @@ uint32_t McExecReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McExecReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McExecReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McExecReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -5803,7 +5803,7 @@ uint32_t McFlushReRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McFlushReRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McFlushReRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McFlushReRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -5813,7 +5813,7 @@ uint32_t McFlushReRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McFlushReRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McFlushReRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McFlushReRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -5916,7 +5916,7 @@ uint32_t McFlushReReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McFlushReReply::serializedSize(Protocol_* prot_) const {
+uint32_t McFlushReReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McFlushReReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -5934,7 +5934,7 @@ uint32_t McFlushReReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McFlushReReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McFlushReReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McFlushReReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -6041,7 +6041,7 @@ uint32_t McFlushAllRequest::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McFlushAllRequest::serializedSize(Protocol_* prot_) const {
+uint32_t McFlushAllRequest::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McFlushAllRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -6055,7 +6055,7 @@ uint32_t McFlushAllRequest::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McFlushAllRequest::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McFlushAllRequest::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McFlushAllRequest");
   xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 1);
@@ -6167,7 +6167,7 @@ uint32_t McFlushAllReply::read(Protocol_* iprot) {
 }
 
 template <class Protocol_>
-uint32_t McFlushAllReply::serializedSize(Protocol_* prot_) const {
+uint32_t McFlushAllReply::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McFlushAllReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
@@ -6185,7 +6185,7 @@ uint32_t McFlushAllReply::serializedSize(Protocol_* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t McFlushAllReply::serializedSizeZC(Protocol_* prot_) const {
+uint32_t McFlushAllReply::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("McFlushAllReply");
   xfer += prot_->serializedFieldSize("result", apache::thrift::protocol::T_I16, 1);
