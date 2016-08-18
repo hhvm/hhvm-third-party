@@ -40,3 +40,6 @@
 [submodule "libzip/src"]
 	path = libzip/src
 	url = https://github.com/nih-at/libzip
+[submodule "fatal"]
+	path = fatal
+	url = https://github.com/facebook/fatal

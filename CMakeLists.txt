@@ -43,6 +43,9 @@ list(APPEND EXTRA_INCLUDE_PATHS
   "${TP_DIR}/folly/src"
 )
 
+# Fatal is a header-only library, so there's nothing to build.
+list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/fatal")
+
 list(APPEND THIRD_PARTY_MODULES wangle)
 list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/wangle/src")
 
