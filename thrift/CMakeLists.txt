@@ -5,6 +5,7 @@ set(CXX_SOURCES)
 auto_sources(files "*.cpp" "RECURSE" "${THRIFT_DIR}")
 
 HHVM_REMOVE_MATCHES_FROM_LISTS(files MATCHES
+  "/demo/"
   "/perf/"
   "/test/"
   "/tests/"
