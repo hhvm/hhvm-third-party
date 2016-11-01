@@ -518,7 +518,7 @@ RedTransAp *RedFsmAp::getErrorTrans( )
 #ifndef NDEBUG
 		RedTransAp *inRes =
 #endif
-      transSet.insert( errTrans );
+ 			transSet.insert( errTrans );
 		assert( inRes != 0 );
 	}
 	return errTrans;
