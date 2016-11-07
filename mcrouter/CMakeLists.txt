@@ -12,10 +12,6 @@ else()
   add_definitions("-DFOLLY_HAVE_MALLOC_H=0")
 endif()
 
-# Pre-generated thrift files
-file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/gen-cpp2"
-     DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/lib/network/")
-
 set(C_SOURCES)
 auto_sources(files "*.c" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter")
 foreach (file ${files})
