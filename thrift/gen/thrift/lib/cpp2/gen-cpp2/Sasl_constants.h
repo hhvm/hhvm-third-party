@@ -10,11 +10,8 @@
 #include <thrift/lib/cpp2/protocol/Protocol.h>
 namespace apache { namespace thrift { namespace sasl {
 
-struct Sasl_constants {};
+struct Sasl_constants {
 
-class __attribute__((__deprecated__("SaslConstants suffers from the 'static initialization order fiasco' (https://isocpp.org/wiki/faq/ctors#static-init-order) and may CRASH you program. Instead, use Sasl_constants::CONSTANT_NAME()"))) SaslConstants {
- public:
-  SaslConstants() {}
 };
 
 }}} // apache::thrift::sasl

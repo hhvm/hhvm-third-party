@@ -39,6 +39,8 @@ list(APPEND CXX_SOURCES ${files})
 
 auto_sources(files "*.cpp" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}/gen")
 list(APPEND CXX_SOURCES ${files})
+auto_sources(files "*.tcc" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}/gen")
+list(APPEND CXX_SOURCES ${files})
 
 find_package(Boost 1.48.0 COMPONENTS thread system REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})

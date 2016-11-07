@@ -10,9 +10,10 @@
 #include <thrift/lib/cpp2/async/HeaderChannel.h>
 #include <thrift/lib/cpp2/async/FutureRequest.h>
 #include <folly/futures/Future.h>
+
+
+
 #include "thrift/lib/cpp2/gen-cpp2/Sasl_types.h"
-
-
 
 namespace folly {
   class IOBuf;
@@ -43,35 +44,32 @@ class SaslAuthServiceAsyncProcessor;
 class SaslAuthServiceSvIf : public SaslAuthServiceSvAsyncIf, public apache::thrift::ServerInterface {
  public:
   typedef SaslAuthServiceAsyncProcessor ProcessorType;
-
-  virtual ~SaslAuthServiceSvIf() {}
-  virtual std::unique_ptr<apache::thrift::AsyncProcessor> getProcessor();
+  std::unique_ptr<apache::thrift::AsyncProcessor> getProcessor() override;
   virtual void authFirstRequest( ::apache::thrift::sasl::SaslReply& /*_return*/, std::unique_ptr< ::apache::thrift::sasl::SaslStart> /*saslStart*/);
-  folly::Future<std::unique_ptr< ::apache::thrift::sasl::SaslReply>> future_authFirstRequest(std::unique_ptr< ::apache::thrift::sasl::SaslStart> saslStart);
-  virtual void async_tm_authFirstRequest(std::unique_ptr<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>> callback, std::unique_ptr< ::apache::thrift::sasl::SaslStart> saslStart);
+  folly::Future<std::unique_ptr< ::apache::thrift::sasl::SaslReply>> future_authFirstRequest(std::unique_ptr< ::apache::thrift::sasl::SaslStart> saslStart) override;
+  void async_tm_authFirstRequest(std::unique_ptr<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>> callback, std::unique_ptr< ::apache::thrift::sasl::SaslStart> saslStart) override;
   virtual void authNextRequest( ::apache::thrift::sasl::SaslReply& /*_return*/, std::unique_ptr< ::apache::thrift::sasl::SaslRequest> /*saslRequest*/);
-  folly::Future<std::unique_ptr< ::apache::thrift::sasl::SaslReply>> future_authNextRequest(std::unique_ptr< ::apache::thrift::sasl::SaslRequest> saslRequest);
-  virtual void async_tm_authNextRequest(std::unique_ptr<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>> callback, std::unique_ptr< ::apache::thrift::sasl::SaslRequest> saslRequest);
+  folly::Future<std::unique_ptr< ::apache::thrift::sasl::SaslReply>> future_authNextRequest(std::unique_ptr< ::apache::thrift::sasl::SaslRequest> saslRequest) override;
+  void async_tm_authNextRequest(std::unique_ptr<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>> callback, std::unique_ptr< ::apache::thrift::sasl::SaslRequest> saslRequest) override;
 };
 
 class SaslAuthServiceSvNull : public SaslAuthServiceSvIf {
  public:
-  virtual ~SaslAuthServiceSvNull() {}
-  virtual void authFirstRequest( ::apache::thrift::sasl::SaslReply& /*_return*/, std::unique_ptr< ::apache::thrift::sasl::SaslStart> /*saslStart*/);
-  virtual void authNextRequest( ::apache::thrift::sasl::SaslReply& /*_return*/, std::unique_ptr< ::apache::thrift::sasl::SaslRequest> /*saslRequest*/);
+  void authFirstRequest( ::apache::thrift::sasl::SaslReply& /*_return*/, std::unique_ptr< ::apache::thrift::sasl::SaslStart> /*saslStart*/) override;
+  void authNextRequest( ::apache::thrift::sasl::SaslReply& /*_return*/, std::unique_ptr< ::apache::thrift::sasl::SaslRequest> /*saslRequest*/) override;
 };
 
 class SaslAuthServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcessor {
  public:
-  virtual const char* getServiceName();
+  const char* getServiceName() override;
   using BaseAsyncProcessor = void;
  protected:
   SaslAuthServiceSvIf* iface_;
-  virtual folly::Optional<std::string> getCacheKey(folly::IOBuf* buf, apache::thrift::protocol::PROTOCOL_TYPES protType);
+  folly::Optional<std::string> getCacheKey(folly::IOBuf* buf, apache::thrift::protocol::PROTOCOL_TYPES protType) override;
  public:
-  virtual void process(std::unique_ptr<apache::thrift::ResponseChannel::Request> req, std::unique_ptr<folly::IOBuf> buf, apache::thrift::protocol::PROTOCOL_TYPES protType, apache::thrift::Cpp2RequestContext* context, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  void process(std::unique_ptr<apache::thrift::ResponseChannel::Request> req, std::unique_ptr<folly::IOBuf> buf, apache::thrift::protocol::PROTOCOL_TYPES protType, apache::thrift::Cpp2RequestContext* context, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) override;
  protected:
-  virtual bool isOnewayMethod(const folly::IOBuf* buf, const apache::thrift::transport::THeader* header);
+  bool isOnewayMethod(const folly::IOBuf* buf, const apache::thrift::transport::THeader* header) override;
  private:
   static std::unordered_set<std::string> onewayMethods_;
   static std::unordered_map<std::string, int16_t> cacheKeyMap_;
@@ -80,13 +78,13 @@ class SaslAuthServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncPro
   using BinaryProtocolProcessMap = ProcessMap<BinaryProtocolProcessFunc>;
   static const SaslAuthServiceAsyncProcessor::BinaryProtocolProcessMap& getBinaryProtocolProcessMap();
  private:
-  static SaslAuthServiceAsyncProcessor::BinaryProtocolProcessMap binaryProcessMap_;
+  static const SaslAuthServiceAsyncProcessor::BinaryProtocolProcessMap binaryProcessMap_;
  public:
   using CompactProtocolProcessFunc = ProcessFunc<SaslAuthServiceAsyncProcessor, apache::thrift::CompactProtocolReader>;
   using CompactProtocolProcessMap = ProcessMap<CompactProtocolProcessFunc>;
   static const SaslAuthServiceAsyncProcessor::CompactProtocolProcessMap& getCompactProtocolProcessMap();
  private:
-  static SaslAuthServiceAsyncProcessor::CompactProtocolProcessMap compactProcessMap_;
+  static const SaslAuthServiceAsyncProcessor::CompactProtocolProcessMap compactProcessMap_;
  private:
   template <typename ProtocolIn_, typename ProtocolOut_>
   void _processInThread_authFirstRequest(std::unique_ptr<apache::thrift::ResponseChannel::Request> req, std::unique_ptr<folly::IOBuf> buf, std::unique_ptr<ProtocolIn_> iprot, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);

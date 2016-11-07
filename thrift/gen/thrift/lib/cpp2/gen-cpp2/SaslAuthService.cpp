@@ -67,17 +67,18 @@ const SaslAuthServiceAsyncProcessor::BinaryProtocolProcessMap& SaslAuthServiceAs
   return binaryProcessMap_;
 }
 
-SaslAuthServiceAsyncProcessor::BinaryProtocolProcessMap SaslAuthServiceAsyncProcessor::binaryProcessMap_ {
+const SaslAuthServiceAsyncProcessor::BinaryProtocolProcessMap SaslAuthServiceAsyncProcessor::binaryProcessMap_ {
   {"authFirstRequest", &SaslAuthServiceAsyncProcessor::_processInThread_authFirstRequest<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"authNextRequest", &SaslAuthServiceAsyncProcessor::_processInThread_authNextRequest<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>}
+  {"authNextRequest", &SaslAuthServiceAsyncProcessor::_processInThread_authNextRequest<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
 };
+
 const SaslAuthServiceAsyncProcessor::CompactProtocolProcessMap& SaslAuthServiceAsyncProcessor::getCompactProtocolProcessMap() {
   return compactProcessMap_;
 }
 
-SaslAuthServiceAsyncProcessor::CompactProtocolProcessMap SaslAuthServiceAsyncProcessor::compactProcessMap_ {
+const SaslAuthServiceAsyncProcessor::CompactProtocolProcessMap SaslAuthServiceAsyncProcessor::compactProcessMap_ {
   {"authFirstRequest", &SaslAuthServiceAsyncProcessor::_processInThread_authFirstRequest<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"authNextRequest", &SaslAuthServiceAsyncProcessor::_processInThread_authNextRequest<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>}
+  {"authNextRequest", &SaslAuthServiceAsyncProcessor::_processInThread_authNextRequest<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
 };
 
 }}} // apache::thrift::sasl

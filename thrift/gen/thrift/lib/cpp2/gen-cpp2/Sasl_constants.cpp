@@ -6,6 +6,8 @@
  */
 #include "thrift/lib/cpp2/gen-cpp2/Sasl_constants.h"
 
+#include <folly/Indestructible.h>
+
 namespace apache { namespace thrift { namespace sasl {
 
 }}} // apache::thrift::sasl

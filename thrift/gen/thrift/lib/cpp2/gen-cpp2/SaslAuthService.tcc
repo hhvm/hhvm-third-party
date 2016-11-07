@@ -255,7 +255,7 @@ void SaslAuthServiceAsyncClient::authFirstRequestT(Protocol_* prot, apache::thri
   std::unique_ptr<apache::thrift::ContextStack> ctx = this->getContextStack(this->getServiceName(), "SaslAuthService.authFirstRequest", connectionContext_.get());
   SaslAuthService_authFirstRequest_pargs args;
   args.get<0>().value = const_cast< ::apache::thrift::sasl::SaslStart*>(&saslStart);
-  apache::thrift::clientSendT<false>(prot, rpcOptions, std::move(callback), std::move(ctx), header, channel_.get(), args, "authFirstRequest", [](Protocol_* prot, SaslAuthService_authFirstRequest_pargs& args) { args.write(prot); }, [](Protocol_* prot, SaslAuthService_authFirstRequest_pargs& args) { return args.serializedSizeZC(prot); });
+  apache::thrift::clientSendT<false>(prot, rpcOptions, std::move(callback), std::move(ctx), header, channel_.get(), args, "authFirstRequest", [](Protocol_* p, SaslAuthService_authFirstRequest_pargs& a) { a.write(p); }, [](Protocol_* p, SaslAuthService_authFirstRequest_pargs& a) { return a.serializedSizeZC(p); });
   connectionContext_->setRequestHeader(nullptr);
 }
 
@@ -336,7 +336,7 @@ void SaslAuthServiceAsyncClient::authNextRequestT(Protocol_* prot, apache::thrif
   std::unique_ptr<apache::thrift::ContextStack> ctx = this->getContextStack(this->getServiceName(), "SaslAuthService.authNextRequest", connectionContext_.get());
   SaslAuthService_authNextRequest_pargs args;
   args.get<0>().value = const_cast< ::apache::thrift::sasl::SaslRequest*>(&saslRequest);
-  apache::thrift::clientSendT<false>(prot, rpcOptions, std::move(callback), std::move(ctx), header, channel_.get(), args, "authNextRequest", [](Protocol_* prot, SaslAuthService_authNextRequest_pargs& args) { args.write(prot); }, [](Protocol_* prot, SaslAuthService_authNextRequest_pargs& args) { return args.serializedSizeZC(prot); });
+  apache::thrift::clientSendT<false>(prot, rpcOptions, std::move(callback), std::move(ctx), header, channel_.get(), args, "authNextRequest", [](Protocol_* p, SaslAuthService_authNextRequest_pargs& a) { a.write(p); }, [](Protocol_* p, SaslAuthService_authNextRequest_pargs& a) { return a.serializedSizeZC(p); });
   connectionContext_->setRequestHeader(nullptr);
 }
 

@@ -11,6 +11,7 @@
 #include <folly/io/IOBuf.h>
 #include <folly/io/Cursor.h>
 
+#include <thrift/lib/cpp2/GeneratedHeaderHelper.h>
 
 
 
@@ -112,6 +113,14 @@ class SaslOutcome : private apache::thrift::detail::st::ComparisonOperators<Sasl
 };
 
 void swap(SaslOutcome& a, SaslOutcome& b);
+extern template uint32_t SaslOutcome::read<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t SaslOutcome::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t SaslOutcome::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t SaslOutcome::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t SaslOutcome::read<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t SaslOutcome::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t SaslOutcome::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t SaslOutcome::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // apache::thrift::sasl
 namespace apache { namespace thrift {
@@ -239,6 +248,14 @@ class SaslRequest : private apache::thrift::detail::st::ComparisonOperators<Sasl
 };
 
 void swap(SaslRequest& a, SaslRequest& b);
+extern template uint32_t SaslRequest::read<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t SaslRequest::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t SaslRequest::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t SaslRequest::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t SaslRequest::read<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t SaslRequest::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t SaslRequest::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t SaslRequest::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // apache::thrift::sasl
 namespace apache { namespace thrift {
@@ -383,6 +400,14 @@ class SaslReply : private apache::thrift::detail::st::ComparisonOperators<SaslRe
 };
 
 void swap(SaslReply& a, SaslReply& b);
+extern template uint32_t SaslReply::read<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t SaslReply::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t SaslReply::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t SaslReply::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t SaslReply::read<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t SaslReply::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t SaslReply::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t SaslReply::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // apache::thrift::sasl
 namespace apache { namespace thrift {
@@ -515,6 +540,14 @@ class SaslStart : private apache::thrift::detail::st::ComparisonOperators<SaslSt
 };
 
 void swap(SaslStart& a, SaslStart& b);
+extern template uint32_t SaslStart::read<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t SaslStart::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t SaslStart::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t SaslStart::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t SaslStart::read<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t SaslStart::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t SaslStart::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t SaslStart::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // apache::thrift::sasl
 namespace apache { namespace thrift {
