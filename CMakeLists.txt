@@ -102,7 +102,7 @@ if(NOT LZ4_LIBRARY)
 endif()
 
 # Add bundled double-conversion if the system one will not be used
-if(NOT DOUBLE_CONVERSION_LIBRARY)
+if(NOT DOUBLE_CONVERSION_FOUND)
   list(APPEND THIRD_PARTY_MODULES double-conversion)
   list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/double-conversion")
 endif()
