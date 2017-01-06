@@ -129,6 +129,8 @@ if(NOT LIBZIP_LIBRARY)
   list(APPEND EXTRA_DEFINES "-DZIP_EXTERN=")
 endif()
 
+list(APPEND THIRD_PARTY_MODULES ocaml)
+
 add_definitions(${EXTRA_DEFINES})
 include_directories(${EXTRA_INCLUDE_PATHS})
 
