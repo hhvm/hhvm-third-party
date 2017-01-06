@@ -43,3 +43,6 @@
 [submodule "fatal"]
 	path = fatal
 	url = https://github.com/facebook/fatal
+[submodule "ocaml/src"]
+	path = ocaml/src
+	url = https://github.com/ocaml/ocaml.git
