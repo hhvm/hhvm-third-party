@@ -46,3 +46,6 @@
 [submodule "ocaml/src"]
 	path = ocaml/src
 	url = https://github.com/ocaml/ocaml.git
+[submodule "ocaml/ocamlbuild"]
+	path = ocaml/ocamlbuild
+	url = https://github.com/ocaml/ocamlbuild
