@@ -1,5 +1,28 @@
 set(FOLLY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/folly")
 
+# Apply patches
+set(PATCH_DIR "${CMAKE_CURRENT_SOURCE_DIR}/patches")
+file(GLOB PATCHES "${PATCH_DIR}/*.patch")
+message(STATUS "Patches: ${PATCHES}")
+foreach(PATCH ${PATCHES})
+  execute_process(COMMAND git apply --check ${PATCH}
+                  WORKING_DIRECTORY "${FOLLY_DIR}"
+                  RESULT_VARIABLE RESULT)
+  if (RESULT EQUAL 0)
+    message(STATUS "Need to apply ${PATCH}")
+    execute_process(COMMAND git am
+                    WORKING_DIRECTORY "${FOLLY_DIR}"
+                    INPUT_FILE "${PATCH}"
+                    RESULT_VARIABLE RESULT)
+    if (NOT RESULT EQUAL 0)
+      message(FATAL_ERROR "Error applying patch ${PATCH}")
+    endif()
+  else()
+    message(STATUS "Skipping patch ${PATCH}")
+  endif()
+endforeach(PATCH)
+
+
 # Needed for fcntl w/ F_SETPIPE_SZ
 add_definitions("-D_GNU_SOURCE")
 

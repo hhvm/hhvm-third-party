@@ -1,0 +1,52 @@
+From 5b51952fcf2800c51bb85274f431e1cd8b5cddaa Mon Sep 17 00:00:00 2001
+From: Zonr Chang <zonr.net@gmail.com>
+Date: Fri, 6 Jan 2017 15:07:40 -0800
+Subject: [PATCH] __throw* functions seem to be available in LLVM 4.0 or above.
+
+Summary:
+__throw* functions exist in master branch but are not included in both
+libc++ 3.9.0 and 3.9.1. Expect them to appear in next LLVM release
+(which is 4.0).
+Closes https://github.com/facebook/folly/pull/536
+
+Reviewed By: yfeldblum, Orvid
+
+Differential Revision: D4377002
+
+Pulled By: smeenai
+
+fbshipit-source-id: 5dd311ca3ec43955f29dd1197fd8fbeb9564a7f6
+---
+ folly/portability/BitsFunctexcept.cpp | 2 +-
+ folly/portability/BitsFunctexcept.h   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/folly/portability/BitsFunctexcept.cpp b/folly/portability/BitsFunctexcept.cpp
+index f3ff3d6..1789047 100644
+--- a/folly/portability/BitsFunctexcept.cpp
++++ b/folly/portability/BitsFunctexcept.cpp
+@@ -21,7 +21,7 @@
+ 
+ FOLLY_NAMESPACE_STD_BEGIN
+ 
+-#if !defined(_LIBCPP_VERSION) || _LIBCPP_VERSION < 3900
++#if !defined(_LIBCPP_VERSION) || _LIBCPP_VERSION < 4000
+ void __throw_length_error(const char* msg) {
+   throw std::length_error(msg);
+ }
+diff --git a/folly/portability/BitsFunctexcept.h b/folly/portability/BitsFunctexcept.h
+index 080b0f3..144a20f 100644
+--- a/folly/portability/BitsFunctexcept.h
++++ b/folly/portability/BitsFunctexcept.h
+@@ -25,7 +25,7 @@
+ #include <folly/Portability.h>
+ FOLLY_NAMESPACE_STD_BEGIN
+ 
+-#if !defined(_LIBCPP_VERSION) || _LIBCPP_VERSION < 3900
++#if !defined(_LIBCPP_VERSION) || _LIBCPP_VERSION < 4000
+ [[noreturn]] void __throw_length_error(const char* msg);
+ [[noreturn]] void __throw_logic_error(const char* msg);
+ [[noreturn]] void __throw_out_of_range(const char* msg);
+-- 
+2.8.0-rc2
+
