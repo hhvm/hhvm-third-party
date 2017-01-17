@@ -46,6 +46,7 @@ if (NOT OCAMLC_FOUND)
     COMMAND ${CMAKE_COMMAND} -E env "PATH=${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\)
     COMMAND \$\(MAKE\) install CHECK_IF_PREINSTALLED=false
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/ocamlbuild"
+    DEPENDS ${OCAMLC}
     COMMENT "Compiling ocamlbuild")
 
   set(OCAMLC_FOUND TRUE)
