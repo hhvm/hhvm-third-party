@@ -30,10 +30,13 @@ if (NOT OCAMLC_FOUND)
   set(OCAMLBUILD "${OCAML_PREFIX}/bin/ocamlbuild.native")
 
   # TODO: what about dependencies so we rebuild ocaml when it changes?
+  # NOTE: The weirdness building world.opt twice is because (at least on arm64)
+  # ocaml (4.03) seems to have parallel build dependency problems.
   add_custom_command(
     OUTPUT ${OCAMLC} ${OCAMLOPT}
     COMMAND ./configure -prefix "${OCAML_PREFIX}" -no-graph
-    COMMAND \$\(MAKE\) world.opt
+    COMMAND \$\(MAKE\) -k world.opt || true
+    COMMAND \$\(MAKE\) -j1 world.opt
     COMMAND \$\(MAKE\) install
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src"
     COMMENT "Compiling ocaml")
