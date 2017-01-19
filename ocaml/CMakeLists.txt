@@ -33,7 +33,7 @@ if (NOT OCAMLC_FOUND)
   add_custom_command(
     OUTPUT ${OCAMLC} ${OCAMLOPT}
     COMMAND ./configure -prefix "${OCAML_PREFIX}" -no-graph
-    COMMAND \$\(MAKE\) world.opt
+    COMMAND \$\(MAKE\) -j1 world.opt
     COMMAND \$\(MAKE\) install
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src"
     COMMENT "Compiling ocaml")
