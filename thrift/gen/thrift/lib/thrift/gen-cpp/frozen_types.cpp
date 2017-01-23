@@ -5,6 +5,7 @@
  *  @generated
  */
 #include "thrift/lib/thrift/gen-cpp/frozen_types.h"
+#include "thrift/lib/thrift/gen-cpp/frozen_data.h"
 
 #include <algorithm>
 #include <string.h>

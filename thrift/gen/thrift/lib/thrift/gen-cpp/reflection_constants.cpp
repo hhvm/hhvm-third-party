@@ -6,6 +6,9 @@
  */
 #include "thrift/lib/thrift/gen-cpp/reflection_constants.h"
 
+#include <folly/Indestructible.h>
+
+
 namespace apache { namespace thrift { namespace reflection {
 
 

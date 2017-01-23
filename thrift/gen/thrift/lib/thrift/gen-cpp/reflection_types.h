@@ -41,6 +41,16 @@ extern const typename apache::thrift::detail::TEnumMapFactory<Type, int>::NamesT
 
 }}} // namespace
 namespace apache { namespace thrift {
+template <> struct TEnumDataStorage< ::apache::thrift::reflection::Type>;
+template <> const std::size_t TEnumTraitsBase< ::apache::thrift::reflection::Type>::size;
+template <> const folly::Range<const  ::apache::thrift::reflection::Type*> TEnumTraitsBase< ::apache::thrift::reflection::Type>::values;
+template <> const folly::Range<const folly::StringPiece*> TEnumTraitsBase< ::apache::thrift::reflection::Type>::names;
+}} // apache::thrift
+
+namespace apache { namespace thrift { namespace reflection {
+
+}}} // namespace
+namespace apache { namespace thrift {
 template<>
 struct TEnumTraits< ::apache::thrift::reflection::Type> : public TEnumTraitsBase< ::apache::thrift::reflection::Type>
 {

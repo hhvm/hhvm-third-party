@@ -6,6 +6,9 @@
  */
 #include "thrift/lib/thrift/gen-cpp/frozen_constants.h"
 
+#include <folly/Indestructible.h>
+
+
 namespace apache { namespace thrift { namespace frozen { namespace schema {
 
 constexpr int32_t const frozen_constants::kCurrentFrozenFileVersion_;

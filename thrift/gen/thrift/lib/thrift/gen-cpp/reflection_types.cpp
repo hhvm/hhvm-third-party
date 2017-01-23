@@ -5,6 +5,7 @@
  *  @generated
  */
 #include "thrift/lib/thrift/gen-cpp/reflection_types.h"
+#include "thrift/lib/thrift/gen-cpp/reflection_data.h"
 
 #include <algorithm>
 #include <string.h>
@@ -17,28 +18,9 @@ const typename apache::thrift::detail::TEnumMapFactory<Type, int>::NamesToValues
 
 }}} // namespace
 namespace apache { namespace thrift {
-template<>
-folly::Range<const std::pair< ::apache::thrift::reflection::Type, folly::StringPiece>*> TEnumTraitsBase< ::apache::thrift::reflection::Type>::enumerators() {
-  static constexpr const std::pair< ::apache::thrift::reflection::Type, folly::StringPiece> storage[16] = {
-    { ::apache::thrift::reflection::Type::TYPE_VOID, "TYPE_VOID"},
-    { ::apache::thrift::reflection::Type::TYPE_STRING, "TYPE_STRING"},
-    { ::apache::thrift::reflection::Type::TYPE_BOOL, "TYPE_BOOL"},
-    { ::apache::thrift::reflection::Type::TYPE_BYTE, "TYPE_BYTE"},
-    { ::apache::thrift::reflection::Type::TYPE_I16, "TYPE_I16"},
-    { ::apache::thrift::reflection::Type::TYPE_I32, "TYPE_I32"},
-    { ::apache::thrift::reflection::Type::TYPE_I64, "TYPE_I64"},
-    { ::apache::thrift::reflection::Type::TYPE_DOUBLE, "TYPE_DOUBLE"},
-    { ::apache::thrift::reflection::Type::TYPE_ENUM, "TYPE_ENUM"},
-    { ::apache::thrift::reflection::Type::TYPE_LIST, "TYPE_LIST"},
-    { ::apache::thrift::reflection::Type::TYPE_SET, "TYPE_SET"},
-    { ::apache::thrift::reflection::Type::TYPE_MAP, "TYPE_MAP"},
-    { ::apache::thrift::reflection::Type::TYPE_STRUCT, "TYPE_STRUCT"},
-    { ::apache::thrift::reflection::Type::TYPE_SERVICE, "TYPE_SERVICE"},
-    { ::apache::thrift::reflection::Type::TYPE_PROGRAM, "TYPE_PROGRAM"},
-    { ::apache::thrift::reflection::Type::TYPE_FLOAT, "TYPE_FLOAT"},
-  };
-  return folly::range(storage);
-}
+template <>const std::size_t TEnumTraitsBase< ::apache::thrift::reflection::Type>::size = 16;
+template <>const folly::Range<const  ::apache::thrift::reflection::Type*> TEnumTraitsBase< ::apache::thrift::reflection::Type>::values = folly::range( ::apache::thrift::reflection::_TypeEnumDataStorage::values);
+template <>const folly::Range<const folly::StringPiece*> TEnumTraitsBase< ::apache::thrift::reflection::Type>::names = folly::range( ::apache::thrift::reflection::_TypeEnumDataStorage::names);
 
 template<>
 const char* TEnumTraitsBase< ::apache::thrift::reflection::Type>::findName( ::apache::thrift::reflection::Type value) {

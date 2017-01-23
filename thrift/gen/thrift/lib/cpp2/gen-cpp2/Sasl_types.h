@@ -133,19 +133,19 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::apache::
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslOutcome>::write(Protocol* proto,  ::apache::thrift::sasl::SaslOutcome const* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslOutcome>::write(Protocol* proto,  ::apache::thrift::sasl::SaslOutcome const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslOutcome>::read(Protocol* proto,  ::apache::thrift::sasl::SaslOutcome* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslOutcome>::read(Protocol* proto,  ::apache::thrift::sasl::SaslOutcome* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslOutcome>::serializedSize(Protocol const* proto,  ::apache::thrift::sasl::SaslOutcome const* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslOutcome>::serializedSize(Protocol const* proto,  ::apache::thrift::sasl::SaslOutcome const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslOutcome>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::sasl::SaslOutcome const* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslOutcome>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::sasl::SaslOutcome const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
@@ -268,19 +268,19 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::apache::
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslRequest>::write(Protocol* proto,  ::apache::thrift::sasl::SaslRequest const* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslRequest>::write(Protocol* proto,  ::apache::thrift::sasl::SaslRequest const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslRequest>::read(Protocol* proto,  ::apache::thrift::sasl::SaslRequest* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslRequest>::read(Protocol* proto,  ::apache::thrift::sasl::SaslRequest* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslRequest>::serializedSize(Protocol const* proto,  ::apache::thrift::sasl::SaslRequest const* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslRequest>::serializedSize(Protocol const* proto,  ::apache::thrift::sasl::SaslRequest const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslRequest>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::sasl::SaslRequest const* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslRequest>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::sasl::SaslRequest const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
@@ -420,19 +420,19 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::apache::
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslReply>::write(Protocol* proto,  ::apache::thrift::sasl::SaslReply const* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslReply>::write(Protocol* proto,  ::apache::thrift::sasl::SaslReply const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslReply>::read(Protocol* proto,  ::apache::thrift::sasl::SaslReply* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslReply>::read(Protocol* proto,  ::apache::thrift::sasl::SaslReply* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslReply>::serializedSize(Protocol const* proto,  ::apache::thrift::sasl::SaslReply const* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslReply>::serializedSize(Protocol const* proto,  ::apache::thrift::sasl::SaslReply const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslReply>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::sasl::SaslReply const* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslReply>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::sasl::SaslReply const* obj) {
   return obj->serializedSizeZC(proto);
 }
 
@@ -560,19 +560,19 @@ template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::apache::
   return apache::thrift::protocol::T_STRUCT;
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslStart>::write(Protocol* proto,  ::apache::thrift::sasl::SaslStart const* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslStart>::write(Protocol* proto,  ::apache::thrift::sasl::SaslStart const* obj) {
   return obj->write(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslStart>::read(Protocol* proto,  ::apache::thrift::sasl::SaslStart* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslStart>::read(Protocol* proto,  ::apache::thrift::sasl::SaslStart* obj) {
   return obj->read(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslStart>::serializedSize(Protocol const* proto,  ::apache::thrift::sasl::SaslStart const* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslStart>::serializedSize(Protocol const* proto,  ::apache::thrift::sasl::SaslStart const* obj) {
   return obj->serializedSize(proto);
 }
 
-template <> template <class Protocol> inline uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslStart>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::sasl::SaslStart const* obj) {
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslStart>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::sasl::SaslStart const* obj) {
   return obj->serializedSizeZC(proto);
 }
 

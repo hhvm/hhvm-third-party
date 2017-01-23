@@ -8,8 +8,11 @@
 
 #include "thrift/lib/cpp2/gen-cpp2/Sasl_types.tcc"
 
-
 #include <algorithm>
+
+#include "thrift/lib/cpp2/gen-cpp2/Sasl_data.h"
+
+
 
 namespace apache { namespace thrift { namespace sasl {
 
