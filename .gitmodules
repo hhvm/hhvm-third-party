@@ -49,3 +49,6 @@
 [submodule "ocaml/ocamlbuild"]
 	path = ocaml/ocamlbuild
 	url = https://github.com/ocaml/ocamlbuild
+[submodule "zstd"]
+	path = zstd/src
+	url = git@github.com:facebook/zstd.git
