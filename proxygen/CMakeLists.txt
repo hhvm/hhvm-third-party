@@ -43,6 +43,6 @@ if (NOT MSVC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable")
 endif()
 add_library(hphp_proxygen STATIC ${CXX_SOURCES})
-target_link_libraries(hphp_proxygen wangle ${Boost_LIBRARIES}
+target_link_libraries(hphp_proxygen wangle zstd ${Boost_LIBRARIES}
                                            ${LIBGLOG_LIBRARY}
                                            ${LIBPTHREAD_LIBRARIES})

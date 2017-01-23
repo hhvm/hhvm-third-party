@@ -58,6 +58,9 @@ if(ENABLE_FASTCGI)
 
   list(APPEND THIRD_PARTY_MODULES thrift)
   list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/thrift/src")
+
+  list(APPEND THIRD_PARTY_MODULES zstd)
+  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/zstd/src/lib")
 endif()
 
 if (NOT MSVC)
