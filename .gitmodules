@@ -51,4 +51,4 @@
 	url = https://github.com/ocaml/ocamlbuild
 [submodule "zstd"]
 	path = zstd/src
-	url = git@github.com:facebook/zstd.git
+	url = https://github.com/facebook/zstd.git
