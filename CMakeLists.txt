@@ -61,6 +61,7 @@ if(ENABLE_FASTCGI)
 
   list(APPEND THIRD_PARTY_MODULES zstd)
   list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/zstd/src/lib")
+  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/zstd/src/lib/dictBuilder")
 endif()
 
 if (NOT MSVC)
