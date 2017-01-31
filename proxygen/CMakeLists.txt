@@ -34,15 +34,11 @@ add_custom_command(
 
 add_definitions(-DNO_LIB_GFLAGS)
 
-find_package(Boost 1.48.0 COMPONENTS thread system REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
-link_directories(${Boost_LIBRARY_DIRS})
-
 include_directories("${HPHP_HOME}/third-party")
 if (NOT MSVC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable")
 endif()
 add_library(hphp_proxygen STATIC ${CXX_SOURCES})
-target_link_libraries(hphp_proxygen wangle zstd ${Boost_LIBRARIES}
+target_link_libraries(hphp_proxygen wangle zstd boost
                                            ${LIBGLOG_LIBRARY}
                                            ${LIBPTHREAD_LIBRARIES})
