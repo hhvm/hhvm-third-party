@@ -160,3 +160,9 @@ endforeach()
 
 set(THIRD_PARTY_INCLUDE_PATHS ${EXTRA_INCLUDE_PATHS} CACHE INTERNAL "" FORCE)
 set(THIRD_PARTY_DEFINITIONS ${EXTRA_DEFINES} CACHE INTERNAL "" FORCE)
+
+# boost checks
+find_package(Boost 1.51.0 COMPONENTS context filesystem program_options regex system thread REQUIRED)
+add_library(boost INTERFACE)
+target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIRS})
+target_link_libraries(boost INTERFACE ${Boost_LIBRARIES})

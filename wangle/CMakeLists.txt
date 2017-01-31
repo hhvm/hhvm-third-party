@@ -20,12 +20,8 @@ list(REMOVE_ITEM hfiles ${WANGLE_DIR}/channel/FileRegion.h)
 add_library(wangle STATIC ${files} ${hfiles})
 auto_source_group(wangle "${WANGLE_DIR}" ${files} ${hfiles})
 
-find_package(Boost 1.51.0 COMPONENTS system thread REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
-link_directories(${Boost_LIBRARY_DIRS})
-
 find_package(OpenSSL REQUIRED)
 include_directories(${OPENSSL_INCLUDE_DIR})
 
-target_link_libraries(wangle folly ${Boost_LIBRARIES}
+target_link_libraries(wangle folly boost
                                    ${OPENSSL_LIBRARIES})
