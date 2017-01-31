@@ -1,54 +1,56 @@
 [submodule "folly"]
-	path = folly/src
-	url = https://github.com/facebook/folly.git
+    path = folly/src
+    url = https://github.com/facebook/folly.git
 [submodule "thrift/src"]
-	path = thrift/src
-	url = https://github.com/facebook/fbthrift.git
+    path = thrift/src
+    url = https://github.com/facebook/fbthrift.git
 [submodule "proxygen/src"]
-	path = proxygen/src
-	url = https://github.com/facebook/proxygen
+    path = proxygen/src
+    url = https://github.com/facebook/proxygen
 [submodule "mcrouter/src"]
-	path = mcrouter/src
-	url = https://github.com/facebook/mcrouter
+    path = mcrouter/src
+    url = https://github.com/facebook/mcrouter
 [submodule "re2/src"]
-	path = re2/src
-	url = https://github.com/google/re2.git
+    path = re2/src
+    url = https://github.com/google/re2.git
 [submodule "squangle/squangle"]
-	path = squangle/src
-	url = https://github.com/facebook/squangle.git
+    path = squangle/src
+    url = https://github.com/facebook/squangle.git
 [submodule "wangle/src"]
-	path = wangle/src
-	url = https://github.com/facebook/wangle
+    path = wangle/src
+    url = https://github.com/facebook/wangle
 [submodule "webscalesqlclient/mysql-5.6"]
-	path = webscalesqlclient/mysql-5.6
-	url = https://github.com/facebook/mysql-5.6.git
+    path = webscalesqlclient/mysql-5.6
+    url = https://github.com/facebook/mysql-5.6.git
 [submodule "brotli/src"]
-	path = brotli/src
-	url = https://github.com/google/brotli
+    path = brotli/src
+    url = https://github.com/google/brotli
 [submodule "double-conversion"]
-	path = double-conversion
-	url = https://github.com/google/double-conversion
+    path = double-conversion
+    url = https://github.com/google/double-conversion
+    ignore = dirty
 [submodule "fastlz/src"]
-	path = fastlz/src
-	url = https://github.com/ariya/FastLZ
+    path = fastlz/src
+    url = https://github.com/ariya/FastLZ
 [submodule "libafdt/src"]
-	path = libafdt/src
-	url = https://github.com/facebook/libafdt
+    path = libafdt/src
+    url = https://github.com/facebook/libafdt
 [submodule "lz4/src"]
-	path = lz4/src
-	url = https://github.com/Cyan4973/lz4
+    path = lz4/src
+    url = https://github.com/Cyan4973/lz4
 [submodule "libzip/src"]
-	path = libzip/src
-	url = https://github.com/nih-at/libzip
+    path = libzip/src
+    url = https://github.com/nih-at/libzip
+    ignore = dirty
 [submodule "fatal"]
-	path = fatal
-	url = https://github.com/facebook/fatal
+    path = fatal
+    url = https://github.com/facebook/fatal
 [submodule "ocaml/src"]
-	path = ocaml/src
-	url = https://github.com/ocaml/ocaml.git
+    path = ocaml/src
+    url = https://github.com/ocaml/ocaml.git
 [submodule "ocaml/ocamlbuild"]
-	path = ocaml/ocamlbuild
-	url = https://github.com/ocaml/ocamlbuild
+    path = ocaml/ocamlbuild
+    url = https://github.com/ocaml/ocamlbuild
 [submodule "zstd"]
-	path = zstd/src
-	url = https://github.com/facebook/zstd.git
+    path = zstd/src
+    url = https://github.com/facebook/zstd.git
