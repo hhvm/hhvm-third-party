@@ -15,8 +15,10 @@
 #   +----------------------------------------------------------------------+
 #
 
-include(HPHPSetup)
-include(FollySetup)
+include(Options)
+include(HPHPCompiler)
+include(HPHPFunctions)
+include(HPHPFindLibs)
 
 add_definitions("-DHHVM")
 
@@ -38,10 +40,6 @@ list(APPEND THIRD_PARTY_MODULES timelib)
 list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/timelib")
 
 list(APPEND THIRD_PARTY_MODULES folly)
-list(APPEND EXTRA_INCLUDE_PATHS
-  "${TP_DIR}/folly"
-  "${TP_DIR}/folly/src"
-)
 
 # Fatal is a header-only library, so there's nothing to build.
 list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/fatal")

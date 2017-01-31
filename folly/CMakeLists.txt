@@ -1,21 +1,28 @@
-set(FOLLY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/folly")
+set(FOLLY_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(FOLLY_DIR "${FOLLY_ROOT}/folly")
+
+include(CMakePushCheckState)
+include(CheckCXXSourceCompiles)
+include(CheckFunctionExists)
+include(CheckIncludeFile)
+include(CheckIncludeFileCXX)
+include(CheckLibraryExists)
+
+include(HPHPFunctions)
+
+# Check if the given source compiles and set RETURN_VALUE based on the result.
+# Also sets RETURN_VALUE=<result> as a preprocessor macro.
+function (folly_check_source_compiles SOURCE RETURN_VALUE)
+  check_cxx_source_compiles("${SOURCE}" ${RETURN_VALUE})
+  if (${RETURN_VALUE})
+    target_compile_definitions(folly PUBLIC "${RETURN_VALUE}=1")
+  else()
+    target_compile_definitions(folly PUBLIC "${RETURN_VALUE}=0")
+  endif()
+endfunction(folly_check_source_compiles)
 
 # Needed for fcntl w/ F_SETPIPE_SZ
 add_definitions("-D_GNU_SOURCE")
-
-# Ensure that we are either getting malloc functions
-# like malloc_usable_size() from either malloc.h
-# or stdlib.h. Default is stdlib.h
-INCLUDE(CheckCXXSourceCompiles)
-CHECK_CXX_SOURCE_COMPILES("#include <malloc.h>
-int main() {
-  return 0;
-}" FOLLY_MALLOC)
-if (FOLLY_MALLOC)
-  add_definitions("-DFOLLY_HAVE_MALLOC_H=1")
-else()
-  add_definitions("-DFOLLY_HAVE_MALLOC_H=0")
-endif()
 
 if (NOT EXISTS "${FOLLY_DIR}/Portability.h")
   message(FATAL_ERROR "${FOLLY_DIR}/Portability.h missing, did you forget to "
@@ -117,20 +124,27 @@ endif()
 add_library(folly STATIC ${files} ${genfiles} ${cfiles} ${hfiles})
 auto_source_group(folly ${FOLLY_DIR} ${files} ${genfiles} ${cfiles} ${hfiles})
 
-find_package(Boost 1.51.0 COMPONENTS system program_options filesystem regex
-             context REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
-link_directories(${Boost_LIBRARY_DIRS})
+# Ensure that we are either getting malloc functions
+# like malloc_usable_size() from either malloc.h
+# or stdlib.h. Default is stdlib.h
+folly_check_source_compiles("
+#include <malloc.h>
+int main() {
+  return 0;
+}" FOLLY_HAVE_MALLOC_H)
+
+# This is so clients of folly can #include <folly/blah>
+target_include_directories(folly PUBLIC ${FOLLY_ROOT})
+
+target_link_libraries(folly boost)
 
 find_package(Glog REQUIRED)
-include_directories(${LIBGLOG_INCLUDE_DIR})
+target_include_directories(folly PUBLIC ${LIBGLOG_INCLUDE_DIR})
+target_link_libraries(folly ${LIBGLOG_LIBRARY})
 
 find_package(PThread REQUIRED)
-include_directories(${LIBPTHREAD_INCLUDE_DIRS})
-
-target_link_libraries(folly ${Boost_LIBRARIES}
-                            ${LIBGLOG_LIBRARY}
-                            ${LIBPTHREAD_LIBRARIES})
+target_include_directories(folly PUBLIC ${LIBPTHREAD_INCLUDE_DIRS})
+target_link_libraries(folly ${LIBPTHREAD_LIBRARIES})
 
 if (DOUBLE_CONVERSION_LIBRARY)
   target_link_libraries(folly ${DOUBLE_CONVERSION_LIBRARY})
@@ -145,3 +159,109 @@ endif()
 # For some reason we aren't making a folly-config.h and this is in there.
 # Please fix properly!
 add_definitions("-DFOLLY_VERSION=\"0.1\"")
+
+# folly-config.h is a generated file from autotools
+# We need to do the equivalent checks here and use
+# add_definitions as needed
+target_compile_definitions(folly PUBLIC "FOLLY_NO_CONFIG=1")
+
+# Check for the function FNNAME and set RETURN_VALUE based on the result.  Also
+# sets RETURN_VALUE=<result> as a preprocessor macro.
+function (folly_check_function_exists FNNAME RETURN_VALUE)
+  check_function_exists(${FNNAME} ${RETURN_VALUE})
+  if (${RETURN_VALUE})
+    target_compile_definitions(folly PUBLIC "${RETURN_VALUE}=1")
+  else()
+    target_compile_definitions(folly PUBLIC "${RETURN_VALUE}=0")
+  endif()
+endfunction(folly_check_function_exists)
+
+cmake_push_check_state()
+find_library(HAS_LIBRT "rt")
+if (HAS_LIBRT)
+  set(CMAKE_REQUIRED_LIBRARIES rt ${LIBPTHREAD_LIBRARIES})
+else()
+  set(CMAKE_REQUIRED_LIBRARIES ${LIBPTHREAD_LIBRARIES})
+endif()
+
+folly_check_function_exists("clock_gettime" FOLLY_HAVE_CLOCK_GETTIME)
+folly_check_function_exists("pthread_atfork" FOLLY_HAVE_PTHREAD_ATFORK)
+folly_check_function_exists("pthread_spin_lock" FOLLY_HAVE_PTHREAD_SPINLOCK_T)
+
+cmake_pop_check_state()
+
+find_path(FEATURES_H_INCLUDE_DIR NAMES features.h)
+if (FEATURES_H_INCLUDE_DIR)
+  target_include_directories(folly PUBLIC "${FEATURES_H_INCLUDE_DIR}")
+  target_compile_definitions(folly PUBLIC "FOLLY_HAVE_FEATURES_H=1")
+endif()
+
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+  if(NOT CLANG_FORCE_LIBSTDCXX)
+    target_compile_definitions(folly PUBLIC "FOLLY_USE_LIBCPP=1")
+  endif()
+endif()
+
+find_package(LibDwarf REQUIRED)
+folly_check_source_compiles("
+#include <libdwarf/dwarf.h>
+int main(int argc, char** argv) { }
+" FOLLY_HAVE_LIBDWARF_DWARF_H)
+
+folly_check_source_compiles("
+int main(int argc, char** argv) {
+  unsigned size = argc;
+  char data[size];
+  return 0;
+}
+" FOLLY_HAVE_VLA)
+
+folly_check_source_compiles("
+extern \"C\" void (*test_ifunc(void))() { return 0; }
+void func() __attribute__((ifunc(\"test_ifunc\")));
+" FOLLY_HAVE_IFUNC)
+
+check_include_file_cxx("bits/functexcept.h" FOLLY_HAVE_BITS_FUNCTEXCEPT_H)
+if (FOLLY_HAVE_BITS_FUNCTEXCEPT_H)
+  target_compile_definitions(folly PUBLIC "FOLLY_HAVE_BITS_FUNCTEXCEPT_H=1")
+else()
+  target_compile_definitions(folly PUBLIC "FOLLY_HAVE_BITS_FUNCTEXCEPT_H=0")
+endif()
+
+check_include_file("linux/membarrier.h" FOLLY_HAVE_LINUX_MEMBARRIER_H)
+if (FOLLY_HAVE_LINUX_MEMBARRIER_H)
+  target_compile_definitions(folly PUBLIC "FOLLY_HAVE_LINUX_MEMBARRIER_H=1")
+else()
+  target_compile_definitions(folly PUBLIC "FOLLY_HAVE_LINUX_MEMBARRIER_H=0")
+endif()
+
+# Weak linking on Linux, Windows, and OS X all work somewhat differently. The following test
+# works well on Linux and Windows, but fails for annoying reasons on OS X, and even works
+# differently on different releases of OS X, cf. http://glandium.org/blog/?p=2764. Getting
+# the test to work properly on OS X would require an APPLE check anyways, so just hardcode
+# OS X as "we know weak linking works".
+if(APPLE)
+  target_compile_definitions(folly PUBLIC "FOLLY_HAVE_WEAK_SYMBOLS=1")
+else()
+  # check for weak symbols
+  folly_check_source_compiles("
+      extern \"C\" void configure_link_extern_weak_test() __attribute__((weak));
+      int main(int argc, char** argv) {
+          return configure_link_extern_weak_test == nullptr;
+      }
+  " FOLLY_HAVE_WEAK_SYMBOLS)
+endif()
+
+folly_check_function_exists("memrchr" FOLLY_HAVE_MEMRCHR)
+folly_check_function_exists("preadv" FOLLY_HAVE_PREADV)
+folly_check_function_exists("pwritev" FOLLY_HAVE_PWRITEV)
+
+# We've included gflags - so we know we have it.
+target_compile_definitions(folly PUBLIC "FOLLY_HAVE_LIBGFLAGS=0" "NO_LIB_GFLAGS")
+# This is so clients can #include <gflags/gflags.h>
+target_include_directories(folly PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+
+if (APPLE)
+  # Just assume we have sched.h
+  target_compile_definitions(folly PUBLIC "FOLLY_HAVE_SCHED_H=1")
+endif()
