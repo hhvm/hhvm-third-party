@@ -18,7 +18,6 @@
 include(Options)
 include(HPHPCompiler)
 include(HPHPFunctions)
-include(HPHPFindLibs)
 
 add_definitions("-DHHVM")
 

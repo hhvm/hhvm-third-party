@@ -7,3 +7,4 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${RE2_INCLUDE_DIR} ${MYSQL_INCLU
 add_library(squangle STATIC ${files})
 add_dependencies(squangle webscalesqlclient)
 target_link_libraries(squangle ${MYSQL_CLIENT_LIBS} folly re2)
+target_include_directories(squangle PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../webscalesqlclient/src/include")
