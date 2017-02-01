@@ -15,9 +15,6 @@
 #   +----------------------------------------------------------------------+
 #
 
-include(Options)
-include(HPHPCompiler)
-
 set(EXTRA_INCLUDE_PATHS)
 set(THIRD_PARTY_MODULES)
 set(THIRD_PARTY_HEADERS)
