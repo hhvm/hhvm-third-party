@@ -19,7 +19,6 @@ include(Options)
 include(HPHPCompiler)
 
 set(EXTRA_INCLUDE_PATHS)
-set(EXTRA_DEFINES)
 set(THIRD_PARTY_MODULES)
 set(THIRD_PARTY_HEADERS)
 
@@ -121,12 +120,10 @@ if(NOT LIBZIP_LIBRARY)
     "${CMAKE_CURRENT_BINARY_DIR}/libzip/src/lib"
     "${TP_DIR}/libzip/src/lib"
   )
-  list(APPEND EXTRA_DEFINES "-DZIP_EXTERN=")
 endif()
 
 list(APPEND THIRD_PARTY_MODULES ocaml)
 
-add_definitions(${EXTRA_DEFINES})
 include_directories(${EXTRA_INCLUDE_PATHS})
 
 function(TP_INSTALL_HEADERS TARGET SRCDIR DEST)
@@ -157,7 +154,6 @@ if(NOT PCRE_LIBRARY)
 endif()
 
 set(THIRD_PARTY_INCLUDE_PATHS ${EXTRA_INCLUDE_PATHS} CACHE INTERNAL "" FORCE)
-set(THIRD_PARTY_DEFINITIONS ${EXTRA_DEFINES} CACHE INTERNAL "" FORCE)
 
 # boost checks
 find_package(Boost 1.51.0 COMPONENTS context filesystem program_options regex system thread REQUIRED)
