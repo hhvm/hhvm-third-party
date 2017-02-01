@@ -124,8 +124,6 @@ endif()
 
 list(APPEND THIRD_PARTY_MODULES ocaml)
 
-include_directories(${EXTRA_INCLUDE_PATHS})
-
 function(TP_INSTALL_HEADERS TARGET SRCDIR DEST)
   file(GLOB_RECURSE files "${SRCDIR}/*.h")
   install(
