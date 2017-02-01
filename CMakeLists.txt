@@ -18,8 +18,6 @@
 include(Options)
 include(HPHPCompiler)
 
-add_definitions("-DHHVM")
-
 set(EXTRA_INCLUDE_PATHS)
 set(EXTRA_DEFINES)
 set(THIRD_PARTY_MODULES)
@@ -32,7 +30,6 @@ list(APPEND EXTRA_INCLUDE_PATHS
   "${TP_DIR}/libmbfl/mbfl"
   "${TP_DIR}/libmbfl/filters"
 )
-list(APPEND EXTRA_DEFINES "-DMBFL_STATIC")
 
 list(APPEND THIRD_PARTY_MODULES timelib)
 list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/timelib")
@@ -110,8 +107,6 @@ endif()
 # Add bundled PCRE if the system one will not be used
 if(NOT PCRE_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES pcre)
-  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/pcre")
-  list(APPEND EXTRA_DEFINES "-DPCRE_STATIC=1")
   # Disable building a few parts of PCRE by default that we don't
   # actually use.
   set(PCRE_BUILD_PCRECPP OFF CACHE BOOL "Build the PCRE C++ library (pcrecpp).")
@@ -155,6 +150,11 @@ foreach(MODULE ${THIRD_PARTY_MODULES})
     TP_INSTALL_HEADERS(${MODULE} ${MODULE} ${MODULE})
   endif()
 endforeach()
+
+if(NOT PCRE_LIBRARY)
+  target_include_directories(pcre PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/pcre")
+  target_compile_definitions(pcre PUBLIC "PCRE_STATIC=1")
+endif()
 
 set(THIRD_PARTY_INCLUDE_PATHS ${EXTRA_INCLUDE_PATHS} CACHE INTERNAL "" FORCE)
 set(THIRD_PARTY_DEFINITIONS ${EXTRA_DEFINES} CACHE INTERNAL "" FORCE)
