@@ -79,10 +79,21 @@ IF(LibEvent_FOUND)
   include_directories(${LIBEVENT_INCLUDE_DIR})
 ENDIF()
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake 
-               ${CMAKE_CURRENT_SOURCE_DIR}/src/src/config.h)
-add_library(afdt STATIC src/src/lowlevel.c src/src/strlcpy.c src/src/sync.c src/src/util.c
-            ${ASYNC_SOURCE})
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake
+               ${CMAKE_CURRENT_SOURCE_DIR}/src/config.h)
+add_library(afdt
+  src/src/lowlevel.c
+  src/src/strlcpy.c
+  src/src/sync.c
+  src/src/util.c
+  ${ASYNC_SOURCE}
+)
+target_include_directories(afdt
+  PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/src/
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/
+)
 
 IF(LibEvent_FOUND)
   target_link_libraries(afdt ${LIBEVENT_LIB})
