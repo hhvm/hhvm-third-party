@@ -34,7 +34,7 @@ add_custom_command(
 
 add_definitions(-DNO_LIB_GFLAGS)
 
-include_directories("${HPHP_HOME}/third-party")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/..")
 if (NOT MSVC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable")
 endif()

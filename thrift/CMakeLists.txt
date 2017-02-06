@@ -42,7 +42,7 @@ list(APPEND CXX_SOURCES ${files})
 auto_sources(files "*.tcc" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}/gen")
 list(APPEND CXX_SOURCES ${files})
 
-include_directories("${HPHP_HOME}/third-party")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/..")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/gen")
 add_library(hphp_thrift STATIC ${CXX_SOURCES})
