@@ -261,6 +261,9 @@ target_compile_definitions(folly PUBLIC "FOLLY_HAVE_LIBGFLAGS=0" "NO_LIB_GFLAGS"
 # This is so clients can #include <gflags/gflags.h>
 target_include_directories(folly PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 
+find_package(OpenSSL REQUIRED)
+target_include_directories(folly PUBLIC "${OPENSSL_INCLUDE_DIR}")
+
 if (APPLE)
   # Just assume we have sched.h
   target_compile_definitions(folly PUBLIC "FOLLY_HAVE_SCHED_H=1")
