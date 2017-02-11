@@ -121,6 +121,10 @@ endif()
 
 list(APPEND THIRD_PARTY_MODULES ocaml)
 
+if (ENABLE_GOOGLETEST)
+  list(APPEND THIRD_PARTY_MODULES googletest)
+endif()
+
 function(TP_INSTALL_HEADERS TARGET SRCDIR DEST)
   file(GLOB_RECURSE files "${SRCDIR}/*.h")
   install(
