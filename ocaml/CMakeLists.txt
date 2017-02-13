@@ -46,11 +46,12 @@ if (NOT OCAMLC_FOUND)
     # Hack up the path before building ocamlbuild.
     # (OCamlBuild doesn't understand how to override its build tools properly -
     # they call "ocamlc -where" directly from configure.make)
-    COMMAND ${CMAKE_COMMAND} -E env "PATH=${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\) -f configure.make
+    # This would be better as 'cmake -E env' but that's only available in cmake 3.1+
+    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\) -f configure.make
         OCAML_NATIVE=true
         OCAMLBUILD_BINDIR=${OCAML_PREFIX}/bin
-        OCAMLBUILD_LIBDIR=${OCAML_PREFIX}/lib
-    COMMAND ${CMAKE_COMMAND} -E env "PATH=${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\)
+        OCAMLBUILD_LIBDIR=${OCAML_PREFIX}/lib'
+    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\)'
     COMMAND \$\(MAKE\) install CHECK_IF_PREINSTALLED=false
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/ocamlbuild"
     DEPENDS ${OCAMLC}
