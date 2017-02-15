@@ -37,6 +37,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <dirent.h>
+#include <math.h>
 #endif
 
 #include <stdio.h>
@@ -45,11 +46,7 @@
 #include <locale.h>
 #endif
 
-#ifdef HAVE_STRING_H
 #include <string.h>
-#else
-#include <strings.h>
-#endif
 
 #define TIMELIB_SUPPORTS_V2DATA
 
