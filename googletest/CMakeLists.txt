@@ -1,8 +1,8 @@
-add_library(googletest STATIC
+add_library(gtest_main STATIC
   "${CMAKE_CURRENT_SOURCE_DIR}/src/googletest/src/gtest-all.cc"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/googletest/src/gtest_main.cc"
   )
-target_include_directories(googletest PRIVATE
+target_include_directories(gtest_main PRIVATE
   "${CMAKE_CURRENT_SOURCE_DIR}/src/googletest")
-target_include_directories(googletest PUBLIC
+target_include_directories(gtest_main PUBLIC
   "${CMAKE_CURRENT_SOURCE_DIR}/src/googletest/include")
