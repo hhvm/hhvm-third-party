@@ -88,7 +88,7 @@ add_library(afdt
   src/src/util.c
   ${ASYNC_SOURCE}
 )
-target_include_directories(afdt
+target_include_directories(afdt BEFORE
   PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/src/src/
   PRIVATE
