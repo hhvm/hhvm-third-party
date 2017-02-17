@@ -641,7 +641,8 @@ static void fake_data_segment(timelib_tzdb *sysdb,
 
         data = malloc(3 * sysdb->index_size + 7);
 
-        p = mempcpy(data, FAKE_HEADER, sizeof(FAKE_HEADER) - 1);
+        n = sizeof(FAKE_HEADER) - 1;
+        p = memcpy(data, FAKE_HEADER, n) + n;
 
         for (n = 0; n < sysdb->index_size; n++) {
                 const struct location_info *li;
@@ -906,7 +907,7 @@ timelib_tzinfo *timelib_parse_tzfile(char *timezone, const timelib_tzdb *tzdb)
 		} else
 #endif
 		{
-			/* PHP-style - use the embedded info. */      
+			/* PHP-style - use the embedded info. */
       if (version == 2) {
         skip_64bit_preamble(&tzf, tmp);
         read_64bit_header(&tzf, tmp);
