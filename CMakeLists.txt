@@ -101,6 +101,7 @@ if(NOT DOUBLE_CONVERSION_FOUND)
 endif()
 
 # Add bundled PCRE if the system one will not be used
+find_package(PCRE)
 if(NOT PCRE_LIBRARY)
   list(APPEND THIRD_PARTY_MODULES pcre)
   # Disable building a few parts of PCRE by default that we don't
