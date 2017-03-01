@@ -1,4 +1,5 @@
 # Phase 1 - see if they have a built-in version of ocamlc which is 'good enough'
+find_program(OCAML NAMES ocaml ocaml)
 find_program(OCAMLC NAMES ocamlc.opt ocamlc)
 find_program(OCAMLOPT NAMES ocamlopt.opt ocamlopt)
 find_program(OCAMLBUILD NAMES ocamlbuild.native ocamlbuild)
@@ -25,6 +26,7 @@ if (NOT OCAMLC_FOUND)
   message(STATUS "Building ocaml from third-party")
 
   set(OCAML_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/build")
+  set(OCAML "${OCAML_PREFIX}/bin/ocaml")
   set(OCAMLC "${OCAML_PREFIX}/bin/ocamlc.opt")
   set(OCAMLOPT "${OCAML_PREFIX}/bin/ocamlopt.opt")
   set(OCAMLBUILD "${OCAML_PREFIX}/bin/ocamlbuild.native")
@@ -33,7 +35,7 @@ if (NOT OCAMLC_FOUND)
   # NOTE: The weirdness building world.opt twice is because (at least on arm64)
   # ocaml (4.03) seems to have parallel build dependency problems.
   add_custom_command(
-    OUTPUT ${OCAMLC} ${OCAMLOPT}
+    OUTPUT ${OCAML} ${OCAMLC} ${OCAMLOPT}
     COMMAND ./configure -prefix "${OCAML_PREFIX}" -no-graph
     COMMAND \$\(MAKE\) -k world.opt || true
     COMMAND \$\(MAKE\) -j1 world.opt
@@ -63,6 +65,8 @@ endif()
 add_custom_target(ocaml
   DEPENDS ${OCAMLC} ${OCAMLOPT} ${OCAMLBUILD})
 
+set(OCAML_EXECUTABLE ${OCAML} CACHE FILEPATH "path to ocaml" FORCE)
+mark_as_advanced(OCAML_EXECUTABLE)
 set(OCAMLC_EXECUTABLE ${OCAMLC} CACHE FILEPATH "path to ocamlc" FORCE)
 mark_as_advanced(OCAMLC_EXECUTABLE)
 set(OCAMLOPT_EXECUTABLE ${OCAMLOPT} CACHE FILEPATH "path to ocamlopt" FORCE)
