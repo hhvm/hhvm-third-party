@@ -54,6 +54,3 @@
 [submodule "zstd"]
     path = zstd/src
     url = https://github.com/facebook/zstd.git
-[submodule "googletest/src"]
-    path = googletest/src
-    url = https://github.com/google/googletest.git
