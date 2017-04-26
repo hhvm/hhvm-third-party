@@ -90,7 +90,7 @@ if(NOT LIBSQLITE3_LIBRARY)
 endif()
 
 # Add bundled lz4 if the system one will not be used
-if(NOT LZ4_LIBRARY)
+if(NOT LZ4_FOUND)
   list(APPEND THIRD_PARTY_MODULES lz4)
   list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/lz4/src/lib")
 endif()
