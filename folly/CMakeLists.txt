@@ -146,7 +146,7 @@ find_package(PThread REQUIRED)
 target_include_directories(folly PUBLIC ${LIBPTHREAD_INCLUDE_DIRS})
 target_link_libraries(folly ${LIBPTHREAD_LIBRARIES})
 
-if (DOUBLE_CONVERSION_LIBRARY)
+if (DOUBLE_CONVERSION_FOUND)
   target_link_libraries(folly ${DOUBLE_CONVERSION_LIBRARY})
 else()
   target_link_libraries(folly double-conversion)
