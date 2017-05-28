@@ -164,6 +164,7 @@ add_definitions("-DFOLLY_VERSION=\"0.1\"")
 # We need to do the equivalent checks here and use
 # add_definitions as needed
 target_compile_definitions(folly PUBLIC "FOLLY_NO_CONFIG=1")
+target_compile_definitions(folly PUBLIC "FOLLY_HAVE_PTHREAD=1")
 
 # Check for the function FNNAME and set RETURN_VALUE based on the result.  Also
 # sets RETURN_VALUE=<result> as a preprocessor macro.
