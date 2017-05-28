@@ -4,7 +4,7 @@
  * AUTOMATICALLY GENERATED.  DO NOT EDIT.
  */
 
-#include "folly/Fingerprint.h"
+#include <folly/Fingerprint.h>
 
 namespace folly {
 namespace detail {
