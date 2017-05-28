@@ -10,26 +10,30 @@
 #include <algorithm>
 #include <string.h>
 
+#include <folly/Indestructible.h>
+
 namespace apache { namespace thrift { namespace reflection {
 
-const typename apache::thrift::detail::TEnumMapFactory<Type, int>::ValuesToNamesMapType _Type_VALUES_TO_NAMES = apache::thrift::detail::TEnumMapFactory<Type, int>::makeValuesToNamesMap();
+const typename _Type_EnumMapFactory::ValuesToNamesMapType _Type_VALUES_TO_NAMES = _Type_EnumMapFactory::makeValuesToNamesMap();
 
-const typename apache::thrift::detail::TEnumMapFactory<Type, int>::NamesToValuesMapType _Type_NAMES_TO_VALUES = apache::thrift::detail::TEnumMapFactory<Type, int>::makeNamesToValuesMap();
+const typename _Type_EnumMapFactory::NamesToValuesMapType _Type_NAMES_TO_VALUES = _Type_EnumMapFactory::makeNamesToValuesMap();
 
 }}} // namespace
 namespace apache { namespace thrift {
-template <>const std::size_t TEnumTraitsBase< ::apache::thrift::reflection::Type>::size = 16;
-template <>const folly::Range<const  ::apache::thrift::reflection::Type*> TEnumTraitsBase< ::apache::thrift::reflection::Type>::values = folly::range( ::apache::thrift::reflection::_TypeEnumDataStorage::values);
-template <>const folly::Range<const folly::StringPiece*> TEnumTraitsBase< ::apache::thrift::reflection::Type>::names = folly::range( ::apache::thrift::reflection::_TypeEnumDataStorage::names);
+template <>const std::size_t TEnumTraits< ::apache::thrift::reflection::Type>::size = 16;
+template <>const folly::Range<const  ::apache::thrift::reflection::Type*> TEnumTraits< ::apache::thrift::reflection::Type>::values = folly::range( ::apache::thrift::reflection::_TypeEnumDataStorage::values);
+template <>const folly::Range<const folly::StringPiece*> TEnumTraits< ::apache::thrift::reflection::Type>::names = folly::range( ::apache::thrift::reflection::_TypeEnumDataStorage::names);
 
 template<>
-const char* TEnumTraitsBase< ::apache::thrift::reflection::Type>::findName( ::apache::thrift::reflection::Type value) {
-return findName( ::apache::thrift::reflection::_Type_VALUES_TO_NAMES, value);
+const char* TEnumTraits< ::apache::thrift::reflection::Type>::findName( ::apache::thrift::reflection::Type value) {
+  static const auto map = folly::Indestructible< ::apache::thrift::reflection::_Type_EnumMapFactory::ValuesToNamesMapType>{ ::apache::thrift::reflection::_Type_EnumMapFactory::makeValuesToNamesMap()};
+  return findName(*map, value);
 }
 
 template<>
-bool TEnumTraitsBase< ::apache::thrift::reflection::Type>::findValue(const char* name,  ::apache::thrift::reflection::Type* out) {
-return findValue( ::apache::thrift::reflection::_Type_NAMES_TO_VALUES, name, out);
+bool TEnumTraits< ::apache::thrift::reflection::Type>::findValue(const char* name,  ::apache::thrift::reflection::Type* out) {
+  static const auto map = folly::Indestructible< ::apache::thrift::reflection::_Type_EnumMapFactory::NamesToValuesMapType>{ ::apache::thrift::reflection::_Type_EnumMapFactory::makeNamesToValuesMap()};
+  return findValue(*map, name, out);
 }
 }} // apache::thrift
 

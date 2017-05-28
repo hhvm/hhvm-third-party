@@ -35,35 +35,28 @@ enum Type {
   TYPE_FLOAT = 15,
 };
 
-extern const typename apache::thrift::detail::TEnumMapFactory<Type, int>::ValuesToNamesMapType _Type_VALUES_TO_NAMES;
+using _Type_EnumMapFactory = apache::thrift::detail::TEnumMapFactory<Type, int>;
 
-extern const typename apache::thrift::detail::TEnumMapFactory<Type, int>::NamesToValuesMapType _Type_NAMES_TO_VALUES;
+extern const _Type_EnumMapFactory::ValuesToNamesMapType _Type_VALUES_TO_NAMES;
+
+extern const _Type_EnumMapFactory::NamesToValuesMapType _Type_NAMES_TO_VALUES;
 
 }}} // namespace
 namespace apache { namespace thrift {
 template <> struct TEnumDataStorage< ::apache::thrift::reflection::Type>;
-template <> const std::size_t TEnumTraitsBase< ::apache::thrift::reflection::Type>::size;
-template <> const folly::Range<const  ::apache::thrift::reflection::Type*> TEnumTraitsBase< ::apache::thrift::reflection::Type>::values;
-template <> const folly::Range<const folly::StringPiece*> TEnumTraitsBase< ::apache::thrift::reflection::Type>::names;
+template <> const std::size_t TEnumTraits< ::apache::thrift::reflection::Type>::size;
+template <> const folly::Range<const  ::apache::thrift::reflection::Type*> TEnumTraits< ::apache::thrift::reflection::Type>::values;
+template <> const folly::Range<const folly::StringPiece*> TEnumTraits< ::apache::thrift::reflection::Type>::names;
+template <> inline constexpr  ::apache::thrift::reflection::Type TEnumTraits< ::apache::thrift::reflection::Type>::min() {
+return  ::apache::thrift::reflection::Type::TYPE_VOID;
+}
+template <> inline constexpr  ::apache::thrift::reflection::Type TEnumTraits< ::apache::thrift::reflection::Type>::max() {
+return  ::apache::thrift::reflection::Type::TYPE_FLOAT;
+}
 }} // apache::thrift
 
 namespace apache { namespace thrift { namespace reflection {
 
-}}} // namespace
-namespace apache { namespace thrift {
-template<>
-struct TEnumTraits< ::apache::thrift::reflection::Type> : public TEnumTraitsBase< ::apache::thrift::reflection::Type>
-{
-inline static constexpr  ::apache::thrift::reflection::Type min() {
-return  ::apache::thrift::reflection::Type::TYPE_VOID;
-}
-inline static constexpr  ::apache::thrift::reflection::Type max() {
-return  ::apache::thrift::reflection::Type::TYPE_FLOAT;
-}
-};
-}} // apache:thrift
-
-namespace apache { namespace thrift { namespace reflection {
 class StructField;
 
 class DataType;
