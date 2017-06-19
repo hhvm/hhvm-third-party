@@ -121,6 +121,7 @@ else()
   endif()
 endif()
 
+set_source_files_properties(${FOLLY_DIR}/detail/ChecksumDetail.cpp PROPERTIES COMPILE_FLAGS -mpclmul)
 add_library(folly STATIC ${files} ${genfiles} ${cfiles} ${hfiles})
 auto_source_group(folly ${FOLLY_DIR} ${files} ${genfiles} ${cfiles} ${hfiles})
 
