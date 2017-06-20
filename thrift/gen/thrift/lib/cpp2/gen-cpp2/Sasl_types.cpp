@@ -10,6 +10,8 @@
 
 #include <algorithm>
 
+#include <folly/Indestructible.h>
+
 #include "thrift/lib/cpp2/gen-cpp2/Sasl_data.h"
 
 
@@ -17,8 +19,9 @@
 namespace apache { namespace thrift { namespace sasl {
 
 void SaslOutcome::__clear() {
+  // clear all fields
   success = 0;
-  additional_data = std::string();
+  additional_data = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
   __isset.__clear();
 }
 
@@ -58,7 +61,8 @@ namespace apache { namespace thrift {
 namespace apache { namespace thrift { namespace sasl {
 
 void SaslRequest::__clear() {
-  response = std::string();
+  // clear all fields
+  response = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
   abort = 0;
   __isset.__clear();
 }
@@ -102,9 +106,10 @@ namespace apache { namespace thrift {
 namespace apache { namespace thrift { namespace sasl {
 
 void SaslReply::__clear() {
-  challenge = std::string();
+  // clear all fields
+  challenge = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
   ::apache::thrift::Cpp2Ops<  ::apache::thrift::sasl::SaslOutcome>::clear(&outcome);
-  mechanism = std::string();
+  mechanism = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
   __isset.__clear();
 }
 
@@ -162,7 +167,8 @@ namespace apache { namespace thrift {
 namespace apache { namespace thrift { namespace sasl {
 
 void SaslStart::__clear() {
-  mechanism = std::string();
+  // clear all fields
+  mechanism = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
   ::apache::thrift::Cpp2Ops<  ::apache::thrift::sasl::SaslRequest>::clear(&request);
   mechanisms.clear();
   __isset.__clear();

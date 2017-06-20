@@ -6,368 +6,163 @@
  */
 #pragma once
 
-#include <thrift/lib/cpp/Thrift.h>
+#include <thrift/lib/cpp2/Thrift.h>
+#include <thrift/lib/cpp2/protocol/Protocol.h>
 #include <thrift/lib/cpp/TApplicationException.h>
-#include <thrift/lib/cpp/protocol/TProtocol.h>
-#include <thrift/lib/cpp/transport/TTransport.h>
+#include <folly/io/IOBuf.h>
+#include <folly/io/Cursor.h>
 
+#include "thrift/lib/thrift/gen-cpp/reflection_types.h"
+#include <thrift/lib/cpp2/GeneratedHeaderHelper.h>
 
 #include <unordered_map>
 
-namespace apache { namespace thrift { namespace reflection {
 
-enum Type {
-  TYPE_VOID = 0,
-  TYPE_STRING = 1,
-  TYPE_BOOL = 2,
-  TYPE_BYTE = 3,
-  TYPE_I16 = 4,
-  TYPE_I32 = 5,
-  TYPE_I64 = 6,
-  TYPE_DOUBLE = 7,
-  TYPE_ENUM = 8,
-  TYPE_LIST = 9,
-  TYPE_SET = 10,
-  TYPE_MAP = 11,
-  TYPE_STRUCT = 12,
-  TYPE_SERVICE = 13,
-  TYPE_PROGRAM = 14,
-  TYPE_FLOAT = 15,
-};
+namespace apache { namespace thrift { namespace reflection { namespace cpp2 {
 
-extern const typename apache::thrift::detail::TEnumMapFactory<Type, int>::ValuesToNamesMapType _Type_VALUES_TO_NAMES;
+typedef  ::apache::thrift::reflection::Type Type;
+typedef ::apache::thrift::reflection::StructField StructField;
+template <class Protocol_>
+uint32_t StructField_read(Protocol_* iprot, StructField* obj);
+template <class Protocol_>
+uint32_t StructField_serializedSize(Protocol_ const* prot_, const StructField* obj);
+template <class Protocol_>
+uint32_t StructField_serializedSizeZC(Protocol_ const* prot_, const StructField* obj);
+template <class Protocol_>
+uint32_t StructField_write(Protocol_* prot_, const StructField* obj);
+extern template uint32_t StructField_read<>(apache::thrift::BinaryProtocolReader*, StructField*);
+extern template uint32_t StructField_write<>(apache::thrift::BinaryProtocolWriter*, const StructField*);
+extern template uint32_t StructField_serializedSize<>(apache::thrift::BinaryProtocolWriter const*, const StructField*);
+extern template uint32_t StructField_serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*, const StructField*);
+extern template uint32_t StructField_read<>(apache::thrift::CompactProtocolReader*, StructField*);
+extern template uint32_t StructField_write<>(apache::thrift::CompactProtocolWriter*, const StructField*);
+extern template uint32_t StructField_serializedSize<>(apache::thrift::CompactProtocolWriter const*, const StructField*);
+extern template uint32_t StructField_serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*, const StructField*);
 
-extern const typename apache::thrift::detail::TEnumMapFactory<Type, int>::NamesToValuesMapType _Type_NAMES_TO_VALUES;
-
-}}} // namespace
+}}}} // apache::thrift::reflection::cpp2
 namespace apache { namespace thrift {
-template<>
-struct TEnumTraits< ::apache::thrift::reflection::Type> : public TEnumTraitsBase< ::apache::thrift::reflection::Type>
-{
-inline static constexpr  ::apache::thrift::reflection::Type min() {
-return  ::apache::thrift::reflection::Type::TYPE_VOID;
+
+template <> inline void Cpp2Ops< ::apache::thrift::reflection::cpp2::StructField>::clear( ::apache::thrift::reflection::cpp2::StructField* obj) {
+  return obj->__clear();
 }
-inline static constexpr  ::apache::thrift::reflection::Type max() {
-return  ::apache::thrift::reflection::Type::TYPE_FLOAT;
+
+template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::apache::thrift::reflection::cpp2::StructField>::thriftType() {
+  return apache::thrift::protocol::T_STRUCT;
 }
-};
-}} // apache:thrift
 
-namespace apache { namespace thrift { namespace reflection {
-class StructField;
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::cpp2::StructField>::write(Protocol* proto,  ::apache::thrift::reflection::cpp2::StructField const* obj) {
+  return  ::apache::thrift::reflection::cpp2::StructField_write(proto, obj);
+}
 
-class DataType;
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::cpp2::StructField>::read(Protocol* proto,  ::apache::thrift::reflection::cpp2::StructField* obj) {
+  return  ::apache::thrift::reflection::cpp2::StructField_read(proto, obj);
+}
 
-class Schema;
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::cpp2::StructField>::serializedSize(Protocol const* proto,  ::apache::thrift::reflection::cpp2::StructField const* obj) {
+  return  ::apache::thrift::reflection::cpp2::StructField_serializedSize(proto, obj);
+}
 
-void swap(StructField &a, StructField &b);
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::cpp2::StructField>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::reflection::cpp2::StructField const* obj) {
+  return  ::apache::thrift::reflection::cpp2::StructField_serializedSizeZC(proto, obj);
+}
 
-class StructField : public apache::thrift::TStructType<StructField> {
- public:
+}} // apache::thrift
+namespace apache { namespace thrift { namespace reflection { namespace cpp2 {
 
-  StructField() : isRequired(0), type(0), order(0) {
-  }
-  template <
-    typename T__ThriftWrappedArgument__Ctor,
-    typename... Args__ThriftWrappedArgument__Ctor
-  >
-  explicit StructField(
-    ::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg,
-    Args__ThriftWrappedArgument__Ctor&&... args
-  ):
-    StructField(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    isRequired = arg.move();
-    __isset.isRequired = true;
-  }
-  template <
-    typename T__ThriftWrappedArgument__Ctor,
-    typename... Args__ThriftWrappedArgument__Ctor
-  >
-  explicit StructField(
-    ::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg,
-    Args__ThriftWrappedArgument__Ctor&&... args
-  ):
-    StructField(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    type = arg.move();
-    __isset.type = true;
-  }
-  template <
-    typename T__ThriftWrappedArgument__Ctor,
-    typename... Args__ThriftWrappedArgument__Ctor
-  >
-  explicit StructField(
-    ::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg,
-    Args__ThriftWrappedArgument__Ctor&&... args
-  ):
-    StructField(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    name = arg.move();
-    __isset.name = true;
-  }
-  template <
-    typename T__ThriftWrappedArgument__Ctor,
-    typename... Args__ThriftWrappedArgument__Ctor
-  >
-  explicit StructField(
-    ::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg,
-    Args__ThriftWrappedArgument__Ctor&&... args
-  ):
-    StructField(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    annotations = arg.move();
-    __isset.annotations = true;
-  }
-  template <
-    typename T__ThriftWrappedArgument__Ctor,
-    typename... Args__ThriftWrappedArgument__Ctor
-  >
-  explicit StructField(
-    ::apache::thrift::detail::argument_wrapper<5, T__ThriftWrappedArgument__Ctor> arg,
-    Args__ThriftWrappedArgument__Ctor&&... args
-  ):
-    StructField(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    order = arg.move();
-    __isset.order = true;
-  }
+typedef ::apache::thrift::reflection::DataType DataType;
+template <class Protocol_>
+uint32_t DataType_read(Protocol_* iprot, DataType* obj);
+template <class Protocol_>
+uint32_t DataType_serializedSize(Protocol_ const* prot_, const DataType* obj);
+template <class Protocol_>
+uint32_t DataType_serializedSizeZC(Protocol_ const* prot_, const DataType* obj);
+template <class Protocol_>
+uint32_t DataType_write(Protocol_* prot_, const DataType* obj);
+extern template uint32_t DataType_read<>(apache::thrift::BinaryProtocolReader*, DataType*);
+extern template uint32_t DataType_write<>(apache::thrift::BinaryProtocolWriter*, const DataType*);
+extern template uint32_t DataType_serializedSize<>(apache::thrift::BinaryProtocolWriter const*, const DataType*);
+extern template uint32_t DataType_serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*, const DataType*);
+extern template uint32_t DataType_read<>(apache::thrift::CompactProtocolReader*, DataType*);
+extern template uint32_t DataType_write<>(apache::thrift::CompactProtocolWriter*, const DataType*);
+extern template uint32_t DataType_serializedSize<>(apache::thrift::CompactProtocolWriter const*, const DataType*);
+extern template uint32_t DataType_serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*, const DataType*);
 
-  StructField(const StructField&) = default;
-  StructField& operator=(const StructField& src)= default;
-  StructField(StructField&&) = default;
-  StructField& operator=(StructField&&) = default;
+}}}} // apache::thrift::reflection::cpp2
+namespace apache { namespace thrift {
 
-  void __clear();
+template <> inline void Cpp2Ops< ::apache::thrift::reflection::cpp2::DataType>::clear( ::apache::thrift::reflection::cpp2::DataType* obj) {
+  return obj->__clear();
+}
 
-  virtual ~StructField() throw() {}
+template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::apache::thrift::reflection::cpp2::DataType>::thriftType() {
+  return apache::thrift::protocol::T_STRUCT;
+}
 
-  bool isRequired;
-  int64_t type;
-  std::string name;
-  std::unordered_map<std::string, std::string>  annotations;
-  int16_t order;
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::cpp2::DataType>::write(Protocol* proto,  ::apache::thrift::reflection::cpp2::DataType const* obj) {
+  return  ::apache::thrift::reflection::cpp2::DataType_write(proto, obj);
+}
 
-  struct __isset {
-    __isset() { __clear(); } 
-    void __clear() {
-      isRequired = false;
-      type = false;
-      name = false;
-      annotations = false;
-      order = false;
-    }
-    bool isRequired;
-    bool type;
-    bool name;
-    bool annotations;
-    bool order;
-  } __isset;
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::cpp2::DataType>::read(Protocol* proto,  ::apache::thrift::reflection::cpp2::DataType* obj) {
+  return  ::apache::thrift::reflection::cpp2::DataType_read(proto, obj);
+}
 
-  bool operator == (const StructField &) const;
-  bool operator != (const StructField& rhs) const {
-    return !(*this == rhs);
-  }
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::cpp2::DataType>::serializedSize(Protocol const* proto,  ::apache::thrift::reflection::cpp2::DataType const* obj) {
+  return  ::apache::thrift::reflection::cpp2::DataType_serializedSize(proto, obj);
+}
 
-  bool operator < (const StructField & ) const;
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::cpp2::DataType>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::reflection::cpp2::DataType const* obj) {
+  return  ::apache::thrift::reflection::cpp2::DataType_serializedSizeZC(proto, obj);
+}
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+}} // apache::thrift
+namespace apache { namespace thrift { namespace reflection { namespace cpp2 {
 
-};
+typedef ::apache::thrift::reflection::Schema Schema;
+template <class Protocol_>
+uint32_t Schema_read(Protocol_* iprot, Schema* obj);
+template <class Protocol_>
+uint32_t Schema_serializedSize(Protocol_ const* prot_, const Schema* obj);
+template <class Protocol_>
+uint32_t Schema_serializedSizeZC(Protocol_ const* prot_, const Schema* obj);
+template <class Protocol_>
+uint32_t Schema_write(Protocol_* prot_, const Schema* obj);
+extern template uint32_t Schema_read<>(apache::thrift::BinaryProtocolReader*, Schema*);
+extern template uint32_t Schema_write<>(apache::thrift::BinaryProtocolWriter*, const Schema*);
+extern template uint32_t Schema_serializedSize<>(apache::thrift::BinaryProtocolWriter const*, const Schema*);
+extern template uint32_t Schema_serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*, const Schema*);
+extern template uint32_t Schema_read<>(apache::thrift::CompactProtocolReader*, Schema*);
+extern template uint32_t Schema_write<>(apache::thrift::CompactProtocolWriter*, const Schema*);
+extern template uint32_t Schema_serializedSize<>(apache::thrift::CompactProtocolWriter const*, const Schema*);
+extern template uint32_t Schema_serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*, const Schema*);
 
-class StructField;
-void merge(const StructField& from, StructField& to);
-void merge(StructField&& from, StructField& to);
-void swap(DataType &a, DataType &b);
+}}}} // apache::thrift::reflection::cpp2
+namespace apache { namespace thrift {
 
-class DataType : public apache::thrift::TStructType<DataType> {
- public:
+template <> inline void Cpp2Ops< ::apache::thrift::reflection::cpp2::Schema>::clear( ::apache::thrift::reflection::cpp2::Schema* obj) {
+  return obj->__clear();
+}
 
-  DataType() : mapKeyType(0), valueType(0) {
-  }
-  template <
-    typename T__ThriftWrappedArgument__Ctor,
-    typename... Args__ThriftWrappedArgument__Ctor
-  >
-  explicit DataType(
-    ::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg,
-    Args__ThriftWrappedArgument__Ctor&&... args
-  ):
-    DataType(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    name = arg.move();
-    __isset.name = true;
-  }
-  template <
-    typename T__ThriftWrappedArgument__Ctor,
-    typename... Args__ThriftWrappedArgument__Ctor
-  >
-  explicit DataType(
-    ::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg,
-    Args__ThriftWrappedArgument__Ctor&&... args
-  ):
-    DataType(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    fields = arg.move();
-    __isset.fields = true;
-  }
-  template <
-    typename T__ThriftWrappedArgument__Ctor,
-    typename... Args__ThriftWrappedArgument__Ctor
-  >
-  explicit DataType(
-    ::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg,
-    Args__ThriftWrappedArgument__Ctor&&... args
-  ):
-    DataType(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    mapKeyType = arg.move();
-    __isset.mapKeyType = true;
-  }
-  template <
-    typename T__ThriftWrappedArgument__Ctor,
-    typename... Args__ThriftWrappedArgument__Ctor
-  >
-  explicit DataType(
-    ::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg,
-    Args__ThriftWrappedArgument__Ctor&&... args
-  ):
-    DataType(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    valueType = arg.move();
-    __isset.valueType = true;
-  }
-  template <
-    typename T__ThriftWrappedArgument__Ctor,
-    typename... Args__ThriftWrappedArgument__Ctor
-  >
-  explicit DataType(
-    ::apache::thrift::detail::argument_wrapper<5, T__ThriftWrappedArgument__Ctor> arg,
-    Args__ThriftWrappedArgument__Ctor&&... args
-  ):
-    DataType(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    enumValues = arg.move();
-    __isset.enumValues = true;
-  }
+template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::apache::thrift::reflection::cpp2::Schema>::thriftType() {
+  return apache::thrift::protocol::T_STRUCT;
+}
 
-  DataType(const DataType&) = default;
-  DataType& operator=(const DataType& src)= default;
-  DataType(DataType&&) = default;
-  DataType& operator=(DataType&&) = default;
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::cpp2::Schema>::write(Protocol* proto,  ::apache::thrift::reflection::cpp2::Schema const* obj) {
+  return  ::apache::thrift::reflection::cpp2::Schema_write(proto, obj);
+}
 
-  void __clear();
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::cpp2::Schema>::read(Protocol* proto,  ::apache::thrift::reflection::cpp2::Schema* obj) {
+  return  ::apache::thrift::reflection::cpp2::Schema_read(proto, obj);
+}
 
-  virtual ~DataType() throw() {}
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::cpp2::Schema>::serializedSize(Protocol const* proto,  ::apache::thrift::reflection::cpp2::Schema const* obj) {
+  return  ::apache::thrift::reflection::cpp2::Schema_serializedSize(proto, obj);
+}
 
-  std::string name;
-  std::unordered_map<int16_t, StructField>  fields;
-  int64_t mapKeyType;
-  int64_t valueType;
-  std::unordered_map<std::string, int32_t>  enumValues;
+template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::cpp2::Schema>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::reflection::cpp2::Schema const* obj) {
+  return  ::apache::thrift::reflection::cpp2::Schema_serializedSizeZC(proto, obj);
+}
 
-  struct __isset {
-    __isset() { __clear(); } 
-    void __clear() {
-      name = false;
-      fields = false;
-      mapKeyType = false;
-      valueType = false;
-      enumValues = false;
-    }
-    bool name;
-    bool fields;
-    bool mapKeyType;
-    bool valueType;
-    bool enumValues;
-  } __isset;
+}} // apache::thrift
+namespace apache { namespace thrift { namespace reflection { namespace cpp2 {
 
-  bool operator == (const DataType &) const;
-  bool operator != (const DataType& rhs) const {
-    return !(*this == rhs);
-  }
-
-  bool operator < (const DataType & ) const;
-
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-class DataType;
-void merge(const DataType& from, DataType& to);
-void merge(DataType&& from, DataType& to);
-void swap(Schema &a, Schema &b);
-
-class Schema : public apache::thrift::TStructType<Schema> {
- public:
-
-  Schema() {
-  }
-  template <
-    typename T__ThriftWrappedArgument__Ctor,
-    typename... Args__ThriftWrappedArgument__Ctor
-  >
-  explicit Schema(
-    ::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg,
-    Args__ThriftWrappedArgument__Ctor&&... args
-  ):
-    Schema(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    dataTypes = arg.move();
-    __isset.dataTypes = true;
-  }
-  template <
-    typename T__ThriftWrappedArgument__Ctor,
-    typename... Args__ThriftWrappedArgument__Ctor
-  >
-  explicit Schema(
-    ::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg,
-    Args__ThriftWrappedArgument__Ctor&&... args
-  ):
-    Schema(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    names = arg.move();
-    __isset.names = true;
-  }
-
-  Schema(const Schema&) = default;
-  Schema& operator=(const Schema& src)= default;
-  Schema(Schema&&) = default;
-  Schema& operator=(Schema&&) = default;
-
-  void __clear();
-
-  virtual ~Schema() throw() {}
-
-  std::unordered_map<int64_t, DataType>  dataTypes;
-  std::unordered_map<std::string, int64_t>  names;
-
-  struct __isset {
-    __isset() { __clear(); } 
-    void __clear() {
-      dataTypes = false;
-      names = false;
-    }
-    bool dataTypes;
-    bool names;
-  } __isset;
-
-  bool operator == (const Schema &) const;
-  bool operator != (const Schema& rhs) const {
-    return !(*this == rhs);
-  }
-
-  bool operator < (const Schema & ) const;
-
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
-
-};
-
-class Schema;
-void merge(const Schema& from, Schema& to);
-void merge(Schema&& from, Schema& to);
-}}} // namespace
-
+}}}} // apache::thrift::reflection::cpp2

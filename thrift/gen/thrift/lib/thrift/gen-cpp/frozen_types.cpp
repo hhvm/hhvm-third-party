@@ -10,6 +10,8 @@
 #include <algorithm>
 #include <string.h>
 
+#include <folly/Indestructible.h>
+
 namespace apache { namespace thrift { namespace frozen { namespace schema {
 
 bool Field::operator == (const Field & rhs) const {

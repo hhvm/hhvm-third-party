@@ -18,21 +18,25 @@ const char* SaslAuthServiceAsyncClient::getServiceName() {
 
 void SaslAuthServiceAsyncClient::authFirstRequest(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslStart& saslStart) {
   ::apache::thrift::RpcOptions rpcOptions;
-  authFirstRequest(rpcOptions, std::move(callback), saslStart);
+  authFirstRequestImpl(false, rpcOptions, std::move(callback), saslStart);
 }
 
 void SaslAuthServiceAsyncClient::authFirstRequest(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslStart& saslStart) {
+  authFirstRequestImpl(false, rpcOptions, std::move(callback), saslStart);
+}
+
+void SaslAuthServiceAsyncClient::authFirstRequestImpl(bool useSync, apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslStart& saslStart) {
   switch(getChannel()->getProtocolId()) {
     case apache::thrift::protocol::T_BINARY_PROTOCOL:
     {
       apache::thrift::BinaryProtocolWriter writer;
-      authFirstRequestT(&writer, rpcOptions, std::move(callback), saslStart);
+      authFirstRequestT(&writer, useSync, rpcOptions, std::move(callback), saslStart);
       break;
     }
     case apache::thrift::protocol::T_COMPACT_PROTOCOL:
     {
       apache::thrift::CompactProtocolWriter writer;
-      authFirstRequestT(&writer, rpcOptions, std::move(callback), saslStart);
+      authFirstRequestT(&writer, useSync, rpcOptions, std::move(callback), saslStart);
       break;
     }
     default:
@@ -49,9 +53,8 @@ void SaslAuthServiceAsyncClient::sync_authFirstRequest( ::apache::thrift::sasl::
 
 void SaslAuthServiceAsyncClient::sync_authFirstRequest(apache::thrift::RpcOptions& rpcOptions,  ::apache::thrift::sasl::SaslReply& _return, const  ::apache::thrift::sasl::SaslStart& saslStart) {
   apache::thrift::ClientReceiveState _returnState;
-  auto callback = folly::make_unique<apache::thrift::ClientSyncCallback>(&_returnState, getChannel()->getEventBase(), false);
-  authFirstRequest(rpcOptions, std::move(callback), saslStart);
-  getChannel()->getEventBase()->loopForever();
+  auto callback = std::make_unique<apache::thrift::ClientSyncCallback>(&_returnState, false);
+  authFirstRequestImpl(true, rpcOptions, std::move(callback), saslStart);
   SCOPE_EXIT {
     if (_returnState.header() && !_returnState.header()->getHeaders().empty()) {
       rpcOptions.setReadHeaders(_returnState.header()->releaseHeaders());
@@ -72,7 +75,7 @@ folly::Future< ::apache::thrift::sasl::SaslReply> SaslAuthServiceAsyncClient::fu
 folly::Future< ::apache::thrift::sasl::SaslReply> SaslAuthServiceAsyncClient::future_authFirstRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslStart& saslStart) {
   folly::Promise< ::apache::thrift::sasl::SaslReply> _promise;
   auto _future = _promise.getFuture();
-  auto callback = folly::make_unique<apache::thrift::FutureCallback< ::apache::thrift::sasl::SaslReply>>(std::move(_promise), recv_wrapped_authFirstRequest, channel_);
+  auto callback = std::make_unique<apache::thrift::FutureCallback< ::apache::thrift::sasl::SaslReply>>(std::move(_promise), recv_wrapped_authFirstRequest, channel_);
   authFirstRequest(rpcOptions, std::move(callback), saslStart);
   return _future;
 }
@@ -80,13 +83,13 @@ folly::Future< ::apache::thrift::sasl::SaslReply> SaslAuthServiceAsyncClient::fu
 folly::Future<std::pair< ::apache::thrift::sasl::SaslReply, std::unique_ptr<apache::thrift::transport::THeader>>> SaslAuthServiceAsyncClient::header_future_authFirstRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslStart& saslStart) {
   folly::Promise<std::pair< ::apache::thrift::sasl::SaslReply, std::unique_ptr<apache::thrift::transport::THeader>>> _promise;
   auto _future = _promise.getFuture();
-  auto callback = folly::make_unique<apache::thrift::HeaderFutureCallback< ::apache::thrift::sasl::SaslReply>>(std::move(_promise), recv_wrapped_authFirstRequest, channel_);
+  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::apache::thrift::sasl::SaslReply>>(std::move(_promise), recv_wrapped_authFirstRequest, channel_);
   authFirstRequest(rpcOptions, std::move(callback), saslStart);
   return _future;
 }
 
-void SaslAuthServiceAsyncClient::authFirstRequest(std::function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::apache::thrift::sasl::SaslStart& saslStart) {
-  authFirstRequest(folly::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), saslStart);
+void SaslAuthServiceAsyncClient::authFirstRequest(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::apache::thrift::sasl::SaslStart& saslStart) {
+  authFirstRequest(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), saslStart);
 }
 
 folly::exception_wrapper SaslAuthServiceAsyncClient::recv_wrapped_authFirstRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state) {
@@ -118,7 +121,7 @@ folly::exception_wrapper SaslAuthServiceAsyncClient::recv_wrapped_authFirstReque
 void SaslAuthServiceAsyncClient::recv_authFirstRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state) {
   auto ew = recv_wrapped_authFirstRequest(_return, state);
   if (ew) {
-    ew.throwException();
+    ew.throw_exception();
   }
 }
 
@@ -132,21 +135,25 @@ folly::exception_wrapper SaslAuthServiceAsyncClient::recv_instance_wrapped_authF
 
 void SaslAuthServiceAsyncClient::authNextRequest(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslRequest& saslRequest) {
   ::apache::thrift::RpcOptions rpcOptions;
-  authNextRequest(rpcOptions, std::move(callback), saslRequest);
+  authNextRequestImpl(false, rpcOptions, std::move(callback), saslRequest);
 }
 
 void SaslAuthServiceAsyncClient::authNextRequest(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslRequest& saslRequest) {
+  authNextRequestImpl(false, rpcOptions, std::move(callback), saslRequest);
+}
+
+void SaslAuthServiceAsyncClient::authNextRequestImpl(bool useSync, apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslRequest& saslRequest) {
   switch(getChannel()->getProtocolId()) {
     case apache::thrift::protocol::T_BINARY_PROTOCOL:
     {
       apache::thrift::BinaryProtocolWriter writer;
-      authNextRequestT(&writer, rpcOptions, std::move(callback), saslRequest);
+      authNextRequestT(&writer, useSync, rpcOptions, std::move(callback), saslRequest);
       break;
     }
     case apache::thrift::protocol::T_COMPACT_PROTOCOL:
     {
       apache::thrift::CompactProtocolWriter writer;
-      authNextRequestT(&writer, rpcOptions, std::move(callback), saslRequest);
+      authNextRequestT(&writer, useSync, rpcOptions, std::move(callback), saslRequest);
       break;
     }
     default:
@@ -163,9 +170,8 @@ void SaslAuthServiceAsyncClient::sync_authNextRequest( ::apache::thrift::sasl::S
 
 void SaslAuthServiceAsyncClient::sync_authNextRequest(apache::thrift::RpcOptions& rpcOptions,  ::apache::thrift::sasl::SaslReply& _return, const  ::apache::thrift::sasl::SaslRequest& saslRequest) {
   apache::thrift::ClientReceiveState _returnState;
-  auto callback = folly::make_unique<apache::thrift::ClientSyncCallback>(&_returnState, getChannel()->getEventBase(), false);
-  authNextRequest(rpcOptions, std::move(callback), saslRequest);
-  getChannel()->getEventBase()->loopForever();
+  auto callback = std::make_unique<apache::thrift::ClientSyncCallback>(&_returnState, false);
+  authNextRequestImpl(true, rpcOptions, std::move(callback), saslRequest);
   SCOPE_EXIT {
     if (_returnState.header() && !_returnState.header()->getHeaders().empty()) {
       rpcOptions.setReadHeaders(_returnState.header()->releaseHeaders());
@@ -186,7 +192,7 @@ folly::Future< ::apache::thrift::sasl::SaslReply> SaslAuthServiceAsyncClient::fu
 folly::Future< ::apache::thrift::sasl::SaslReply> SaslAuthServiceAsyncClient::future_authNextRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslRequest& saslRequest) {
   folly::Promise< ::apache::thrift::sasl::SaslReply> _promise;
   auto _future = _promise.getFuture();
-  auto callback = folly::make_unique<apache::thrift::FutureCallback< ::apache::thrift::sasl::SaslReply>>(std::move(_promise), recv_wrapped_authNextRequest, channel_);
+  auto callback = std::make_unique<apache::thrift::FutureCallback< ::apache::thrift::sasl::SaslReply>>(std::move(_promise), recv_wrapped_authNextRequest, channel_);
   authNextRequest(rpcOptions, std::move(callback), saslRequest);
   return _future;
 }
@@ -194,13 +200,13 @@ folly::Future< ::apache::thrift::sasl::SaslReply> SaslAuthServiceAsyncClient::fu
 folly::Future<std::pair< ::apache::thrift::sasl::SaslReply, std::unique_ptr<apache::thrift::transport::THeader>>> SaslAuthServiceAsyncClient::header_future_authNextRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslRequest& saslRequest) {
   folly::Promise<std::pair< ::apache::thrift::sasl::SaslReply, std::unique_ptr<apache::thrift::transport::THeader>>> _promise;
   auto _future = _promise.getFuture();
-  auto callback = folly::make_unique<apache::thrift::HeaderFutureCallback< ::apache::thrift::sasl::SaslReply>>(std::move(_promise), recv_wrapped_authNextRequest, channel_);
+  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::apache::thrift::sasl::SaslReply>>(std::move(_promise), recv_wrapped_authNextRequest, channel_);
   authNextRequest(rpcOptions, std::move(callback), saslRequest);
   return _future;
 }
 
-void SaslAuthServiceAsyncClient::authNextRequest(std::function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::apache::thrift::sasl::SaslRequest& saslRequest) {
-  authNextRequest(folly::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), saslRequest);
+void SaslAuthServiceAsyncClient::authNextRequest(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::apache::thrift::sasl::SaslRequest& saslRequest) {
+  authNextRequest(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), saslRequest);
 }
 
 folly::exception_wrapper SaslAuthServiceAsyncClient::recv_wrapped_authNextRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state) {
@@ -232,7 +238,7 @@ folly::exception_wrapper SaslAuthServiceAsyncClient::recv_wrapped_authNextReques
 void SaslAuthServiceAsyncClient::recv_authNextRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state) {
   auto ew = recv_wrapped_authNextRequest(_return, state);
   if (ew) {
-    ew.throwException();
+    ew.throw_exception();
   }
 }
 

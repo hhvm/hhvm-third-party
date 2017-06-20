@@ -6,13 +6,11 @@
  */
 #pragma once
 
-#include "thrift/lib/thrift/gen-cpp/reflection_types.h"
+#include "thrift/lib/thrift/gen-cpp2/reflection_types.h"
+#include <thrift/lib/cpp2/protocol/Protocol.h>
+#include "thrift/lib/thrift/gen-cpp/reflection_constants.h"
+namespace apache { namespace thrift { namespace reflection { namespace cpp2 {
 
-namespace apache { namespace thrift { namespace reflection {
+using ::apache::thrift::reflection::reflection_constants;
 
-struct reflection_constants {
-};
-
-
-}}} // namespace
-
+}}}} // apache::thrift::reflection::cpp2

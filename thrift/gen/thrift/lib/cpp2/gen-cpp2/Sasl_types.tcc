@@ -13,6 +13,7 @@
 #include <thrift/lib/cpp/transport/THeader.h>
 #include <thrift/lib/cpp2/server/Cpp2ConnContext.h>
 #include <thrift/lib/cpp2/GeneratedCodeHelper.h>
+#include <thrift/lib/cpp2/GeneratedSerializationCodeHelper.h>
 
 #include <thrift/lib/cpp2/protocol/BinaryProtocol.h>
 #include <thrift/lib/cpp2/protocol/CompactProtocol.h>
@@ -470,23 +471,7 @@ uint32_t SaslStart::read(Protocol_* iprot) {
       {
         if (ftype == apache::thrift::protocol::T_LIST) {
           this->mechanisms = std::vector<std::string>();
-          uint32_t _size0;
-          apache::thrift::protocol::TType _etype3;
-          xfer += iprot->readListBegin(_etype3, _size0);
-          uint32_t _i4;
-          if (_size0 == std::numeric_limits<uint32_t>::max()) {
-            for (_i4 = 0; iprot->peekList(); _i4++) {
-              this->mechanisms.resize(_i4 + 1);
-              xfer += iprot->readString(this->mechanisms[_i4]);
-            }
-          }
-          else {
-            this->mechanisms.resize(_size0);
-            for (_i4 = 0; _i4 < _size0; ++_i4) {
-              xfer += iprot->readString(this->mechanisms[_i4]);
-            }
-          }
-          xfer += iprot->readListEnd();
+          xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::string>, std::vector<std::string>>::read(*iprot, this->mechanisms);
           this->__isset.mechanisms = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -518,11 +503,7 @@ uint32_t SaslStart::serializedSize(Protocol_ const* prot_) const {
   }
   if (this->__isset.mechanisms) {
     xfer += prot_->serializedFieldSize("mechanisms", apache::thrift::protocol::T_LIST, 3);
-    xfer += prot_->serializedSizeListBegin(apache::thrift::protocol::T_STRING, this->mechanisms.size());
-    for (auto _iter5 = this->mechanisms.begin(); _iter5 != this->mechanisms.end(); ++_iter5) {
-      xfer += prot_->serializedSizeString((*_iter5));
-    }
-    xfer += prot_->serializedSizeListEnd();
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::string>, std::vector<std::string>>::serializedSize<false>(*prot_, this->mechanisms);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -540,11 +521,7 @@ uint32_t SaslStart::serializedSizeZC(Protocol_ const* prot_) const {
   }
   if (this->__isset.mechanisms) {
     xfer += prot_->serializedFieldSize("mechanisms", apache::thrift::protocol::T_LIST, 3);
-    xfer += prot_->serializedSizeListBegin(apache::thrift::protocol::T_STRING, this->mechanisms.size());
-    for (auto _iter6 = this->mechanisms.begin(); _iter6 != this->mechanisms.end(); ++_iter6) {
-      xfer += prot_->serializedSizeString((*_iter6));
-    }
-    xfer += prot_->serializedSizeListEnd();
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::string>, std::vector<std::string>>::serializedSize<false>(*prot_, this->mechanisms);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -564,11 +541,7 @@ uint32_t SaslStart::write(Protocol_* prot_) const {
   }
   if (this->__isset.mechanisms) {
     xfer += prot_->writeFieldBegin("mechanisms", apache::thrift::protocol::T_LIST, 3);
-    xfer += prot_->writeListBegin(apache::thrift::protocol::T_STRING, this->mechanisms.size());
-    for (auto _iter7 = this->mechanisms.begin(); _iter7 != this->mechanisms.end(); ++_iter7) {
-      xfer += prot_->writeString((*_iter7));
-    }
-    xfer += prot_->writeListEnd();
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::string>, std::vector<std::string>>::write(*prot_, this->mechanisms);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();

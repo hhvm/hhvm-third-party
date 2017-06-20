@@ -13,6 +13,7 @@
 #include <thrift/lib/cpp/transport/THeader.h>
 #include <thrift/lib/cpp2/server/Cpp2ConnContext.h>
 #include <thrift/lib/cpp2/GeneratedCodeHelper.h>
+#include <thrift/lib/cpp2/GeneratedSerializationCodeHelper.h>
 
 namespace apache { namespace thrift { namespace sasl {
 
@@ -55,7 +56,7 @@ void SaslAuthServiceAsyncProcessor::process_authFirstRequest(std::unique_ptr<apa
       LOG(ERROR) << ex.what() << " in oneway function authFirstRequest";
     }
   }
-  auto callback = folly::make_unique<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>>(std::move(req), std::move(c), return_authFirstRequest<ProtocolIn_,ProtocolOut_>, throw_authFirstRequest<ProtocolIn_, ProtocolOut_>, throw_wrapped_authFirstRequest<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>>(std::move(req), std::move(c), return_authFirstRequest<ProtocolIn_,ProtocolOut_>, throw_authFirstRequest<ProtocolIn_, ProtocolOut_>, throw_wrapped_authFirstRequest<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     callback.release()->deleteInThread();
     return;
@@ -168,7 +169,7 @@ void SaslAuthServiceAsyncProcessor::process_authNextRequest(std::unique_ptr<apac
       LOG(ERROR) << ex.what() << " in oneway function authNextRequest";
     }
   }
-  auto callback = folly::make_unique<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>>(std::move(req), std::move(c), return_authNextRequest<ProtocolIn_,ProtocolOut_>, throw_authNextRequest<ProtocolIn_, ProtocolOut_>, throw_wrapped_authNextRequest<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>>(std::move(req), std::move(c), return_authNextRequest<ProtocolIn_,ProtocolOut_>, throw_authNextRequest<ProtocolIn_, ProtocolOut_>, throw_wrapped_authNextRequest<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     callback.release()->deleteInThread();
     return;
@@ -247,7 +248,7 @@ void SaslAuthServiceAsyncProcessor::throw_wrapped_authNextRequest(std::unique_pt
 }
 
 template <typename Protocol_>
-void SaslAuthServiceAsyncClient::authFirstRequestT(Protocol_* prot, apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslStart& saslStart) {
+void SaslAuthServiceAsyncClient::authFirstRequestT(Protocol_* prot, bool useSync, apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslStart& saslStart) {
   auto header = std::make_shared<apache::thrift::transport::THeader>(apache::thrift::transport::THeader::ALLOW_BIG_FRAMES);
   header->setProtocolId(getChannel()->getProtocolId());
   header->setHeaders(rpcOptions.releaseWriteHeaders());
@@ -255,7 +256,9 @@ void SaslAuthServiceAsyncClient::authFirstRequestT(Protocol_* prot, apache::thri
   std::unique_ptr<apache::thrift::ContextStack> ctx = this->getContextStack(this->getServiceName(), "SaslAuthService.authFirstRequest", connectionContext_.get());
   SaslAuthService_authFirstRequest_pargs args;
   args.get<0>().value = const_cast< ::apache::thrift::sasl::SaslStart*>(&saslStart);
-  apache::thrift::clientSendT<false>(prot, rpcOptions, std::move(callback), std::move(ctx), header, channel_.get(), args, "authFirstRequest", [](Protocol_* p, SaslAuthService_authFirstRequest_pargs& a) { a.write(p); }, [](Protocol_* p, SaslAuthService_authFirstRequest_pargs& a) { return a.serializedSizeZC(p); });
+  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
+  auto writer = [&](Protocol_* p) { args.write(p); };
+  apache::thrift::clientSendT<Protocol_>(prot, rpcOptions, std::move(callback), std::move(ctx), header, channel_.get(), "authFirstRequest", writer, sizer, false, useSync);
   connectionContext_->setRequestHeader(nullptr);
 }
 
@@ -323,12 +326,12 @@ template <typename Protocol_>
 void SaslAuthServiceAsyncClient::recv_authFirstRequestT(Protocol_* prot,  ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state) {
   auto ew = recv_wrapped_authFirstRequestT(prot, _return, state);
   if (ew) {
-    ew.throwException();
+    ew.throw_exception();
   }
 }
 
 template <typename Protocol_>
-void SaslAuthServiceAsyncClient::authNextRequestT(Protocol_* prot, apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslRequest& saslRequest) {
+void SaslAuthServiceAsyncClient::authNextRequestT(Protocol_* prot, bool useSync, apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslRequest& saslRequest) {
   auto header = std::make_shared<apache::thrift::transport::THeader>(apache::thrift::transport::THeader::ALLOW_BIG_FRAMES);
   header->setProtocolId(getChannel()->getProtocolId());
   header->setHeaders(rpcOptions.releaseWriteHeaders());
@@ -336,7 +339,9 @@ void SaslAuthServiceAsyncClient::authNextRequestT(Protocol_* prot, apache::thrif
   std::unique_ptr<apache::thrift::ContextStack> ctx = this->getContextStack(this->getServiceName(), "SaslAuthService.authNextRequest", connectionContext_.get());
   SaslAuthService_authNextRequest_pargs args;
   args.get<0>().value = const_cast< ::apache::thrift::sasl::SaslRequest*>(&saslRequest);
-  apache::thrift::clientSendT<false>(prot, rpcOptions, std::move(callback), std::move(ctx), header, channel_.get(), args, "authNextRequest", [](Protocol_* p, SaslAuthService_authNextRequest_pargs& a) { a.write(p); }, [](Protocol_* p, SaslAuthService_authNextRequest_pargs& a) { return a.serializedSizeZC(p); });
+  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
+  auto writer = [&](Protocol_* p) { args.write(p); };
+  apache::thrift::clientSendT<Protocol_>(prot, rpcOptions, std::move(callback), std::move(ctx), header, channel_.get(), "authNextRequest", writer, sizer, false, useSync);
   connectionContext_->setRequestHeader(nullptr);
 }
 
@@ -404,7 +409,7 @@ template <typename Protocol_>
 void SaslAuthServiceAsyncClient::recv_authNextRequestT(Protocol_* prot,  ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state) {
   auto ew = recv_wrapped_authNextRequestT(prot, _return, state);
   if (ew) {
-    ew.throwException();
+    ew.throw_exception();
   }
 }
 

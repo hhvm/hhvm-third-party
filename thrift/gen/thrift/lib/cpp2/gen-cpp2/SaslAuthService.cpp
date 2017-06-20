@@ -14,7 +14,7 @@
 namespace apache { namespace thrift { namespace sasl {
 
 std::unique_ptr<apache::thrift::AsyncProcessor> SaslAuthServiceSvIf::getProcessor() {
-  return folly::make_unique<SaslAuthServiceAsyncProcessor>(this);
+  return std::make_unique<SaslAuthServiceAsyncProcessor>(this);
 }
 
 void SaslAuthServiceSvIf::authFirstRequest( ::apache::thrift::sasl::SaslReply& /*_return*/, std::unique_ptr< ::apache::thrift::sasl::SaslStart> /*saslStart*/) {
