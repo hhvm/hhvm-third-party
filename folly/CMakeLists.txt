@@ -121,7 +121,15 @@ else()
   endif()
 endif()
 
+CHECK_CXX_SOURCE_COMPILES("
+#ifndef __x86_64__
+#error Not x64
+#endif
+int main() { return 0; }" IS_X64)
+if (IS_X64)
 set_source_files_properties(${FOLLY_DIR}/detail/ChecksumDetail.cpp PROPERTIES COMPILE_FLAGS -mpclmul)
+endif()
+
 add_library(folly STATIC ${files} ${genfiles} ${cfiles} ${hfiles})
 auto_source_group(folly ${FOLLY_DIR} ${files} ${genfiles} ${cfiles} ${hfiles})
 
