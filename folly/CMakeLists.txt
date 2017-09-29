@@ -57,7 +57,7 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/exception_tracer/StackTrace.cpp
   ${FOLLY_DIR}/experimental/io/AsyncIO.cpp
   ${FOLLY_DIR}/experimental/io/HugePageUtil.cpp
-  ${FOLLY_DIR}/experimental/logging/example/main.cpp
+  ${FOLLY_DIR}/experimental/logging/example/
   ${FOLLY_DIR}/experimental/symbolizer/StackTrace.cpp
   ${FOLLY_DIR}/experimental/symbolizer/ElfCache.cpp
   ${FOLLY_DIR}/experimental/symbolizer/ElfUtil.cpp
