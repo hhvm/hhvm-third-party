@@ -38,7 +38,7 @@ auto_sources(cfiles "*.c" "RECURSE" "${FOLLY_DIR}")
 auto_sources(hfiles "*.h" "RECURSE" "${FOLLY_DIR}")
 
 # No need for tests, Benchmarks, Utils, or most experimental stuff
-HHVM_REMOVE_MATCHES_FROM_LISTS(files cfiles hfiles MATCHES "/test/" "/bench/" "Test.cpp$" "/futures/exercises/")
+HHVM_REMOVE_MATCHES_FROM_LISTS(files cfiles hfiles MATCHES "/test/" "/bench/" "Test.cpp$" "/futures/exercises/" "/experimental/logging/example/")
 list(REMOVE_ITEM files
   ${FOLLY_DIR}/Benchmark.cpp
   ${FOLLY_DIR}/SingletonStackTrace.cpp
@@ -57,7 +57,6 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/exception_tracer/StackTrace.cpp
   ${FOLLY_DIR}/experimental/io/AsyncIO.cpp
   ${FOLLY_DIR}/experimental/io/HugePageUtil.cpp
-  ${FOLLY_DIR}/experimental/logging/example/
   ${FOLLY_DIR}/experimental/symbolizer/StackTrace.cpp
   ${FOLLY_DIR}/experimental/symbolizer/ElfCache.cpp
   ${FOLLY_DIR}/experimental/symbolizer/ElfUtil.cpp
