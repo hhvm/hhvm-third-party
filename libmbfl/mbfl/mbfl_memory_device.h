@@ -33,8 +33,14 @@
 
 #include "mbfl_defs.h"
 #include "mbfl_string.h"
+#include <limits.h>
 
 #define MBFL_MEMORY_DEVICE_ALLOC_SIZE	64
+
+#ifndef SIZE_MAX
+#define SIZE_MAX	INT_MAX
+#endif
+
 
 typedef struct _mbfl_memory_device {
 	unsigned char *buffer;
