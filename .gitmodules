@@ -54,3 +54,6 @@
 [submodule "zstd"]
     path = zstd/src
     url = https://github.com/facebook/zstd.git
+[submodule "opam/src"]
+	path = opam/src
+	url = https://github.com/ocaml/opam.git
