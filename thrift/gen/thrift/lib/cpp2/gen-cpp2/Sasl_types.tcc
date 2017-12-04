@@ -7,69 +7,58 @@
 #pragma once
 
 #include "thrift/lib/cpp2/gen-cpp2/Sasl_types.h"
-#include <thrift/lib/cpp/TApplicationException.h>
-#include <folly/io/IOBuf.h>
-#include <folly/io/IOBufQueue.h>
-#include <thrift/lib/cpp/transport/THeader.h>
-#include <thrift/lib/cpp2/server/Cpp2ConnContext.h>
-#include <thrift/lib/cpp2/GeneratedCodeHelper.h>
+
 #include <thrift/lib/cpp2/GeneratedSerializationCodeHelper.h>
 
 #include <thrift/lib/cpp2/protocol/BinaryProtocol.h>
 #include <thrift/lib/cpp2/protocol/CompactProtocol.h>
+
 namespace apache { namespace thrift { namespace sasl {
 
 template <class Protocol_>
 uint32_t SaslOutcome::read(Protocol_* iprot) {
   uint32_t xfer = 0;
-  std::string fname;
-  apache::thrift::protocol::TType ftype;
+  std::string _fname;
+  apache::thrift::protocol::TType _ftype;
   int16_t fid;
 
-  xfer += iprot->readStructBegin(fname);
+  xfer += iprot->readStructBegin(_fname);
 
   using apache::thrift::TProtocolException;
 
 
   while (true) {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    xfer += iprot->readFieldBegin(_fname, _ftype, fid);
+    if (_ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
-    if (fid == std::numeric_limits<int16_t>::min()) {
-      if (fname == "success") {
-        fid = 1;
-        ftype = apache::thrift::protocol::T_BOOL;
-      }
-      else if (fname == "additional_data") {
-        fid = 2;
-        ftype = apache::thrift::protocol::T_STRING;
-      }
+    if (iprot->kUsesFieldNames()) {
+      this->translateFieldName(_fname, fid, _ftype);
     }
     switch (fid) {
       case 1:
       {
-        if (ftype == apache::thrift::protocol::T_BOOL) {
+        if (_ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool(this->success);
           this->__isset.success = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       case 2:
       {
-        if (ftype == apache::thrift::protocol::T_STRING) {
+        if (_ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->additional_data);
           this->__isset.additional_data = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       default:
       {
-        xfer += iprot->skip(ftype);
+        xfer += iprot->skip(_ftype);
         break;
       }
     }
@@ -126,62 +115,52 @@ uint32_t SaslOutcome::write(Protocol_* prot_) const {
 }
 
 }}} // apache::thrift::sasl
-namespace apache { namespace thrift {
-
-}} // apache::thrift
 namespace apache { namespace thrift { namespace sasl {
 
 template <class Protocol_>
 uint32_t SaslRequest::read(Protocol_* iprot) {
   uint32_t xfer = 0;
-  std::string fname;
-  apache::thrift::protocol::TType ftype;
+  std::string _fname;
+  apache::thrift::protocol::TType _ftype;
   int16_t fid;
 
-  xfer += iprot->readStructBegin(fname);
+  xfer += iprot->readStructBegin(_fname);
 
   using apache::thrift::TProtocolException;
 
 
   while (true) {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    xfer += iprot->readFieldBegin(_fname, _ftype, fid);
+    if (_ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
-    if (fid == std::numeric_limits<int16_t>::min()) {
-      if (fname == "response") {
-        fid = 1;
-        ftype = apache::thrift::protocol::T_STRING;
-      }
-      else if (fname == "abort") {
-        fid = 2;
-        ftype = apache::thrift::protocol::T_BOOL;
-      }
+    if (iprot->kUsesFieldNames()) {
+      this->translateFieldName(_fname, fid, _ftype);
     }
     switch (fid) {
       case 1:
       {
-        if (ftype == apache::thrift::protocol::T_STRING) {
+        if (_ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->response);
           this->__isset.response = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       case 2:
       {
-        if (ftype == apache::thrift::protocol::T_BOOL) {
+        if (_ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool(this->abort);
           this->__isset.abort = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       default:
       {
-        xfer += iprot->skip(ftype);
+        xfer += iprot->skip(_ftype);
         break;
       }
     }
@@ -244,83 +223,62 @@ uint32_t SaslRequest::write(Protocol_* prot_) const {
 }
 
 }}} // apache::thrift::sasl
-namespace apache { namespace thrift {
-
-}} // apache::thrift
 namespace apache { namespace thrift { namespace sasl {
-
-template <typename T_SaslReply_outcome_struct_setter>
- ::apache::thrift::sasl::SaslOutcome& SaslReply::set_outcome(T_SaslReply_outcome_struct_setter&& outcome_) {
-  outcome = std::forward<T_SaslReply_outcome_struct_setter>(outcome_);
-  __isset.outcome = true;
-  return outcome;
-}
 
 template <class Protocol_>
 uint32_t SaslReply::read(Protocol_* iprot) {
   uint32_t xfer = 0;
-  std::string fname;
-  apache::thrift::protocol::TType ftype;
+  std::string _fname;
+  apache::thrift::protocol::TType _ftype;
   int16_t fid;
 
-  xfer += iprot->readStructBegin(fname);
+  xfer += iprot->readStructBegin(_fname);
 
   using apache::thrift::TProtocolException;
 
 
   while (true) {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    xfer += iprot->readFieldBegin(_fname, _ftype, fid);
+    if (_ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
-    if (fid == std::numeric_limits<int16_t>::min()) {
-      if (fname == "challenge") {
-        fid = 1;
-        ftype = apache::thrift::protocol::T_STRING;
-      }
-      else if (fname == "outcome") {
-        fid = 2;
-        ftype = apache::thrift::protocol::T_STRUCT;
-      }
-      else if (fname == "mechanism") {
-        fid = 3;
-        ftype = apache::thrift::protocol::T_STRING;
-      }
+    if (iprot->kUsesFieldNames()) {
+      this->translateFieldName(_fname, fid, _ftype);
     }
     switch (fid) {
       case 1:
       {
-        if (ftype == apache::thrift::protocol::T_STRING) {
+        if (_ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->challenge);
           this->__isset.challenge = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       case 2:
       {
-        if (ftype == apache::thrift::protocol::T_STRUCT) {
+        if (_ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += ::apache::thrift::Cpp2Ops<  ::apache::thrift::sasl::SaslOutcome>::read(iprot, &this->outcome);
           this->__isset.outcome = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       case 3:
       {
-        if (ftype == apache::thrift::protocol::T_STRING) {
+        if (_ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->mechanism);
           this->__isset.mechanism = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       default:
       {
-        xfer += iprot->skip(ftype);
+        xfer += iprot->skip(_ftype);
         break;
       }
     }
@@ -396,91 +354,63 @@ uint32_t SaslReply::write(Protocol_* prot_) const {
 }
 
 }}} // apache::thrift::sasl
-namespace apache { namespace thrift {
-
-}} // apache::thrift
 namespace apache { namespace thrift { namespace sasl {
-
-template <typename T_SaslStart_request_struct_setter>
- ::apache::thrift::sasl::SaslRequest& SaslStart::set_request(T_SaslStart_request_struct_setter&& request_) {
-  request = std::forward<T_SaslStart_request_struct_setter>(request_);
-  __isset.request = true;
-  return request;
-}
-
-template <typename T_SaslStart_mechanisms_struct_setter>
-std::vector<std::string>& SaslStart::set_mechanisms(T_SaslStart_mechanisms_struct_setter&& mechanisms_) {
-  mechanisms = std::forward<T_SaslStart_mechanisms_struct_setter>(mechanisms_);
-  __isset.mechanisms = true;
-  return mechanisms;
-}
 
 template <class Protocol_>
 uint32_t SaslStart::read(Protocol_* iprot) {
   uint32_t xfer = 0;
-  std::string fname;
-  apache::thrift::protocol::TType ftype;
+  std::string _fname;
+  apache::thrift::protocol::TType _ftype;
   int16_t fid;
 
-  xfer += iprot->readStructBegin(fname);
+  xfer += iprot->readStructBegin(_fname);
 
   using apache::thrift::TProtocolException;
 
 
   while (true) {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    xfer += iprot->readFieldBegin(_fname, _ftype, fid);
+    if (_ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
-    if (fid == std::numeric_limits<int16_t>::min()) {
-      if (fname == "mechanism") {
-        fid = 1;
-        ftype = apache::thrift::protocol::T_STRING;
-      }
-      else if (fname == "request") {
-        fid = 2;
-        ftype = apache::thrift::protocol::T_STRUCT;
-      }
-      else if (fname == "mechanisms") {
-        fid = 3;
-        ftype = apache::thrift::protocol::T_LIST;
-      }
+    if (iprot->kUsesFieldNames()) {
+      this->translateFieldName(_fname, fid, _ftype);
     }
     switch (fid) {
       case 1:
       {
-        if (ftype == apache::thrift::protocol::T_STRING) {
+        if (_ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->mechanism);
           this->__isset.mechanism = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       case 2:
       {
-        if (ftype == apache::thrift::protocol::T_STRUCT) {
+        if (_ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += ::apache::thrift::Cpp2Ops<  ::apache::thrift::sasl::SaslRequest>::read(iprot, &this->request);
           this->__isset.request = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       case 3:
       {
-        if (ftype == apache::thrift::protocol::T_LIST) {
+        if (_ftype == apache::thrift::protocol::T_LIST) {
           this->mechanisms = std::vector<std::string>();
           xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::string>, std::vector<std::string>>::read(*iprot, this->mechanisms);
           this->__isset.mechanisms = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       default:
       {
-        xfer += iprot->skip(ftype);
+        xfer += iprot->skip(_ftype);
         break;
       }
     }
@@ -548,11 +478,5 @@ uint32_t SaslStart::write(Protocol_* prot_) const {
   xfer += prot_->writeStructEnd();
   return xfer;
 }
-
-}}} // apache::thrift::sasl
-namespace apache { namespace thrift {
-
-}} // apache::thrift
-namespace apache { namespace thrift { namespace sasl {
 
 }}} // apache::thrift::sasl

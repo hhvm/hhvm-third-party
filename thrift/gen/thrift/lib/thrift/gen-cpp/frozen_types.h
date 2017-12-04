@@ -23,7 +23,7 @@ class Schema;
 
 void swap(Field &a, Field &b);
 
-class Field : public apache::thrift::TStructType<Field> {
+class Field final : public apache::thrift::TStructType<Field> {
  public:
 
   Field() : layoutId(0), offset(0) {
@@ -61,9 +61,6 @@ class Field : public apache::thrift::TStructType<Field> {
   Field& operator=(Field&&) = default;
 
   void __clear();
-
-  virtual ~Field() throw() {}
-
   int16_t layoutId;
   int16_t offset;
 
@@ -87,6 +84,10 @@ class Field : public apache::thrift::TStructType<Field> {
   uint32_t read(apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype);
 };
 
 class Field;
@@ -94,7 +95,7 @@ void merge(const Field& from, Field& to);
 void merge(Field&& from, Field& to);
 void swap(Layout &a, Layout &b);
 
-class Layout : public apache::thrift::TStructType<Layout> {
+class Layout final : public apache::thrift::TStructType<Layout> {
  public:
 
   Layout() : size(0), bits(0) {
@@ -158,9 +159,6 @@ class Layout : public apache::thrift::TStructType<Layout> {
   Layout& operator=(Layout&&) = default;
 
   void __clear();
-
-  virtual ~Layout() throw() {}
-
   int32_t size;
   int16_t bits;
   std::map<int16_t, Field>  fields;
@@ -190,6 +188,10 @@ class Layout : public apache::thrift::TStructType<Layout> {
   uint32_t read(apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype);
 };
 
 class Layout;
@@ -197,7 +199,7 @@ void merge(const Layout& from, Layout& to);
 void merge(Layout&& from, Layout& to);
 void swap(Schema &a, Schema &b);
 
-class Schema : public apache::thrift::TStructType<Schema> {
+class Schema final : public apache::thrift::TStructType<Schema> {
  public:
 
   Schema() : fileVersion(0), relaxTypeChecks(false), rootLayout(0) {
@@ -261,9 +263,6 @@ class Schema : public apache::thrift::TStructType<Schema> {
   Schema& operator=(Schema&&) = default;
 
   void __clear();
-
-  virtual ~Schema() throw() {}
-
   int32_t fileVersion;
   bool relaxTypeChecks;
   std::map<int16_t, Layout>  layouts;
@@ -293,6 +292,10 @@ class Schema : public apache::thrift::TStructType<Schema> {
   uint32_t read(apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype);
 };
 
 class Schema;

@@ -4,17 +4,56 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
  *  @generated
  */
-#include "thrift/lib/cpp2/gen-cpp2/SaslAuthService.h"
 
-#include "thrift/lib/cpp2/gen-cpp2/SaslAuthService.tcc"
+#include "thrift/lib/cpp2/gen-cpp2/SaslAuthServiceAsyncClient.h"
 
+#include <folly/io/IOBuf.h>
+#include <folly/io/IOBufQueue.h>
+#include <thrift/lib/cpp/TApplicationException.h>
+#include <thrift/lib/cpp/transport/THeader.h>
 #include <thrift/lib/cpp2/protocol/BinaryProtocol.h>
 #include <thrift/lib/cpp2/protocol/CompactProtocol.h>
-namespace apache { namespace thrift { namespace sasl {
+#include <thrift/lib/cpp2/server/Cpp2ConnContext.h>
+#include <thrift/lib/cpp2/GeneratedCodeHelper.h>
+#include <thrift/lib/cpp2/GeneratedSerializationCodeHelper.h>
 
-const char* SaslAuthServiceAsyncClient::getServiceName() {
-  return "SaslAuthService";
+namespace apache { namespace thrift { namespace sasl {
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, apache::thrift::protocol::T_STRUCT,  ::apache::thrift::sasl::SaslStart*>> SaslAuthService_authFirstRequest_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, apache::thrift::protocol::T_STRUCT,  ::apache::thrift::sasl::SaslReply*>> SaslAuthService_authFirstRequest_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, apache::thrift::protocol::T_STRUCT,  ::apache::thrift::sasl::SaslRequest*>> SaslAuthService_authNextRequest_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, apache::thrift::protocol::T_STRUCT,  ::apache::thrift::sasl::SaslReply*>> SaslAuthService_authNextRequest_presult;
+
+template <typename Protocol_>
+void SaslAuthServiceAsyncClient::authFirstRequestT(Protocol_* prot, bool useSync, apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslStart& saslStart) {
+  auto header = std::make_shared<apache::thrift::transport::THeader>(apache::thrift::transport::THeader::ALLOW_BIG_FRAMES);
+  header->setProtocolId(getChannel()->getProtocolId());
+  header->setHeaders(rpcOptions.releaseWriteHeaders());
+  connectionContext_->setRequestHeader(header.get());
+  std::unique_ptr<apache::thrift::ContextStack> ctx = this->getContextStack(this->getServiceName(), "SaslAuthService.authFirstRequest", connectionContext_.get());
+  SaslAuthService_authFirstRequest_pargs args;
+  args.get<0>().value = const_cast< ::apache::thrift::sasl::SaslStart*>(&saslStart);
+  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
+  auto writer = [&](Protocol_* p) { args.write(p); };
+  apache::thrift::clientSendT<Protocol_>(prot, rpcOptions, std::move(callback), std::move(ctx), header, channel_.get(), "authFirstRequest", writer, sizer, false, useSync);
+  connectionContext_->setRequestHeader(nullptr);
 }
+
+template <typename Protocol_>
+void SaslAuthServiceAsyncClient::authNextRequestT(Protocol_* prot, bool useSync, apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslRequest& saslRequest) {
+  auto header = std::make_shared<apache::thrift::transport::THeader>(apache::thrift::transport::THeader::ALLOW_BIG_FRAMES);
+  header->setProtocolId(getChannel()->getProtocolId());
+  header->setHeaders(rpcOptions.releaseWriteHeaders());
+  connectionContext_->setRequestHeader(header.get());
+  std::unique_ptr<apache::thrift::ContextStack> ctx = this->getContextStack(this->getServiceName(), "SaslAuthService.authNextRequest", connectionContext_.get());
+  SaslAuthService_authNextRequest_pargs args;
+  args.get<0>().value = const_cast< ::apache::thrift::sasl::SaslRequest*>(&saslRequest);
+  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
+  auto writer = [&](Protocol_* p) { args.write(p); };
+  apache::thrift::clientSendT<Protocol_>(prot, rpcOptions, std::move(callback), std::move(ctx), header, channel_.get(), "authNextRequest", writer, sizer, false, useSync);
+  connectionContext_->setRequestHeader(nullptr);
+}
+
+
 
 void SaslAuthServiceAsyncClient::authFirstRequest(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslStart& saslStart) {
   ::apache::thrift::RpcOptions rpcOptions;
@@ -41,7 +80,7 @@ void SaslAuthServiceAsyncClient::authFirstRequestImpl(bool useSync, apache::thri
     }
     default:
     {
-      throw apache::thrift::TApplicationException("Could not find Protocol");
+      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
     }
   }
 }
@@ -62,7 +101,7 @@ void SaslAuthServiceAsyncClient::sync_authFirstRequest(apache::thrift::RpcOption
   };
   if (!_returnState.buf()) {
     assert(_returnState.exception());
-    std::rethrow_exception(_returnState.exception());
+    _returnState.exception().throw_exception();
   }
   recv_authFirstRequest(_return, _returnState);
 }
@@ -93,23 +132,27 @@ void SaslAuthServiceAsyncClient::authFirstRequest(folly::Function<void (::apache
 }
 
 folly::exception_wrapper SaslAuthServiceAsyncClient::recv_wrapped_authFirstRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state) {
-  auto ew = state.exceptionWrapper();
-  if (ew) {
-    return ew;
+  if (state.isException()) {
+    return std::move(state.exception());
   }
   if (!state.buf()) {
     return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
   }
-  switch(state.protocolId()) {
+
+  using result = SaslAuthService_authFirstRequest_presult;
+  constexpr auto const fname = "authFirstRequest";
+  switch (state.protocolId()) {
     case apache::thrift::protocol::T_BINARY_PROTOCOL:
     {
       apache::thrift::BinaryProtocolReader reader;
-      return recv_wrapped_authFirstRequestT(&reader, _return, state);
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
     }
     case apache::thrift::protocol::T_COMPACT_PROTOCOL:
     {
       apache::thrift::CompactProtocolReader reader;
-      return recv_wrapped_authFirstRequestT(&reader, _return, state);
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
     }
     default:
     {
@@ -158,7 +201,7 @@ void SaslAuthServiceAsyncClient::authNextRequestImpl(bool useSync, apache::thrif
     }
     default:
     {
-      throw apache::thrift::TApplicationException("Could not find Protocol");
+      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
     }
   }
 }
@@ -179,7 +222,7 @@ void SaslAuthServiceAsyncClient::sync_authNextRequest(apache::thrift::RpcOptions
   };
   if (!_returnState.buf()) {
     assert(_returnState.exception());
-    std::rethrow_exception(_returnState.exception());
+    _returnState.exception().throw_exception();
   }
   recv_authNextRequest(_return, _returnState);
 }
@@ -210,23 +253,27 @@ void SaslAuthServiceAsyncClient::authNextRequest(folly::Function<void (::apache:
 }
 
 folly::exception_wrapper SaslAuthServiceAsyncClient::recv_wrapped_authNextRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state) {
-  auto ew = state.exceptionWrapper();
-  if (ew) {
-    return ew;
+  if (state.isException()) {
+    return std::move(state.exception());
   }
   if (!state.buf()) {
     return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
   }
-  switch(state.protocolId()) {
+
+  using result = SaslAuthService_authNextRequest_presult;
+  constexpr auto const fname = "authNextRequest";
+  switch (state.protocolId()) {
     case apache::thrift::protocol::T_BINARY_PROTOCOL:
     {
       apache::thrift::BinaryProtocolReader reader;
-      return recv_wrapped_authNextRequestT(&reader, _return, state);
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
     }
     case apache::thrift::protocol::T_COMPACT_PROTOCOL:
     {
       apache::thrift::CompactProtocolReader reader;
-      return recv_wrapped_authNextRequestT(&reader, _return, state);
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
     }
     default:
     {

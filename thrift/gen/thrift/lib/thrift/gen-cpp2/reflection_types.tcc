@@ -11,8 +11,6 @@
 #include <folly/io/IOBuf.h>
 #include <folly/io/IOBufQueue.h>
 #include <thrift/lib/cpp/transport/THeader.h>
-#include <thrift/lib/cpp2/server/Cpp2ConnContext.h>
-#include <thrift/lib/cpp2/GeneratedCodeHelper.h>
 #include <thrift/lib/cpp2/GeneratedSerializationCodeHelper.h>
 
 #include <thrift/lib/cpp2/protocol/BinaryProtocol.h>
@@ -23,97 +21,78 @@ template <class Protocol_>
 uint32_t StructField_read(Protocol_* iprot, StructField* obj) {
   (void)obj;
   uint32_t xfer = 0;
-  std::string fname;
-  apache::thrift::protocol::TType ftype;
+  std::string _fname;
+  apache::thrift::protocol::TType _ftype;
   int16_t fid;
 
-  xfer += iprot->readStructBegin(fname);
+  xfer += iprot->readStructBegin(_fname);
 
   using apache::thrift::TProtocolException;
 
 
   while (true) {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    xfer += iprot->readFieldBegin(_fname, _ftype, fid);
+    if (_ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
-    if (fid == std::numeric_limits<int16_t>::min()) {
-      if (fname == "isRequired") {
-        fid = 1;
-        ftype = apache::thrift::protocol::T_BOOL;
-      }
-      else if (fname == "type") {
-        fid = 2;
-        ftype = apache::thrift::protocol::T_I64;
-      }
-      else if (fname == "name") {
-        fid = 3;
-        ftype = apache::thrift::protocol::T_STRING;
-      }
-      else if (fname == "annotations") {
-        fid = 4;
-        ftype = apache::thrift::protocol::T_MAP;
-      }
-      else if (fname == "order") {
-        fid = 5;
-        ftype = apache::thrift::protocol::T_I16;
-      }
+    if (iprot->kUsesFieldNames()) {
+      obj->translateFieldName(_fname, fid, _ftype);
     }
     switch (fid) {
       case 1:
       {
-        if (ftype == apache::thrift::protocol::T_BOOL) {
+        if (_ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool(obj->isRequired);
           obj->__isset.isRequired = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       case 2:
       {
-        if (ftype == apache::thrift::protocol::T_I64) {
+        if (_ftype == apache::thrift::protocol::T_I64) {
           xfer += iprot->readI64(obj->type);
           obj->__isset.type = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       case 3:
       {
-        if (ftype == apache::thrift::protocol::T_STRING) {
+        if (_ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(obj->name);
           obj->__isset.name = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       case 4:
       {
-        if (ftype == apache::thrift::protocol::T_MAP) {
+        if (_ftype == apache::thrift::protocol::T_MAP) {
           obj->annotations = std::unordered_map<std::string, std::string>();
           xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::string>, std::unordered_map<std::string, std::string>>::read(*iprot, obj->annotations);
           obj->__isset.annotations = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       case 5:
       {
-        if (ftype == apache::thrift::protocol::T_I16) {
+        if (_ftype == apache::thrift::protocol::T_I16) {
           xfer += iprot->readI16(obj->order);
           obj->__isset.order = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       default:
       {
-        xfer += iprot->skip(ftype);
+        xfer += iprot->skip(_ftype);
         break;
       }
     }
@@ -203,98 +182,79 @@ template <class Protocol_>
 uint32_t DataType_read(Protocol_* iprot, DataType* obj) {
   (void)obj;
   uint32_t xfer = 0;
-  std::string fname;
-  apache::thrift::protocol::TType ftype;
+  std::string _fname;
+  apache::thrift::protocol::TType _ftype;
   int16_t fid;
 
-  xfer += iprot->readStructBegin(fname);
+  xfer += iprot->readStructBegin(_fname);
 
   using apache::thrift::TProtocolException;
 
 
   while (true) {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    xfer += iprot->readFieldBegin(_fname, _ftype, fid);
+    if (_ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
-    if (fid == std::numeric_limits<int16_t>::min()) {
-      if (fname == "name") {
-        fid = 1;
-        ftype = apache::thrift::protocol::T_STRING;
-      }
-      else if (fname == "fields") {
-        fid = 2;
-        ftype = apache::thrift::protocol::T_MAP;
-      }
-      else if (fname == "mapKeyType") {
-        fid = 3;
-        ftype = apache::thrift::protocol::T_I64;
-      }
-      else if (fname == "valueType") {
-        fid = 4;
-        ftype = apache::thrift::protocol::T_I64;
-      }
-      else if (fname == "enumValues") {
-        fid = 5;
-        ftype = apache::thrift::protocol::T_MAP;
-      }
+    if (iprot->kUsesFieldNames()) {
+      obj->translateFieldName(_fname, fid, _ftype);
     }
     switch (fid) {
       case 1:
       {
-        if (ftype == apache::thrift::protocol::T_STRING) {
+        if (_ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(obj->name);
           obj->__isset.name = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       case 2:
       {
-        if (ftype == apache::thrift::protocol::T_MAP) {
+        if (_ftype == apache::thrift::protocol::T_MAP) {
           obj->fields = std::unordered_map<int16_t,  ::apache::thrift::reflection::cpp2::StructField>();
           xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>, std::unordered_map<int16_t,  ::apache::thrift::reflection::cpp2::StructField>>::read(*iprot, obj->fields);
           obj->__isset.fields = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       case 3:
       {
-        if (ftype == apache::thrift::protocol::T_I64) {
+        if (_ftype == apache::thrift::protocol::T_I64) {
           xfer += iprot->readI64(obj->mapKeyType);
           obj->__isset.mapKeyType = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       case 4:
       {
-        if (ftype == apache::thrift::protocol::T_I64) {
+        if (_ftype == apache::thrift::protocol::T_I64) {
           xfer += iprot->readI64(obj->valueType);
           obj->__isset.valueType = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       case 5:
       {
-        if (ftype == apache::thrift::protocol::T_MAP) {
+        if (_ftype == apache::thrift::protocol::T_MAP) {
           obj->enumValues = std::unordered_map<std::string, int32_t>();
           xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<std::string, int32_t>>::read(*iprot, obj->enumValues);
           obj->__isset.enumValues = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       default:
       {
-        xfer += iprot->skip(ftype);
+        xfer += iprot->skip(_ftype);
         break;
       }
     }
@@ -402,56 +362,49 @@ template <class Protocol_>
 uint32_t Schema_read(Protocol_* iprot, Schema* obj) {
   (void)obj;
   uint32_t xfer = 0;
-  std::string fname;
-  apache::thrift::protocol::TType ftype;
+  std::string _fname;
+  apache::thrift::protocol::TType _ftype;
   int16_t fid;
 
-  xfer += iprot->readStructBegin(fname);
+  xfer += iprot->readStructBegin(_fname);
 
   using apache::thrift::TProtocolException;
 
 
   while (true) {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    xfer += iprot->readFieldBegin(_fname, _ftype, fid);
+    if (_ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
-    if (fid == std::numeric_limits<int16_t>::min()) {
-      if (fname == "dataTypes") {
-        fid = 1;
-        ftype = apache::thrift::protocol::T_MAP;
-      }
-      else if (fname == "names") {
-        fid = 2;
-        ftype = apache::thrift::protocol::T_MAP;
-      }
+    if (iprot->kUsesFieldNames()) {
+      obj->translateFieldName(_fname, fid, _ftype);
     }
     switch (fid) {
       case 1:
       {
-        if (ftype == apache::thrift::protocol::T_MAP) {
+        if (_ftype == apache::thrift::protocol::T_MAP) {
           obj->dataTypes = std::unordered_map<int64_t,  ::apache::thrift::reflection::cpp2::DataType>();
           xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>, std::unordered_map<int64_t,  ::apache::thrift::reflection::cpp2::DataType>>::read(*iprot, obj->dataTypes);
           obj->__isset.dataTypes = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       case 2:
       {
-        if (ftype == apache::thrift::protocol::T_MAP) {
+        if (_ftype == apache::thrift::protocol::T_MAP) {
           obj->names = std::unordered_map<std::string, int64_t>();
           xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<std::string, int64_t>>::read(*iprot, obj->names);
           obj->__isset.names = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       }
       default:
       {
-        xfer += iprot->skip(ftype);
+        xfer += iprot->skip(_ftype);
         break;
       }
     }

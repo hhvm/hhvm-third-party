@@ -12,6 +12,7 @@ HHVM_REMOVE_MATCHES_FROM_LISTS(files MATCHES
   "/lib/d/"
   "/lib/node/"
   "/lib/cpp2/(async|fatal|security|server)/"
+  "/lib/cpp2/transport/core/testutil/"
   "/lib/py/"
   "/lib/php/"
   "/tutorial/"

@@ -6,35 +6,38 @@
  */
 #pragma once
 
+#include <thrift/lib/cpp2/GeneratedHeaderHelper.h>
 #include <thrift/lib/cpp2/Thrift.h>
 #include <thrift/lib/cpp2/protocol/Protocol.h>
-#include <folly/io/IOBuf.h>
-#include <folly/io/Cursor.h>
-
-#include <thrift/lib/cpp2/GeneratedHeaderHelper.h>
 
 
+// BEGIN declare_enums
 
+// END declare_enums
+// BEGIN struct_indirection
+
+// END struct_indirection
+// BEGIN forward_declare
 namespace apache { namespace thrift { namespace sasl {
-
 class SaslOutcome;
 class SaslRequest;
 class SaslReply;
 class SaslStart;
+}}} // apache::thrift::sasl
+// END forward_declare
+// BEGIN typedefs
 
-class SaslOutcome : private apache::thrift::detail::st::ComparisonOperators<SaslOutcome> {
+// END typedefs
+// BEGIN hash_and_equal_to
+// END hash_and_equal_to
+namespace apache { namespace thrift { namespace sasl {
+class SaslOutcome final : private apache::thrift::detail::st::ComparisonOperators<SaslOutcome> {
  public:
 
   SaslOutcome() :
       success(0) {}
-  // FragileConstructor for use in initialization lists only
-
-  SaslOutcome(apache::thrift::FragileConstructor, bool success__arg, std::string additional_data__arg) :
-      success(std::move(success__arg)),
-      additional_data(std::move(additional_data__arg)) {
-    __isset.success = true;
-    __isset.additional_data = true;
-  }
+  // FragileConstructor for use in initialization lists only.
+  SaslOutcome(apache::thrift::FragileConstructor, bool success__arg, std::string additional_data__arg);
   template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
   SaslOutcome(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
     SaslOutcome(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
@@ -58,21 +61,13 @@ class SaslOutcome : private apache::thrift::detail::st::ComparisonOperators<Sasl
 
   SaslOutcome& operator=(const SaslOutcome&) = default;
   void __clear();
-
-  virtual ~SaslOutcome() throw() {}
-
   bool success;
   std::string additional_data;
 
   struct __isset {
-    void __clear() {
-      success = false;
-      additional_data = false;
-    }
-
-    bool success = false;
-    bool additional_data = false;
-  } __isset;
+    bool success;
+    bool additional_data;
+  } __isset = {};
   bool operator==(const SaslOutcome& rhs) const;
   bool operator < (const SaslOutcome& rhs) const;
 
@@ -110,6 +105,9 @@ class SaslOutcome : private apache::thrift::detail::st::ComparisonOperators<Sasl
   uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
+
+ private:
+  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
 };
 
 void swap(SaslOutcome& a, SaslOutcome& b);
@@ -151,20 +149,13 @@ template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::
 
 }} // apache::thrift
 namespace apache { namespace thrift { namespace sasl {
-
-class SaslRequest : private apache::thrift::detail::st::ComparisonOperators<SaslRequest> {
+class SaslRequest final : private apache::thrift::detail::st::ComparisonOperators<SaslRequest> {
  public:
 
   SaslRequest() :
       abort(0) {}
-  // FragileConstructor for use in initialization lists only
-
-  SaslRequest(apache::thrift::FragileConstructor, std::string response__arg, bool abort__arg) :
-      response(std::move(response__arg)),
-      abort(std::move(abort__arg)) {
-    __isset.response = true;
-    __isset.abort = true;
-  }
+  // FragileConstructor for use in initialization lists only.
+  SaslRequest(apache::thrift::FragileConstructor, std::string response__arg, bool abort__arg);
   template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
   SaslRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
     SaslRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
@@ -188,21 +179,13 @@ class SaslRequest : private apache::thrift::detail::st::ComparisonOperators<Sasl
 
   SaslRequest& operator=(const SaslRequest&) = default;
   void __clear();
-
-  virtual ~SaslRequest() throw() {}
-
   std::string response;
   bool abort;
 
   struct __isset {
-    void __clear() {
-      response = false;
-      abort = false;
-    }
-
-    bool response = false;
-    bool abort = false;
-  } __isset;
+    bool response;
+    bool abort;
+  } __isset = {};
   bool operator==(const SaslRequest& rhs) const;
   bool operator < (const SaslRequest& rhs) const;
 
@@ -245,6 +228,9 @@ class SaslRequest : private apache::thrift::detail::st::ComparisonOperators<Sasl
   uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
+
+ private:
+  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
 };
 
 void swap(SaslRequest& a, SaslRequest& b);
@@ -286,21 +272,12 @@ template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::
 
 }} // apache::thrift
 namespace apache { namespace thrift { namespace sasl {
-
-class SaslReply : private apache::thrift::detail::st::ComparisonOperators<SaslReply> {
+class SaslReply final : private apache::thrift::detail::st::ComparisonOperators<SaslReply> {
  public:
 
   SaslReply() {}
-  // FragileConstructor for use in initialization lists only
-
-  SaslReply(apache::thrift::FragileConstructor, std::string challenge__arg,  ::apache::thrift::sasl::SaslOutcome outcome__arg, std::string mechanism__arg) :
-      challenge(std::move(challenge__arg)),
-      outcome(std::move(outcome__arg)),
-      mechanism(std::move(mechanism__arg)) {
-    __isset.challenge = true;
-    __isset.outcome = true;
-    __isset.mechanism = true;
-  }
+  // FragileConstructor for use in initialization lists only.
+  SaslReply(apache::thrift::FragileConstructor, std::string challenge__arg,  ::apache::thrift::sasl::SaslOutcome outcome__arg, std::string mechanism__arg);
   template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
   SaslReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
     SaslReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
@@ -331,24 +308,15 @@ class SaslReply : private apache::thrift::detail::st::ComparisonOperators<SaslRe
 
   SaslReply& operator=(const SaslReply&) = default;
   void __clear();
-
-  virtual ~SaslReply() throw() {}
-
   std::string challenge;
    ::apache::thrift::sasl::SaslOutcome outcome;
   std::string mechanism;
 
   struct __isset {
-    void __clear() {
-      challenge = false;
-      outcome = false;
-      mechanism = false;
-    }
-
-    bool challenge = false;
-    bool outcome = false;
-    bool mechanism = false;
-  } __isset;
+    bool challenge;
+    bool outcome;
+    bool mechanism;
+  } __isset = {};
   bool operator==(const SaslReply& rhs) const;
   bool operator < (const SaslReply& rhs) const;
 
@@ -370,8 +338,13 @@ class SaslReply : private apache::thrift::detail::st::ComparisonOperators<SaslRe
   const  ::apache::thrift::sasl::SaslOutcome* get_outcome() const&;
    ::apache::thrift::sasl::SaslOutcome* get_outcome() &;
    ::apache::thrift::sasl::SaslOutcome* get_outcome() && = delete;
+
   template <typename T_SaslReply_outcome_struct_setter>
-   ::apache::thrift::sasl::SaslOutcome& set_outcome(T_SaslReply_outcome_struct_setter&& outcome_);
+   ::apache::thrift::sasl::SaslOutcome& set_outcome(T_SaslReply_outcome_struct_setter&& outcome_) {
+    outcome = std::forward<T_SaslReply_outcome_struct_setter>(outcome_);
+    __isset.outcome = true;
+    return outcome;
+  }
 
   const std::string* get_mechanism() const& {
     return __isset.mechanism ? std::addressof(mechanism) : nullptr;
@@ -397,6 +370,9 @@ class SaslReply : private apache::thrift::detail::st::ComparisonOperators<SaslRe
   uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
+
+ private:
+  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
 };
 
 void swap(SaslReply& a, SaslReply& b);
@@ -438,21 +414,12 @@ template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::
 
 }} // apache::thrift
 namespace apache { namespace thrift { namespace sasl {
-
-class SaslStart : private apache::thrift::detail::st::ComparisonOperators<SaslStart> {
+class SaslStart final : private apache::thrift::detail::st::ComparisonOperators<SaslStart> {
  public:
 
   SaslStart() {}
-  // FragileConstructor for use in initialization lists only
-
-  SaslStart(apache::thrift::FragileConstructor, std::string mechanism__arg,  ::apache::thrift::sasl::SaslRequest request__arg, std::vector<std::string> mechanisms__arg) :
-      mechanism(std::move(mechanism__arg)),
-      request(std::move(request__arg)),
-      mechanisms(std::move(mechanisms__arg)) {
-    __isset.mechanism = true;
-    __isset.request = true;
-    __isset.mechanisms = true;
-  }
+  // FragileConstructor for use in initialization lists only.
+  SaslStart(apache::thrift::FragileConstructor, std::string mechanism__arg,  ::apache::thrift::sasl::SaslRequest request__arg, std::vector<std::string> mechanisms__arg);
   template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
   SaslStart(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
     SaslStart(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
@@ -483,24 +450,15 @@ class SaslStart : private apache::thrift::detail::st::ComparisonOperators<SaslSt
 
   SaslStart& operator=(const SaslStart&) = default;
   void __clear();
-
-  virtual ~SaslStart() throw() {}
-
   std::string mechanism;
    ::apache::thrift::sasl::SaslRequest request;
   std::vector<std::string> mechanisms;
 
   struct __isset {
-    void __clear() {
-      mechanism = false;
-      request = false;
-      mechanisms = false;
-    }
-
-    bool mechanism = false;
-    bool request = false;
-    bool mechanisms = false;
-  } __isset;
+    bool mechanism;
+    bool request;
+    bool mechanisms;
+  } __isset = {};
   bool operator==(const SaslStart& rhs) const;
   bool operator < (const SaslStart& rhs) const;
 
@@ -521,13 +479,23 @@ class SaslStart : private apache::thrift::detail::st::ComparisonOperators<SaslSt
   const  ::apache::thrift::sasl::SaslRequest* get_request() const&;
    ::apache::thrift::sasl::SaslRequest* get_request() &;
    ::apache::thrift::sasl::SaslRequest* get_request() && = delete;
+
   template <typename T_SaslStart_request_struct_setter>
-   ::apache::thrift::sasl::SaslRequest& set_request(T_SaslStart_request_struct_setter&& request_);
+   ::apache::thrift::sasl::SaslRequest& set_request(T_SaslStart_request_struct_setter&& request_) {
+    request = std::forward<T_SaslStart_request_struct_setter>(request_);
+    __isset.request = true;
+    return request;
+  }
   const std::vector<std::string>* get_mechanisms() const&;
   std::vector<std::string>* get_mechanisms() &;
   std::vector<std::string>* get_mechanisms() && = delete;
+
   template <typename T_SaslStart_mechanisms_struct_setter>
-  std::vector<std::string>& set_mechanisms(T_SaslStart_mechanisms_struct_setter&& mechanisms_);
+  std::vector<std::string>& set_mechanisms(T_SaslStart_mechanisms_struct_setter&& mechanisms_) {
+    mechanisms = std::forward<T_SaslStart_mechanisms_struct_setter>(mechanisms_);
+    __isset.mechanisms = true;
+    return mechanisms;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -537,6 +505,9 @@ class SaslStart : private apache::thrift::detail::st::ComparisonOperators<SaslSt
   uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
+
+ private:
+  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
 };
 
 void swap(SaslStart& a, SaslStart& b);
@@ -577,6 +548,3 @@ template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::
 }
 
 }} // apache::thrift
-namespace apache { namespace thrift { namespace sasl {
-
-}}} // apache::thrift::sasl

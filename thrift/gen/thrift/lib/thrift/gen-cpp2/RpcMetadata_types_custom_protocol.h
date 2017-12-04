@@ -6,6 +6,7 @@
  */
 #pragma once
 
+
 /**
  * This header file includes the tcc files of the corresponding header file
  * and the header files of its dependent types. Include this header file
@@ -13,5 +14,5 @@
  * VirtualProtocol) to read/write thrift structs.
  */
 
-#include "thrift/lib/cpp2/gen-cpp2/SaslAuthService.tcc"
-#include "thrift/lib/cpp2/gen-cpp2/Sasl_types_custom_protocol.h"
+#include "thrift/lib/thrift/gen-cpp2/RpcMetadata_types.tcc"
+

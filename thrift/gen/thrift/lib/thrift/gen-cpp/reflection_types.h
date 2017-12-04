@@ -65,7 +65,7 @@ class Schema;
 
 void swap(StructField &a, StructField &b);
 
-class StructField : public apache::thrift::TStructType<StructField> {
+class StructField final : public apache::thrift::TStructType<StructField> {
  public:
 
   StructField() : isRequired(0), type(0), order(0) {
@@ -142,9 +142,6 @@ class StructField : public apache::thrift::TStructType<StructField> {
   StructField& operator=(StructField&&) = default;
 
   void __clear();
-
-  virtual ~StructField() throw() {}
-
   bool isRequired;
   int64_t type;
   std::string name;
@@ -177,6 +174,10 @@ class StructField : public apache::thrift::TStructType<StructField> {
   uint32_t read(apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype);
 };
 
 class StructField;
@@ -184,7 +185,7 @@ void merge(const StructField& from, StructField& to);
 void merge(StructField&& from, StructField& to);
 void swap(DataType &a, DataType &b);
 
-class DataType : public apache::thrift::TStructType<DataType> {
+class DataType final : public apache::thrift::TStructType<DataType> {
  public:
 
   DataType() : mapKeyType(0), valueType(0) {
@@ -261,9 +262,6 @@ class DataType : public apache::thrift::TStructType<DataType> {
   DataType& operator=(DataType&&) = default;
 
   void __clear();
-
-  virtual ~DataType() throw() {}
-
   std::string name;
   std::unordered_map<int16_t, StructField>  fields;
   int64_t mapKeyType;
@@ -296,6 +294,10 @@ class DataType : public apache::thrift::TStructType<DataType> {
   uint32_t read(apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype);
 };
 
 class DataType;
@@ -303,7 +305,7 @@ void merge(const DataType& from, DataType& to);
 void merge(DataType&& from, DataType& to);
 void swap(Schema &a, Schema &b);
 
-class Schema : public apache::thrift::TStructType<Schema> {
+class Schema final : public apache::thrift::TStructType<Schema> {
  public:
 
   Schema() {
@@ -341,9 +343,6 @@ class Schema : public apache::thrift::TStructType<Schema> {
   Schema& operator=(Schema&&) = default;
 
   void __clear();
-
-  virtual ~Schema() throw() {}
-
   std::unordered_map<int64_t, DataType>  dataTypes;
   std::unordered_map<std::string, int64_t>  names;
 
@@ -367,6 +366,10 @@ class Schema : public apache::thrift::TStructType<Schema> {
   uint32_t read(apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype);
 };
 
 class Schema;

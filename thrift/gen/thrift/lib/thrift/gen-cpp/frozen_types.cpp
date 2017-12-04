@@ -22,14 +22,29 @@ bool Field::operator == (const Field & rhs) const {
   return true;
 }
 
+void Field::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "layoutId") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_I16;
+  }
+  else if (_fname == "offset") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_I16;
+  }
+};
+
 uint32_t Field::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
-  std::string fname;
-  apache::thrift::protocol::TType ftype;
+  std::string _fname;
+  apache::thrift::protocol::TType _ftype;
   int16_t fid;
 
-  xfer += iprot->readStructBegin(fname);
+  xfer += iprot->readStructBegin(_fname);
 
   using apache::thrift::protocol::TProtocolException;
 
@@ -37,30 +52,30 @@ uint32_t Field::read(apache::thrift::protocol::TProtocol* iprot) {
 
   while (true)
   {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    xfer += iprot->readFieldBegin(_fname, _ftype, fid);
+    if (_ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == apache::thrift::protocol::T_I16) {
+        if (_ftype == apache::thrift::protocol::T_I16) {
           xfer += iprot->readI16(this->layoutId);
           this->__isset.layoutId = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       case 2:
-        if (ftype == apache::thrift::protocol::T_I16) {
+        if (_ftype == apache::thrift::protocol::T_I16) {
           xfer += iprot->readI16(this->offset);
           this->__isset.offset = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       default:
-        xfer += iprot->skip(ftype);
+        xfer += iprot->skip(_ftype);
         break;
     }
     xfer += iprot->readFieldEnd();
@@ -131,14 +146,37 @@ bool Layout::operator == (const Layout & rhs) const {
   return true;
 }
 
+void Layout::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "size") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_I32;
+  }
+  else if (_fname == "bits") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_I16;
+  }
+  else if (_fname == "fields") {
+    fid = 3;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+  else if (_fname == "typeName") {
+    fid = 4;
+    _ftype = apache::thrift::protocol::T_STRING;
+  }
+};
+
 uint32_t Layout::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
-  std::string fname;
-  apache::thrift::protocol::TType ftype;
+  std::string _fname;
+  apache::thrift::protocol::TType _ftype;
   int16_t fid;
 
-  xfer += iprot->readStructBegin(fname);
+  xfer += iprot->readStructBegin(_fname);
 
   using apache::thrift::protocol::TProtocolException;
 
@@ -146,36 +184,36 @@ uint32_t Layout::read(apache::thrift::protocol::TProtocol* iprot) {
 
   while (true)
   {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    xfer += iprot->readFieldBegin(_fname, _ftype, fid);
+    if (_ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == apache::thrift::protocol::T_I32) {
+        if (_ftype == apache::thrift::protocol::T_I32) {
           xfer += iprot->readI32(this->size);
           this->__isset.size = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       case 2:
-        if (ftype == apache::thrift::protocol::T_I16) {
+        if (_ftype == apache::thrift::protocol::T_I16) {
           xfer += iprot->readI16(this->bits);
           this->__isset.bits = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       case 3:
-        if (ftype == apache::thrift::protocol::T_MAP) {
+        if (_ftype == apache::thrift::protocol::T_MAP) {
           {
             this->fields.clear();
             uint32_t _size2;
             bool _sizeUnknown3;
-            apache::thrift::protocol::TType _ktype4;
-            apache::thrift::protocol::TType _vtype5;
+            apache::thrift::protocol::TType _ktype4 = apache::thrift::protocol::T_STOP;
+            apache::thrift::protocol::TType _vtype5 = apache::thrift::protocol::T_STOP;
             xfer += iprot->readMapBegin(_ktype4, _vtype5, _size2, _sizeUnknown3);
             if (!_sizeUnknown3) {
               uint32_t _i8;
@@ -199,19 +237,19 @@ uint32_t Layout::read(apache::thrift::protocol::TProtocol* iprot) {
           }
           this->__isset.fields = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       case 4:
-        if (ftype == apache::thrift::protocol::T_STRING) {
+        if (_ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->typeName);
           this->__isset.typeName = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       default:
-        xfer += iprot->skip(ftype);
+        xfer += iprot->skip(_ftype);
         break;
     }
     xfer += iprot->readFieldEnd();
@@ -313,14 +351,37 @@ bool Schema::operator == (const Schema & rhs) const {
   return true;
 }
 
+void Schema::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "fileVersion") {
+    fid = 4;
+    _ftype = apache::thrift::protocol::T_I32;
+  }
+  else if (_fname == "relaxTypeChecks") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_BOOL;
+  }
+  else if (_fname == "layouts") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+  else if (_fname == "rootLayout") {
+    fid = 3;
+    _ftype = apache::thrift::protocol::T_I16;
+  }
+};
+
 uint32_t Schema::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
-  std::string fname;
-  apache::thrift::protocol::TType ftype;
+  std::string _fname;
+  apache::thrift::protocol::TType _ftype;
   int16_t fid;
 
-  xfer += iprot->readStructBegin(fname);
+  xfer += iprot->readStructBegin(_fname);
 
   using apache::thrift::protocol::TProtocolException;
 
@@ -328,36 +389,36 @@ uint32_t Schema::read(apache::thrift::protocol::TProtocol* iprot) {
 
   while (true)
   {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    xfer += iprot->readFieldBegin(_fname, _ftype, fid);
+    if (_ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 4:
-        if (ftype == apache::thrift::protocol::T_I32) {
+        if (_ftype == apache::thrift::protocol::T_I32) {
           xfer += iprot->readI32(this->fileVersion);
           this->__isset.fileVersion = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       case 1:
-        if (ftype == apache::thrift::protocol::T_BOOL) {
+        if (_ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool(this->relaxTypeChecks);
           this->__isset.relaxTypeChecks = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       case 2:
-        if (ftype == apache::thrift::protocol::T_MAP) {
+        if (_ftype == apache::thrift::protocol::T_MAP) {
           {
             this->layouts.clear();
             uint32_t _size15;
             bool _sizeUnknown16;
-            apache::thrift::protocol::TType _ktype17;
-            apache::thrift::protocol::TType _vtype18;
+            apache::thrift::protocol::TType _ktype17 = apache::thrift::protocol::T_STOP;
+            apache::thrift::protocol::TType _vtype18 = apache::thrift::protocol::T_STOP;
             xfer += iprot->readMapBegin(_ktype17, _vtype18, _size15, _sizeUnknown16);
             if (!_sizeUnknown16) {
               uint32_t _i21;
@@ -381,19 +442,19 @@ uint32_t Schema::read(apache::thrift::protocol::TProtocol* iprot) {
           }
           this->__isset.layouts = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       case 3:
-        if (ftype == apache::thrift::protocol::T_I16) {
+        if (_ftype == apache::thrift::protocol::T_I16) {
           xfer += iprot->readI16(this->rootLayout);
           this->__isset.rootLayout = true;
         } else {
-          xfer += iprot->skip(ftype);
+          xfer += iprot->skip(_ftype);
         }
         break;
       default:
-        xfer += iprot->skip(ftype);
+        xfer += iprot->skip(_ftype);
         break;
     }
     xfer += iprot->readFieldEnd();

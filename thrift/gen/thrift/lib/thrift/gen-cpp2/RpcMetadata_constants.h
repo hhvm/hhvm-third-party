@@ -8,12 +8,12 @@
 
 #include <thrift/lib/cpp2/protocol/Protocol.h>
 
-#include "Sasl_types.h"
+#include "RpcMetadata_types.h"
 
-namespace apache { namespace thrift { namespace sasl {
+namespace apache { namespace thrift {
 
-struct Sasl_constants {
+struct RpcMetadata_constants {
 
 };
 
-}}} // apache::thrift::sasl
+}} // apache::thrift

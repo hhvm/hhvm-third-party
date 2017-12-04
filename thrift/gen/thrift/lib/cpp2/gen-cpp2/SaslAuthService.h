@@ -6,13 +6,12 @@
  */
 #pragma once
 
-#include <thrift/lib/cpp2/ServiceIncludes.h>
-#include <thrift/lib/cpp2/async/HeaderChannel.h>
-#include <thrift/lib/cpp2/async/FutureRequest.h>
 #include <folly/futures/Future.h>
-
-
-
+#include <thrift/lib/cpp/TApplicationException.h>
+#include <thrift/lib/cpp2/ServiceIncludes.h>
+#include <thrift/lib/cpp2/async/FutureRequest.h>
+#include <thrift/lib/cpp2/async/HeaderChannel.h>
+#include "thrift/lib/cpp2/gen-cpp2/SaslAuthServiceAsyncClient.h"
 #include "thrift/lib/cpp2/gen-cpp2/Sasl_types.h"
 
 namespace folly {
@@ -32,10 +31,8 @@ class SaslAuthServiceSvAsyncIf {
  public:
   virtual ~SaslAuthServiceSvAsyncIf() {}
   virtual void async_tm_authFirstRequest(std::unique_ptr<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>> callback, std::unique_ptr< ::apache::thrift::sasl::SaslStart> saslStart) = 0;
-  virtual void async_authFirstRequest(std::unique_ptr<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>> callback, std::unique_ptr< ::apache::thrift::sasl::SaslStart> saslStart) = delete;
   virtual folly::Future<std::unique_ptr< ::apache::thrift::sasl::SaslReply>> future_authFirstRequest(std::unique_ptr< ::apache::thrift::sasl::SaslStart> saslStart) = 0;
   virtual void async_tm_authNextRequest(std::unique_ptr<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>> callback, std::unique_ptr< ::apache::thrift::sasl::SaslRequest> saslRequest) = 0;
-  virtual void async_authNextRequest(std::unique_ptr<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>> callback, std::unique_ptr< ::apache::thrift::sasl::SaslRequest> saslRequest) = delete;
   virtual folly::Future<std::unique_ptr< ::apache::thrift::sasl::SaslReply>> future_authNextRequest(std::unique_ptr< ::apache::thrift::sasl::SaslRequest> saslRequest) = 0;
 };
 
@@ -63,6 +60,7 @@ class SaslAuthServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncPro
  public:
   const char* getServiceName() override;
   using BaseAsyncProcessor = void;
+  using HasFrozen2 = std::false_type;
  protected:
   SaslAuthServiceSvIf* iface_;
   folly::Optional<std::string> getCacheKey(folly::IOBuf* buf, apache::thrift::protocol::PROTOCOL_TYPES protType) override;
@@ -93,8 +91,6 @@ class SaslAuthServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncPro
   template <class ProtocolIn_, class ProtocolOut_>
   static folly::IOBufQueue return_authFirstRequest(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::apache::thrift::sasl::SaslReply const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_authFirstRequest(std::unique_ptr<apache::thrift::ResponseChannel::Request> req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,std::exception_ptr ep,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_authFirstRequest(std::unique_ptr<apache::thrift::ResponseChannel::Request> req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
   void _processInThread_authNextRequest(std::unique_ptr<apache::thrift::ResponseChannel::Request> req, std::unique_ptr<folly::IOBuf> buf, std::unique_ptr<ProtocolIn_> iprot, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
@@ -103,82 +99,12 @@ class SaslAuthServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncPro
   template <class ProtocolIn_, class ProtocolOut_>
   static folly::IOBufQueue return_authNextRequest(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::apache::thrift::sasl::SaslReply const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_authNextRequest(std::unique_ptr<apache::thrift::ResponseChannel::Request> req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,std::exception_ptr ep,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_authNextRequest(std::unique_ptr<apache::thrift::ResponseChannel::Request> req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
  public:
   SaslAuthServiceAsyncProcessor(SaslAuthServiceSvIf* iface) :
       iface_(iface) {}
 
   virtual ~SaslAuthServiceAsyncProcessor() {}
-};
-
-class SaslAuthServiceAsyncClient : public apache::thrift::TClientBase {
- public:
-  virtual const char* getServiceName();
-  typedef std::unique_ptr<apache::thrift::RequestChannel, folly::DelayedDestruction::Destructor> channel_ptr;
-
-  virtual ~SaslAuthServiceAsyncClient() {}
-
-  SaslAuthServiceAsyncClient(std::shared_ptr<apache::thrift::RequestChannel> channel) :
-      channel_(channel) {
-    connectionContext_.reset(new apache::thrift::Cpp2ConnContext);
-  }
-
-  apache::thrift::RequestChannel*  getChannel() {
-    return this->channel_.get();
-  }
-
-  apache::thrift::HeaderChannel*  getHeaderChannel() {
-    return dynamic_cast<apache::thrift::HeaderChannel*>(this->channel_.get());
-  }
-  virtual void authFirstRequest(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslStart& saslStart);
-  virtual void authFirstRequest(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslStart& saslStart);
- private:
-  virtual void authFirstRequestImpl(bool useSync, apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslStart& saslStart);
- public:
-  virtual void sync_authFirstRequest( ::apache::thrift::sasl::SaslReply& _return, const  ::apache::thrift::sasl::SaslStart& saslStart);
-  virtual void sync_authFirstRequest(apache::thrift::RpcOptions& rpcOptions,  ::apache::thrift::sasl::SaslReply& _return, const  ::apache::thrift::sasl::SaslStart& saslStart);
-  virtual folly::Future< ::apache::thrift::sasl::SaslReply> future_authFirstRequest(const  ::apache::thrift::sasl::SaslStart& saslStart);
-  virtual folly::Future< ::apache::thrift::sasl::SaslReply> future_authFirstRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslStart& saslStart);
-  virtual folly::Future<std::pair< ::apache::thrift::sasl::SaslReply, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_authFirstRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslStart& saslStart);
-  virtual void authFirstRequest(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::apache::thrift::sasl::SaslStart& saslStart);
-  static folly::exception_wrapper recv_wrapped_authFirstRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
-  static void recv_authFirstRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
-  // Mock friendly virtual instance method
-  virtual void recv_instance_authFirstRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
-  virtual folly::exception_wrapper recv_instance_wrapped_authFirstRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
-  template <typename Protocol_>
-  void authFirstRequestT(Protocol_* prot, bool useSync, apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslStart& saslStart);
-  template <typename Protocol_>
-  static folly::exception_wrapper recv_wrapped_authFirstRequestT(Protocol_* prot,  ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
-  template <typename Protocol_>
-  static void recv_authFirstRequestT(Protocol_* prot,  ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
-  virtual void authNextRequest(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
-  virtual void authNextRequest(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
- private:
-  virtual void authNextRequestImpl(bool useSync, apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
- public:
-  virtual void sync_authNextRequest( ::apache::thrift::sasl::SaslReply& _return, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
-  virtual void sync_authNextRequest(apache::thrift::RpcOptions& rpcOptions,  ::apache::thrift::sasl::SaslReply& _return, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
-  virtual folly::Future< ::apache::thrift::sasl::SaslReply> future_authNextRequest(const  ::apache::thrift::sasl::SaslRequest& saslRequest);
-  virtual folly::Future< ::apache::thrift::sasl::SaslReply> future_authNextRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
-  virtual folly::Future<std::pair< ::apache::thrift::sasl::SaslReply, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_authNextRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
-  virtual void authNextRequest(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
-  static folly::exception_wrapper recv_wrapped_authNextRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
-  static void recv_authNextRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
-  // Mock friendly virtual instance method
-  virtual void recv_instance_authNextRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
-  virtual folly::exception_wrapper recv_instance_wrapped_authNextRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
-  template <typename Protocol_>
-  void authNextRequestT(Protocol_* prot, bool useSync, apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
-  template <typename Protocol_>
-  static folly::exception_wrapper recv_wrapped_authNextRequestT(Protocol_* prot,  ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
-  template <typename Protocol_>
-  static void recv_authNextRequestT(Protocol_* prot,  ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
- protected:
-  std::unique_ptr<apache::thrift::Cpp2ConnContext> connectionContext_;
-  std::shared_ptr<apache::thrift::RequestChannel> channel_;
 };
 
 }}} // apache::thrift::sasl

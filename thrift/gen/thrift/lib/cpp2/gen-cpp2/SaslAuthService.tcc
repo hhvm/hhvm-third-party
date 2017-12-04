@@ -7,16 +7,16 @@
 #pragma once
 
 #include "thrift/lib/cpp2/gen-cpp2/SaslAuthService.h"
-#include <thrift/lib/cpp/TApplicationException.h>
+
 #include <folly/io/IOBuf.h>
 #include <folly/io/IOBufQueue.h>
+#include <thrift/lib/cpp/TApplicationException.h>
 #include <thrift/lib/cpp/transport/THeader.h>
-#include <thrift/lib/cpp2/server/Cpp2ConnContext.h>
 #include <thrift/lib/cpp2/GeneratedCodeHelper.h>
 #include <thrift/lib/cpp2/GeneratedSerializationCodeHelper.h>
+#include <thrift/lib/cpp2/server/Cpp2ConnContext.h>
 
 namespace apache { namespace thrift { namespace sasl {
-
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, apache::thrift::protocol::T_STRUCT,  ::apache::thrift::sasl::SaslStart*>> SaslAuthService_authFirstRequest_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, apache::thrift::protocol::T_STRUCT,  ::apache::thrift::sasl::SaslReply*>> SaslAuthService_authFirstRequest_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, apache::thrift::protocol::T_STRUCT,  ::apache::thrift::sasl::SaslRequest*>> SaslAuthService_authNextRequest_pargs;
@@ -26,7 +26,6 @@ void SaslAuthServiceAsyncProcessor::_processInThread_authFirstRequest(std::uniqu
   auto pri = iface_->getRequestPriority(ctx, apache::thrift::concurrency::NORMAL);
   processInThread<ProtocolIn_, ProtocolOut_>(std::move(req), std::move(buf),std::move(iprot), ctx, eb, tm, pri, false, &SaslAuthServiceAsyncProcessor::process_authFirstRequest<ProtocolIn_, ProtocolOut_>, this);
 }
-
 template <typename ProtocolIn_, typename ProtocolOut_>
 void SaslAuthServiceAsyncProcessor::process_authFirstRequest(std::unique_ptr<apache::thrift::ResponseChannel::Request> req, std::unique_ptr<folly::IOBuf> buf, std::unique_ptr<ProtocolIn_> iprot,apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   // make sure getConnectionContext is null
@@ -56,7 +55,7 @@ void SaslAuthServiceAsyncProcessor::process_authFirstRequest(std::unique_ptr<apa
       LOG(ERROR) << ex.what() << " in oneway function authFirstRequest";
     }
   }
-  auto callback = std::make_unique<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>>(std::move(req), std::move(c), return_authFirstRequest<ProtocolIn_,ProtocolOut_>, throw_authFirstRequest<ProtocolIn_, ProtocolOut_>, throw_wrapped_authFirstRequest<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>>(std::move(req), std::move(c), return_authFirstRequest<ProtocolIn_,ProtocolOut_>, throw_wrapped_authFirstRequest<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     callback.release()->deleteInThread();
     return;
@@ -72,43 +71,6 @@ folly::IOBufQueue SaslAuthServiceAsyncProcessor::return_authFirstRequest(int32_t
   result.get<0>().value = const_cast< ::apache::thrift::sasl::SaslReply*>(&_return);
   result.setIsSet(0, true);
   return serializeResponse("authFirstRequest", &prot, protoSeqId, ctx, result);
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-void SaslAuthServiceAsyncProcessor::throw_authFirstRequest(std::unique_ptr<apache::thrift::ResponseChannel::Request> req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,std::exception_ptr ep,apache::thrift::Cpp2RequestContext* reqCtx) {
-  ProtocolOut_ prot;
-  try {
-    std::rethrow_exception(ep);
-  }
-  catch (const std::exception& e) {
-    auto ew = folly::exception_wrapper(ep, e);
-    if (req) {
-      LOG(ERROR) << folly::exceptionStr(e).toStdString() << " in function authFirstRequest";
-      apache::thrift::TApplicationException x(folly::exceptionStr(e).toStdString());
-      ctx->userExceptionWrapped(false, ew);
-      ctx->handlerErrorWrapped(ew);
-      folly::IOBufQueue queue = serializeException("authFirstRequest", &prot, protoSeqId, ctx, x);
-      queue.append(apache::thrift::transport::THeader::transform(queue.move(), reqCtx->getHeader()->getWriteTransforms(), reqCtx->getHeader()->getMinCompressBytes()));
-      req->sendReply(queue.move());
-      return;
-    }
-    else {
-      LOG(ERROR) << folly::exceptionStr(e).toStdString() << " in oneway function authFirstRequest";
-    }
-  }
-  catch (...) {
-    if (req) {
-      LOG(ERROR) << "<unknown exception>" << " in function authFirstRequest";
-      apache::thrift::TApplicationException x("<unknown exception>");
-      folly::IOBufQueue queue = serializeException("authFirstRequest", &prot, protoSeqId, nullptr, x);
-      queue.append(apache::thrift::transport::THeader::transform(queue.move(), reqCtx->getHeader()->getWriteTransforms(), reqCtx->getHeader()->getMinCompressBytes()));
-      req->sendReply(queue.move());
-      return;
-    }
-    else {
-      LOG(ERROR) << "<unknown exception>" << " in oneway function authFirstRequest";
-    }
-  }
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
@@ -139,7 +101,6 @@ void SaslAuthServiceAsyncProcessor::_processInThread_authNextRequest(std::unique
   auto pri = iface_->getRequestPriority(ctx, apache::thrift::concurrency::NORMAL);
   processInThread<ProtocolIn_, ProtocolOut_>(std::move(req), std::move(buf),std::move(iprot), ctx, eb, tm, pri, false, &SaslAuthServiceAsyncProcessor::process_authNextRequest<ProtocolIn_, ProtocolOut_>, this);
 }
-
 template <typename ProtocolIn_, typename ProtocolOut_>
 void SaslAuthServiceAsyncProcessor::process_authNextRequest(std::unique_ptr<apache::thrift::ResponseChannel::Request> req, std::unique_ptr<folly::IOBuf> buf, std::unique_ptr<ProtocolIn_> iprot,apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   // make sure getConnectionContext is null
@@ -169,7 +130,7 @@ void SaslAuthServiceAsyncProcessor::process_authNextRequest(std::unique_ptr<apac
       LOG(ERROR) << ex.what() << " in oneway function authNextRequest";
     }
   }
-  auto callback = std::make_unique<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>>(std::move(req), std::move(c), return_authNextRequest<ProtocolIn_,ProtocolOut_>, throw_authNextRequest<ProtocolIn_, ProtocolOut_>, throw_wrapped_authNextRequest<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>>(std::move(req), std::move(c), return_authNextRequest<ProtocolIn_,ProtocolOut_>, throw_wrapped_authNextRequest<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     callback.release()->deleteInThread();
     return;
@@ -185,43 +146,6 @@ folly::IOBufQueue SaslAuthServiceAsyncProcessor::return_authNextRequest(int32_t 
   result.get<0>().value = const_cast< ::apache::thrift::sasl::SaslReply*>(&_return);
   result.setIsSet(0, true);
   return serializeResponse("authNextRequest", &prot, protoSeqId, ctx, result);
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-void SaslAuthServiceAsyncProcessor::throw_authNextRequest(std::unique_ptr<apache::thrift::ResponseChannel::Request> req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,std::exception_ptr ep,apache::thrift::Cpp2RequestContext* reqCtx) {
-  ProtocolOut_ prot;
-  try {
-    std::rethrow_exception(ep);
-  }
-  catch (const std::exception& e) {
-    auto ew = folly::exception_wrapper(ep, e);
-    if (req) {
-      LOG(ERROR) << folly::exceptionStr(e).toStdString() << " in function authNextRequest";
-      apache::thrift::TApplicationException x(folly::exceptionStr(e).toStdString());
-      ctx->userExceptionWrapped(false, ew);
-      ctx->handlerErrorWrapped(ew);
-      folly::IOBufQueue queue = serializeException("authNextRequest", &prot, protoSeqId, ctx, x);
-      queue.append(apache::thrift::transport::THeader::transform(queue.move(), reqCtx->getHeader()->getWriteTransforms(), reqCtx->getHeader()->getMinCompressBytes()));
-      req->sendReply(queue.move());
-      return;
-    }
-    else {
-      LOG(ERROR) << folly::exceptionStr(e).toStdString() << " in oneway function authNextRequest";
-    }
-  }
-  catch (...) {
-    if (req) {
-      LOG(ERROR) << "<unknown exception>" << " in function authNextRequest";
-      apache::thrift::TApplicationException x("<unknown exception>");
-      folly::IOBufQueue queue = serializeException("authNextRequest", &prot, protoSeqId, nullptr, x);
-      queue.append(apache::thrift::transport::THeader::transform(queue.move(), reqCtx->getHeader()->getWriteTransforms(), reqCtx->getHeader()->getMinCompressBytes()));
-      req->sendReply(queue.move());
-      return;
-    }
-    else {
-      LOG(ERROR) << "<unknown exception>" << " in oneway function authNextRequest";
-    }
-  }
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
@@ -244,172 +168,6 @@ void SaslAuthServiceAsyncProcessor::throw_wrapped_authNextRequest(std::unique_pt
     else {
       LOG(ERROR) << ew.what().toStdString() << " in oneway function authNextRequest";
     }
-  }
-}
-
-template <typename Protocol_>
-void SaslAuthServiceAsyncClient::authFirstRequestT(Protocol_* prot, bool useSync, apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslStart& saslStart) {
-  auto header = std::make_shared<apache::thrift::transport::THeader>(apache::thrift::transport::THeader::ALLOW_BIG_FRAMES);
-  header->setProtocolId(getChannel()->getProtocolId());
-  header->setHeaders(rpcOptions.releaseWriteHeaders());
-  connectionContext_->setRequestHeader(header.get());
-  std::unique_ptr<apache::thrift::ContextStack> ctx = this->getContextStack(this->getServiceName(), "SaslAuthService.authFirstRequest", connectionContext_.get());
-  SaslAuthService_authFirstRequest_pargs args;
-  args.get<0>().value = const_cast< ::apache::thrift::sasl::SaslStart*>(&saslStart);
-  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
-  auto writer = [&](Protocol_* p) { args.write(p); };
-  apache::thrift::clientSendT<Protocol_>(prot, rpcOptions, std::move(callback), std::move(ctx), header, channel_.get(), "authFirstRequest", writer, sizer, false, useSync);
-  connectionContext_->setRequestHeader(nullptr);
-}
-
-template <typename Protocol_>
-folly::exception_wrapper SaslAuthServiceAsyncClient::recv_wrapped_authFirstRequestT(Protocol_* prot,  ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state) {
-  if (state.isException()) {
-    return state.exceptionWrapper();
-  }
-  prot->setInput(state.buf());
-  auto guard = folly::makeGuard([&] {prot->setInput(nullptr);});
-  apache::thrift::ContextStack* ctx = state.ctx();
-  std::string fname;
-  int32_t protoSeqId = 0;
-  apache::thrift::MessageType mtype;
-  ctx->preRead();
-  folly::exception_wrapper interior_ew;
-  auto caught_ew = folly::try_and_catch<std::exception, apache::thrift::TException, apache::thrift::protocol::TProtocolException>([&]() {
-    prot->readMessageBegin(fname, mtype, protoSeqId);
-    if (mtype == apache::thrift::T_EXCEPTION) {
-      apache::thrift::TApplicationException x;
-      x.read(prot);
-      prot->readMessageEnd();
-      interior_ew = folly::make_exception_wrapper<apache::thrift::TApplicationException>(x);
-      return; // from try_and_catch
-    }
-    if (mtype != apache::thrift::T_REPLY) {
-      prot->skip(apache::thrift::protocol::T_STRUCT);
-      prot->readMessageEnd();
-      interior_ew = folly::make_exception_wrapper<apache::thrift::TApplicationException>(apache::thrift::TApplicationException::TApplicationExceptionType::INVALID_MESSAGE_TYPE);
-      return; // from try_and_catch
-    }
-    if (fname.compare("authFirstRequest") != 0) {
-      prot->skip(apache::thrift::protocol::T_STRUCT);
-      prot->readMessageEnd();
-      interior_ew = folly::make_exception_wrapper<apache::thrift::TApplicationException>(apache::thrift::TApplicationException::TApplicationExceptionType::WRONG_METHOD_NAME);
-      return; // from try_and_catch
-    }
-    ::apache::thrift::SerializedMessage smsg;
-    smsg.protocolType = prot->protocolType();
-    smsg.buffer = state.buf();
-    ctx->onReadData(smsg);
-    SaslAuthService_authFirstRequest_presult result;
-    result.get<0>().value = &_return;
-    result.read(prot);
-    prot->readMessageEnd();
-    ctx->postRead(state.header(), state.buf()->length());
-    if (result.getIsSet(0)) {
-      // _return pointer has been filled
-      return; // from try_and_catch
-    }
-    else {
-      interior_ew = folly::make_exception_wrapper<apache::thrift::TApplicationException>(apache::thrift::TApplicationException::TApplicationExceptionType::MISSING_RESULT, "failed: unknown result");
-      return; // from try_and_catch
-    }
-  }
-  );
-  auto ew = interior_ew ? std::move(interior_ew) : std::move(caught_ew);
-  if (ew) {
-    ctx->handlerErrorWrapped(ew);
-  }
-  return ew;
-}
-
-template <typename Protocol_>
-void SaslAuthServiceAsyncClient::recv_authFirstRequestT(Protocol_* prot,  ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state) {
-  auto ew = recv_wrapped_authFirstRequestT(prot, _return, state);
-  if (ew) {
-    ew.throw_exception();
-  }
-}
-
-template <typename Protocol_>
-void SaslAuthServiceAsyncClient::authNextRequestT(Protocol_* prot, bool useSync, apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::apache::thrift::sasl::SaslRequest& saslRequest) {
-  auto header = std::make_shared<apache::thrift::transport::THeader>(apache::thrift::transport::THeader::ALLOW_BIG_FRAMES);
-  header->setProtocolId(getChannel()->getProtocolId());
-  header->setHeaders(rpcOptions.releaseWriteHeaders());
-  connectionContext_->setRequestHeader(header.get());
-  std::unique_ptr<apache::thrift::ContextStack> ctx = this->getContextStack(this->getServiceName(), "SaslAuthService.authNextRequest", connectionContext_.get());
-  SaslAuthService_authNextRequest_pargs args;
-  args.get<0>().value = const_cast< ::apache::thrift::sasl::SaslRequest*>(&saslRequest);
-  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
-  auto writer = [&](Protocol_* p) { args.write(p); };
-  apache::thrift::clientSendT<Protocol_>(prot, rpcOptions, std::move(callback), std::move(ctx), header, channel_.get(), "authNextRequest", writer, sizer, false, useSync);
-  connectionContext_->setRequestHeader(nullptr);
-}
-
-template <typename Protocol_>
-folly::exception_wrapper SaslAuthServiceAsyncClient::recv_wrapped_authNextRequestT(Protocol_* prot,  ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state) {
-  if (state.isException()) {
-    return state.exceptionWrapper();
-  }
-  prot->setInput(state.buf());
-  auto guard = folly::makeGuard([&] {prot->setInput(nullptr);});
-  apache::thrift::ContextStack* ctx = state.ctx();
-  std::string fname;
-  int32_t protoSeqId = 0;
-  apache::thrift::MessageType mtype;
-  ctx->preRead();
-  folly::exception_wrapper interior_ew;
-  auto caught_ew = folly::try_and_catch<std::exception, apache::thrift::TException, apache::thrift::protocol::TProtocolException>([&]() {
-    prot->readMessageBegin(fname, mtype, protoSeqId);
-    if (mtype == apache::thrift::T_EXCEPTION) {
-      apache::thrift::TApplicationException x;
-      x.read(prot);
-      prot->readMessageEnd();
-      interior_ew = folly::make_exception_wrapper<apache::thrift::TApplicationException>(x);
-      return; // from try_and_catch
-    }
-    if (mtype != apache::thrift::T_REPLY) {
-      prot->skip(apache::thrift::protocol::T_STRUCT);
-      prot->readMessageEnd();
-      interior_ew = folly::make_exception_wrapper<apache::thrift::TApplicationException>(apache::thrift::TApplicationException::TApplicationExceptionType::INVALID_MESSAGE_TYPE);
-      return; // from try_and_catch
-    }
-    if (fname.compare("authNextRequest") != 0) {
-      prot->skip(apache::thrift::protocol::T_STRUCT);
-      prot->readMessageEnd();
-      interior_ew = folly::make_exception_wrapper<apache::thrift::TApplicationException>(apache::thrift::TApplicationException::TApplicationExceptionType::WRONG_METHOD_NAME);
-      return; // from try_and_catch
-    }
-    ::apache::thrift::SerializedMessage smsg;
-    smsg.protocolType = prot->protocolType();
-    smsg.buffer = state.buf();
-    ctx->onReadData(smsg);
-    SaslAuthService_authNextRequest_presult result;
-    result.get<0>().value = &_return;
-    result.read(prot);
-    prot->readMessageEnd();
-    ctx->postRead(state.header(), state.buf()->length());
-    if (result.getIsSet(0)) {
-      // _return pointer has been filled
-      return; // from try_and_catch
-    }
-    else {
-      interior_ew = folly::make_exception_wrapper<apache::thrift::TApplicationException>(apache::thrift::TApplicationException::TApplicationExceptionType::MISSING_RESULT, "failed: unknown result");
-      return; // from try_and_catch
-    }
-  }
-  );
-  auto ew = interior_ew ? std::move(interior_ew) : std::move(caught_ew);
-  if (ew) {
-    ctx->handlerErrorWrapped(ew);
-  }
-  return ew;
-}
-
-template <typename Protocol_>
-void SaslAuthServiceAsyncClient::recv_authNextRequestT(Protocol_* prot,  ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state) {
-  auto ew = recv_wrapped_authNextRequestT(prot, _return, state);
-  if (ew) {
-    ew.throw_exception();
   }
 }
 

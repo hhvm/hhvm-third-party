@@ -5,20 +5,19 @@
  *  @generated
  */
 #include "thrift/lib/cpp2/gen-cpp2/SaslAuthService.h"
-
 #include "thrift/lib/cpp2/gen-cpp2/SaslAuthService.tcc"
 
-#include <thrift/lib/cpp2/protocol/Protocol.h>
 #include <thrift/lib/cpp2/protocol/BinaryProtocol.h>
 #include <thrift/lib/cpp2/protocol/CompactProtocol.h>
-namespace apache { namespace thrift { namespace sasl {
+#include <thrift/lib/cpp2/protocol/Protocol.h>
 
+namespace apache { namespace thrift { namespace sasl {
 std::unique_ptr<apache::thrift::AsyncProcessor> SaslAuthServiceSvIf::getProcessor() {
   return std::make_unique<SaslAuthServiceAsyncProcessor>(this);
 }
 
 void SaslAuthServiceSvIf::authFirstRequest( ::apache::thrift::sasl::SaslReply& /*_return*/, std::unique_ptr< ::apache::thrift::sasl::SaslStart> /*saslStart*/) {
-  throw apache::thrift::TApplicationException("Function authFirstRequest is unimplemented");
+  apache::thrift::detail::si::throw_app_exn_unimplemented("authFirstRequest");
 }
 
 folly::Future<std::unique_ptr< ::apache::thrift::sasl::SaslReply>> SaslAuthServiceSvIf::future_authFirstRequest(std::unique_ptr< ::apache::thrift::sasl::SaslStart> saslStart) {
@@ -30,7 +29,7 @@ void SaslAuthServiceSvIf::async_tm_authFirstRequest(std::unique_ptr<apache::thri
 }
 
 void SaslAuthServiceSvIf::authNextRequest( ::apache::thrift::sasl::SaslReply& /*_return*/, std::unique_ptr< ::apache::thrift::sasl::SaslRequest> /*saslRequest*/) {
-  throw apache::thrift::TApplicationException("Function authNextRequest is unimplemented");
+  apache::thrift::detail::si::throw_app_exn_unimplemented("authNextRequest");
 }
 
 folly::Future<std::unique_ptr< ::apache::thrift::sasl::SaslReply>> SaslAuthServiceSvIf::future_authNextRequest(std::unique_ptr< ::apache::thrift::sasl::SaslRequest> saslRequest) {
