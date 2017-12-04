@@ -1,5 +1,5 @@
-set(BROTLI_ENC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/enc")
-set(BROTLI_DEC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/dec")
+set(BROTLI_ENC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/c/enc")
+set(BROTLI_DEC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/c/dec")
 
 auto_sources(enc_ccfiles "*.cc" "RECURSE" "${BROTLI_ENC_DIR}")
 auto_sources(enc_cfiles "*.c" "RECURSE" "${BROTLI_ENC_DIR}")

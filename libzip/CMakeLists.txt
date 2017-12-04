@@ -106,9 +106,19 @@ CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/src/cmake-zipconf.h.in
   ${CMAKE_CURRENT_BINARY_DIR}/src/lib/zipconf.h)
 
 SET(LIBZIP_SOURCES
+  src/lib/gladman-fcrypt.c
+  src/lib/gladman-fcrypt/aescrypt.c
+  src/lib/gladman-fcrypt/aeskey.c
+  src/lib/gladman-fcrypt/aestab.c
+  src/lib/gladman-fcrypt/fileenc.c
+  src/lib/gladman-fcrypt/hmac.c
+  src/lib/gladman-fcrypt/pwd2key.c
+  src/lib/gladman-fcrypt/sha1.c
   src/lib/zip_add.c
   src/lib/zip_add_dir.c
   src/lib/zip_add_entry.c
+  src/lib/zip_algorithm_bzip2.c
+  src/lib/zip_algorithm_deflate.c
   src/lib/zip_buffer.c
   src/lib/zip_close.c
   src/lib/zip_delete.c
@@ -136,6 +146,7 @@ SET(LIBZIP_SOURCES
   src/lib/zip_file_rename.c
   src/lib/zip_file_replace.c
   src/lib/zip_file_set_comment.c
+  src/lib/zip_file_set_encryption.c
   src/lib/zip_file_set_external_attributes.c
   src/lib/zip_file_set_mtime.c
   src/lib/zip_file_strerror.c
@@ -145,9 +156,10 @@ SET(LIBZIP_SOURCES
   src/lib/zip_fopen_index.c
   src/lib/zip_fopen_index_encrypted.c
   src/lib/zip_fread.c
+  src/lib/zip_fseek.c
+  src/lib/zip_ftell.c
   src/lib/zip_get_archive_comment.c
   src/lib/zip_get_archive_flag.c
-  src/lib/zip_get_compression_implementation.c
   src/lib/zip_get_encryption_implementation.c
   src/lib/zip_get_file_comment.c
   src/lib/zip_get_name.c
@@ -155,10 +167,12 @@ SET(LIBZIP_SOURCES
   src/lib/zip_get_num_files.c
   src/lib/zip_hash.c
   src/lib/zip_io_util.c
+  src/lib/zip_libzip_version.c
   src/lib/zip_memdup.c
   src/lib/zip_name_locate.c
   src/lib/zip_new.c
   src/lib/zip_open.c
+  src/lib/zip_progress.c
   src/lib/zip_rename.c
   src/lib/zip_replace.c
   src/lib/zip_set_archive_comment.c
@@ -172,12 +186,13 @@ SET(LIBZIP_SOURCES
   src/lib/zip_source_call.c
   src/lib/zip_source_close.c
   src/lib/zip_source_commit_write.c
+  src/lib/zip_source_compress.c
   src/lib/zip_source_crc.c
-  src/lib/zip_source_deflate.c
   src/lib/zip_source_error.c
   src/lib/zip_source_filep.c
   src/lib/zip_source_free.c
   src/lib/zip_source_function.c
+  src/lib/zip_source_get_compression_flags.c
   src/lib/zip_source_is_deleted.c
   src/lib/zip_source_layered.c
   src/lib/zip_source_open.c
@@ -192,6 +207,8 @@ SET(LIBZIP_SOURCES
   src/lib/zip_source_tell.c
   src/lib/zip_source_tell_write.c
   src/lib/zip_source_window.c
+  src/lib/zip_source_winzip_aes_decode.c
+  src/lib/zip_source_winzip_aes_encode.c
   src/lib/zip_source_write.c
   src/lib/zip_source_zip.c
   src/lib/zip_source_zip_new.c
