@@ -15,6 +15,7 @@ HHVM_REMOVE_MATCHES_FROM_LISTS(files MATCHES
   "/lib/cpp2/transport/core/testutil/"
   "/lib/py/"
   "/lib/php/"
+  "/testutil/"
   "/tutorial/"
   "/example/"
   "Test.cpp"
@@ -47,6 +48,7 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/..")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/gen")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../proxygen/src")
+add_definitions(-DNO_LIB_GFLAGS)
 add_library(hphp_thrift STATIC ${CXX_SOURCES})
 
 target_link_libraries(hphp_thrift wangle boost hphp_proxygen
