@@ -46,8 +46,9 @@ list(APPEND CXX_SOURCES ${files})
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/..")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/gen")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../proxygen/src")
 add_library(hphp_thrift STATIC ${CXX_SOURCES})
 
-target_link_libraries(hphp_thrift wangle boost
+target_link_libraries(hphp_thrift wangle boost hphp_proxygen
                                          ${LIBGLOG_LIBRARY}
                                          ${LIBPTHREAD_LIBRARIES})
