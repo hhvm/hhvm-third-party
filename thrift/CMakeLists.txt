@@ -13,6 +13,8 @@ HHVM_REMOVE_MATCHES_FROM_LISTS(files MATCHES
   "/lib/node/"
   "/lib/cpp2/(async|fatal|security|server)/"
   "/lib/cpp2/transport/core/testutil/"
+  "/lib/cpp2/transport/rsocket/"
+  "/lib/cpp2/transport/http2/"
   "/lib/py/"
   "/lib/php/"
   "/testutil/"
@@ -47,10 +49,8 @@ list(APPEND CXX_SOURCES ${files})
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/..")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/gen")
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../proxygen/src")
-add_definitions(-DNO_LIB_GFLAGS)
 add_library(hphp_thrift STATIC ${CXX_SOURCES})
 
-target_link_libraries(hphp_thrift wangle boost hphp_proxygen
+target_link_libraries(hphp_thrift wangle boost
                                          ${LIBGLOG_LIBRARY}
                                          ${LIBPTHREAD_LIBRARIES})
