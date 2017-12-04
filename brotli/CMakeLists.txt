@@ -11,8 +11,8 @@ auto_sources(dec_hfiles "*.h" "RECURSE" "${BROTLI_DEC_DIR}")
 
 add_library(brotli_enc STATIC ${enc_ccfiles} ${enc_cfiles} ${enc_hfiles})
 auto_source_group(brotli_enc ${BROTLI_ENC_DIR} ${enc_ccfiles} ${enc_cfiles} ${enc_hfiles})
-target_include_directories(brotli_enc PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
+target_include_directories(brotli_enc PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/c/include")
 
 add_library(brotli_dec STATIC ${dec_ccfiles} ${dec_cfiles} ${dnc_hfiles})
 auto_source_group(brotli_dec ${BROTLI_DEC_DIR} ${dec_ccfiles} ${dec_cfiles} ${dec_hfiles})
-target_include_directories(brotli_dec PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
+target_include_directories(brotli_dec PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/c/include")
