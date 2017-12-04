@@ -14,7 +14,7 @@ HHVM_REMOVE_MATCHES_FROM_LISTS(files MATCHES
   "/lib/cpp2/(async|fatal|security|server)/"
   "/lib/cpp2/transport/core/testutil/"
   "/lib/cpp2/transport/rsocket/"
-  "/lib/cpp2/transport/http2/"
+  "/lib/cpp2/transport/"
   "/lib/py/"
   "/lib/php/"
   "/testutil/"
