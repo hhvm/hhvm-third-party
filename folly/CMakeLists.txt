@@ -57,8 +57,6 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/exception_tracer/StackTrace.cpp
   ${FOLLY_DIR}/experimental/io/AsyncIO.cpp
   ${FOLLY_DIR}/experimental/io/HugePageUtil.cpp
-  ${FOLLY_DIR}/experimental/symbolizer/StackTrace.cpp
-  ${FOLLY_DIR}/experimental/symbolizer/ElfCache.cpp
   ${FOLLY_DIR}/experimental/symbolizer/ElfUtil.cpp
   ${FOLLY_DIR}/experimental/symbolizer/SignalHandler.cpp
   ${FOLLY_DIR}/init/Init.cpp
@@ -78,14 +76,22 @@ list(REMOVE_ITEM hfiles
   ${FOLLY_DIR}/experimental/exception_tracer/ExceptionTracer.h
   ${FOLLY_DIR}/experimental/exception_tracer/StackTrace.h
   ${FOLLY_DIR}/experimental/io/AsyncIO.h
-  ${FOLLY_DIR}/experimental/symbolizer/StackTrace.h
-  ${FOLLY_DIR}/experimental/symbolizer/ElfCache.h
   ${FOLLY_DIR}/experimental/symbolizer/SignalHandler.h
   ${FOLLY_DIR}/init/Init.h
   # io/Compression requires snappy library
   # Don't add dep until we need it
   ${FOLLY_DIR}/io/Compression.h
 )
+if (NOT ENABLE_FOLLY_SYMBOLIZER)
+  list(REMOVE_ITEM files
+    ${FOLLY_DIR}/experimental/symbolizer/StackTrace.cpp
+    ${FOLLY_DIR}/experimental/symbolizer/ElfCache.cpp
+  )
+  list(REMOVE_ITEM hfiles
+    ${FOLLY_DIR}/experimental/symbolizer/StackTrace.h
+    ${FOLLY_DIR}/experimental/symbolizer/ElfCache.h
+  )
+endif()
 
 CHECK_CXX_SOURCE_COMPILES("#include <bits/functexcept.h>
 int main() {
@@ -147,6 +153,17 @@ int main() {
 target_include_directories(folly PUBLIC ${FOLLY_ROOT})
 
 target_link_libraries(folly boost)
+
+# The "-lgcc_s" added before "-lunwind" is used to solve a linking
+# order issue that causes "_Ux86_64_setcontext" to be called from
+# libunwind instead of libgcc_s and messes up the signal mask
+# (more details here http://savannah.nongnu.org/bugs/?48486). The
+# libgcc_s dependency is already part of HHVM, this enforces the
+# order in which the libraries are linked.
+if (ENABLE_FOLLY_SYMBOLIZER)
+  SET(UNWIND_LIB -lgcc_s -lunwind)
+  target_link_libraries(folly ${UNWIND_LIB})
+endif()
 
 find_package(Glog REQUIRED)
 target_include_directories(folly PUBLIC ${LIBGLOG_INCLUDE_DIR})
