@@ -85,7 +85,7 @@ final class ThirdPartyBinaryNotices {
       $projects[] = $project;
     }
 
-    sort($projects);
+    sort(&$projects);
     foreach ($projects as $project) {
       $config = $known_projects[$project] ?? null;
       if ($config === null) {
