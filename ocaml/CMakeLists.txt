@@ -30,6 +30,7 @@ if (NOT OCAMLC_FOUND)
   set(OCAMLC "${OCAML_PREFIX}/bin/ocamlc.opt")
   set(OCAMLOPT "${OCAML_PREFIX}/bin/ocamlopt.opt")
   set(OCAMLBUILD "${OCAML_PREFIX}/bin/ocamlbuild.native")
+  set(OPAM "${OCAML_PREFIX}/bin/opam")
 
   # TODO: what about dependencies so we rebuild ocaml when it changes?
   # NOTE: The weirdness building world.opt twice is because (at least on arm64)
@@ -59,11 +60,67 @@ if (NOT OCAMLC_FOUND)
     DEPENDS ${OCAMLC}
     COMMENT "Compiling ocamlbuild")
 
+  add_custom_command(
+    OUTPUT ${OPAM}
+    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" ./configure --prefix="${OCAML_PREFIX}"'
+    # BEGIN PATCHING extlib
+    # This allows us to skip directly modifying opam's Makefile or opam's src_ext Makefile
+    COMMAND /bin/rm -rf src_ext/extlib
+    COMMAND /bin/rm -rf src_ext/re
+    COMMAND /bin/rm -rf src_ext/cmdliner
+    COMMAND /bin/rm -rf src_ext/graph
+    COMMAND /bin/rm -rf src_ext/cudf
+    COMMAND /bin/rm -rf src_ext/dose
+    COMMAND /bin/rm -rf src_ext/uutf
+    COMMAND /bin/rm -rf src_ext/jsonm
+    COMMAND /bin/cp -r "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/ocaml-extlib/extlib" src_ext/
+    COMMAND /bin/cp -r "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/ocaml-re" src_ext/re
+    COMMAND /bin/cp -r "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/cmdliner" src_ext/cmdliner
+    # patch cmdliner
+    COMMAND /bin/bash -c 'cd src_ext/cmdliner && for p in ../patches/cmdliner/*.patch\; do patch -p1 < $$p\; done\;'
+    COMMAND /bin/cp -r "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/ocamlgraph" src_ext/graph
+    # patch ocamlgraph
+    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" ocamllex src_ext/graph/src/dot_lexer.mll'
+    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" ocamllex src_ext/graph/src/gml.mll'
+    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" ocamlyacc src_ext/graph/src/dot_parser.mly'
+    COMMAND /bin/bash -c '/bin/echo let version = \\"1.8.4+dev\\" > src_ext/graph/src/version.ml'
+    COMMAND /bin/bash -c '/bin/echo let date = \\"Fri Apr 4 14:45:42 CEST 2014\\" >> src_ext/graph/src/version.ml'
+    COMMAND /bin/cp -r "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/cudf" src_ext/
+    COMMAND /bin/cp -r "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/dose" src_ext/
+    COMMAND /bin/bash -c 'cd src_ext/dose && for p in ../patches/dose/*.patch\; do patch -p1 < $$p\; done\;'
+    COMMAND /bin/cp -r "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/uutf" src_ext/
+    COMMAND /bin/cp -r "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/jsonm" src_ext/
+    COMMAND /bin/bash -c 'touch src_ext/extlib.{download,stamp}'
+    COMMAND /bin/bash -c 'touch src_ext/re.{download,stamp}'
+    COMMAND /bin/bash -c 'touch src_ext/cmdliner.{download,stamp}'
+    COMMAND /bin/bash -c 'touch src_ext/graph.{download,stamp}'
+    COMMAND /bin/bash -c 'touch src_ext/cudf.{download,stamp}'
+    COMMAND /bin/bash -c 'touch src_ext/dose.{download,stamp}'
+    COMMAND /bin/bash -c 'touch src_ext/uutf.{download,stamp}'
+    COMMAND /bin/bash -c 'touch src_ext/jsonm.{download,stamp}'
+    # END PATCHING extlib
+    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\) lib-ext'
+    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\)'
+    COMMAND \$\(MAKE\) install
+    # Clean up submodule repo, ok because .stamp are gitignored
+    COMMAND /bin/rm src_ext/extlib.download
+    COMMAND /bin/rm src_ext/re.download
+    COMMAND /bin/rm src_ext/cmdliner.download
+    COMMAND /bin/rm src_ext/graph.download
+    COMMAND /bin/rm src_ext/cudf.download
+    COMMAND /bin/rm src_ext/dose.download
+    COMMAND /bin/rm src_ext/uutf.download
+    COMMAND /bin/rm src_ext/jsonm.download
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/opam"
+    DEPENDS ${OCAMLC}
+    COMMENT "Compiling opam"
+  )
+
   set(OCAMLC_FOUND TRUE)
 endif()
 
 add_custom_target(ocaml
-  DEPENDS ${OCAMLC} ${OCAMLOPT} ${OCAMLBUILD})
+  DEPENDS ${OCAMLC} ${OCAMLOPT} ${OCAMLBUILD} ${OPAM})
 
 set(OCAML_EXECUTABLE ${OCAML} CACHE FILEPATH "path to ocaml" FORCE)
 mark_as_advanced(OCAML_EXECUTABLE)
@@ -73,3 +130,5 @@ set(OCAMLOPT_EXECUTABLE ${OCAMLOPT} CACHE FILEPATH "path to ocamlopt" FORCE)
 mark_as_advanced(OCAMLOPT_EXECUTABLE)
 set(OCAMLBUILD_EXECUTABLE ${OCAMLBUILD} CACHE FILEPATH "path to ocamlbuild" FORCE)
 mark_as_advanced(OCAMLBUILD_EXECUTABLE)
+set(OPAM_EXECUTABLE ${OPAM} CACHE FILEPATH "path to opam" FORCE)
+mark_as_advanced(OPAM_EXECUTABLE)

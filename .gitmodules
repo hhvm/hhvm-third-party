@@ -54,3 +54,30 @@
 [submodule "zstd"]
     path = zstd/src
     url = https://github.com/facebook/zstd.git
+[submodule "ocaml/opam"]
+	path = ocaml/opam
+	url = https://github.com/ocaml/opam.git
+[submodule "ocaml/opam_deps/ocaml-extlib"]
+	path = ocaml/opam_deps/ocaml-extlib
+	url = https://github.com/ygrek/ocaml-extlib.git
+[submodule "ocaml/opam_deps/ocaml-re"]
+	path = ocaml/opam_deps/ocaml-re
+	url = https://github.com/ocaml/ocaml-re.git
+[submodule "ocaml/opam_deps/cmdliner"]
+	path = ocaml/opam_deps/cmdliner
+	url = https://github.com/dbuenzli/cmdliner.git
+[submodule "ocaml/opam_deps/ocamlgraph"]
+	path = ocaml/opam_deps/ocamlgraph
+	url = https://github.com/backtracking/ocamlgraph.git
+[submodule "ocaml/opam_deps/cudf"]
+	path = ocaml/opam_deps/cudf
+	url = https://scm.gforge.inria.fr/anonscm/git/cudf/cudf.git
+[submodule "ocaml/opam_deps/dose"]
+	path = ocaml/opam_deps/dose
+	url = https://scm.gforge.inria.fr/anonscm/git/dose/dose.git
+[submodule "ocaml/opam_deps/uutf"]
+	path = ocaml/opam_deps/uutf
+	url = https://github.com/dbuenzli/uutf.git
+[submodule "ocaml/opam_deps/jsonm"]
+	path = ocaml/opam_deps/jsonm
+	url = https://github.com/dbuenzli/jsonm.git
