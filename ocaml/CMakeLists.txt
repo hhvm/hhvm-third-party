@@ -63,55 +63,13 @@ if (NOT OCAMLC_FOUND)
   add_custom_command(
     OUTPUT ${OPAM}
     COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" ./configure --prefix="${OCAML_PREFIX}"'
-    # BEGIN PATCHING extlib
-    # This allows us to skip directly modifying opam's Makefile or opam's src_ext Makefile
-    COMMAND ${CMAKE_COMMAND} -E ARGS remove_directory src_ext/extlib
-    COMMAND ${CMAKE_COMMAND} -E ARGS remove_directory src_ext/re
-    COMMAND ${CMAKE_COMMAND} -E ARGS remove_directory src_ext/cmdliner
-    COMMAND ${CMAKE_COMMAND} -E ARGS remove_directory src_ext/graph
-    COMMAND ${CMAKE_COMMAND} -E ARGS remove_directory src_ext/cudf
-    COMMAND ${CMAKE_COMMAND} -E ARGS remove_directory src_ext/dose
-    COMMAND ${CMAKE_COMMAND} -E ARGS remove_directory src_ext/uutf
-    COMMAND ${CMAKE_COMMAND} -E ARGS remove_directory src_ext/jsonm
-    COMMAND ${CMAKE_COMMAND} -E ARGS copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/ocaml-extlib/extlib" src_ext/extlib
-    COMMAND ${CMAKE_COMMAND} -E ARGS copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/ocaml-re" src_ext/re
-    COMMAND ${CMAKE_COMMAND} -E ARGS copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/cmdliner" src_ext/cmdliner
-    # patch cmdliner
-    COMMAND /bin/bash -c 'cd src_ext/cmdliner && for p in ../patches/cmdliner/*.patch\; do patch -p1 < $$p\; done\;'
-    COMMAND ${CMAKE_COMMAND} -E ARGS copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/ocamlgraph" src_ext/graph
-    # patch ocamlgraph
-    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" ocamllex src_ext/graph/src/dot_lexer.mll'
-    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" ocamllex src_ext/graph/src/gml.mll'
-    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" ocamlyacc src_ext/graph/src/dot_parser.mly'
-    COMMAND /bin/bash -c '/bin/echo let version = \\"1.8.4+dev\\" > src_ext/graph/src/version.ml'
-    COMMAND /bin/bash -c '/bin/echo let date = \\"Fri Apr 4 14:45:42 CEST 2014\\" >> src_ext/graph/src/version.ml'
-    COMMAND ${CMAKE_COMMAND} -E ARGS copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/cudf" src_ext/cudf
-    COMMAND ${CMAKE_COMMAND} -E ARGS copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/dose" src_ext/dose
-    COMMAND /bin/bash -c 'cd src_ext/dose && for p in ../patches/dose/*.patch\; do patch -p1 < $$p\; done\;'
-    COMMAND ${CMAKE_COMMAND} -E ARGS copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/uutf" src_ext/uutf
-    COMMAND ${CMAKE_COMMAND} -E ARGS copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/jsonm" src_ext/jsonm
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/extlib.download
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/extlib.stamp
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/re.download
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/re.stamp
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/cmdliner.download
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/cmdliner.stamp
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/graph.download
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/graph.stamp
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/cudf.download
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/cudf.stamp
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/dose.download
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/dose.stamp
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/uutf.download
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/uutf.stamp
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/jsonm.download
-    COMMAND ${CMAKE_COMMAND} -E ARGS touch src_ext/jsonm.stamp
-    # END PATCHING extlib
-    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\) -j1 lib-ext' # -j1 to pacify opam
+    # prep source tree to skip the %.download and %.stamp Makefile rules of lib-ext
+    COMMAND /bin/bash -c '${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/prep_deps.sh ${OCAML_PREFIX} ${CMAKE_CURRENT_SOURCE_DIR}/opam_deps ./src_ext'
+    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\) -j1 lib-ext'
     COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\) -j1'
     COMMAND \$\(MAKE\) install
-    # Clean up submodule repo, ok because .stamp are gitignored
-    COMMAND ${CMAKE_COMMAND} -E ARGS remove src_ext/extlib.download src_ext/re.download src_ext/cmdliner.download src_ext/graph.download src_ext/cudf.download src_ext/dose.download src_ext/uutf.download src_ext/jsonm.download
+    # ensure clean git status
+    COMMAND /bin/bash -c '${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/cleanup_src_ext.sh ./src_ext'
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/opam"
     DEPENDS ${OCAMLBUILD}
     COMMENT "Compiling opam")
