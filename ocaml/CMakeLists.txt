@@ -30,6 +30,7 @@ if (NOT OCAMLC_FOUND)
   set(OCAMLC "${OCAML_PREFIX}/bin/ocamlc.opt")
   set(OCAMLOPT "${OCAML_PREFIX}/bin/ocamlopt.opt")
   set(OCAMLBUILD "${OCAML_PREFIX}/bin/ocamlbuild.native")
+  set(OPAM "${OCAML_PREFIX}/bin/opam")
 
   # TODO: what about dependencies so we rebuild ocaml when it changes?
   # NOTE: The weirdness building world.opt twice is because (at least on arm64)
@@ -59,11 +60,25 @@ if (NOT OCAMLC_FOUND)
     DEPENDS ${OCAMLC}
     COMMENT "Compiling ocamlbuild")
 
+  add_custom_command(
+    OUTPUT ${OPAM}
+    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" ./configure --prefix="${OCAML_PREFIX}"'
+    # prep source tree to skip the %.download and %.stamp Makefile rules of lib-ext
+    COMMAND /bin/bash -c '${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/prep_deps.sh ${OCAML_PREFIX} ${CMAKE_CURRENT_SOURCE_DIR}/opam_deps ./src_ext'
+    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\) -j1 lib-ext'
+    COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\) -j1'
+    COMMAND \$\(MAKE\) install
+    # ensure clean git status
+    COMMAND /bin/bash -c '${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/cleanup_src_ext.sh ./src_ext'
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/opam"
+    DEPENDS ${OCAMLBUILD}
+    COMMENT "Compiling opam")
+
   set(OCAMLC_FOUND TRUE)
 endif()
 
 add_custom_target(ocaml
-  DEPENDS ${OCAMLC} ${OCAMLOPT} ${OCAMLBUILD})
+  DEPENDS ${OCAMLC} ${OCAMLOPT} ${OCAMLBUILD} ${OPAM})
 
 set(OCAML_EXECUTABLE ${OCAML} CACHE FILEPATH "path to ocaml" FORCE)
 mark_as_advanced(OCAML_EXECUTABLE)
@@ -73,3 +88,5 @@ set(OCAMLOPT_EXECUTABLE ${OCAMLOPT} CACHE FILEPATH "path to ocamlopt" FORCE)
 mark_as_advanced(OCAMLOPT_EXECUTABLE)
 set(OCAMLBUILD_EXECUTABLE ${OCAMLBUILD} CACHE FILEPATH "path to ocamlbuild" FORCE)
 mark_as_advanced(OCAMLBUILD_EXECUTABLE)
+set(OPAM_EXECUTABLE ${OPAM} CACHE FILEPATH "path to opam" FORCE)
+mark_as_advanced(OPAM_EXECUTABLE)
