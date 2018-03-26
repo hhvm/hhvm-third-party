@@ -4,5 +4,7 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
  *  @generated
  */
-#include "thrift/lib/thrift/gen-cpp/frozen_data.h"
+
+#include "thrift/lib/thrift/gen-cpp2/frozen_data.h"
+
 

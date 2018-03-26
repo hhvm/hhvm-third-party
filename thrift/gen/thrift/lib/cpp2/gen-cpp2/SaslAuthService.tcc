@@ -34,9 +34,9 @@ void SaslAuthServiceAsyncProcessor::process_authFirstRequest(std::unique_ptr<apa
   SaslAuthService_authFirstRequest_pargs args;
   std::unique_ptr< ::apache::thrift::sasl::SaslStart> uarg_saslStart(new  ::apache::thrift::sasl::SaslStart());
   args.get<0>().value = uarg_saslStart.get();
-  std::unique_ptr<apache::thrift::ContextStack> c(this->getContextStack(this->getServiceName(), "SaslAuthService.authFirstRequest", ctx));
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "SaslAuthService.authFirstRequest", ctx));
   try {
-    deserializeRequest(args, buf.get(), iprot.get(), c.get());
+    deserializeRequest(args, buf.get(), iprot.get(), ctxStack.get());
   }
   catch (const std::exception& ex) {
     ProtocolOut_ prot;
@@ -55,7 +55,7 @@ void SaslAuthServiceAsyncProcessor::process_authFirstRequest(std::unique_ptr<apa
       LOG(ERROR) << ex.what() << " in oneway function authFirstRequest";
     }
   }
-  auto callback = std::make_unique<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>>(std::move(req), std::move(c), return_authFirstRequest<ProtocolIn_,ProtocolOut_>, throw_wrapped_authFirstRequest<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>>(std::move(req), std::move(ctxStack), return_authFirstRequest<ProtocolIn_,ProtocolOut_>, throw_wrapped_authFirstRequest<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     callback.release()->deleteInThread();
     return;
@@ -81,7 +81,7 @@ void SaslAuthServiceAsyncProcessor::throw_wrapped_authFirstRequest(std::unique_p
   ProtocolOut_ prot;
    {
     if (req) {
-      LOG(ERROR) << ew.what().toStdString() << " in function authFirstRequest";
+      LOG(ERROR) << ew << " in function authFirstRequest";
       apache::thrift::TApplicationException x(ew.what().toStdString());
       ctx->userExceptionWrapped(false, ew);
       ctx->handlerErrorWrapped(ew);
@@ -91,7 +91,7 @@ void SaslAuthServiceAsyncProcessor::throw_wrapped_authFirstRequest(std::unique_p
       return;
     }
     else {
-      LOG(ERROR) << ew.what().toStdString() << " in oneway function authFirstRequest";
+      LOG(ERROR) << ew << " in oneway function authFirstRequest";
     }
   }
 }
@@ -109,9 +109,9 @@ void SaslAuthServiceAsyncProcessor::process_authNextRequest(std::unique_ptr<apac
   SaslAuthService_authNextRequest_pargs args;
   std::unique_ptr< ::apache::thrift::sasl::SaslRequest> uarg_saslRequest(new  ::apache::thrift::sasl::SaslRequest());
   args.get<0>().value = uarg_saslRequest.get();
-  std::unique_ptr<apache::thrift::ContextStack> c(this->getContextStack(this->getServiceName(), "SaslAuthService.authNextRequest", ctx));
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "SaslAuthService.authNextRequest", ctx));
   try {
-    deserializeRequest(args, buf.get(), iprot.get(), c.get());
+    deserializeRequest(args, buf.get(), iprot.get(), ctxStack.get());
   }
   catch (const std::exception& ex) {
     ProtocolOut_ prot;
@@ -130,7 +130,7 @@ void SaslAuthServiceAsyncProcessor::process_authNextRequest(std::unique_ptr<apac
       LOG(ERROR) << ex.what() << " in oneway function authNextRequest";
     }
   }
-  auto callback = std::make_unique<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>>(std::move(req), std::move(c), return_authNextRequest<ProtocolIn_,ProtocolOut_>, throw_wrapped_authNextRequest<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback<std::unique_ptr< ::apache::thrift::sasl::SaslReply>>>(std::move(req), std::move(ctxStack), return_authNextRequest<ProtocolIn_,ProtocolOut_>, throw_wrapped_authNextRequest<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     callback.release()->deleteInThread();
     return;
@@ -156,7 +156,7 @@ void SaslAuthServiceAsyncProcessor::throw_wrapped_authNextRequest(std::unique_pt
   ProtocolOut_ prot;
    {
     if (req) {
-      LOG(ERROR) << ew.what().toStdString() << " in function authNextRequest";
+      LOG(ERROR) << ew << " in function authNextRequest";
       apache::thrift::TApplicationException x(ew.what().toStdString());
       ctx->userExceptionWrapped(false, ew);
       ctx->handlerErrorWrapped(ew);
@@ -166,7 +166,7 @@ void SaslAuthServiceAsyncProcessor::throw_wrapped_authNextRequest(std::unique_pt
       return;
     }
     else {
-      LOG(ERROR) << ew.what().toStdString() << " in oneway function authNextRequest";
+      LOG(ERROR) << ew << " in oneway function authNextRequest";
     }
   }
 }

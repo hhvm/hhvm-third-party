@@ -6,15 +6,20 @@
  */
 #pragma once
 
-#include "thrift/lib/thrift/gen-cpp/frozen_types.h"
+#include <thrift/lib/cpp2/protocol/Protocol.h>
+
+#include "frozen_types.h"
 
 namespace apache { namespace thrift { namespace frozen { namespace schema {
 
 struct frozen_constants {
+
   static constexpr int32_t const kCurrentFrozenFileVersion_ = 1;
-  static constexpr int32_t kCurrentFrozenFileVersion() { return kCurrentFrozenFileVersion_; }
+
+  static constexpr int32_t kCurrentFrozenFileVersion() {
+    return kCurrentFrozenFileVersion_;
+  }
+
 };
 
-
-}}}} // namespace
-
+}}}} // apache::thrift::frozen::schema

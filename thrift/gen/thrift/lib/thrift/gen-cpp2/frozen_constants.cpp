@@ -4,15 +4,13 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
  *  @generated
  */
-#include "thrift/lib/thrift/gen-cpp/frozen_constants.h"
+
+#include "thrift/lib/thrift/gen-cpp2/frozen_constants.h"
 
 #include <folly/Indestructible.h>
-
 
 namespace apache { namespace thrift { namespace frozen { namespace schema {
 
 constexpr int32_t const frozen_constants::kCurrentFrozenFileVersion_;
 
-
-}}}} // namespace
-
+}}}} // apache::thrift::frozen::schema

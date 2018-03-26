@@ -90,7 +90,7 @@ class SaslOutcome final : private apache::thrift::detail::st::ComparisonOperator
   }
   std::string* get_additional_data() && = delete;
 
-  template <typename T_SaslOutcome_additional_data_struct_setter>
+  template <typename T_SaslOutcome_additional_data_struct_setter = std::string>
   std::string& set_additional_data(T_SaslOutcome_additional_data_struct_setter&& additional_data_) {
     additional_data = std::forward<T_SaslOutcome_additional_data_struct_setter>(additional_data_);
     __isset.additional_data = true;
@@ -108,17 +108,29 @@ class SaslOutcome final : private apache::thrift::detail::st::ComparisonOperator
 
  private:
   static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
+
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< SaslOutcome >;
 };
 
 void swap(SaslOutcome& a, SaslOutcome& b);
-extern template uint32_t SaslOutcome::read<>(apache::thrift::BinaryProtocolReader*);
+extern template void SaslOutcome::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
 extern template uint32_t SaslOutcome::write<>(apache::thrift::BinaryProtocolWriter*) const;
 extern template uint32_t SaslOutcome::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
 extern template uint32_t SaslOutcome::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t SaslOutcome::read<>(apache::thrift::CompactProtocolReader*);
+extern template void SaslOutcome::readNoXfer<>(apache::thrift::CompactProtocolReader*);
 extern template uint32_t SaslOutcome::write<>(apache::thrift::CompactProtocolWriter*) const;
 extern template uint32_t SaslOutcome::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 extern template uint32_t SaslOutcome::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+template <class Protocol_>
+uint32_t SaslOutcome::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCurrentPosition().getCurrentPosition();
+  readNoXfer(iprot);
+  return iprot->getCurrentPosition().getCurrentPosition() - _xferStart;
+}
 
 }}} // apache::thrift::sasl
 namespace apache { namespace thrift {
@@ -135,8 +147,8 @@ template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::
   return obj->write(proto);
 }
 
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslOutcome>::read(Protocol* proto,  ::apache::thrift::sasl::SaslOutcome* obj) {
-  return obj->read(proto);
+template <> template <class Protocol> void Cpp2Ops< ::apache::thrift::sasl::SaslOutcome>::read(Protocol* proto,  ::apache::thrift::sasl::SaslOutcome* obj) {
+  return obj->readNoXfer(proto);
 }
 
 template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslOutcome>::serializedSize(Protocol const* proto,  ::apache::thrift::sasl::SaslOutcome const* obj) {
@@ -198,7 +210,7 @@ class SaslRequest final : private apache::thrift::detail::st::ComparisonOperator
   }
   std::string* get_response() && = delete;
 
-  template <typename T_SaslRequest_response_struct_setter>
+  template <typename T_SaslRequest_response_struct_setter = std::string>
   std::string& set_response(T_SaslRequest_response_struct_setter&& response_) {
     response = std::forward<T_SaslRequest_response_struct_setter>(response_);
     __isset.response = true;
@@ -231,17 +243,29 @@ class SaslRequest final : private apache::thrift::detail::st::ComparisonOperator
 
  private:
   static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
+
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< SaslRequest >;
 };
 
 void swap(SaslRequest& a, SaslRequest& b);
-extern template uint32_t SaslRequest::read<>(apache::thrift::BinaryProtocolReader*);
+extern template void SaslRequest::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
 extern template uint32_t SaslRequest::write<>(apache::thrift::BinaryProtocolWriter*) const;
 extern template uint32_t SaslRequest::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
 extern template uint32_t SaslRequest::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t SaslRequest::read<>(apache::thrift::CompactProtocolReader*);
+extern template void SaslRequest::readNoXfer<>(apache::thrift::CompactProtocolReader*);
 extern template uint32_t SaslRequest::write<>(apache::thrift::CompactProtocolWriter*) const;
 extern template uint32_t SaslRequest::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 extern template uint32_t SaslRequest::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+template <class Protocol_>
+uint32_t SaslRequest::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCurrentPosition().getCurrentPosition();
+  readNoXfer(iprot);
+  return iprot->getCurrentPosition().getCurrentPosition() - _xferStart;
+}
 
 }}} // apache::thrift::sasl
 namespace apache { namespace thrift {
@@ -258,8 +282,8 @@ template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::
   return obj->write(proto);
 }
 
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslRequest>::read(Protocol* proto,  ::apache::thrift::sasl::SaslRequest* obj) {
-  return obj->read(proto);
+template <> template <class Protocol> void Cpp2Ops< ::apache::thrift::sasl::SaslRequest>::read(Protocol* proto,  ::apache::thrift::sasl::SaslRequest* obj) {
+  return obj->readNoXfer(proto);
 }
 
 template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslRequest>::serializedSize(Protocol const* proto,  ::apache::thrift::sasl::SaslRequest const* obj) {
@@ -329,7 +353,7 @@ class SaslReply final : private apache::thrift::detail::st::ComparisonOperators<
   }
   std::string* get_challenge() && = delete;
 
-  template <typename T_SaslReply_challenge_struct_setter>
+  template <typename T_SaslReply_challenge_struct_setter = std::string>
   std::string& set_challenge(T_SaslReply_challenge_struct_setter&& challenge_) {
     challenge = std::forward<T_SaslReply_challenge_struct_setter>(challenge_);
     __isset.challenge = true;
@@ -339,7 +363,7 @@ class SaslReply final : private apache::thrift::detail::st::ComparisonOperators<
    ::apache::thrift::sasl::SaslOutcome* get_outcome() &;
    ::apache::thrift::sasl::SaslOutcome* get_outcome() && = delete;
 
-  template <typename T_SaslReply_outcome_struct_setter>
+  template <typename T_SaslReply_outcome_struct_setter =  ::apache::thrift::sasl::SaslOutcome>
    ::apache::thrift::sasl::SaslOutcome& set_outcome(T_SaslReply_outcome_struct_setter&& outcome_) {
     outcome = std::forward<T_SaslReply_outcome_struct_setter>(outcome_);
     __isset.outcome = true;
@@ -355,7 +379,7 @@ class SaslReply final : private apache::thrift::detail::st::ComparisonOperators<
   }
   std::string* get_mechanism() && = delete;
 
-  template <typename T_SaslReply_mechanism_struct_setter>
+  template <typename T_SaslReply_mechanism_struct_setter = std::string>
   std::string& set_mechanism(T_SaslReply_mechanism_struct_setter&& mechanism_) {
     mechanism = std::forward<T_SaslReply_mechanism_struct_setter>(mechanism_);
     __isset.mechanism = true;
@@ -373,17 +397,29 @@ class SaslReply final : private apache::thrift::detail::st::ComparisonOperators<
 
  private:
   static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
+
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< SaslReply >;
 };
 
 void swap(SaslReply& a, SaslReply& b);
-extern template uint32_t SaslReply::read<>(apache::thrift::BinaryProtocolReader*);
+extern template void SaslReply::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
 extern template uint32_t SaslReply::write<>(apache::thrift::BinaryProtocolWriter*) const;
 extern template uint32_t SaslReply::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
 extern template uint32_t SaslReply::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t SaslReply::read<>(apache::thrift::CompactProtocolReader*);
+extern template void SaslReply::readNoXfer<>(apache::thrift::CompactProtocolReader*);
 extern template uint32_t SaslReply::write<>(apache::thrift::CompactProtocolWriter*) const;
 extern template uint32_t SaslReply::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 extern template uint32_t SaslReply::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+template <class Protocol_>
+uint32_t SaslReply::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCurrentPosition().getCurrentPosition();
+  readNoXfer(iprot);
+  return iprot->getCurrentPosition().getCurrentPosition() - _xferStart;
+}
 
 }}} // apache::thrift::sasl
 namespace apache { namespace thrift {
@@ -400,8 +436,8 @@ template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::
   return obj->write(proto);
 }
 
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslReply>::read(Protocol* proto,  ::apache::thrift::sasl::SaslReply* obj) {
-  return obj->read(proto);
+template <> template <class Protocol> void Cpp2Ops< ::apache::thrift::sasl::SaslReply>::read(Protocol* proto,  ::apache::thrift::sasl::SaslReply* obj) {
+  return obj->readNoXfer(proto);
 }
 
 template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslReply>::serializedSize(Protocol const* proto,  ::apache::thrift::sasl::SaslReply const* obj) {
@@ -470,7 +506,7 @@ class SaslStart final : private apache::thrift::detail::st::ComparisonOperators<
     return std::move(mechanism);
   }
 
-  template <typename T_SaslStart_mechanism_struct_setter>
+  template <typename T_SaslStart_mechanism_struct_setter = std::string>
   std::string& set_mechanism(T_SaslStart_mechanism_struct_setter&& mechanism_) {
     mechanism = std::forward<T_SaslStart_mechanism_struct_setter>(mechanism_);
     __isset.mechanism = true;
@@ -480,7 +516,7 @@ class SaslStart final : private apache::thrift::detail::st::ComparisonOperators<
    ::apache::thrift::sasl::SaslRequest* get_request() &;
    ::apache::thrift::sasl::SaslRequest* get_request() && = delete;
 
-  template <typename T_SaslStart_request_struct_setter>
+  template <typename T_SaslStart_request_struct_setter =  ::apache::thrift::sasl::SaslRequest>
    ::apache::thrift::sasl::SaslRequest& set_request(T_SaslStart_request_struct_setter&& request_) {
     request = std::forward<T_SaslStart_request_struct_setter>(request_);
     __isset.request = true;
@@ -490,7 +526,7 @@ class SaslStart final : private apache::thrift::detail::st::ComparisonOperators<
   std::vector<std::string>* get_mechanisms() &;
   std::vector<std::string>* get_mechanisms() && = delete;
 
-  template <typename T_SaslStart_mechanisms_struct_setter>
+  template <typename T_SaslStart_mechanisms_struct_setter = std::vector<std::string>>
   std::vector<std::string>& set_mechanisms(T_SaslStart_mechanisms_struct_setter&& mechanisms_) {
     mechanisms = std::forward<T_SaslStart_mechanisms_struct_setter>(mechanisms_);
     __isset.mechanisms = true;
@@ -508,17 +544,29 @@ class SaslStart final : private apache::thrift::detail::st::ComparisonOperators<
 
  private:
   static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
+
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< SaslStart >;
 };
 
 void swap(SaslStart& a, SaslStart& b);
-extern template uint32_t SaslStart::read<>(apache::thrift::BinaryProtocolReader*);
+extern template void SaslStart::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
 extern template uint32_t SaslStart::write<>(apache::thrift::BinaryProtocolWriter*) const;
 extern template uint32_t SaslStart::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
 extern template uint32_t SaslStart::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t SaslStart::read<>(apache::thrift::CompactProtocolReader*);
+extern template void SaslStart::readNoXfer<>(apache::thrift::CompactProtocolReader*);
 extern template uint32_t SaslStart::write<>(apache::thrift::CompactProtocolWriter*) const;
 extern template uint32_t SaslStart::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 extern template uint32_t SaslStart::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+template <class Protocol_>
+uint32_t SaslStart::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCurrentPosition().getCurrentPosition();
+  readNoXfer(iprot);
+  return iprot->getCurrentPosition().getCurrentPosition() - _xferStart;
+}
 
 }}} // apache::thrift::sasl
 namespace apache { namespace thrift {
@@ -535,8 +583,8 @@ template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::
   return obj->write(proto);
 }
 
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslStart>::read(Protocol* proto,  ::apache::thrift::sasl::SaslStart* obj) {
-  return obj->read(proto);
+template <> template <class Protocol> void Cpp2Ops< ::apache::thrift::sasl::SaslStart>::read(Protocol* proto,  ::apache::thrift::sasl::SaslStart* obj) {
+  return obj->readNoXfer(proto);
 }
 
 template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::sasl::SaslStart>::serializedSize(Protocol const* proto,  ::apache::thrift::sasl::SaslStart const* obj) {

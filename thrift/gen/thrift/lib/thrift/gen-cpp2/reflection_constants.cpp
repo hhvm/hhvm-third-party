@@ -4,10 +4,11 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
  *  @generated
  */
+
 #include "thrift/lib/thrift/gen-cpp2/reflection_constants.h"
 
 #include <folly/Indestructible.h>
 
-namespace apache { namespace thrift { namespace reflection { namespace cpp2 {
+namespace apache { namespace thrift { namespace reflection {
 
-}}}} // apache::thrift::reflection::cpp2
+}}} // apache::thrift::reflection

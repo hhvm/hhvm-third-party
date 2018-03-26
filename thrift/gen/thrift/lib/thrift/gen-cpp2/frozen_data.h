@@ -8,8 +8,8 @@
 
 #include <array>
 #include <cstddef>
-
 #include <thrift/lib/cpp/Thrift.h>
 
-#include "thrift/lib/thrift/gen-cpp/frozen_types.h"
+#include "thrift/lib/thrift/gen-cpp2/frozen_types.h"
+
 

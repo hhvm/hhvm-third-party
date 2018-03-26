@@ -5,62 +5,336 @@
  *  @generated
  */
 #include "thrift/lib/thrift/gen-cpp2/reflection_types.h"
-
 #include "thrift/lib/thrift/gen-cpp2/reflection_types.tcc"
 
 #include <algorithm>
-
 #include <folly/Indestructible.h>
 
 #include "thrift/lib/thrift/gen-cpp2/reflection_data.h"
 
+namespace apache { namespace thrift { namespace reflection {
 
+const _Type_EnumMapFactory::ValuesToNamesMapType _Type_VALUES_TO_NAMES = _Type_EnumMapFactory::makeValuesToNamesMap();
+const _Type_EnumMapFactory::NamesToValuesMapType _Type_NAMES_TO_VALUES = _Type_EnumMapFactory::makeNamesToValuesMap();
 
-namespace apache { namespace thrift { namespace reflection { namespace cpp2 {
+}}} // apache::thrift::reflection
+namespace std {
 
-template uint32_t StructField_read<>(apache::thrift::BinaryProtocolReader*, StructField*);
-template uint32_t StructField_write<>(apache::thrift::BinaryProtocolWriter*, const StructField*);
-template uint32_t StructField_serializedSize<>(apache::thrift::BinaryProtocolWriter const*, const StructField*);
-template uint32_t StructField_serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*, const StructField*);
-template uint32_t StructField_read<>(apache::thrift::CompactProtocolReader*, StructField*);
-template uint32_t StructField_write<>(apache::thrift::CompactProtocolWriter*, const StructField*);
-template uint32_t StructField_serializedSize<>(apache::thrift::CompactProtocolWriter const*, const StructField*);
-template uint32_t StructField_serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*, const StructField*);
-
-}}}} // apache::thrift::reflection::cpp2
+} // std
 namespace apache { namespace thrift {
 
-}} // apache::thrift
-namespace apache { namespace thrift { namespace reflection { namespace cpp2 {
+template <> const std::size_t TEnumTraits< ::apache::thrift::reflection::Type>::size = 16;
+template <> const folly::Range<const  ::apache::thrift::reflection::Type*> TEnumTraits< ::apache::thrift::reflection::Type>::values = folly::range( ::apache::thrift::reflection::_TypeEnumDataStorage::values);
+template <> const folly::Range<const folly::StringPiece*> TEnumTraits< ::apache::thrift::reflection::Type>::names = folly::range( ::apache::thrift::reflection::_TypeEnumDataStorage::names);
+template <> const char* TEnumTraits< ::apache::thrift::reflection::Type>::findName( ::apache::thrift::reflection::Type value) {
+  static auto const map = folly::Indestructible< ::apache::thrift::reflection::_Type_EnumMapFactory::ValuesToNamesMapType>{ ::apache::thrift::reflection::_Type_EnumMapFactory::makeValuesToNamesMap()};
+  return findName(*map, value);
+}
 
-template uint32_t DataType_read<>(apache::thrift::BinaryProtocolReader*, DataType*);
-template uint32_t DataType_write<>(apache::thrift::BinaryProtocolWriter*, const DataType*);
-template uint32_t DataType_serializedSize<>(apache::thrift::BinaryProtocolWriter const*, const DataType*);
-template uint32_t DataType_serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*, const DataType*);
-template uint32_t DataType_read<>(apache::thrift::CompactProtocolReader*, DataType*);
-template uint32_t DataType_write<>(apache::thrift::CompactProtocolWriter*, const DataType*);
-template uint32_t DataType_serializedSize<>(apache::thrift::CompactProtocolWriter const*, const DataType*);
-template uint32_t DataType_serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*, const DataType*);
-
-}}}} // apache::thrift::reflection::cpp2
-namespace apache { namespace thrift {
+template <> bool TEnumTraits< ::apache::thrift::reflection::Type>::findValue(const char* name,  ::apache::thrift::reflection::Type* outValue) {
+  static auto const map = folly::Indestructible< ::apache::thrift::reflection::_Type_EnumMapFactory::NamesToValuesMapType>{ ::apache::thrift::reflection::_Type_EnumMapFactory::makeNamesToValuesMap()};
+  return findValue(*map, name, outValue);
+}
 
 }} // apache::thrift
-namespace apache { namespace thrift { namespace reflection { namespace cpp2 {
+namespace apache { namespace thrift { namespace reflection {
 
-template uint32_t Schema_read<>(apache::thrift::BinaryProtocolReader*, Schema*);
-template uint32_t Schema_write<>(apache::thrift::BinaryProtocolWriter*, const Schema*);
-template uint32_t Schema_serializedSize<>(apache::thrift::BinaryProtocolWriter const*, const Schema*);
-template uint32_t Schema_serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*, const Schema*);
-template uint32_t Schema_read<>(apache::thrift::CompactProtocolReader*, Schema*);
-template uint32_t Schema_write<>(apache::thrift::CompactProtocolWriter*, const Schema*);
-template uint32_t Schema_serializedSize<>(apache::thrift::CompactProtocolWriter const*, const Schema*);
-template uint32_t Schema_serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*, const Schema*);
+StructField::StructField() :
+      isRequired(0),
+      type(0),
+      order(0) {}
 
-}}}} // apache::thrift::reflection::cpp2
-namespace apache { namespace thrift {
 
-}} // apache::thrift
-namespace apache { namespace thrift { namespace reflection { namespace cpp2 {
+StructField::~StructField() {}
 
-}}}} // apache::thrift::reflection::cpp2
+StructField::StructField(apache::thrift::FragileConstructor, bool isRequired__arg, int64_t type__arg, std::string name__arg, std::unordered_map<std::string, std::string> annotations__arg, int16_t order__arg) :
+    isRequired(std::move(isRequired__arg)),
+    type(std::move(type__arg)),
+    name(std::move(name__arg)),
+    annotations(std::move(annotations__arg)),
+    order(std::move(order__arg)) {
+  __isset.isRequired = true;
+  __isset.type = true;
+  __isset.name = true;
+  __isset.annotations = true;
+  __isset.order = true;
+}
+
+void StructField::__clear() {
+  // clear all fields
+  isRequired = 0;
+  type = 0;
+  name = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+  annotations.clear();
+  order = 0;
+  __isset = {};
+}
+
+bool StructField::operator==(const StructField& rhs) const {
+  if (!((isRequired == rhs.isRequired))) {
+    return false;
+  }
+  if (!((type == rhs.type))) {
+    return false;
+  }
+  if (!((name == rhs.name))) {
+    return false;
+  }
+  if (__isset.annotations != rhs.__isset.annotations) {
+    return false;
+  }
+  else if (__isset.annotations && !((annotations == rhs.annotations))) {
+    return false;
+  }
+  if (!((order == rhs.order))) {
+    return false;
+  }
+  return true;
+}
+
+const std::unordered_map<std::string, std::string>* StructField::get_annotations() const& {
+  return __isset.annotations ? std::addressof(annotations) : nullptr;
+}
+
+std::unordered_map<std::string, std::string>* StructField::get_annotations() & {
+  return __isset.annotations ? std::addressof(annotations) : nullptr;
+}
+
+void StructField::translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "isRequired") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_BOOL;
+  }
+  else if (_fname == "type") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_I64;
+  }
+  else if (_fname == "name") {
+    fid = 3;
+    _ftype = apache::thrift::protocol::T_STRING;
+  }
+  else if (_fname == "annotations") {
+    fid = 4;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+  else if (_fname == "order") {
+    fid = 5;
+    _ftype = apache::thrift::protocol::T_I16;
+  }
+}
+
+void swap(StructField& a, StructField& b) {
+  using ::std::swap;
+  swap(a.isRequired, b.isRequired);
+  swap(a.type, b.type);
+  swap(a.name, b.name);
+  swap(a.annotations, b.annotations);
+  swap(a.order, b.order);
+  swap(a.__isset, b.__isset);
+}
+
+template void StructField::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t StructField::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t StructField::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t StructField::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void StructField::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t StructField::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t StructField::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t StructField::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}}} // apache::thrift::reflection
+namespace apache { namespace thrift { namespace reflection {
+
+DataType::DataType() :
+      mapKeyType(0),
+      valueType(0) {}
+
+
+DataType::~DataType() {}
+
+DataType::DataType(apache::thrift::FragileConstructor, std::string name__arg, std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField> fields__arg, int64_t mapKeyType__arg, int64_t valueType__arg, std::unordered_map<std::string, int32_t> enumValues__arg) :
+    name(std::move(name__arg)),
+    fields(std::move(fields__arg)),
+    mapKeyType(std::move(mapKeyType__arg)),
+    valueType(std::move(valueType__arg)),
+    enumValues(std::move(enumValues__arg)) {
+  __isset.name = true;
+  __isset.fields = true;
+  __isset.mapKeyType = true;
+  __isset.valueType = true;
+  __isset.enumValues = true;
+}
+
+void DataType::__clear() {
+  // clear all fields
+  name = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+  fields.clear();
+  mapKeyType = 0;
+  valueType = 0;
+  enumValues.clear();
+  __isset = {};
+}
+
+bool DataType::operator==(const DataType& rhs) const {
+  if (!((name == rhs.name))) {
+    return false;
+  }
+  if (__isset.fields != rhs.__isset.fields) {
+    return false;
+  }
+  else if (__isset.fields && !((fields == rhs.fields))) {
+    return false;
+  }
+  if (__isset.mapKeyType != rhs.__isset.mapKeyType) {
+    return false;
+  }
+  else if (__isset.mapKeyType && !((mapKeyType == rhs.mapKeyType))) {
+    return false;
+  }
+  if (__isset.valueType != rhs.__isset.valueType) {
+    return false;
+  }
+  else if (__isset.valueType && !((valueType == rhs.valueType))) {
+    return false;
+  }
+  if (__isset.enumValues != rhs.__isset.enumValues) {
+    return false;
+  }
+  else if (__isset.enumValues && !((enumValues == rhs.enumValues))) {
+    return false;
+  }
+  return true;
+}
+
+const std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField>* DataType::get_fields() const& {
+  return __isset.fields ? std::addressof(fields) : nullptr;
+}
+
+std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField>* DataType::get_fields() & {
+  return __isset.fields ? std::addressof(fields) : nullptr;
+}
+
+const std::unordered_map<std::string, int32_t>* DataType::get_enumValues() const& {
+  return __isset.enumValues ? std::addressof(enumValues) : nullptr;
+}
+
+std::unordered_map<std::string, int32_t>* DataType::get_enumValues() & {
+  return __isset.enumValues ? std::addressof(enumValues) : nullptr;
+}
+
+void DataType::translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "name") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_STRING;
+  }
+  else if (_fname == "fields") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+  else if (_fname == "mapKeyType") {
+    fid = 3;
+    _ftype = apache::thrift::protocol::T_I64;
+  }
+  else if (_fname == "valueType") {
+    fid = 4;
+    _ftype = apache::thrift::protocol::T_I64;
+  }
+  else if (_fname == "enumValues") {
+    fid = 5;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+}
+
+void swap(DataType& a, DataType& b) {
+  using ::std::swap;
+  swap(a.name, b.name);
+  swap(a.fields, b.fields);
+  swap(a.mapKeyType, b.mapKeyType);
+  swap(a.valueType, b.valueType);
+  swap(a.enumValues, b.enumValues);
+  swap(a.__isset, b.__isset);
+}
+
+template void DataType::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t DataType::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t DataType::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t DataType::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void DataType::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t DataType::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t DataType::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t DataType::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}}} // apache::thrift::reflection
+namespace apache { namespace thrift { namespace reflection {
+
+Schema::Schema(apache::thrift::FragileConstructor, std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType> dataTypes__arg, std::unordered_map<std::string, int64_t> names__arg) :
+    dataTypes(std::move(dataTypes__arg)),
+    names(std::move(names__arg)) {
+  __isset.dataTypes = true;
+  __isset.names = true;
+}
+
+void Schema::__clear() {
+  // clear all fields
+  dataTypes.clear();
+  names.clear();
+  __isset = {};
+}
+
+bool Schema::operator==(const Schema& rhs) const {
+  if (!((dataTypes == rhs.dataTypes))) {
+    return false;
+  }
+  if (!((names == rhs.names))) {
+    return false;
+  }
+  return true;
+}
+
+const std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType>& Schema::get_dataTypes() const& {
+  return dataTypes;
+}
+
+std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType> Schema::get_dataTypes() && {
+  return std::move(dataTypes);
+}
+
+const std::unordered_map<std::string, int64_t>& Schema::get_names() const& {
+  return names;
+}
+
+std::unordered_map<std::string, int64_t> Schema::get_names() && {
+  return std::move(names);
+}
+
+void Schema::translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "dataTypes") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+  else if (_fname == "names") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+}
+
+void swap(Schema& a, Schema& b) {
+  using ::std::swap;
+  swap(a.dataTypes, b.dataTypes);
+  swap(a.names, b.names);
+  swap(a.__isset, b.__isset);
+}
+
+template void Schema::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t Schema::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t Schema::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t Schema::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void Schema::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t Schema::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t Schema::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t Schema::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}}} // apache::thrift::reflection

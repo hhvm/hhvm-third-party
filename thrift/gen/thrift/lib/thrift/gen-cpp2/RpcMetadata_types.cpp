@@ -269,11 +269,11 @@ void swap(RequestRpcMetadata& a, RequestRpcMetadata& b) {
   swap(a.__isset, b.__isset);
 }
 
-template uint32_t RequestRpcMetadata::read<>(apache::thrift::BinaryProtocolReader*);
+template void RequestRpcMetadata::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
 template uint32_t RequestRpcMetadata::write<>(apache::thrift::BinaryProtocolWriter*) const;
 template uint32_t RequestRpcMetadata::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
 template uint32_t RequestRpcMetadata::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t RequestRpcMetadata::read<>(apache::thrift::CompactProtocolReader*);
+template void RequestRpcMetadata::readNoXfer<>(apache::thrift::CompactProtocolReader*);
 template uint32_t RequestRpcMetadata::write<>(apache::thrift::CompactProtocolWriter*) const;
 template uint32_t RequestRpcMetadata::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 template uint32_t RequestRpcMetadata::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
@@ -352,11 +352,11 @@ void swap(ResponseRpcMetadata& a, ResponseRpcMetadata& b) {
   swap(a.__isset, b.__isset);
 }
 
-template uint32_t ResponseRpcMetadata::read<>(apache::thrift::BinaryProtocolReader*);
+template void ResponseRpcMetadata::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
 template uint32_t ResponseRpcMetadata::write<>(apache::thrift::BinaryProtocolWriter*) const;
 template uint32_t ResponseRpcMetadata::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
 template uint32_t ResponseRpcMetadata::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t ResponseRpcMetadata::read<>(apache::thrift::CompactProtocolReader*);
+template void ResponseRpcMetadata::readNoXfer<>(apache::thrift::CompactProtocolReader*);
 template uint32_t ResponseRpcMetadata::write<>(apache::thrift::CompactProtocolWriter*) const;
 template uint32_t ResponseRpcMetadata::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 template uint32_t ResponseRpcMetadata::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;

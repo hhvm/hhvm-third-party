@@ -283,7 +283,7 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
   }
   std::string* get_name() && = delete;
 
-  template <typename T_RequestRpcMetadata_name_struct_setter>
+  template <typename T_RequestRpcMetadata_name_struct_setter = std::string>
   std::string& set_name(T_RequestRpcMetadata_name_struct_setter&& name_) {
     name = std::forward<T_RequestRpcMetadata_name_struct_setter>(name_);
     __isset.name = true;
@@ -368,7 +368,7 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
   std::map<std::string, std::string>* get_otherMetadata() &;
   std::map<std::string, std::string>* get_otherMetadata() && = delete;
 
-  template <typename T_RequestRpcMetadata_otherMetadata_struct_setter>
+  template <typename T_RequestRpcMetadata_otherMetadata_struct_setter = std::map<std::string, std::string>>
   std::map<std::string, std::string>& set_otherMetadata(T_RequestRpcMetadata_otherMetadata_struct_setter&& otherMetadata_) {
     otherMetadata = std::forward<T_RequestRpcMetadata_otherMetadata_struct_setter>(otherMetadata_);
     __isset.otherMetadata = true;
@@ -384,7 +384,7 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
   }
   std::string* get_host() && = delete;
 
-  template <typename T_RequestRpcMetadata_host_struct_setter>
+  template <typename T_RequestRpcMetadata_host_struct_setter = std::string>
   std::string& set_host(T_RequestRpcMetadata_host_struct_setter&& host_) {
     host = std::forward<T_RequestRpcMetadata_host_struct_setter>(host_);
     __isset.host = true;
@@ -400,7 +400,7 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
   }
   std::string* get_url() && = delete;
 
-  template <typename T_RequestRpcMetadata_url_struct_setter>
+  template <typename T_RequestRpcMetadata_url_struct_setter = std::string>
   std::string& set_url(T_RequestRpcMetadata_url_struct_setter&& url_) {
     url = std::forward<T_RequestRpcMetadata_url_struct_setter>(url_);
     __isset.url = true;
@@ -418,17 +418,29 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
 
  private:
   static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
+
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< RequestRpcMetadata >;
 };
 
 void swap(RequestRpcMetadata& a, RequestRpcMetadata& b);
-extern template uint32_t RequestRpcMetadata::read<>(apache::thrift::BinaryProtocolReader*);
+extern template void RequestRpcMetadata::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
 extern template uint32_t RequestRpcMetadata::write<>(apache::thrift::BinaryProtocolWriter*) const;
 extern template uint32_t RequestRpcMetadata::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
 extern template uint32_t RequestRpcMetadata::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t RequestRpcMetadata::read<>(apache::thrift::CompactProtocolReader*);
+extern template void RequestRpcMetadata::readNoXfer<>(apache::thrift::CompactProtocolReader*);
 extern template uint32_t RequestRpcMetadata::write<>(apache::thrift::CompactProtocolWriter*) const;
 extern template uint32_t RequestRpcMetadata::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 extern template uint32_t RequestRpcMetadata::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+template <class Protocol_>
+uint32_t RequestRpcMetadata::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCurrentPosition().getCurrentPosition();
+  readNoXfer(iprot);
+  return iprot->getCurrentPosition().getCurrentPosition() - _xferStart;
+}
 
 }} // apache::thrift
 namespace apache { namespace thrift {
@@ -445,8 +457,8 @@ template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::Reques
   return obj->write(proto);
 }
 
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::RequestRpcMetadata>::read(Protocol* proto,  ::apache::thrift::RequestRpcMetadata* obj) {
-  return obj->read(proto);
+template <> template <class Protocol> void Cpp2Ops< ::apache::thrift::RequestRpcMetadata>::read(Protocol* proto,  ::apache::thrift::RequestRpcMetadata* obj) {
+  return obj->readNoXfer(proto);
 }
 
 template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::RequestRpcMetadata>::serializedSize(Protocol const* proto,  ::apache::thrift::RequestRpcMetadata const* obj) {
@@ -542,7 +554,7 @@ class ResponseRpcMetadata final : private apache::thrift::detail::st::Comparison
   std::map<std::string, std::string>* get_otherMetadata() &;
   std::map<std::string, std::string>* get_otherMetadata() && = delete;
 
-  template <typename T_ResponseRpcMetadata_otherMetadata_struct_setter>
+  template <typename T_ResponseRpcMetadata_otherMetadata_struct_setter = std::map<std::string, std::string>>
   std::map<std::string, std::string>& set_otherMetadata(T_ResponseRpcMetadata_otherMetadata_struct_setter&& otherMetadata_) {
     otherMetadata = std::forward<T_ResponseRpcMetadata_otherMetadata_struct_setter>(otherMetadata_);
     __isset.otherMetadata = true;
@@ -560,17 +572,29 @@ class ResponseRpcMetadata final : private apache::thrift::detail::st::Comparison
 
  private:
   static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
+
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< ResponseRpcMetadata >;
 };
 
 void swap(ResponseRpcMetadata& a, ResponseRpcMetadata& b);
-extern template uint32_t ResponseRpcMetadata::read<>(apache::thrift::BinaryProtocolReader*);
+extern template void ResponseRpcMetadata::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
 extern template uint32_t ResponseRpcMetadata::write<>(apache::thrift::BinaryProtocolWriter*) const;
 extern template uint32_t ResponseRpcMetadata::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
 extern template uint32_t ResponseRpcMetadata::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t ResponseRpcMetadata::read<>(apache::thrift::CompactProtocolReader*);
+extern template void ResponseRpcMetadata::readNoXfer<>(apache::thrift::CompactProtocolReader*);
 extern template uint32_t ResponseRpcMetadata::write<>(apache::thrift::CompactProtocolWriter*) const;
 extern template uint32_t ResponseRpcMetadata::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 extern template uint32_t ResponseRpcMetadata::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+template <class Protocol_>
+uint32_t ResponseRpcMetadata::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCurrentPosition().getCurrentPosition();
+  readNoXfer(iprot);
+  return iprot->getCurrentPosition().getCurrentPosition() - _xferStart;
+}
 
 }} // apache::thrift
 namespace apache { namespace thrift {
@@ -587,8 +611,8 @@ template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::Respon
   return obj->write(proto);
 }
 
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::ResponseRpcMetadata>::read(Protocol* proto,  ::apache::thrift::ResponseRpcMetadata* obj) {
-  return obj->read(proto);
+template <> template <class Protocol> void Cpp2Ops< ::apache::thrift::ResponseRpcMetadata>::read(Protocol* proto,  ::apache::thrift::ResponseRpcMetadata* obj) {
+  return obj->readNoXfer(proto);
 }
 
 template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::ResponseRpcMetadata>::serializedSize(Protocol const* proto,  ::apache::thrift::ResponseRpcMetadata const* obj) {

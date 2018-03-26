@@ -41,8 +41,11 @@ class SaslAuthServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
   virtual void sync_authFirstRequest( ::apache::thrift::sasl::SaslReply& _return, const  ::apache::thrift::sasl::SaslStart& saslStart);
   virtual void sync_authFirstRequest(apache::thrift::RpcOptions& rpcOptions,  ::apache::thrift::sasl::SaslReply& _return, const  ::apache::thrift::sasl::SaslStart& saslStart);
   virtual folly::Future< ::apache::thrift::sasl::SaslReply> future_authFirstRequest(const  ::apache::thrift::sasl::SaslStart& saslStart);
+  virtual folly::SemiFuture< ::apache::thrift::sasl::SaslReply> semifuture_authFirstRequest(const  ::apache::thrift::sasl::SaslStart& saslStart);
   virtual folly::Future< ::apache::thrift::sasl::SaslReply> future_authFirstRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslStart& saslStart);
+  virtual folly::SemiFuture< ::apache::thrift::sasl::SaslReply> semifuture_authFirstRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslStart& saslStart);
   virtual folly::Future<std::pair< ::apache::thrift::sasl::SaslReply, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_authFirstRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslStart& saslStart);
+  virtual folly::SemiFuture<std::pair< ::apache::thrift::sasl::SaslReply, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_authFirstRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslStart& saslStart);
   virtual void authFirstRequest(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::apache::thrift::sasl::SaslStart& saslStart);
   static folly::exception_wrapper recv_wrapped_authFirstRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
   static void recv_authFirstRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
@@ -61,8 +64,11 @@ class SaslAuthServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
   virtual void sync_authNextRequest( ::apache::thrift::sasl::SaslReply& _return, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
   virtual void sync_authNextRequest(apache::thrift::RpcOptions& rpcOptions,  ::apache::thrift::sasl::SaslReply& _return, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
   virtual folly::Future< ::apache::thrift::sasl::SaslReply> future_authNextRequest(const  ::apache::thrift::sasl::SaslRequest& saslRequest);
+  virtual folly::SemiFuture< ::apache::thrift::sasl::SaslReply> semifuture_authNextRequest(const  ::apache::thrift::sasl::SaslRequest& saslRequest);
   virtual folly::Future< ::apache::thrift::sasl::SaslReply> future_authNextRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
+  virtual folly::SemiFuture< ::apache::thrift::sasl::SaslReply> semifuture_authNextRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
   virtual folly::Future<std::pair< ::apache::thrift::sasl::SaslReply, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_authNextRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
+  virtual folly::SemiFuture<std::pair< ::apache::thrift::sasl::SaslReply, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_authNextRequest(apache::thrift::RpcOptions& rpcOptions, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
   virtual void authNextRequest(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::apache::thrift::sasl::SaslRequest& saslRequest);
   static folly::exception_wrapper recv_wrapped_authNextRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
   static void recv_authNextRequest( ::apache::thrift::sasl::SaslReply& _return, ::apache::thrift::ClientReceiveState& state);
