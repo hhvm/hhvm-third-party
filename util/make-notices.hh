@@ -15,6 +15,7 @@ final class ThirdPartyBinaryNotices {
   public static function getKnownProjects(
   ): dict<string, ?(string, keyset<string>)> {
     return dict[
+      'CMakeFiles' => null, // not a project :)
       'brotli' => tuple('Brotli', keyset['brotli/src/LICENSE']),
       'double-conversion' => tuple(
         'double-conversion',
