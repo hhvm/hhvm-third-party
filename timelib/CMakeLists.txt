@@ -35,9 +35,10 @@ CHECK_FUNCTION_EXISTS("atoll" HAVE_ATOLL)
 CHECK_FUNCTION_EXISTS("strftime" HAVE_STRFTIME)
 CHECK_FUNCTION_EXISTS("setlocale" HAVE_SETLOCALE)
 
-# Only use /usr/share/zoneinfo on Linux for now, on the assumption that
-# the file format is platform-specific.
-if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux" AND EXISTS /usr/share/zoneinfo)
+# Works on Linux and Mac; given that we don't want to (and basically don't)
+# update the bundled tzdata, if this doesn't work on some platform, please
+# blacklist the platform rather than whitelisting others.
+if (EXISTS /usr/share/zoneinfo)
   add_definitions(-DHAVE_SYSTEM_TZDATA)
 endif()
 
