@@ -123,6 +123,13 @@ endif()
 
 list(APPEND THIRD_PARTY_MODULES ocaml)
 
+# Add bundled XED library if XED is enabled and the specified XED library
+# is either not found or incompatible.
+if(NOT DISABLE_XED AND NOT LibXed_FOUND)
+  list(APPEND THIRD_PARTY_MODULES xed)
+  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/xed/xed/build/include/xed")
+endif()
+
 function(TP_INSTALL_HEADERS TARGET SRCDIR DEST)
   file(GLOB_RECURSE files "${SRCDIR}/*.h")
   install(
