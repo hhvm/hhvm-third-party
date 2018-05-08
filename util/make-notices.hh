@@ -74,9 +74,9 @@ final class ThirdPartyBinaryNotices {
       if ($project[0] === '.') {
         continue;
       }
-      if (!array_key_exists($project, $known_projects)) {
-        fprintf(
-          STDERR,
+      if (!\array_key_exists($project, $known_projects)) {
+        \fprintf(
+          \STDERR,
           "Failed to find config for project '%s'\n",
           $project,
         );
@@ -85,7 +85,7 @@ final class ThirdPartyBinaryNotices {
       $projects[] = $project;
     }
 
-    sort(&$projects);
+    \sort(&$projects);
     foreach ($projects as $project) {
       $config = $known_projects[$project] ?? null;
       if ($config === null) {
@@ -94,18 +94,18 @@ final class ThirdPartyBinaryNotices {
       list($name, $files) = $config;
 
       print("\n-----\n\n");
-      printf(
+      \printf(
         "The following software may be included in this product: %s. This ".
         "Software contains the following license and notice below: \n\n",
         $name,
       );
       foreach ($files as $file) {
         $file = __DIR__.'/../'.$file;
-        if (!file_exists($file)) {
-          fprintf(STDERR, "%s does not exist\n", $file);
+        if (!\file_exists($file)) {
+          \fprintf(\STDERR, "%s does not exist\n", $file);
           exit(2);
         }
-        print(file_get_contents($file));
+        print(\file_get_contents($file));
       }
     }
   }
