@@ -54,6 +54,10 @@ final class ThirdPartyBinaryNotices {
           'webscalesqlclient/src/COPYING',
         ],
       ),
+      'xed' => tuple(
+        'Intel XED Library',
+        keyset['xed/xed/license'],
+      ),
       'zstd' => null, // first-party
     ];
   }
