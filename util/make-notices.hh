@@ -56,7 +56,7 @@ final class ThirdPartyBinaryNotices {
       ),
       'xed' => tuple(
         'Intel XED Library',
-        keyset['xed/xed/license'],
+        keyset['xed/xed/LICENSE'],
       ),
       'zstd' => null, // first-party
     ];
