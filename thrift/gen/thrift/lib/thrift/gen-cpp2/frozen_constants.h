@@ -8,7 +8,7 @@
 
 #include <thrift/lib/cpp2/protocol/Protocol.h>
 
-#include "frozen_types.h"
+#include "thrift/lib/thrift/gen-cpp2/frozen_types.h"
 
 namespace apache { namespace thrift { namespace frozen { namespace schema {
 

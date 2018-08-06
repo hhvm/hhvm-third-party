@@ -8,7 +8,7 @@
 
 #include <thrift/lib/cpp2/protocol/Protocol.h>
 
-#include "Sasl_types.h"
+#include "thrift/lib/cpp2/gen-cpp2/Sasl_types.h"
 
 namespace apache { namespace thrift { namespace sasl {
 

@@ -65,6 +65,7 @@ list(REMOVE_ITEM files
   # io/Compression requires snappy library
   # Don't add dep until we need it
   ${FOLLY_DIR}/io/Compression.cpp
+  ${FOLLY_DIR}/python/GILAwareManualExecutor.cpp
 )
 list(REMOVE_ITEM hfiles
   ${FOLLY_DIR}/Benchmark.h
@@ -85,6 +86,8 @@ list(REMOVE_ITEM hfiles
   # io/Compression requires snappy library
   # Don't add dep until we need it
   ${FOLLY_DIR}/io/Compression.h
+  ${FOLLY_DIR}/python/AsyncioExecutor.h
+  ${FOLLY_DIR}/python/GILAwareManualExecutor.h
 )
 
 CHECK_CXX_SOURCE_COMPILES("#include <bits/functexcept.h>

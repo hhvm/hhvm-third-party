@@ -87,6 +87,80 @@ template <> bool TEnumTraits< ::apache::thrift::RpcPriority>::findValue(const ch
 }
 
 }} // apache::thrift
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+void TccStructTraits< ::apache::thrift::RequestRpcMetadata>::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "protocol") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_I32;
+  }
+  else if (_fname == "name") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_STRING;
+  }
+  else if (_fname == "kind") {
+    fid = 3;
+    _ftype = apache::thrift::protocol::T_I32;
+  }
+  else if (_fname == "seqId") {
+    fid = 4;
+    _ftype = apache::thrift::protocol::T_I32;
+  }
+  else if (_fname == "clientTimeoutMs") {
+    fid = 5;
+    _ftype = apache::thrift::protocol::T_I32;
+  }
+  else if (_fname == "queueTimeoutMs") {
+    fid = 6;
+    _ftype = apache::thrift::protocol::T_I32;
+  }
+  else if (_fname == "priority") {
+    fid = 7;
+    _ftype = apache::thrift::protocol::T_I32;
+  }
+  else if (_fname == "otherMetadata") {
+    fid = 8;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+  else if (_fname == "host") {
+    fid = 9;
+    _ftype = apache::thrift::protocol::T_STRING;
+  }
+  else if (_fname == "url") {
+    fid = 10;
+    _ftype = apache::thrift::protocol::T_STRING;
+  }
+}
+void TccStructTraits< ::apache::thrift::ResponseRpcMetadata>::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "protocol") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_I32;
+  }
+  else if (_fname == "seqId") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_I32;
+  }
+  else if (_fname == "otherMetadata") {
+    fid = 3;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
 namespace apache { namespace thrift {
 
 RequestRpcMetadata::RequestRpcMetadata() :
@@ -139,67 +213,175 @@ void RequestRpcMetadata::__clear() {
 }
 
 bool RequestRpcMetadata::operator==(const RequestRpcMetadata& rhs) const {
-  if (__isset.protocol != rhs.__isset.protocol) {
+  (void)rhs;
+  auto& lhs = *this;
+  if (lhs.__isset.protocol != rhs.__isset.protocol) {
     return false;
   }
-  else if (__isset.protocol && !((protocol == rhs.protocol))) {
+  if (lhs.__isset.protocol) {
+    if (!(lhs.protocol == rhs.protocol)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.name != rhs.__isset.name) {
     return false;
   }
-  if (__isset.name != rhs.__isset.name) {
+  if (lhs.__isset.name) {
+    if (!(lhs.name == rhs.name)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.kind != rhs.__isset.kind) {
     return false;
   }
-  else if (__isset.name && !((name == rhs.name))) {
+  if (lhs.__isset.kind) {
+    if (!(lhs.kind == rhs.kind)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.seqId != rhs.__isset.seqId) {
     return false;
   }
-  if (__isset.kind != rhs.__isset.kind) {
+  if (lhs.__isset.seqId) {
+    if (!(lhs.seqId == rhs.seqId)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.clientTimeoutMs != rhs.__isset.clientTimeoutMs) {
     return false;
   }
-  else if (__isset.kind && !((kind == rhs.kind))) {
+  if (lhs.__isset.clientTimeoutMs) {
+    if (!(lhs.clientTimeoutMs == rhs.clientTimeoutMs)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.queueTimeoutMs != rhs.__isset.queueTimeoutMs) {
     return false;
   }
-  if (__isset.seqId != rhs.__isset.seqId) {
+  if (lhs.__isset.queueTimeoutMs) {
+    if (!(lhs.queueTimeoutMs == rhs.queueTimeoutMs)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.priority != rhs.__isset.priority) {
     return false;
   }
-  else if (__isset.seqId && !((seqId == rhs.seqId))) {
+  if (lhs.__isset.priority) {
+    if (!(lhs.priority == rhs.priority)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.otherMetadata != rhs.__isset.otherMetadata) {
     return false;
   }
-  if (__isset.clientTimeoutMs != rhs.__isset.clientTimeoutMs) {
+  if (lhs.__isset.otherMetadata) {
+    if (!(lhs.otherMetadata == rhs.otherMetadata)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.host != rhs.__isset.host) {
     return false;
   }
-  else if (__isset.clientTimeoutMs && !((clientTimeoutMs == rhs.clientTimeoutMs))) {
+  if (lhs.__isset.host) {
+    if (!(lhs.host == rhs.host)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.url != rhs.__isset.url) {
     return false;
   }
-  if (__isset.queueTimeoutMs != rhs.__isset.queueTimeoutMs) {
-    return false;
-  }
-  else if (__isset.queueTimeoutMs && !((queueTimeoutMs == rhs.queueTimeoutMs))) {
-    return false;
-  }
-  if (__isset.priority != rhs.__isset.priority) {
-    return false;
-  }
-  else if (__isset.priority && !((priority == rhs.priority))) {
-    return false;
-  }
-  if (__isset.otherMetadata != rhs.__isset.otherMetadata) {
-    return false;
-  }
-  else if (__isset.otherMetadata && !((otherMetadata == rhs.otherMetadata))) {
-    return false;
-  }
-  if (__isset.host != rhs.__isset.host) {
-    return false;
-  }
-  else if (__isset.host && !((host == rhs.host))) {
-    return false;
-  }
-  if (__isset.url != rhs.__isset.url) {
-    return false;
-  }
-  else if (__isset.url && !((url == rhs.url))) {
-    return false;
+  if (lhs.__isset.url) {
+    if (!(lhs.url == rhs.url)) {
+      return false;
+    }
   }
   return true;
+}
+
+bool RequestRpcMetadata::operator<(const RequestRpcMetadata& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  if (lhs.__isset.protocol != rhs.__isset.protocol) {
+    return lhs.__isset.protocol < rhs.__isset.protocol;
+  }
+  if (lhs.__isset.protocol) {
+    if (!(lhs.protocol == rhs.protocol)) {
+      return lhs.protocol < rhs.protocol;
+    }
+  }
+  if (lhs.__isset.name != rhs.__isset.name) {
+    return lhs.__isset.name < rhs.__isset.name;
+  }
+  if (lhs.__isset.name) {
+    if (!(lhs.name == rhs.name)) {
+      return lhs.name < rhs.name;
+    }
+  }
+  if (lhs.__isset.kind != rhs.__isset.kind) {
+    return lhs.__isset.kind < rhs.__isset.kind;
+  }
+  if (lhs.__isset.kind) {
+    if (!(lhs.kind == rhs.kind)) {
+      return lhs.kind < rhs.kind;
+    }
+  }
+  if (lhs.__isset.seqId != rhs.__isset.seqId) {
+    return lhs.__isset.seqId < rhs.__isset.seqId;
+  }
+  if (lhs.__isset.seqId) {
+    if (!(lhs.seqId == rhs.seqId)) {
+      return lhs.seqId < rhs.seqId;
+    }
+  }
+  if (lhs.__isset.clientTimeoutMs != rhs.__isset.clientTimeoutMs) {
+    return lhs.__isset.clientTimeoutMs < rhs.__isset.clientTimeoutMs;
+  }
+  if (lhs.__isset.clientTimeoutMs) {
+    if (!(lhs.clientTimeoutMs == rhs.clientTimeoutMs)) {
+      return lhs.clientTimeoutMs < rhs.clientTimeoutMs;
+    }
+  }
+  if (lhs.__isset.queueTimeoutMs != rhs.__isset.queueTimeoutMs) {
+    return lhs.__isset.queueTimeoutMs < rhs.__isset.queueTimeoutMs;
+  }
+  if (lhs.__isset.queueTimeoutMs) {
+    if (!(lhs.queueTimeoutMs == rhs.queueTimeoutMs)) {
+      return lhs.queueTimeoutMs < rhs.queueTimeoutMs;
+    }
+  }
+  if (lhs.__isset.priority != rhs.__isset.priority) {
+    return lhs.__isset.priority < rhs.__isset.priority;
+  }
+  if (lhs.__isset.priority) {
+    if (!(lhs.priority == rhs.priority)) {
+      return lhs.priority < rhs.priority;
+    }
+  }
+  if (lhs.__isset.otherMetadata != rhs.__isset.otherMetadata) {
+    return lhs.__isset.otherMetadata < rhs.__isset.otherMetadata;
+  }
+  if (lhs.__isset.otherMetadata) {
+    if (!(lhs.otherMetadata == rhs.otherMetadata)) {
+      return lhs.otherMetadata < rhs.otherMetadata;
+    }
+  }
+  if (lhs.__isset.host != rhs.__isset.host) {
+    return lhs.__isset.host < rhs.__isset.host;
+  }
+  if (lhs.__isset.host) {
+    if (!(lhs.host == rhs.host)) {
+      return lhs.host < rhs.host;
+    }
+  }
+  if (lhs.__isset.url != rhs.__isset.url) {
+    return lhs.__isset.url < rhs.__isset.url;
+  }
+  if (lhs.__isset.url) {
+    if (!(lhs.url == rhs.url)) {
+      return lhs.url < rhs.url;
+    }
+  }
+  return false;
 }
 
 const std::map<std::string, std::string>* RequestRpcMetadata::get_otherMetadata() const& {
@@ -210,49 +392,6 @@ std::map<std::string, std::string>* RequestRpcMetadata::get_otherMetadata() & {
   return __isset.otherMetadata ? std::addressof(otherMetadata) : nullptr;
 }
 
-void RequestRpcMetadata::translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
-  if (false) {}
-  else if (_fname == "protocol") {
-    fid = 1;
-    _ftype = apache::thrift::protocol::T_I32;
-  }
-  else if (_fname == "name") {
-    fid = 2;
-    _ftype = apache::thrift::protocol::T_STRING;
-  }
-  else if (_fname == "kind") {
-    fid = 3;
-    _ftype = apache::thrift::protocol::T_I32;
-  }
-  else if (_fname == "seqId") {
-    fid = 4;
-    _ftype = apache::thrift::protocol::T_I32;
-  }
-  else if (_fname == "clientTimeoutMs") {
-    fid = 5;
-    _ftype = apache::thrift::protocol::T_I32;
-  }
-  else if (_fname == "queueTimeoutMs") {
-    fid = 6;
-    _ftype = apache::thrift::protocol::T_I32;
-  }
-  else if (_fname == "priority") {
-    fid = 7;
-    _ftype = apache::thrift::protocol::T_I32;
-  }
-  else if (_fname == "otherMetadata") {
-    fid = 8;
-    _ftype = apache::thrift::protocol::T_MAP;
-  }
-  else if (_fname == "host") {
-    fid = 9;
-    _ftype = apache::thrift::protocol::T_STRING;
-  }
-  else if (_fname == "url") {
-    fid = 10;
-    _ftype = apache::thrift::protocol::T_STRING;
-  }
-}
 
 void swap(RequestRpcMetadata& a, RequestRpcMetadata& b) {
   using ::std::swap;
@@ -299,25 +438,63 @@ void ResponseRpcMetadata::__clear() {
 }
 
 bool ResponseRpcMetadata::operator==(const ResponseRpcMetadata& rhs) const {
-  if (__isset.protocol != rhs.__isset.protocol) {
+  (void)rhs;
+  auto& lhs = *this;
+  if (lhs.__isset.protocol != rhs.__isset.protocol) {
     return false;
   }
-  else if (__isset.protocol && !((protocol == rhs.protocol))) {
+  if (lhs.__isset.protocol) {
+    if (!(lhs.protocol == rhs.protocol)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.seqId != rhs.__isset.seqId) {
     return false;
   }
-  if (__isset.seqId != rhs.__isset.seqId) {
+  if (lhs.__isset.seqId) {
+    if (!(lhs.seqId == rhs.seqId)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.otherMetadata != rhs.__isset.otherMetadata) {
     return false;
   }
-  else if (__isset.seqId && !((seqId == rhs.seqId))) {
-    return false;
-  }
-  if (__isset.otherMetadata != rhs.__isset.otherMetadata) {
-    return false;
-  }
-  else if (__isset.otherMetadata && !((otherMetadata == rhs.otherMetadata))) {
-    return false;
+  if (lhs.__isset.otherMetadata) {
+    if (!(lhs.otherMetadata == rhs.otherMetadata)) {
+      return false;
+    }
   }
   return true;
+}
+
+bool ResponseRpcMetadata::operator<(const ResponseRpcMetadata& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  if (lhs.__isset.protocol != rhs.__isset.protocol) {
+    return lhs.__isset.protocol < rhs.__isset.protocol;
+  }
+  if (lhs.__isset.protocol) {
+    if (!(lhs.protocol == rhs.protocol)) {
+      return lhs.protocol < rhs.protocol;
+    }
+  }
+  if (lhs.__isset.seqId != rhs.__isset.seqId) {
+    return lhs.__isset.seqId < rhs.__isset.seqId;
+  }
+  if (lhs.__isset.seqId) {
+    if (!(lhs.seqId == rhs.seqId)) {
+      return lhs.seqId < rhs.seqId;
+    }
+  }
+  if (lhs.__isset.otherMetadata != rhs.__isset.otherMetadata) {
+    return lhs.__isset.otherMetadata < rhs.__isset.otherMetadata;
+  }
+  if (lhs.__isset.otherMetadata) {
+    if (!(lhs.otherMetadata == rhs.otherMetadata)) {
+      return lhs.otherMetadata < rhs.otherMetadata;
+    }
+  }
+  return false;
 }
 
 const std::map<std::string, std::string>* ResponseRpcMetadata::get_otherMetadata() const& {
@@ -328,21 +505,6 @@ std::map<std::string, std::string>* ResponseRpcMetadata::get_otherMetadata() & {
   return __isset.otherMetadata ? std::addressof(otherMetadata) : nullptr;
 }
 
-void ResponseRpcMetadata::translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
-  if (false) {}
-  else if (_fname == "protocol") {
-    fid = 1;
-    _ftype = apache::thrift::protocol::T_I32;
-  }
-  else if (_fname == "seqId") {
-    fid = 2;
-    _ftype = apache::thrift::protocol::T_I32;
-  }
-  else if (_fname == "otherMetadata") {
-    fid = 3;
-    _ftype = apache::thrift::protocol::T_MAP;
-  }
-}
 
 void swap(ResponseRpcMetadata& a, ResponseRpcMetadata& b) {
   using ::std::swap;

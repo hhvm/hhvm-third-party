@@ -37,6 +37,82 @@ template <> bool TEnumTraits< ::apache::thrift::reflection::Type>::findValue(con
 }
 
 }} // apache::thrift
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+void TccStructTraits< ::apache::thrift::reflection::StructField>::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "isRequired") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_BOOL;
+  }
+  else if (_fname == "type") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_I64;
+  }
+  else if (_fname == "name") {
+    fid = 3;
+    _ftype = apache::thrift::protocol::T_STRING;
+  }
+  else if (_fname == "annotations") {
+    fid = 4;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+  else if (_fname == "order") {
+    fid = 5;
+    _ftype = apache::thrift::protocol::T_I16;
+  }
+}
+void TccStructTraits< ::apache::thrift::reflection::DataType>::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "name") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_STRING;
+  }
+  else if (_fname == "fields") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+  else if (_fname == "mapKeyType") {
+    fid = 3;
+    _ftype = apache::thrift::protocol::T_I64;
+  }
+  else if (_fname == "valueType") {
+    fid = 4;
+    _ftype = apache::thrift::protocol::T_I64;
+  }
+  else if (_fname == "enumValues") {
+    fid = 5;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+}
+void TccStructTraits< ::apache::thrift::reflection::Schema>::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "dataTypes") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+  else if (_fname == "names") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
 namespace apache { namespace thrift { namespace reflection {
 
 StructField::StructField() :
@@ -71,22 +147,26 @@ void StructField::__clear() {
 }
 
 bool StructField::operator==(const StructField& rhs) const {
-  if (!((isRequired == rhs.isRequired))) {
+  (void)rhs;
+  auto& lhs = *this;
+  if (!(lhs.isRequired == rhs.isRequired)) {
     return false;
   }
-  if (!((type == rhs.type))) {
+  if (!(lhs.type == rhs.type)) {
     return false;
   }
-  if (!((name == rhs.name))) {
+  if (!(lhs.name == rhs.name)) {
     return false;
   }
-  if (__isset.annotations != rhs.__isset.annotations) {
+  if (lhs.__isset.annotations != rhs.__isset.annotations) {
     return false;
   }
-  else if (__isset.annotations && !((annotations == rhs.annotations))) {
-    return false;
+  if (lhs.__isset.annotations) {
+    if (!(lhs.annotations == rhs.annotations)) {
+      return false;
+    }
   }
-  if (!((order == rhs.order))) {
+  if (!(lhs.order == rhs.order)) {
     return false;
   }
   return true;
@@ -100,29 +180,6 @@ std::unordered_map<std::string, std::string>* StructField::get_annotations() & {
   return __isset.annotations ? std::addressof(annotations) : nullptr;
 }
 
-void StructField::translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
-  if (false) {}
-  else if (_fname == "isRequired") {
-    fid = 1;
-    _ftype = apache::thrift::protocol::T_BOOL;
-  }
-  else if (_fname == "type") {
-    fid = 2;
-    _ftype = apache::thrift::protocol::T_I64;
-  }
-  else if (_fname == "name") {
-    fid = 3;
-    _ftype = apache::thrift::protocol::T_STRING;
-  }
-  else if (_fname == "annotations") {
-    fid = 4;
-    _ftype = apache::thrift::protocol::T_MAP;
-  }
-  else if (_fname == "order") {
-    fid = 5;
-    _ftype = apache::thrift::protocol::T_I16;
-  }
-}
 
 void swap(StructField& a, StructField& b) {
   using ::std::swap;
@@ -177,32 +234,42 @@ void DataType::__clear() {
 }
 
 bool DataType::operator==(const DataType& rhs) const {
-  if (!((name == rhs.name))) {
+  (void)rhs;
+  auto& lhs = *this;
+  if (!(lhs.name == rhs.name)) {
     return false;
   }
-  if (__isset.fields != rhs.__isset.fields) {
+  if (lhs.__isset.fields != rhs.__isset.fields) {
     return false;
   }
-  else if (__isset.fields && !((fields == rhs.fields))) {
+  if (lhs.__isset.fields) {
+    if (!(lhs.fields == rhs.fields)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.mapKeyType != rhs.__isset.mapKeyType) {
     return false;
   }
-  if (__isset.mapKeyType != rhs.__isset.mapKeyType) {
+  if (lhs.__isset.mapKeyType) {
+    if (!(lhs.mapKeyType == rhs.mapKeyType)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.valueType != rhs.__isset.valueType) {
     return false;
   }
-  else if (__isset.mapKeyType && !((mapKeyType == rhs.mapKeyType))) {
+  if (lhs.__isset.valueType) {
+    if (!(lhs.valueType == rhs.valueType)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.enumValues != rhs.__isset.enumValues) {
     return false;
   }
-  if (__isset.valueType != rhs.__isset.valueType) {
-    return false;
-  }
-  else if (__isset.valueType && !((valueType == rhs.valueType))) {
-    return false;
-  }
-  if (__isset.enumValues != rhs.__isset.enumValues) {
-    return false;
-  }
-  else if (__isset.enumValues && !((enumValues == rhs.enumValues))) {
-    return false;
+  if (lhs.__isset.enumValues) {
+    if (!(lhs.enumValues == rhs.enumValues)) {
+      return false;
+    }
   }
   return true;
 }
@@ -223,29 +290,6 @@ std::unordered_map<std::string, int32_t>* DataType::get_enumValues() & {
   return __isset.enumValues ? std::addressof(enumValues) : nullptr;
 }
 
-void DataType::translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
-  if (false) {}
-  else if (_fname == "name") {
-    fid = 1;
-    _ftype = apache::thrift::protocol::T_STRING;
-  }
-  else if (_fname == "fields") {
-    fid = 2;
-    _ftype = apache::thrift::protocol::T_MAP;
-  }
-  else if (_fname == "mapKeyType") {
-    fid = 3;
-    _ftype = apache::thrift::protocol::T_I64;
-  }
-  else if (_fname == "valueType") {
-    fid = 4;
-    _ftype = apache::thrift::protocol::T_I64;
-  }
-  else if (_fname == "enumValues") {
-    fid = 5;
-    _ftype = apache::thrift::protocol::T_MAP;
-  }
-}
 
 void swap(DataType& a, DataType& b) {
   using ::std::swap;
@@ -284,10 +328,12 @@ void Schema::__clear() {
 }
 
 bool Schema::operator==(const Schema& rhs) const {
-  if (!((dataTypes == rhs.dataTypes))) {
+  (void)rhs;
+  auto& lhs = *this;
+  if (!(lhs.dataTypes == rhs.dataTypes)) {
     return false;
   }
-  if (!((names == rhs.names))) {
+  if (!(lhs.names == rhs.names)) {
     return false;
   }
   return true;
@@ -309,17 +355,6 @@ std::unordered_map<std::string, int64_t> Schema::get_names() && {
   return std::move(names);
 }
 
-void Schema::translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
-  if (false) {}
-  else if (_fname == "dataTypes") {
-    fid = 1;
-    _ftype = apache::thrift::protocol::T_MAP;
-  }
-  else if (_fname == "names") {
-    fid = 2;
-    _ftype = apache::thrift::protocol::T_MAP;
-  }
-}
 
 void swap(Schema& a, Schema& b) {
   using ::std::swap;

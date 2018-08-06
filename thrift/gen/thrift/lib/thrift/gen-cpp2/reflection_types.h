@@ -8,6 +8,7 @@
 
 #include <thrift/lib/cpp2/GeneratedHeaderHelper.h>
 #include <thrift/lib/cpp2/Thrift.h>
+#include <thrift/lib/cpp2/gen/module_types_h.h>
 #include <thrift/lib/cpp2/protocol/Protocol.h>
 
 #include <unordered_map>
@@ -54,9 +55,11 @@ namespace apache { namespace thrift {
 
 
 template <> struct TEnumDataStorage< ::apache::thrift::reflection::Type>;
+#ifndef _MSC_VER
 template <> const std::size_t TEnumTraits< ::apache::thrift::reflection::Type>::size;
 template <> const folly::Range<const  ::apache::thrift::reflection::Type*> TEnumTraits< ::apache::thrift::reflection::Type>::values;
 template <> const folly::Range<const folly::StringPiece*> TEnumTraits< ::apache::thrift::reflection::Type>::names;
+#endif
 template <> const char* TEnumTraits< ::apache::thrift::reflection::Type>::findName( ::apache::thrift::reflection::Type value);
 template <> bool TEnumTraits< ::apache::thrift::reflection::Type>::findValue(const char* name,  ::apache::thrift::reflection::Type* outValue);
 
@@ -96,39 +99,29 @@ class StructField final : private apache::thrift::detail::st::ComparisonOperator
 
   // FragileConstructor for use in initialization lists only.
   StructField(apache::thrift::FragileConstructor, bool isRequired__arg, int64_t type__arg, std::string name__arg, std::unordered_map<std::string, std::string> annotations__arg, int16_t order__arg);
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  StructField(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    StructField(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    isRequired = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
+    isRequired = arg.extract();
     __isset.isRequired = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  StructField(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    StructField(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    type = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<2, _T> arg) {
+    type = arg.extract();
     __isset.type = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  StructField(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    StructField(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    name = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<3, _T> arg) {
+    name = arg.extract();
     __isset.name = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  StructField(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    StructField(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    annotations = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<4, _T> arg) {
+    annotations = arg.extract();
     __isset.annotations = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  StructField(::apache::thrift::detail::argument_wrapper<5, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    StructField(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    order = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<5, _T> arg) {
+    order = arg.extract();
     __isset.order = true;
   }
 
@@ -157,7 +150,7 @@ class StructField final : private apache::thrift::detail::st::ComparisonOperator
     bool order;
   } __isset = {};
   bool operator==(const StructField& rhs) const;
-  bool operator < (const StructField& rhs) const;
+  bool operator<(const StructField& rhs) const;
 
   bool get_isRequired() const {
     return isRequired;
@@ -224,8 +217,6 @@ class StructField final : private apache::thrift::detail::st::ComparisonOperator
   uint32_t write(Protocol_* prot_) const;
 
  private:
-  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
-
   template <class Protocol_>
   void readNoXfer(Protocol_* iprot);
 
@@ -285,39 +276,29 @@ class DataType final : private apache::thrift::detail::st::ComparisonOperators<D
 
   // FragileConstructor for use in initialization lists only.
   DataType(apache::thrift::FragileConstructor, std::string name__arg, std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField> fields__arg, int64_t mapKeyType__arg, int64_t valueType__arg, std::unordered_map<std::string, int32_t> enumValues__arg);
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  DataType(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    DataType(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    name = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
+    name = arg.extract();
     __isset.name = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  DataType(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    DataType(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    fields = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<2, _T> arg) {
+    fields = arg.extract();
     __isset.fields = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  DataType(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    DataType(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    mapKeyType = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<3, _T> arg) {
+    mapKeyType = arg.extract();
     __isset.mapKeyType = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  DataType(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    DataType(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    valueType = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<4, _T> arg) {
+    valueType = arg.extract();
     __isset.valueType = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  DataType(::apache::thrift::detail::argument_wrapper<5, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    DataType(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    enumValues = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<5, _T> arg) {
+    enumValues = arg.extract();
     __isset.enumValues = true;
   }
 
@@ -346,7 +327,7 @@ class DataType final : private apache::thrift::detail::st::ComparisonOperators<D
     bool enumValues;
   } __isset = {};
   bool operator==(const DataType& rhs) const;
-  bool operator < (const DataType& rhs) const;
+  bool operator<(const DataType& rhs) const;
 
   const std::string& get_name() const& {
     return name;
@@ -423,8 +404,6 @@ class DataType final : private apache::thrift::detail::st::ComparisonOperators<D
   uint32_t write(Protocol_* prot_) const;
 
  private:
-  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
-
   template <class Protocol_>
   void readNoXfer(Protocol_* iprot);
 
@@ -483,18 +462,14 @@ class Schema final : private apache::thrift::detail::st::ComparisonOperators<Sch
   Schema() {}
   // FragileConstructor for use in initialization lists only.
   Schema(apache::thrift::FragileConstructor, std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType> dataTypes__arg, std::unordered_map<std::string, int64_t> names__arg);
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  Schema(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    Schema(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    dataTypes = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
+    dataTypes = arg.extract();
     __isset.dataTypes = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  Schema(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    Schema(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    names = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<2, _T> arg) {
+    names = arg.extract();
     __isset.names = true;
   }
 
@@ -514,7 +489,7 @@ class Schema final : private apache::thrift::detail::st::ComparisonOperators<Sch
     bool names;
   } __isset = {};
   bool operator==(const Schema& rhs) const;
-  bool operator < (const Schema& rhs) const;
+  bool operator<(const Schema& rhs) const;
   const std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType>& get_dataTypes() const&;
   std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType> get_dataTypes() &&;
 
@@ -544,8 +519,6 @@ class Schema final : private apache::thrift::detail::st::ComparisonOperators<Sch
   uint32_t write(Protocol_* prot_) const;
 
  private:
-  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
-
   template <class Protocol_>
   void readNoXfer(Protocol_* iprot);
 

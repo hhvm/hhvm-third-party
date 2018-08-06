@@ -8,6 +8,7 @@
 
 #include <thrift/lib/cpp2/GeneratedHeaderHelper.h>
 #include <thrift/lib/cpp2/Thrift.h>
+#include <thrift/lib/cpp2/gen/module_types_h.h>
 #include <thrift/lib/cpp2/protocol/Protocol.h>
 
 
@@ -78,9 +79,11 @@ namespace apache { namespace thrift {
 
 
 template <> struct TEnumDataStorage< ::apache::thrift::ProtocolId>;
+#ifndef _MSC_VER
 template <> const std::size_t TEnumTraits< ::apache::thrift::ProtocolId>::size;
 template <> const folly::Range<const  ::apache::thrift::ProtocolId*> TEnumTraits< ::apache::thrift::ProtocolId>::values;
 template <> const folly::Range<const folly::StringPiece*> TEnumTraits< ::apache::thrift::ProtocolId>::names;
+#endif
 template <> const char* TEnumTraits< ::apache::thrift::ProtocolId>::findName( ::apache::thrift::ProtocolId value);
 template <> bool TEnumTraits< ::apache::thrift::ProtocolId>::findValue(const char* name,  ::apache::thrift::ProtocolId* outValue);
 
@@ -94,9 +97,11 @@ template <> inline constexpr  ::apache::thrift::ProtocolId TEnumTraits< ::apache
 
 
 template <> struct TEnumDataStorage< ::apache::thrift::RpcKind>;
+#ifndef _MSC_VER
 template <> const std::size_t TEnumTraits< ::apache::thrift::RpcKind>::size;
 template <> const folly::Range<const  ::apache::thrift::RpcKind*> TEnumTraits< ::apache::thrift::RpcKind>::values;
 template <> const folly::Range<const folly::StringPiece*> TEnumTraits< ::apache::thrift::RpcKind>::names;
+#endif
 template <> const char* TEnumTraits< ::apache::thrift::RpcKind>::findName( ::apache::thrift::RpcKind value);
 template <> bool TEnumTraits< ::apache::thrift::RpcKind>::findValue(const char* name,  ::apache::thrift::RpcKind* outValue);
 
@@ -110,9 +115,11 @@ template <> inline constexpr  ::apache::thrift::RpcKind TEnumTraits< ::apache::t
 
 
 template <> struct TEnumDataStorage< ::apache::thrift::RpcPriority>;
+#ifndef _MSC_VER
 template <> const std::size_t TEnumTraits< ::apache::thrift::RpcPriority>::size;
 template <> const folly::Range<const  ::apache::thrift::RpcPriority*> TEnumTraits< ::apache::thrift::RpcPriority>::values;
 template <> const folly::Range<const folly::StringPiece*> TEnumTraits< ::apache::thrift::RpcPriority>::names;
+#endif
 template <> const char* TEnumTraits< ::apache::thrift::RpcPriority>::findName( ::apache::thrift::RpcPriority value);
 template <> bool TEnumTraits< ::apache::thrift::RpcPriority>::findValue(const char* name,  ::apache::thrift::RpcPriority* outValue);
 
@@ -151,74 +158,54 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
 
   // FragileConstructor for use in initialization lists only.
   RequestRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, std::string name__arg,  ::apache::thrift::RpcKind kind__arg, int32_t seqId__arg, int32_t clientTimeoutMs__arg, int32_t queueTimeoutMs__arg,  ::apache::thrift::RpcPriority priority__arg, std::map<std::string, std::string> otherMetadata__arg, std::string host__arg, std::string url__arg);
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  RequestRpcMetadata(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    RequestRpcMetadata(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    protocol = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
+    protocol = arg.extract();
     __isset.protocol = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  RequestRpcMetadata(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    RequestRpcMetadata(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    name = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<2, _T> arg) {
+    name = arg.extract();
     __isset.name = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  RequestRpcMetadata(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    RequestRpcMetadata(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    kind = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<3, _T> arg) {
+    kind = arg.extract();
     __isset.kind = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  RequestRpcMetadata(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    RequestRpcMetadata(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    seqId = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<4, _T> arg) {
+    seqId = arg.extract();
     __isset.seqId = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  RequestRpcMetadata(::apache::thrift::detail::argument_wrapper<5, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    RequestRpcMetadata(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    clientTimeoutMs = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<5, _T> arg) {
+    clientTimeoutMs = arg.extract();
     __isset.clientTimeoutMs = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  RequestRpcMetadata(::apache::thrift::detail::argument_wrapper<6, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    RequestRpcMetadata(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    queueTimeoutMs = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<6, _T> arg) {
+    queueTimeoutMs = arg.extract();
     __isset.queueTimeoutMs = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  RequestRpcMetadata(::apache::thrift::detail::argument_wrapper<7, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    RequestRpcMetadata(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    priority = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<7, _T> arg) {
+    priority = arg.extract();
     __isset.priority = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  RequestRpcMetadata(::apache::thrift::detail::argument_wrapper<8, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    RequestRpcMetadata(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    otherMetadata = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<8, _T> arg) {
+    otherMetadata = arg.extract();
     __isset.otherMetadata = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  RequestRpcMetadata(::apache::thrift::detail::argument_wrapper<9, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    RequestRpcMetadata(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    host = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<9, _T> arg) {
+    host = arg.extract();
     __isset.host = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  RequestRpcMetadata(::apache::thrift::detail::argument_wrapper<10, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    RequestRpcMetadata(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    url = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<10, _T> arg) {
+    url = arg.extract();
     __isset.url = true;
   }
 
@@ -257,7 +244,7 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
     bool url;
   } __isset = {};
   bool operator==(const RequestRpcMetadata& rhs) const;
-  bool operator < (const RequestRpcMetadata& rhs) const;
+  bool operator<(const RequestRpcMetadata& rhs) const;
 
   const  ::apache::thrift::ProtocolId* get_protocol() const& {
     return __isset.protocol ? std::addressof(protocol) : nullptr;
@@ -417,8 +404,6 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
   uint32_t write(Protocol_* prot_) const;
 
  private:
-  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
-
   template <class Protocol_>
   void readNoXfer(Protocol_* iprot);
 
@@ -479,25 +464,19 @@ class ResponseRpcMetadata final : private apache::thrift::detail::st::Comparison
       seqId(0) {}
   // FragileConstructor for use in initialization lists only.
   ResponseRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, int32_t seqId__arg, std::map<std::string, std::string> otherMetadata__arg);
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  ResponseRpcMetadata(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    ResponseRpcMetadata(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    protocol = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
+    protocol = arg.extract();
     __isset.protocol = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  ResponseRpcMetadata(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    ResponseRpcMetadata(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    seqId = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<2, _T> arg) {
+    seqId = arg.extract();
     __isset.seqId = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  ResponseRpcMetadata(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    ResponseRpcMetadata(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    otherMetadata = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<3, _T> arg) {
+    otherMetadata = arg.extract();
     __isset.otherMetadata = true;
   }
 
@@ -519,7 +498,7 @@ class ResponseRpcMetadata final : private apache::thrift::detail::st::Comparison
     bool otherMetadata;
   } __isset = {};
   bool operator==(const ResponseRpcMetadata& rhs) const;
-  bool operator < (const ResponseRpcMetadata& rhs) const;
+  bool operator<(const ResponseRpcMetadata& rhs) const;
 
   const  ::apache::thrift::ProtocolId* get_protocol() const& {
     return __isset.protocol ? std::addressof(protocol) : nullptr;
@@ -571,8 +550,6 @@ class ResponseRpcMetadata final : private apache::thrift::detail::st::Comparison
   uint32_t write(Protocol_* prot_) const;
 
  private:
-  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
-
   template <class Protocol_>
   void readNoXfer(Protocol_* iprot);
 

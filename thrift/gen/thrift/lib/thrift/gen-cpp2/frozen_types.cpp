@@ -12,6 +12,74 @@
 
 #include "thrift/lib/thrift/gen-cpp2/frozen_data.h"
 
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+void TccStructTraits< ::apache::thrift::frozen::schema::Field>::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "layoutId") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_I16;
+  }
+  else if (_fname == "offset") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_I16;
+  }
+}
+void TccStructTraits< ::apache::thrift::frozen::schema::Layout>::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "size") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_I32;
+  }
+  else if (_fname == "bits") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_I16;
+  }
+  else if (_fname == "fields") {
+    fid = 3;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+  else if (_fname == "typeName") {
+    fid = 4;
+    _ftype = apache::thrift::protocol::T_STRING;
+  }
+}
+void TccStructTraits< ::apache::thrift::frozen::schema::Schema>::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "fileVersion") {
+    fid = 4;
+    _ftype = apache::thrift::protocol::T_I32;
+  }
+  else if (_fname == "relaxTypeChecks") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_BOOL;
+  }
+  else if (_fname == "layouts") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
+  else if (_fname == "rootLayout") {
+    fid = 3;
+    _ftype = apache::thrift::protocol::T_I16;
+  }
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
 namespace apache { namespace thrift { namespace frozen { namespace schema {
 
 Field::Field(apache::thrift::FragileConstructor, int16_t layoutId__arg, int16_t offset__arg) :
@@ -29,26 +97,29 @@ void Field::__clear() {
 }
 
 bool Field::operator==(const Field& rhs) const {
-  if (!((layoutId == rhs.layoutId))) {
+  (void)rhs;
+  auto& lhs = *this;
+  if (!(lhs.layoutId == rhs.layoutId)) {
     return false;
   }
-  if (!((offset == rhs.offset))) {
+  if (!(lhs.offset == rhs.offset)) {
     return false;
   }
   return true;
 }
 
-void Field::translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
-  if (false) {}
-  else if (_fname == "layoutId") {
-    fid = 1;
-    _ftype = apache::thrift::protocol::T_I16;
+bool Field::operator<(const Field& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  if (!(lhs.layoutId == rhs.layoutId)) {
+    return lhs.layoutId < rhs.layoutId;
   }
-  else if (_fname == "offset") {
-    fid = 2;
-    _ftype = apache::thrift::protocol::T_I16;
+  if (!(lhs.offset == rhs.offset)) {
+    return lhs.offset < rhs.offset;
   }
+  return false;
 }
+
 
 void swap(Field& a, Field& b) {
   using ::std::swap;
@@ -90,19 +161,39 @@ void Layout::__clear() {
 }
 
 bool Layout::operator==(const Layout& rhs) const {
-  if (!((size == rhs.size))) {
+  (void)rhs;
+  auto& lhs = *this;
+  if (!(lhs.size == rhs.size)) {
     return false;
   }
-  if (!((bits == rhs.bits))) {
+  if (!(lhs.bits == rhs.bits)) {
     return false;
   }
-  if (!((fields == rhs.fields))) {
+  if (!(lhs.fields == rhs.fields)) {
     return false;
   }
-  if (!((typeName == rhs.typeName))) {
+  if (!(lhs.typeName == rhs.typeName)) {
     return false;
   }
   return true;
+}
+
+bool Layout::operator<(const Layout& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  if (!(lhs.size == rhs.size)) {
+    return lhs.size < rhs.size;
+  }
+  if (!(lhs.bits == rhs.bits)) {
+    return lhs.bits < rhs.bits;
+  }
+  if (!(lhs.fields == rhs.fields)) {
+    return lhs.fields < rhs.fields;
+  }
+  if (!(lhs.typeName == rhs.typeName)) {
+    return lhs.typeName < rhs.typeName;
+  }
+  return false;
 }
 
 const std::map<int16_t,  ::apache::thrift::frozen::schema::Field>& Layout::get_fields() const& {
@@ -113,25 +204,6 @@ std::map<int16_t,  ::apache::thrift::frozen::schema::Field> Layout::get_fields()
   return std::move(fields);
 }
 
-void Layout::translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
-  if (false) {}
-  else if (_fname == "size") {
-    fid = 1;
-    _ftype = apache::thrift::protocol::T_I32;
-  }
-  else if (_fname == "bits") {
-    fid = 2;
-    _ftype = apache::thrift::protocol::T_I16;
-  }
-  else if (_fname == "fields") {
-    fid = 3;
-    _ftype = apache::thrift::protocol::T_MAP;
-  }
-  else if (_fname == "typeName") {
-    fid = 4;
-    _ftype = apache::thrift::protocol::T_STRING;
-  }
-}
 
 void swap(Layout& a, Layout& b) {
   using ::std::swap;
@@ -175,19 +247,39 @@ void Schema::__clear() {
 }
 
 bool Schema::operator==(const Schema& rhs) const {
-  if (!((fileVersion == rhs.fileVersion))) {
+  (void)rhs;
+  auto& lhs = *this;
+  if (!(lhs.fileVersion == rhs.fileVersion)) {
     return false;
   }
-  if (!((relaxTypeChecks == rhs.relaxTypeChecks))) {
+  if (!(lhs.relaxTypeChecks == rhs.relaxTypeChecks)) {
     return false;
   }
-  if (!((layouts == rhs.layouts))) {
+  if (!(lhs.layouts == rhs.layouts)) {
     return false;
   }
-  if (!((rootLayout == rhs.rootLayout))) {
+  if (!(lhs.rootLayout == rhs.rootLayout)) {
     return false;
   }
   return true;
+}
+
+bool Schema::operator<(const Schema& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  if (!(lhs.fileVersion == rhs.fileVersion)) {
+    return lhs.fileVersion < rhs.fileVersion;
+  }
+  if (!(lhs.relaxTypeChecks == rhs.relaxTypeChecks)) {
+    return lhs.relaxTypeChecks < rhs.relaxTypeChecks;
+  }
+  if (!(lhs.layouts == rhs.layouts)) {
+    return lhs.layouts < rhs.layouts;
+  }
+  if (!(lhs.rootLayout == rhs.rootLayout)) {
+    return lhs.rootLayout < rhs.rootLayout;
+  }
+  return false;
 }
 
 const std::map<int16_t,  ::apache::thrift::frozen::schema::Layout>& Schema::get_layouts() const& {
@@ -198,25 +290,6 @@ std::map<int16_t,  ::apache::thrift::frozen::schema::Layout> Schema::get_layouts
   return std::move(layouts);
 }
 
-void Schema::translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
-  if (false) {}
-  else if (_fname == "fileVersion") {
-    fid = 4;
-    _ftype = apache::thrift::protocol::T_I32;
-  }
-  else if (_fname == "relaxTypeChecks") {
-    fid = 1;
-    _ftype = apache::thrift::protocol::T_BOOL;
-  }
-  else if (_fname == "layouts") {
-    fid = 2;
-    _ftype = apache::thrift::protocol::T_MAP;
-  }
-  else if (_fname == "rootLayout") {
-    fid = 3;
-    _ftype = apache::thrift::protocol::T_I16;
-  }
-}
 
 void swap(Schema& a, Schema& b) {
   using ::std::swap;

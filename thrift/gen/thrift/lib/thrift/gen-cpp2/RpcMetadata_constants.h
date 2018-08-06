@@ -8,7 +8,7 @@
 
 #include <thrift/lib/cpp2/protocol/Protocol.h>
 
-#include "RpcMetadata_types.h"
+#include "thrift/lib/thrift/gen-cpp2/RpcMetadata_types.h"
 
 namespace apache { namespace thrift {
 

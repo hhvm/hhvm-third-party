@@ -9,6 +9,7 @@
 #include "thrift/lib/thrift/gen-cpp2/RpcMetadata_types.h"
 
 #include <thrift/lib/cpp2/GeneratedSerializationCodeHelper.h>
+#include <thrift/lib/cpp2/gen/module_types_tcc.h>
 
 #include <thrift/lib/cpp2/protocol/BinaryProtocol.h>
 #include <thrift/lib/cpp2/protocol/CompactProtocol.h>
@@ -41,6 +42,30 @@ namespace std {
 namespace apache { namespace thrift {
 
 }} // apache::thrift
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+template <>
+struct TccStructTraits< ::apache::thrift::RequestRpcMetadata> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype);
+};
+template <>
+struct TccStructTraits< ::apache::thrift::ResponseRpcMetadata> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype);
+};
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
 namespace apache { namespace thrift {
 
 template <class Protocol_>
@@ -100,7 +125,7 @@ _readField_kind:
   }
 _readField_seqId:
   {
-    iprot->readI32(this->seqId);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::read(*iprot, this->seqId);
     this->__isset.seqId = true;
   }
 
@@ -113,7 +138,7 @@ _readField_seqId:
   }
 _readField_clientTimeoutMs:
   {
-    iprot->readI32(this->clientTimeoutMs);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::read(*iprot, this->clientTimeoutMs);
     this->__isset.clientTimeoutMs = true;
   }
 
@@ -126,7 +151,7 @@ _readField_clientTimeoutMs:
   }
 _readField_queueTimeoutMs:
   {
-    iprot->readI32(this->queueTimeoutMs);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::read(*iprot, this->queueTimeoutMs);
     this->__isset.queueTimeoutMs = true;
   }
 
@@ -201,7 +226,7 @@ _loop:
     goto _end;
   }
   if (iprot->kUsesFieldNames()) {
-    this->translateFieldName(_readState.fieldName(), _readState.fieldId, _readState.fieldType);
+    apache::thrift::detail::TccStructTraits<RequestRpcMetadata>::translateFieldName(_readState.fieldName(), _readState.fieldId, _readState.fieldType);
   }
 
   switch (_readState.fieldId) {
@@ -314,15 +339,15 @@ uint32_t RequestRpcMetadata::serializedSize(Protocol_ const* prot_) const {
   }
   if (this->__isset.seqId) {
     xfer += prot_->serializedFieldSize("seqId", apache::thrift::protocol::T_I32, 4);
-    xfer += prot_->serializedSizeI32(this->seqId);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->seqId);
   }
   if (this->__isset.clientTimeoutMs) {
     xfer += prot_->serializedFieldSize("clientTimeoutMs", apache::thrift::protocol::T_I32, 5);
-    xfer += prot_->serializedSizeI32(this->clientTimeoutMs);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->clientTimeoutMs);
   }
   if (this->__isset.queueTimeoutMs) {
     xfer += prot_->serializedFieldSize("queueTimeoutMs", apache::thrift::protocol::T_I32, 6);
-    xfer += prot_->serializedSizeI32(this->queueTimeoutMs);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->queueTimeoutMs);
   }
   if (this->__isset.priority) {
     xfer += prot_->serializedFieldSize("priority", apache::thrift::protocol::T_I32, 7);
@@ -362,15 +387,15 @@ uint32_t RequestRpcMetadata::serializedSizeZC(Protocol_ const* prot_) const {
   }
   if (this->__isset.seqId) {
     xfer += prot_->serializedFieldSize("seqId", apache::thrift::protocol::T_I32, 4);
-    xfer += prot_->serializedSizeI32(this->seqId);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->seqId);
   }
   if (this->__isset.clientTimeoutMs) {
     xfer += prot_->serializedFieldSize("clientTimeoutMs", apache::thrift::protocol::T_I32, 5);
-    xfer += prot_->serializedSizeI32(this->clientTimeoutMs);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->clientTimeoutMs);
   }
   if (this->__isset.queueTimeoutMs) {
     xfer += prot_->serializedFieldSize("queueTimeoutMs", apache::thrift::protocol::T_I32, 6);
-    xfer += prot_->serializedSizeI32(this->queueTimeoutMs);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->queueTimeoutMs);
   }
   if (this->__isset.priority) {
     xfer += prot_->serializedFieldSize("priority", apache::thrift::protocol::T_I32, 7);
@@ -413,17 +438,17 @@ uint32_t RequestRpcMetadata::write(Protocol_* prot_) const {
   }
   if (this->__isset.seqId) {
     xfer += prot_->writeFieldBegin("seqId", apache::thrift::protocol::T_I32, 4);
-    xfer += prot_->writeI32(this->seqId);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::write(*prot_, this->seqId);
     xfer += prot_->writeFieldEnd();
   }
   if (this->__isset.clientTimeoutMs) {
     xfer += prot_->writeFieldBegin("clientTimeoutMs", apache::thrift::protocol::T_I32, 5);
-    xfer += prot_->writeI32(this->clientTimeoutMs);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::write(*prot_, this->clientTimeoutMs);
     xfer += prot_->writeFieldEnd();
   }
   if (this->__isset.queueTimeoutMs) {
     xfer += prot_->writeFieldBegin("queueTimeoutMs", apache::thrift::protocol::T_I32, 6);
-    xfer += prot_->writeI32(this->queueTimeoutMs);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::write(*prot_, this->queueTimeoutMs);
     xfer += prot_->writeFieldEnd();
   }
   if (this->__isset.priority) {
@@ -485,7 +510,7 @@ _readField_protocol:
   }
 _readField_seqId:
   {
-    iprot->readI32(this->seqId);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::read(*iprot, this->seqId);
     this->__isset.seqId = true;
   }
 
@@ -521,7 +546,7 @@ _loop:
     goto _end;
   }
   if (iprot->kUsesFieldNames()) {
-    this->translateFieldName(_readState.fieldName(), _readState.fieldId, _readState.fieldType);
+    apache::thrift::detail::TccStructTraits<ResponseRpcMetadata>::translateFieldName(_readState.fieldName(), _readState.fieldId, _readState.fieldType);
   }
 
   switch (_readState.fieldId) {
@@ -570,7 +595,7 @@ uint32_t ResponseRpcMetadata::serializedSize(Protocol_ const* prot_) const {
   }
   if (this->__isset.seqId) {
     xfer += prot_->serializedFieldSize("seqId", apache::thrift::protocol::T_I32, 2);
-    xfer += prot_->serializedSizeI32(this->seqId);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->seqId);
   }
   if (this->__isset.otherMetadata) {
     xfer += prot_->serializedFieldSize("otherMetadata", apache::thrift::protocol::T_MAP, 3);
@@ -590,7 +615,7 @@ uint32_t ResponseRpcMetadata::serializedSizeZC(Protocol_ const* prot_) const {
   }
   if (this->__isset.seqId) {
     xfer += prot_->serializedFieldSize("seqId", apache::thrift::protocol::T_I32, 2);
-    xfer += prot_->serializedSizeI32(this->seqId);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->seqId);
   }
   if (this->__isset.otherMetadata) {
     xfer += prot_->serializedFieldSize("otherMetadata", apache::thrift::protocol::T_MAP, 3);
@@ -611,7 +636,7 @@ uint32_t ResponseRpcMetadata::write(Protocol_* prot_) const {
   }
   if (this->__isset.seqId) {
     xfer += prot_->writeFieldBegin("seqId", apache::thrift::protocol::T_I32, 2);
-    xfer += prot_->writeI32(this->seqId);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::write(*prot_, this->seqId);
     xfer += prot_->writeFieldEnd();
   }
   if (this->__isset.otherMetadata) {

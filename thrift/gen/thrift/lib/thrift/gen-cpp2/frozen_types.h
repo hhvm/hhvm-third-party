@@ -8,6 +8,7 @@
 
 #include <thrift/lib/cpp2/GeneratedHeaderHelper.h>
 #include <thrift/lib/cpp2/Thrift.h>
+#include <thrift/lib/cpp2/gen/module_types_h.h>
 #include <thrift/lib/cpp2/protocol/Protocol.h>
 
 
@@ -38,18 +39,14 @@ class Field final : private apache::thrift::detail::st::ComparisonOperators<Fiel
       offset(static_cast<int16_t>(0)) {}
   // FragileConstructor for use in initialization lists only.
   Field(apache::thrift::FragileConstructor, int16_t layoutId__arg, int16_t offset__arg);
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  Field(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    Field(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    layoutId = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
+    layoutId = arg.extract();
     __isset.layoutId = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  Field(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    Field(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    offset = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<2, _T> arg) {
+    offset = arg.extract();
     __isset.offset = true;
   }
 
@@ -69,17 +66,7 @@ class Field final : private apache::thrift::detail::st::ComparisonOperators<Fiel
     bool offset;
   } __isset = {};
   bool operator==(const Field& rhs) const;
-
-  bool operator < (const Field& rhs) const {
-    if (!(layoutId == rhs.layoutId)) {
-      return layoutId < rhs.layoutId;
-    }
-    if (!(offset == rhs.offset)) {
-      return offset < rhs.offset;
-    }
-    (void)rhs;
-    return false;
-  }
+  bool operator<(const Field& rhs) const;
 
   int16_t get_layoutId() const {
     return layoutId;
@@ -111,8 +98,6 @@ class Field final : private apache::thrift::detail::st::ComparisonOperators<Fiel
   uint32_t write(Protocol_* prot_) const;
 
  private:
-  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
-
   template <class Protocol_>
   void readNoXfer(Protocol_* iprot);
 
@@ -173,32 +158,24 @@ class Layout final : private apache::thrift::detail::st::ComparisonOperators<Lay
       bits(static_cast<int16_t>(0)) {}
   // FragileConstructor for use in initialization lists only.
   Layout(apache::thrift::FragileConstructor, int32_t size__arg, int16_t bits__arg, std::map<int16_t,  ::apache::thrift::frozen::schema::Field> fields__arg, std::string typeName__arg);
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  Layout(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    Layout(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    size = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
+    size = arg.extract();
     __isset.size = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  Layout(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    Layout(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    bits = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<2, _T> arg) {
+    bits = arg.extract();
     __isset.bits = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  Layout(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    Layout(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    fields = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<3, _T> arg) {
+    fields = arg.extract();
     __isset.fields = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  Layout(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    Layout(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    typeName = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<4, _T> arg) {
+    typeName = arg.extract();
     __isset.typeName = true;
   }
 
@@ -222,23 +199,7 @@ class Layout final : private apache::thrift::detail::st::ComparisonOperators<Lay
     bool typeName;
   } __isset = {};
   bool operator==(const Layout& rhs) const;
-
-  bool operator < (const Layout& rhs) const {
-    if (!(size == rhs.size)) {
-      return size < rhs.size;
-    }
-    if (!(bits == rhs.bits)) {
-      return bits < rhs.bits;
-    }
-    if (!(fields == rhs.fields)) {
-      return fields < rhs.fields;
-    }
-    if (!(typeName == rhs.typeName)) {
-      return typeName < rhs.typeName;
-    }
-    (void)rhs;
-    return false;
-  }
+  bool operator<(const Layout& rhs) const;
 
   int32_t get_size() const {
     return size;
@@ -294,8 +255,6 @@ class Layout final : private apache::thrift::detail::st::ComparisonOperators<Lay
   uint32_t write(Protocol_* prot_) const;
 
  private:
-  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
-
   template <class Protocol_>
   void readNoXfer(Protocol_* iprot);
 
@@ -357,32 +316,24 @@ class Schema final : private apache::thrift::detail::st::ComparisonOperators<Sch
       rootLayout(static_cast<int16_t>(0)) {}
   // FragileConstructor for use in initialization lists only.
   Schema(apache::thrift::FragileConstructor, int32_t fileVersion__arg, bool relaxTypeChecks__arg, std::map<int16_t,  ::apache::thrift::frozen::schema::Layout> layouts__arg, int16_t rootLayout__arg);
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  Schema(::apache::thrift::detail::argument_wrapper<4, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    Schema(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    fileVersion = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<4, _T> arg) {
+    fileVersion = arg.extract();
     __isset.fileVersion = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  Schema(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    Schema(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    relaxTypeChecks = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
+    relaxTypeChecks = arg.extract();
     __isset.relaxTypeChecks = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  Schema(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    Schema(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    layouts = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<2, _T> arg) {
+    layouts = arg.extract();
     __isset.layouts = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  Schema(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    Schema(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    rootLayout = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<3, _T> arg) {
+    rootLayout = arg.extract();
     __isset.rootLayout = true;
   }
 
@@ -406,23 +357,7 @@ class Schema final : private apache::thrift::detail::st::ComparisonOperators<Sch
     bool rootLayout;
   } __isset = {};
   bool operator==(const Schema& rhs) const;
-
-  bool operator < (const Schema& rhs) const {
-    if (!(fileVersion == rhs.fileVersion)) {
-      return fileVersion < rhs.fileVersion;
-    }
-    if (!(relaxTypeChecks == rhs.relaxTypeChecks)) {
-      return relaxTypeChecks < rhs.relaxTypeChecks;
-    }
-    if (!(layouts == rhs.layouts)) {
-      return layouts < rhs.layouts;
-    }
-    if (!(rootLayout == rhs.rootLayout)) {
-      return rootLayout < rhs.rootLayout;
-    }
-    (void)rhs;
-    return false;
-  }
+  bool operator<(const Schema& rhs) const;
 
   int32_t get_fileVersion() const {
     return fileVersion;
@@ -473,8 +408,6 @@ class Schema final : private apache::thrift::detail::st::ComparisonOperators<Sch
   uint32_t write(Protocol_* prot_) const;
 
  private:
-  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
-
   template <class Protocol_>
   void readNoXfer(Protocol_* iprot);
 

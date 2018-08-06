@@ -12,6 +12,80 @@
 
 #include "thrift/lib/cpp2/gen-cpp2/Sasl_data.h"
 
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+void TccStructTraits< ::apache::thrift::sasl::SaslOutcome>::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "success") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_BOOL;
+  }
+  else if (_fname == "additional_data") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_STRING;
+  }
+}
+void TccStructTraits< ::apache::thrift::sasl::SaslRequest>::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "response") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_STRING;
+  }
+  else if (_fname == "abort") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_BOOL;
+  }
+}
+void TccStructTraits< ::apache::thrift::sasl::SaslReply>::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "challenge") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_STRING;
+  }
+  else if (_fname == "outcome") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_STRUCT;
+  }
+  else if (_fname == "mechanism") {
+    fid = 3;
+    _ftype = apache::thrift::protocol::T_STRING;
+  }
+}
+void TccStructTraits< ::apache::thrift::sasl::SaslStart>::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "mechanism") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_STRING;
+  }
+  else if (_fname == "request") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_STRUCT;
+  }
+  else if (_fname == "mechanisms") {
+    fid = 3;
+    _ftype = apache::thrift::protocol::T_LIST;
+  }
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
 namespace apache { namespace thrift { namespace sasl {
 
 SaslOutcome::SaslOutcome(apache::thrift::FragileConstructor, bool success__arg, std::string additional_data__arg) :
@@ -29,29 +103,39 @@ void SaslOutcome::__clear() {
 }
 
 bool SaslOutcome::operator==(const SaslOutcome& rhs) const {
-  if (!((success == rhs.success))) {
+  (void)rhs;
+  auto& lhs = *this;
+  if (!(lhs.success == rhs.success)) {
     return false;
   }
-  if (__isset.additional_data != rhs.__isset.additional_data) {
+  if (lhs.__isset.additional_data != rhs.__isset.additional_data) {
     return false;
   }
-  else if (__isset.additional_data && !((additional_data == rhs.additional_data))) {
-    return false;
+  if (lhs.__isset.additional_data) {
+    if (!(lhs.additional_data == rhs.additional_data)) {
+      return false;
+    }
   }
   return true;
 }
 
-void SaslOutcome::translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
-  if (false) {}
-  else if (_fname == "success") {
-    fid = 1;
-    _ftype = apache::thrift::protocol::T_BOOL;
+bool SaslOutcome::operator<(const SaslOutcome& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  if (!(lhs.success == rhs.success)) {
+    return lhs.success < rhs.success;
   }
-  else if (_fname == "additional_data") {
-    fid = 2;
-    _ftype = apache::thrift::protocol::T_STRING;
+  if (lhs.__isset.additional_data != rhs.__isset.additional_data) {
+    return lhs.__isset.additional_data < rhs.__isset.additional_data;
   }
+  if (lhs.__isset.additional_data) {
+    if (!(lhs.additional_data == rhs.additional_data)) {
+      return lhs.additional_data < rhs.additional_data;
+    }
+  }
+  return false;
 }
+
 
 void swap(SaslOutcome& a, SaslOutcome& b) {
   using ::std::swap;
@@ -87,32 +171,49 @@ void SaslRequest::__clear() {
 }
 
 bool SaslRequest::operator==(const SaslRequest& rhs) const {
-  if (__isset.response != rhs.__isset.response) {
+  (void)rhs;
+  auto& lhs = *this;
+  if (lhs.__isset.response != rhs.__isset.response) {
     return false;
   }
-  else if (__isset.response && !((response == rhs.response))) {
+  if (lhs.__isset.response) {
+    if (!(lhs.response == rhs.response)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.abort != rhs.__isset.abort) {
     return false;
   }
-  if (__isset.abort != rhs.__isset.abort) {
-    return false;
-  }
-  else if (__isset.abort && !((abort == rhs.abort))) {
-    return false;
+  if (lhs.__isset.abort) {
+    if (!(lhs.abort == rhs.abort)) {
+      return false;
+    }
   }
   return true;
 }
 
-void SaslRequest::translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
-  if (false) {}
-  else if (_fname == "response") {
-    fid = 1;
-    _ftype = apache::thrift::protocol::T_STRING;
+bool SaslRequest::operator<(const SaslRequest& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  if (lhs.__isset.response != rhs.__isset.response) {
+    return lhs.__isset.response < rhs.__isset.response;
   }
-  else if (_fname == "abort") {
-    fid = 2;
-    _ftype = apache::thrift::protocol::T_BOOL;
+  if (lhs.__isset.response) {
+    if (!(lhs.response == rhs.response)) {
+      return lhs.response < rhs.response;
+    }
   }
+  if (lhs.__isset.abort != rhs.__isset.abort) {
+    return lhs.__isset.abort < rhs.__isset.abort;
+  }
+  if (lhs.__isset.abort) {
+    if (!(lhs.abort == rhs.abort)) {
+      return lhs.abort < rhs.abort;
+    }
+  }
+  return false;
 }
+
 
 void swap(SaslRequest& a, SaslRequest& b) {
   using ::std::swap;
@@ -151,25 +252,63 @@ void SaslReply::__clear() {
 }
 
 bool SaslReply::operator==(const SaslReply& rhs) const {
-  if (__isset.challenge != rhs.__isset.challenge) {
+  (void)rhs;
+  auto& lhs = *this;
+  if (lhs.__isset.challenge != rhs.__isset.challenge) {
     return false;
   }
-  else if (__isset.challenge && !((challenge == rhs.challenge))) {
+  if (lhs.__isset.challenge) {
+    if (!(lhs.challenge == rhs.challenge)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.outcome != rhs.__isset.outcome) {
     return false;
   }
-  if (__isset.outcome != rhs.__isset.outcome) {
+  if (lhs.__isset.outcome) {
+    if (!(lhs.outcome == rhs.outcome)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.mechanism != rhs.__isset.mechanism) {
     return false;
   }
-  else if (__isset.outcome && !((outcome == rhs.outcome))) {
-    return false;
-  }
-  if (__isset.mechanism != rhs.__isset.mechanism) {
-    return false;
-  }
-  else if (__isset.mechanism && !((mechanism == rhs.mechanism))) {
-    return false;
+  if (lhs.__isset.mechanism) {
+    if (!(lhs.mechanism == rhs.mechanism)) {
+      return false;
+    }
   }
   return true;
+}
+
+bool SaslReply::operator<(const SaslReply& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  if (lhs.__isset.challenge != rhs.__isset.challenge) {
+    return lhs.__isset.challenge < rhs.__isset.challenge;
+  }
+  if (lhs.__isset.challenge) {
+    if (!(lhs.challenge == rhs.challenge)) {
+      return lhs.challenge < rhs.challenge;
+    }
+  }
+  if (lhs.__isset.outcome != rhs.__isset.outcome) {
+    return lhs.__isset.outcome < rhs.__isset.outcome;
+  }
+  if (lhs.__isset.outcome) {
+    if (!(lhs.outcome == rhs.outcome)) {
+      return lhs.outcome < rhs.outcome;
+    }
+  }
+  if (lhs.__isset.mechanism != rhs.__isset.mechanism) {
+    return lhs.__isset.mechanism < rhs.__isset.mechanism;
+  }
+  if (lhs.__isset.mechanism) {
+    if (!(lhs.mechanism == rhs.mechanism)) {
+      return lhs.mechanism < rhs.mechanism;
+    }
+  }
+  return false;
 }
 
 const  ::apache::thrift::sasl::SaslOutcome* SaslReply::get_outcome() const& {
@@ -180,21 +319,6 @@ const  ::apache::thrift::sasl::SaslOutcome* SaslReply::get_outcome() const& {
   return __isset.outcome ? std::addressof(outcome) : nullptr;
 }
 
-void SaslReply::translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
-  if (false) {}
-  else if (_fname == "challenge") {
-    fid = 1;
-    _ftype = apache::thrift::protocol::T_STRING;
-  }
-  else if (_fname == "outcome") {
-    fid = 2;
-    _ftype = apache::thrift::protocol::T_STRUCT;
-  }
-  else if (_fname == "mechanism") {
-    fid = 3;
-    _ftype = apache::thrift::protocol::T_STRING;
-  }
-}
 
 void swap(SaslReply& a, SaslReply& b) {
   using ::std::swap;
@@ -234,22 +358,53 @@ void SaslStart::__clear() {
 }
 
 bool SaslStart::operator==(const SaslStart& rhs) const {
-  if (!((mechanism == rhs.mechanism))) {
+  (void)rhs;
+  auto& lhs = *this;
+  if (!(lhs.mechanism == rhs.mechanism)) {
     return false;
   }
-  if (__isset.request != rhs.__isset.request) {
+  if (lhs.__isset.request != rhs.__isset.request) {
     return false;
   }
-  else if (__isset.request && !((request == rhs.request))) {
+  if (lhs.__isset.request) {
+    if (!(lhs.request == rhs.request)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.mechanisms != rhs.__isset.mechanisms) {
     return false;
   }
-  if (__isset.mechanisms != rhs.__isset.mechanisms) {
-    return false;
-  }
-  else if (__isset.mechanisms && !((mechanisms == rhs.mechanisms))) {
-    return false;
+  if (lhs.__isset.mechanisms) {
+    if (!(lhs.mechanisms == rhs.mechanisms)) {
+      return false;
+    }
   }
   return true;
+}
+
+bool SaslStart::operator<(const SaslStart& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  if (!(lhs.mechanism == rhs.mechanism)) {
+    return lhs.mechanism < rhs.mechanism;
+  }
+  if (lhs.__isset.request != rhs.__isset.request) {
+    return lhs.__isset.request < rhs.__isset.request;
+  }
+  if (lhs.__isset.request) {
+    if (!(lhs.request == rhs.request)) {
+      return lhs.request < rhs.request;
+    }
+  }
+  if (lhs.__isset.mechanisms != rhs.__isset.mechanisms) {
+    return lhs.__isset.mechanisms < rhs.__isset.mechanisms;
+  }
+  if (lhs.__isset.mechanisms) {
+    if (!(lhs.mechanisms == rhs.mechanisms)) {
+      return lhs.mechanisms < rhs.mechanisms;
+    }
+  }
+  return false;
 }
 
 const  ::apache::thrift::sasl::SaslRequest* SaslStart::get_request() const& {
@@ -268,21 +423,6 @@ std::vector<std::string>* SaslStart::get_mechanisms() & {
   return __isset.mechanisms ? std::addressof(mechanisms) : nullptr;
 }
 
-void SaslStart::translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
-  if (false) {}
-  else if (_fname == "mechanism") {
-    fid = 1;
-    _ftype = apache::thrift::protocol::T_STRING;
-  }
-  else if (_fname == "request") {
-    fid = 2;
-    _ftype = apache::thrift::protocol::T_STRUCT;
-  }
-  else if (_fname == "mechanisms") {
-    fid = 3;
-    _ftype = apache::thrift::protocol::T_LIST;
-  }
-}
 
 void swap(SaslStart& a, SaslStart& b) {
   using ::std::swap;

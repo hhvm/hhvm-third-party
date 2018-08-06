@@ -24,7 +24,7 @@ typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, apache:
 template <typename ProtocolIn_, typename ProtocolOut_>
 void SaslAuthServiceAsyncProcessor::_processInThread_authFirstRequest(std::unique_ptr<apache::thrift::ResponseChannel::Request> req, std::unique_ptr<folly::IOBuf> buf, std::unique_ptr<ProtocolIn_> iprot, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   auto pri = iface_->getRequestPriority(ctx, apache::thrift::concurrency::NORMAL);
-  processInThread<ProtocolIn_, ProtocolOut_>(std::move(req), std::move(buf),std::move(iprot), ctx, eb, tm, pri, false, &SaslAuthServiceAsyncProcessor::process_authFirstRequest<ProtocolIn_, ProtocolOut_>, this);
+  processInThread<ProtocolIn_, ProtocolOut_>(std::move(req), std::move(buf),std::move(iprot), ctx, eb, tm, pri, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &SaslAuthServiceAsyncProcessor::process_authFirstRequest<ProtocolIn_, ProtocolOut_>, this);
 }
 template <typename ProtocolIn_, typename ProtocolOut_>
 void SaslAuthServiceAsyncProcessor::process_authFirstRequest(std::unique_ptr<apache::thrift::ResponseChannel::Request> req, std::unique_ptr<folly::IOBuf> buf, std::unique_ptr<ProtocolIn_> iprot,apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
@@ -32,7 +32,7 @@ void SaslAuthServiceAsyncProcessor::process_authFirstRequest(std::unique_ptr<apa
   // so async calls don't accidentally use it
   iface_->setConnectionContext(nullptr);
   SaslAuthService_authFirstRequest_pargs args;
-  std::unique_ptr< ::apache::thrift::sasl::SaslStart> uarg_saslStart(new  ::apache::thrift::sasl::SaslStart());
+  auto uarg_saslStart = std::make_unique< ::apache::thrift::sasl::SaslStart>();
   args.get<0>().value = uarg_saslStart.get();
   std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "SaslAuthService.authFirstRequest", ctx));
   try {
@@ -46,7 +46,11 @@ void SaslAuthServiceAsyncProcessor::process_authFirstRequest(std::unique_ptr<apa
       folly::IOBufQueue queue = serializeException("authFirstRequest", &prot, ctx->getProtoSeqId(), nullptr, x);
       queue.append(apache::thrift::transport::THeader::transform(queue.move(), ctx->getHeader()->getWriteTransforms(), ctx->getHeader()->getMinCompressBytes()));
       eb->runInEventBaseThread([queue = std::move(queue), req = std::move(req)]() mutable {
-        req->sendReply(queue.move());
+        if (req->isStream()) {
+          req->sendStreamReply({queue.move(), {}});
+        } else {
+          req->sendReply(queue.move());
+        }
       }
       );
       return;
@@ -99,7 +103,7 @@ void SaslAuthServiceAsyncProcessor::throw_wrapped_authFirstRequest(std::unique_p
 template <typename ProtocolIn_, typename ProtocolOut_>
 void SaslAuthServiceAsyncProcessor::_processInThread_authNextRequest(std::unique_ptr<apache::thrift::ResponseChannel::Request> req, std::unique_ptr<folly::IOBuf> buf, std::unique_ptr<ProtocolIn_> iprot, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   auto pri = iface_->getRequestPriority(ctx, apache::thrift::concurrency::NORMAL);
-  processInThread<ProtocolIn_, ProtocolOut_>(std::move(req), std::move(buf),std::move(iprot), ctx, eb, tm, pri, false, &SaslAuthServiceAsyncProcessor::process_authNextRequest<ProtocolIn_, ProtocolOut_>, this);
+  processInThread<ProtocolIn_, ProtocolOut_>(std::move(req), std::move(buf),std::move(iprot), ctx, eb, tm, pri, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &SaslAuthServiceAsyncProcessor::process_authNextRequest<ProtocolIn_, ProtocolOut_>, this);
 }
 template <typename ProtocolIn_, typename ProtocolOut_>
 void SaslAuthServiceAsyncProcessor::process_authNextRequest(std::unique_ptr<apache::thrift::ResponseChannel::Request> req, std::unique_ptr<folly::IOBuf> buf, std::unique_ptr<ProtocolIn_> iprot,apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
@@ -107,7 +111,7 @@ void SaslAuthServiceAsyncProcessor::process_authNextRequest(std::unique_ptr<apac
   // so async calls don't accidentally use it
   iface_->setConnectionContext(nullptr);
   SaslAuthService_authNextRequest_pargs args;
-  std::unique_ptr< ::apache::thrift::sasl::SaslRequest> uarg_saslRequest(new  ::apache::thrift::sasl::SaslRequest());
+  auto uarg_saslRequest = std::make_unique< ::apache::thrift::sasl::SaslRequest>();
   args.get<0>().value = uarg_saslRequest.get();
   std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "SaslAuthService.authNextRequest", ctx));
   try {
@@ -121,7 +125,11 @@ void SaslAuthServiceAsyncProcessor::process_authNextRequest(std::unique_ptr<apac
       folly::IOBufQueue queue = serializeException("authNextRequest", &prot, ctx->getProtoSeqId(), nullptr, x);
       queue.append(apache::thrift::transport::THeader::transform(queue.move(), ctx->getHeader()->getWriteTransforms(), ctx->getHeader()->getMinCompressBytes()));
       eb->runInEventBaseThread([queue = std::move(queue), req = std::move(req)]() mutable {
-        req->sendReply(queue.move());
+        if (req->isStream()) {
+          req->sendStreamReply({queue.move(), {}});
+        } else {
+          req->sendReply(queue.move());
+        }
       }
       );
       return;

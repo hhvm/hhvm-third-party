@@ -8,6 +8,7 @@
 
 #include <thrift/lib/cpp2/GeneratedHeaderHelper.h>
 #include <thrift/lib/cpp2/Thrift.h>
+#include <thrift/lib/cpp2/gen/module_types_h.h>
 #include <thrift/lib/cpp2/protocol/Protocol.h>
 
 
@@ -38,18 +39,14 @@ class SaslOutcome final : private apache::thrift::detail::st::ComparisonOperator
       success(0) {}
   // FragileConstructor for use in initialization lists only.
   SaslOutcome(apache::thrift::FragileConstructor, bool success__arg, std::string additional_data__arg);
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  SaslOutcome(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    SaslOutcome(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    success = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
+    success = arg.extract();
     __isset.success = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  SaslOutcome(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    SaslOutcome(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    additional_data = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<2, _T> arg) {
+    additional_data = arg.extract();
     __isset.additional_data = true;
   }
 
@@ -69,7 +66,7 @@ class SaslOutcome final : private apache::thrift::detail::st::ComparisonOperator
     bool additional_data;
   } __isset = {};
   bool operator==(const SaslOutcome& rhs) const;
-  bool operator < (const SaslOutcome& rhs) const;
+  bool operator<(const SaslOutcome& rhs) const;
 
   bool get_success() const {
     return success;
@@ -107,8 +104,6 @@ class SaslOutcome final : private apache::thrift::detail::st::ComparisonOperator
   uint32_t write(Protocol_* prot_) const;
 
  private:
-  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
-
   template <class Protocol_>
   void readNoXfer(Protocol_* iprot);
 
@@ -168,18 +163,14 @@ class SaslRequest final : private apache::thrift::detail::st::ComparisonOperator
       abort(0) {}
   // FragileConstructor for use in initialization lists only.
   SaslRequest(apache::thrift::FragileConstructor, std::string response__arg, bool abort__arg);
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  SaslRequest(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    SaslRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    response = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
+    response = arg.extract();
     __isset.response = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  SaslRequest(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    SaslRequest(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    abort = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<2, _T> arg) {
+    abort = arg.extract();
     __isset.abort = true;
   }
 
@@ -199,7 +190,7 @@ class SaslRequest final : private apache::thrift::detail::st::ComparisonOperator
     bool abort;
   } __isset = {};
   bool operator==(const SaslRequest& rhs) const;
-  bool operator < (const SaslRequest& rhs) const;
+  bool operator<(const SaslRequest& rhs) const;
 
   const std::string* get_response() const& {
     return __isset.response ? std::addressof(response) : nullptr;
@@ -242,8 +233,6 @@ class SaslRequest final : private apache::thrift::detail::st::ComparisonOperator
   uint32_t write(Protocol_* prot_) const;
 
  private:
-  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
-
   template <class Protocol_>
   void readNoXfer(Protocol_* iprot);
 
@@ -302,25 +291,19 @@ class SaslReply final : private apache::thrift::detail::st::ComparisonOperators<
   SaslReply() {}
   // FragileConstructor for use in initialization lists only.
   SaslReply(apache::thrift::FragileConstructor, std::string challenge__arg,  ::apache::thrift::sasl::SaslOutcome outcome__arg, std::string mechanism__arg);
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  SaslReply(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    SaslReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    challenge = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
+    challenge = arg.extract();
     __isset.challenge = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  SaslReply(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    SaslReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    outcome = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<2, _T> arg) {
+    outcome = arg.extract();
     __isset.outcome = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  SaslReply(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    SaslReply(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    mechanism = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<3, _T> arg) {
+    mechanism = arg.extract();
     __isset.mechanism = true;
   }
 
@@ -342,7 +325,7 @@ class SaslReply final : private apache::thrift::detail::st::ComparisonOperators<
     bool mechanism;
   } __isset = {};
   bool operator==(const SaslReply& rhs) const;
-  bool operator < (const SaslReply& rhs) const;
+  bool operator<(const SaslReply& rhs) const;
 
   const std::string* get_challenge() const& {
     return __isset.challenge ? std::addressof(challenge) : nullptr;
@@ -396,8 +379,6 @@ class SaslReply final : private apache::thrift::detail::st::ComparisonOperators<
   uint32_t write(Protocol_* prot_) const;
 
  private:
-  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
-
   template <class Protocol_>
   void readNoXfer(Protocol_* iprot);
 
@@ -456,25 +437,19 @@ class SaslStart final : private apache::thrift::detail::st::ComparisonOperators<
   SaslStart() {}
   // FragileConstructor for use in initialization lists only.
   SaslStart(apache::thrift::FragileConstructor, std::string mechanism__arg,  ::apache::thrift::sasl::SaslRequest request__arg, std::vector<std::string> mechanisms__arg);
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  SaslStart(::apache::thrift::detail::argument_wrapper<1, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    SaslStart(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    mechanism = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
+    mechanism = arg.extract();
     __isset.mechanism = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  SaslStart(::apache::thrift::detail::argument_wrapper<2, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    SaslStart(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    request = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<2, _T> arg) {
+    request = arg.extract();
     __isset.request = true;
   }
-  template <typename T__ThriftWrappedArgument__Ctor, typename... Args__ThriftWrappedArgument__Ctor>
-  SaslStart(::apache::thrift::detail::argument_wrapper<3, T__ThriftWrappedArgument__Ctor> arg, Args__ThriftWrappedArgument__Ctor&&... args):
-    SaslStart(std::forward<Args__ThriftWrappedArgument__Ctor>(args)...)
-  {
-    mechanisms = arg.move();
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<3, _T> arg) {
+    mechanisms = arg.extract();
     __isset.mechanisms = true;
   }
 
@@ -496,7 +471,7 @@ class SaslStart final : private apache::thrift::detail::st::ComparisonOperators<
     bool mechanisms;
   } __isset = {};
   bool operator==(const SaslStart& rhs) const;
-  bool operator < (const SaslStart& rhs) const;
+  bool operator<(const SaslStart& rhs) const;
 
   const std::string& get_mechanism() const& {
     return mechanism;
@@ -543,8 +518,6 @@ class SaslStart final : private apache::thrift::detail::st::ComparisonOperators<
   uint32_t write(Protocol_* prot_) const;
 
  private:
-  static void translateFieldName(FOLLY_MAYBE_UNUSED folly::StringPiece _fname, FOLLY_MAYBE_UNUSED int16_t& fid, FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype);
-
   template <class Protocol_>
   void readNoXfer(Protocol_* iprot);
 
