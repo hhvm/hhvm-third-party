@@ -66,7 +66,7 @@ if(ENABLE_ASYNC_MYSQL)
     list(APPEND THIRD_PARTY_MODULES re2)
   endif()
   list(APPEND THIRD_PARTY_MODULES squangle)
-  list(APPEND THIRD_PARTY_MODULES webscalesqlclient)
+  list(APPEND THIRD_PARTY_MODULES fb-mysql)
 endif()
 
 if (ENABLE_MCROUTER)

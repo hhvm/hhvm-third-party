@@ -19,8 +19,8 @@
 [submodule "wangle/src"]
     path = wangle/src
     url = https://github.com/facebook/wangle
-[submodule "webscalesqlclient/mysql-5.6"]
-    path = webscalesqlclient/mysql-5.6
+[submodule "fb-mysql/mysql-5.6"]
+	path = fb-mysql/mysql-5.6
     url = https://github.com/facebook/mysql-5.6.git
 [submodule "brotli/src"]
     path = brotli/src

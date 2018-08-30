@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.0)
 include(ExternalProject)
 ExternalProject_Add(
-  webscalesqlclient
+  fbmysqlclient
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/
   CMAKE_ARGS
   -DWITHOUT_SERVER=TRUE

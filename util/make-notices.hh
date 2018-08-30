@@ -47,11 +47,11 @@ final class ThirdPartyBinaryNotices {
       'timelib' => tuple('Timelib', keyset['timelib/LICENSE.rst']),
       'util' => null, // not distributed
       'wangle' => null, // first-party
-      'webscalesqlclient' => tuple(
+      'fb-mysql' => tuple(
         'MySQL Client',
         keyset[
-          'webscalesqlclient/src/README', // GPL exception
-          'webscalesqlclient/src/COPYING',
+          'fb-mysql/src/README', // GPL exception
+          'fb-mysql/src/COPYING',
         ],
       ),
       'xed' => tuple(
