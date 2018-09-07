@@ -81,3 +81,9 @@
 [submodule "ocaml/opam_deps/jsonm"]
 	path = ocaml/opam_deps/jsonm
 	url = https://github.com/dbuenzli/jsonm.git
+[submodule "xed/mbuild"]
+	path = xed/mbuild
+	url = https://github.com/intelxed/mbuild.git
+[submodule "xed/xed"]
+	path = xed/xed
+	url = https://github.com/intelxed/xed.git
