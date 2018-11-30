@@ -26,11 +26,17 @@ add_custom_command(
   # (OCamlBuild doesn't understand how to override its build tools properly -
   # they call "ocamlc -where" directly from configure.make)
   # This would be better as 'cmake -E env' but that's only available in cmake 3.1+
-  COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\) -f configure.make
-      OCAML_NATIVE=true
-      OCAMLBUILD_BINDIR=${OCAML_PREFIX}/bin
-      OCAMLBUILD_LIBDIR=${OCAML_PREFIX}/lib'
-  COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\)'
+  COMMAND /bin/bash -c "\
+    PATH='${OCAML_PREFIX}/bin:$ENV{PATH}' \
+    \$\(MAKE\) -f configure.make \
+    OCAML_NATIVE=true \
+    'OCAMLBUILD_BINDIR=${OCAML_PREFIX}/bin' \
+    'OCAMLBUILD_LIBDIR=${OCAML_PREFIX}/lib' \
+  "
+  COMMAND /bin/bash -c "\
+    PATH='${OCAML_PREFIX}/bin:$ENV{PATH}' \
+    \$\(MAKE\) \
+  "
   COMMAND \$\(MAKE\) install CHECK_IF_PREINSTALLED=false
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/ocamlbuild"
   DEPENDS ${OCAMLC}
@@ -38,14 +44,27 @@ add_custom_command(
 
 add_custom_command(
   OUTPUT ${OPAM}
-  COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" ./configure --prefix="${OCAML_PREFIX}"'
+  COMMAND /bin/bash -c "\
+    PATH='${OCAML_PREFIX}/bin:$ENV{PATH}'\
+    ./configure \
+    --prefix='${OCAML_PREFIX}' \
+  "
   # prep source tree to skip the %.download and %.stamp Makefile rules of lib-ext
-  COMMAND /bin/bash -c '${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/prep_deps.sh ${OCAML_PREFIX} ${CMAKE_CURRENT_SOURCE_DIR}/opam_deps ./src_ext'
-  COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\) -j1 lib-ext'
-  COMMAND /bin/bash -c 'PATH="${OCAML_PREFIX}/bin:$ENV{PATH}" \$\(MAKE\) -j1'
+  COMMAND
+    "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/prep_deps.sh"
+    "${OCAML_PREFIX}"
+    "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps" ./src_ext
+  COMMAND /bin/bash -c "\
+    PATH='${OCAML_PREFIX}/bin:$ENV{PATH}' \
+    \$\(MAKE\) -j1 lib-ext \
+  "
+  COMMAND /bin/bash -c "\
+    PATH='${OCAML_PREFIX}/bin:$ENV{PATH}' \
+    \$\(MAKE\) -j1 \
+  "
   COMMAND \$\(MAKE\) install
   # ensure clean git status
-  COMMAND /bin/bash -c '${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/cleanup_src_ext.sh ./src_ext'
+  COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/cleanup_src_ext.sh" ./src_ext
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/opam"
   DEPENDS ${OCAMLBUILD}
   COMMENT "Compiling opam")
