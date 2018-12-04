@@ -32,6 +32,7 @@ add_custom_command(
     OCAML_NATIVE=true \
     'OCAMLBUILD_BINDIR=${OCAML_PREFIX}/bin' \
     'OCAMLBUILD_LIBDIR=${OCAML_PREFIX}/lib' \
+    'OCAMLBUILD_MANDIR=${OCAML_PREFIX}/share/man' \
   "
   COMMAND /bin/bash -c "\
     PATH='${OCAML_PREFIX}/bin:$ENV{PATH}' \
