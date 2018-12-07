@@ -149,6 +149,7 @@ int main() {
 # This is so clients of folly can #include <folly/blah>
 target_include_directories(folly PUBLIC ${FOLLY_ROOT})
 
+add_dependencies(folly boostMaybeBuild)
 target_link_libraries(folly boost)
 
 find_package(Glog REQUIRED)

@@ -16,6 +16,7 @@ final class ThirdPartyBinaryNotices {
     return dict[
       'CMakeFiles' => null, // not a project :)
       'brotli' => tuple('Brotli', keyset['brotli/src/LICENSE']),
+      'boost' => tuple('Boost', keyset['boost/boost/LICENSE_1_0.txt']),
       'double-conversion' => tuple(
         'double-conversion',
         keyset['double-conversion/LICENSE'],

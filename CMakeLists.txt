@@ -159,8 +159,31 @@ endif()
 
 set(THIRD_PARTY_INCLUDE_PATHS ${EXTRA_INCLUDE_PATHS} CACHE INTERNAL "" FORCE)
 
-# boost checks
-find_package(Boost 1.51.0 COMPONENTS context filesystem program_options regex system thread REQUIRED)
+# boost checks                                                                        
+find_package(Boost 1.62.0 COMPONENTS context fiber filesystem program_options regex system thread)                                                                          
+                                                                                      
 add_library(boost INTERFACE)
+add_custom_target(boostMaybeBuild)
+if(NOT Boost_FOUND)
+  # The boost library can't have a dependency on boostBuild because of:
+  # https://public.kitware.com/Bug/view.php?id=15414
+  # Instead we add the dependency to the target being linked with hphp_link
+  add_dependencies(boostMaybeBuild boostBuild)
+  message(STATUS "Using third-party bundled boost")
+  add_subdirectory(boost)                                                             
+  set(Boost_LIBRARIES "boost_context"
+                      "boost_fiber"
+                      "boost_filesystem"
+                      "boost_program_options"
+                      "boost_regex"
+                      "boost_system"
+                      "boost_thread")
+  foreach(lib ${Boost_LIBRARIES})
+    add_library(${lib} STATIC IMPORTED)
+    set_property(TARGET ${lib} PROPERTY IMPORTED_LOCATION
+                 "${CMAKE_CURRENT_SOURCE_DIR}/boost/build/lib/lib${lib}.a")
+  endforeach()
+  set(Boost_INCLUDE_DIRS "boost/build/include")
+endif()                                                                               
 target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIRS})
 target_link_libraries(boost INTERFACE ${Boost_LIBRARIES})
