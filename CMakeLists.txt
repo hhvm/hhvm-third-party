@@ -171,19 +171,25 @@ if(NOT Boost_FOUND)
   add_dependencies(boostMaybeBuild boostBuild)
   message(STATUS "Using third-party bundled boost")
   add_subdirectory(boost)                                                             
-  set(Boost_LIBRARIES "boost_context"
-                      "boost_fiber"
-                      "boost_filesystem"
-                      "boost_program_options"
-                      "boost_regex"
-                      "boost_system"
-                      "boost_thread")
+  # These are the archive names prefixed with lib so that cmake does not
+  # find these to be system archive instead of these third party ones.
+  set(Boost_LIBRARIES 
+      "libboost_fiber"
+      "libboost_context"
+      "libboost_filesystem"
+      "libboost_program_options"
+      "libboost_regex"
+      "libboost_system"
+      "libboost_thread"
+      CACHE STRING "" FORCE
+  )
   foreach(lib ${Boost_LIBRARIES})
     add_library(${lib} STATIC IMPORTED)
     set_property(TARGET ${lib} PROPERTY IMPORTED_LOCATION
-                 "${CMAKE_CURRENT_SOURCE_DIR}/boost/build/lib/lib${lib}.a")
+                 "${CMAKE_CURRENT_SOURCE_DIR}/boost/build/lib/${lib}.a")
   endforeach()
-  set(Boost_INCLUDE_DIRS "boost/build/include")
+  set(Boost_INCLUDE_DIRS "boost/build/include" CACHE STRING "" FORCE)
+  set(Boost_LIBRARY_DIRS "boost/build/lib" CACHE STRING "" FORCE)
 endif()                                                                               
-target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIRS})
+target_include_directories(boost BEFORE INTERFACE ${Boost_INCLUDE_DIRS})
 target_link_libraries(boost INTERFACE ${Boost_LIBRARIES})
