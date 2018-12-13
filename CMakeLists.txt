@@ -157,8 +157,6 @@ if(NOT PCRE_LIBRARY)
   target_compile_definitions(pcre PUBLIC "PCRE_STATIC=1")
 endif()
 
-set(THIRD_PARTY_INCLUDE_PATHS ${EXTRA_INCLUDE_PATHS} CACHE INTERNAL "" FORCE)
-
 # boost checks                                                                        
 find_package(Boost 1.62.0 COMPONENTS context fiber filesystem program_options regex system thread)                                                                          
                                                                                       
@@ -188,8 +186,12 @@ if(NOT Boost_FOUND)
     set_property(TARGET ${lib} PROPERTY IMPORTED_LOCATION
                  "${CMAKE_CURRENT_SOURCE_DIR}/boost/build/lib/${lib}.a")
   endforeach()
-  set(Boost_INCLUDE_DIRS "boost/build/include" CACHE STRING "" FORCE)
-  set(Boost_LIBRARY_DIRS "boost/build/lib" CACHE STRING "" FORCE)
+  set(Boost_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/boost/build/include" CACHE STRING "" FORCE)
+  set(Boost_LIBRARY_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/boost/build/lib" CACHE STRING "" FORCE)
+  TP_INSTALL_HEADERS(boost boost/build/include/boost boost)
+  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/boost/build/include")
 endif()                                                                               
 target_include_directories(boost BEFORE INTERFACE ${Boost_INCLUDE_DIRS})
 target_link_libraries(boost INTERFACE ${Boost_LIBRARIES})
+
+set(THIRD_PARTY_INCLUDE_PATHS ${EXTRA_INCLUDE_PATHS} CACHE INTERNAL "" FORCE)
