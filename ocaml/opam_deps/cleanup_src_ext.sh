@@ -10,4 +10,5 @@
 set -e
 SRC_EXT=$1
 # opam does not gitignore .download but does gitignore .stamp
-rm "${SRC_EXT}"/{extlib,re,cmdliner,graph,cudf,dose,uutf,jsonm}.download
+rm "${SRC_EXT}"/{cmdliner,cudf,extlib,ocamlgraph,re,seq,cppo,dose3,mccs,opam-file-format,result}.download
+
