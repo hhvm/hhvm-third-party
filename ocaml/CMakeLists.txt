@@ -50,11 +50,9 @@ add_custom_command(
     ./configure \
     --prefix='${OCAML_PREFIX}' \
   "
-  # prep source tree to skip the %.download and %.stamp Makefile rules of lib-ext
-  COMMAND
-    "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/prep_deps.sh"
-    "${OCAML_PREFIX}"
-    "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps" ./src_ext
+  # in opam 2, lib-ext is directly able to use local tarball if provided, or
+  # will fetch them from the internet _and_ check their md5 sum. See
+  # opam/src_ext/Makefile.sources for the list of version and sums
   COMMAND /bin/bash -c "\
     PATH='${OCAML_PREFIX}/bin:$ENV{PATH}' \
     \$\(MAKE\) -j1 lib-ext \
@@ -63,7 +61,10 @@ add_custom_command(
     PATH='${OCAML_PREFIX}/bin:$ENV{PATH}' \
     \$\(MAKE\) -j1 \
   "
-  COMMAND \$\(MAKE\) install
+  COMMAND /bin/bash -c "\
+    PATH='${OCAML_PREFIX}/bin:$ENV{PATH}' \
+    \$\(MAKE\) install \
+  "
   # ensure clean git status
   COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/cleanup_src_ext.sh" ./src_ext
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/opam"
