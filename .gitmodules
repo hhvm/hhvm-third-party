@@ -66,3 +66,39 @@
 [submodule "boost/boost"]
 	path = boost/boost
 	url = https://github.com/boostorg/boost
+[submodule "ocaml/opam_deps/cppo"]
+	path = ocaml/opam_deps/cppo
+	url = https://github.com/mjambon/cppo/
+[submodule "ocaml/opam_deps/ocaml-extlib"]
+	path = ocaml/opam_deps/ocaml-extlib
+	url = https://github.com/ygrek/ocaml-extlib
+[submodule "ocaml/opam_deps/ocaml-re"]
+	path = ocaml/opam_deps/ocaml-re
+	url = https://github.com/ocaml/ocaml-re
+[submodule "ocaml/opam_deps/cmdliner"]
+	path = ocaml/opam_deps/cmdliner
+	url = https://erratique.ch/repos/cmdliner/
+[submodule "ocaml/opam_deps/ocamlgraph"]
+	path = ocaml/opam_deps/ocamlgraph
+	url = https://github.com/backtracking/ocamlgraph
+[submodule "ocaml/opam_deps/cudf"]
+	path = ocaml/opam_deps/cudf
+	url = https://scm.gforge.inria.fr/anonscm/git/cudf/cudf.git
+[submodule "ocaml/opam_deps/dose"]
+	path = ocaml/opam_deps/dose
+	url = https://scm.gforge.inria.fr/anonscm/git/dose/dose.git
+[submodule "ocaml/opam_deps/ocaml-mccs"]
+	path = ocaml/opam_deps/ocaml-mccs
+	url = https://github.com/AltGr/ocaml-mccs
+[submodule "ocaml/opam_deps/opam-file-format"]
+	path = ocaml/opam_deps/opam-file-format
+	url = https://github.com/ocaml/opam-file-format
+[submodule "ocaml/opam_deps/result"]
+	path = ocaml/opam_deps/result
+	url = https://github.com/janestreet/result
+[submodule "ocaml/opam_deps/dune"]
+	path = ocaml/opam_deps/dune
+	url = https://github.com/ocaml/dune
+[submodule "ocaml/opam_deps/seq"]
+	path = ocaml/opam_deps/seq
+	url = https://github.com/c-cube/seq

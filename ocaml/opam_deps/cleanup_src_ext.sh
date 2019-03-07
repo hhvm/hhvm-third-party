@@ -10,5 +10,8 @@
 set -e
 SRC_EXT=$1
 # opam does not gitignore .download but does gitignore .stamp
-rm "${SRC_EXT}"/{cmdliner,cudf,extlib,ocamlgraph,re,seq,cppo,dose3,mccs,opam-file-format,result}.download
-
+TARGET_DIR="cmdliner cppo cudf dose3 dune-local extlib mccs ocamlgraph"
+TARGET_DIR="${TARGET_DIR} opam-file-format re result seq"
+for dir in ${TARGET_DIR}; do
+  rm -f "${SRC_EXT}/${dir}".download
+  done

@@ -45,6 +45,7 @@ add_custom_command(
 
 add_custom_command(
   OUTPUT ${OPAM}
+
   COMMAND /bin/bash -c "\
     PATH='${OCAML_PREFIX}/bin:$ENV{PATH}'\
     ./configure \
@@ -53,6 +54,13 @@ add_custom_command(
   # in opam 2, lib-ext is directly able to use local tarball if provided, or
   # will fetch them from the internet _and_ check their md5 sum. See
   # opam/src_ext/Makefile.sources for the list of version and sums
+
+  # prep source tree to skip the %.download and %.stamp Makefile rules of lib-ext
+  COMMAND
+    "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/prep_deps.sh"
+    "${OCAML_PREFIX}"
+    "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps" ./src_ext
+
   COMMAND /bin/bash -c "\
     PATH='${OCAML_PREFIX}/bin:$ENV{PATH}' \
     \$\(MAKE\) -j1 lib-ext \
