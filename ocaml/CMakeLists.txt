@@ -6,9 +6,7 @@ set(OCAML "${OCAML_PREFIX}/bin/ocaml")
 set(OCAMLC "${OCAML_PREFIX}/bin/ocamlc.opt")
 set(OCAMLOPT "${OCAML_PREFIX}/bin/ocamlopt.opt")
 set(OCAMLBUILD "${OCAML_PREFIX}/bin/ocamlbuild.native")
-set(OPAM_SRC "${CMAKE_CURRENT_BINARY_DIR}/opam")
 set(OPAM "${OCAML_PREFIX}/bin/opam")
-set(HACK_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../hphp/hack")
 
 # TODO: what about dependencies so we rebuild ocaml when it changes?
 # NOTE: The weirdness building world.opt twice is because (at least on arm64)
@@ -46,18 +44,15 @@ add_custom_command(
   COMMENT "Compiling ocamlbuild")
 
 add_custom_command(
-  OUTPUT ${OPAM_SRC}
-  COMMAND ./fetch_and_setup_src.sh "${HACK_DIR}"
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-  COMMENT "Fetch opam full source code from internet")
-
-add_custom_command(
   OUTPUT ${OPAM}
   COMMAND /bin/bash -c "\
     PATH='${OCAML_PREFIX}/bin:$ENV{PATH}'\
     ./configure \
     --prefix='${OCAML_PREFIX}' \
   "
+  # in opam 2, lib-ext is directly able to use local tarball if provided, or
+  # will fetch them from the internet _and_ check their md5 sum. See
+  # opam/src_ext/Makefile.sources for the list of version and sums
   COMMAND /bin/bash -c "\
     PATH='${OCAML_PREFIX}/bin:$ENV{PATH}' \
     \$\(MAKE\) -j1 lib-ext \
@@ -70,8 +65,10 @@ add_custom_command(
     PATH='${OCAML_PREFIX}/bin:$ENV{PATH}' \
     \$\(MAKE\) install \
   "
+  # ensure clean git status
+  COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/opam_deps/cleanup_src_ext.sh" ./src_ext
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/opam"
-  DEPENDS ${OPAM_SRC}
+  DEPENDS ${OCAMLBUILD}
   COMMENT "Compiling opam")
 
 set(OCAMLC_FOUND TRUE)

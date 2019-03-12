@@ -54,6 +54,9 @@
 [submodule "zstd"]
     path = zstd/src
     url = https://github.com/facebook/zstd.git
+[submodule "ocaml/opam"]
+	path = ocaml/opam
+	url = https://github.com/ocaml/opam.git
 [submodule "xed/mbuild"]
 	path = xed/mbuild
 	url = https://github.com/intelxed/mbuild.git
