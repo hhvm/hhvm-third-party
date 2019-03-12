@@ -14,8 +14,6 @@ if ! [ -f "${OPAM_PKG}" ]; then
     fi
 fi
 # TODO: add the signature check once the file is available from github
-#       atm it is generated manually with 'shasum -a 256'
-shasum -a 256 -c checksum
 
 rm -rf opam
 tar xzf "${OPAM_PKG}"
