@@ -71,7 +71,7 @@ add_custom_command(
     \$\(MAKE\) install \
   "
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/opam"
-  DEPENDS ${OPAM_SRC}
+  DEPENDS ${OPAM_SRC} ${OCAMLC}
   COMMENT "Compiling opam")
 
 set(OCAMLC_FOUND TRUE)
