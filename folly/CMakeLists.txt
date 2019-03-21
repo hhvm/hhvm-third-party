@@ -1,3 +1,4 @@
+string(REPLACE "-fno-operator-names" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 set(FOLLY_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(FOLLY_DIR "${FOLLY_ROOT}/folly")
 
