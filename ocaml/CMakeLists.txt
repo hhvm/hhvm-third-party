@@ -46,8 +46,8 @@ add_custom_command(
   COMMENT "Compiling ocamlbuild")
 
 add_custom_command(
-  OUTPUT ${OPAM_SRC}
-  COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/fetch_and_setup_src.sh "${HACK_DIR}"
+  OUTPUT "${OPAM_SRC}"
+  COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/fetch_and_setup_src.sh" "${HACK_DIR}"
   DEPENDS ./fetch_and_setup_src.sh
   COMMENT "Fetch opam full source code from internet")
 
