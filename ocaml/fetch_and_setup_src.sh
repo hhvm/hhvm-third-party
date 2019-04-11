@@ -15,7 +15,7 @@ if ! [ -f "${OPAM_PKG}" ]; then
 fi
 # TODO: add the signature check once the file is available from github
 #       atm it is generated manually with openssl
-EXPECTED="$(<checksum)"
+EXPECTED="$(<"$(dirname $0)/checksum")"
 ACTUAL="$(openssl dgst -sha256 ${OPAM_PKG})"
 if [ "$EXPECTED" != "$ACTUAL" ]; then
     echo "Checksum error while checking ${OPAM_PKG}"
@@ -25,3 +25,4 @@ fi
 rm -rf opam
 tar xzf "${OPAM_PKG}"
 mv "opam-full-${OPAM_VERSION}" opam
+touch opam.stamp

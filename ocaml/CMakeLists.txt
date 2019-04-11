@@ -6,7 +6,7 @@ set(OCAML "${OCAML_PREFIX}/bin/ocaml")
 set(OCAMLC "${OCAML_PREFIX}/bin/ocamlc.opt")
 set(OCAMLOPT "${OCAML_PREFIX}/bin/ocamlopt.opt")
 set(OCAMLBUILD "${OCAML_PREFIX}/bin/ocamlbuild.native")
-set(OPAM_SRC "${CMAKE_CURRENT_BINARY_DIR}/opam")
+set(OPAM_SRC "${CMAKE_CURRENT_BINARY_DIR}/opam.stamp")
 set(OPAM "${OCAML_PREFIX}/bin/opam")
 set(HACK_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../hphp/hack")
 
@@ -47,8 +47,8 @@ add_custom_command(
 
 add_custom_command(
   OUTPUT ${OPAM_SRC}
-  COMMAND ./fetch_and_setup_src.sh "${HACK_DIR}"
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+  COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/fetch_and_setup_src.sh "${HACK_DIR}"
+  DEPENDS ./fetch_and_setup_src.sh
   COMMENT "Fetch opam full source code from internet")
 
 add_custom_command(
