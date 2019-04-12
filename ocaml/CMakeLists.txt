@@ -2,12 +2,33 @@
 message(STATUS "Building ocaml from third-party")
 
 set(OCAML_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/build")
+set(OCAML_SRC "${CMAKE_CURRENT_BINARY_DIR}/ocaml_src.stamp")
 set(OCAML "${OCAML_PREFIX}/bin/ocaml")
 set(OCAMLC "${OCAML_PREFIX}/bin/ocamlc.opt")
 set(OCAMLOPT "${OCAML_PREFIX}/bin/ocamlopt.opt")
-set(OPAM_SRC "${CMAKE_CURRENT_BINARY_DIR}/opam.stamp")
+set(OPAM_SRC "${CMAKE_CURRENT_BINARY_DIR}/opam_src.stamp")
 set(OPAM "${OCAML_PREFIX}/bin/opam")
 set(HACK_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../hphp/hack")
+
+if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
+  add_custom_command(
+    OUTPUT "${OCAML_SRC}"
+    COMMAND cmake -E touch "${OCAML_SRC}"
+  )
+else()
+  # OCaml 4.05 has a custom configure script that doesn't support out of source
+  # builds; 4.07 uses autotools so hopefully we don't need this when we next
+  # update ocaml
+  add_custom_command(
+    OUTPUT "${OCAML_SRC}"
+    COMMAND
+      cmake -E copy_directory
+      "${CMAKE_CURRENT_SOURCE_DIR}/src"
+      "${CMAKE_CURRENT_BINARY_DIR}/src"
+      && cmake -E touch "${OCAML_SRC}"
+  )
+endif()
+
 
 # TODO: what about dependencies so we rebuild ocaml when it changes?
 # NOTE: The weirdness building world.opt twice is because (at least on arm64)
@@ -18,7 +39,8 @@ add_custom_command(
   COMMAND \$\(MAKE\) -k world.opt || true
   COMMAND \$\(MAKE\) -j1 world.opt
   COMMAND \$\(MAKE\) install
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src"
+  DEPENDS "${OCAML_SRC}"
+  WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/src"
   COMMENT "Compiling ocaml")
 
 add_custom_command(
@@ -27,6 +49,8 @@ add_custom_command(
   DEPENDS ./fetch_and_setup_src.sh
   COMMENT "Fetch opam full source code from internet")
 
+# `./configure` instead of `${CMAKE_CURRENT_SOURCE_DIR}/configure` because
+# opam's source is extracted in the build directory
 add_custom_command(
   OUTPUT ${OPAM}
   COMMAND /bin/bash -c "\
@@ -46,7 +70,7 @@ add_custom_command(
     PATH='${OCAML_PREFIX}/bin:$ENV{PATH}' \
     \$\(MAKE\) install \
   "
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/opam"
+  WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/opam"
   DEPENDS ${OPAM_SRC} ${OCAMLC}
   COMMENT "Compiling opam")
 

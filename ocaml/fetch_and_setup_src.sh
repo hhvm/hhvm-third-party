@@ -25,4 +25,4 @@ fi
 rm -rf opam
 tar xzf "${OPAM_PKG}"
 mv "opam-full-${OPAM_VERSION}" opam
-touch opam.stamp
+touch opam_src.stamp
