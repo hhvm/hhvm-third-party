@@ -79,6 +79,10 @@ set(OCAMLC_FOUND TRUE)
 add_custom_target(ocaml
   DEPENDS ${OCAMLC} ${OCAMLOPT} ${OCAMLBUILD} ${OPAM})
 
+add_custom_target(opam
+    DEPENDS ocaml
+)
+
 set(OCAML_EXECUTABLE ${OCAML} CACHE FILEPATH "path to ocaml" FORCE)
 mark_as_advanced(OCAML_EXECUTABLE)
 set(OCAMLC_EXECUTABLE ${OCAMLC} CACHE FILEPATH "path to ocamlc" FORCE)
