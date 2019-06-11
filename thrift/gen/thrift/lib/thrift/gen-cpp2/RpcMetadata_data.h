@@ -16,24 +16,22 @@ namespace apache { namespace thrift {
 
 struct _ProtocolIdEnumDataStorage {
   using type = ProtocolId;
-  static constexpr const std::size_t size = 3;
-  static constexpr const std::array<ProtocolId, 3> values = {{
+  static constexpr const std::size_t size = 2;
+  static constexpr const std::array<ProtocolId, 2> values = {{
     ProtocolId::BINARY,
     ProtocolId::COMPACT,
-    ProtocolId::FROZEN2,
   }};
-  static constexpr const std::array<folly::StringPiece, 3> names = {{
+  static constexpr const std::array<folly::StringPiece, 2> names = {{
     "BINARY",
     "COMPACT",
-    "FROZEN2",
   }};
 };
 
 }} // apache::thrift
 namespace apache { namespace thrift {
 
-template <> struct TEnumDataStorage< ::apache::thrift::ProtocolId> {
-  using storage_type =  ::apache::thrift::_ProtocolIdEnumDataStorage;
+template <> struct TEnumDataStorage<::apache::thrift::ProtocolId> {
+  using storage_type = ::apache::thrift::_ProtocolIdEnumDataStorage;
 };
 
 }} // apache::thrift
@@ -63,8 +61,8 @@ struct _RpcKindEnumDataStorage {
 }} // apache::thrift
 namespace apache { namespace thrift {
 
-template <> struct TEnumDataStorage< ::apache::thrift::RpcKind> {
-  using storage_type =  ::apache::thrift::_RpcKindEnumDataStorage;
+template <> struct TEnumDataStorage<::apache::thrift::RpcKind> {
+  using storage_type = ::apache::thrift::_RpcKindEnumDataStorage;
 };
 
 }} // apache::thrift
@@ -94,8 +92,31 @@ struct _RpcPriorityEnumDataStorage {
 }} // apache::thrift
 namespace apache { namespace thrift {
 
-template <> struct TEnumDataStorage< ::apache::thrift::RpcPriority> {
-  using storage_type =  ::apache::thrift::_RpcPriorityEnumDataStorage;
+template <> struct TEnumDataStorage<::apache::thrift::RpcPriority> {
+  using storage_type = ::apache::thrift::_RpcPriorityEnumDataStorage;
+};
+
+}} // apache::thrift
+namespace apache { namespace thrift {
+
+struct _RequestRpcMetadataFlagsEnumDataStorage {
+  using type = RequestRpcMetadataFlags;
+  static constexpr const std::size_t size = 2;
+  static constexpr const std::array<RequestRpcMetadataFlags, 2> values = {{
+    RequestRpcMetadataFlags::UNKNOWN,
+    RequestRpcMetadataFlags::QUERY_SERVER_LOAD,
+  }};
+  static constexpr const std::array<folly::StringPiece, 2> names = {{
+    "UNKNOWN",
+    "QUERY_SERVER_LOAD",
+  }};
+};
+
+}} // apache::thrift
+namespace apache { namespace thrift {
+
+template <> struct TEnumDataStorage<::apache::thrift::RequestRpcMetadataFlags> {
+  using storage_type = ::apache::thrift::_RequestRpcMetadataFlagsEnumDataStorage;
 };
 
 }} // apache::thrift

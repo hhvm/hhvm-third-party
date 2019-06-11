@@ -1,4 +1,4 @@
-<?hh // partial
+#!/usr/bin/env hhvm
 /*
  *  Copyright (c) 2015-present, Facebook, Inc.
  *  All rights reserved.
@@ -17,12 +17,12 @@ final class ThirdPartyBinaryNotices {
       'CMakeFiles' => null, // not a project :)
       'brotli' => tuple('Brotli', keyset['brotli/src/LICENSE']),
       'boost' => tuple('Boost', keyset['boost/boost/LICENSE_1_0.txt']),
-      'double-conversion' => tuple(
-        'double-conversion',
-        keyset['double-conversion/LICENSE'],
-      ),
+      'double-conversion' =>
+        tuple('double-conversion', keyset['double-conversion/LICENSE']),
       'fastlz' => tuple('FastLZ', keyset['fastlz/src/LICENSE']),
       'fatal' => null, // First-party, i.e. Facebook project
+      'fizz' => null, // firsrt-party
+      'fmt' => tuple('fmt', keyset['fmt/fmt/LICENSE.rst']),
       'folly' => null, // first-party
       'libafdt' => null, // first-party
       'libmbfl' => tuple(
@@ -36,6 +36,7 @@ final class ThirdPartyBinaryNotices {
       'libzip' => tuple('libzip', keyset['libzip/src/LICENSE']),
       'lz4' => tuple('LZ4', keyset['lz4/src/lib/LICENSE']),
       'mcrouter' => null, // first-party
+      'mvfst' => null, // first-party
       'ocaml' => null, // not distributed
       'opam' => null, // not used yet
       'pcre' => tuple('PCRE', keyset['pcre/LICENCE']),
@@ -55,10 +56,7 @@ final class ThirdPartyBinaryNotices {
           'fb-mysql/src/COPYING',
         ],
       ),
-      'xed' => tuple(
-        'Intel XED Library',
-        keyset['xed/xed/LICENSE'],
-      ),
+      'xed' => tuple('Intel XED Library', keyset['xed/xed/LICENSE']),
       'zstd' => null, // first-party
     ];
   }
@@ -80,11 +78,7 @@ final class ThirdPartyBinaryNotices {
         continue;
       }
       if (!\array_key_exists($project, $known_projects)) {
-        \fprintf(
-          \STDERR,
-          "Failed to find config for project '%s'\n",
-          $project,
-        );
+        \fprintf(\STDERR, "Failed to find config for project '%s'\n", $project);
         exit(1);
       }
       $projects[] = $project;
@@ -116,4 +110,7 @@ final class ThirdPartyBinaryNotices {
   }
 }
 
-ThirdPartyBinaryNotices::printNotices();
+<<__EntryPoint>>
+function print_notices_main(): void {
+  ThirdPartyBinaryNotices::printNotices();
+}

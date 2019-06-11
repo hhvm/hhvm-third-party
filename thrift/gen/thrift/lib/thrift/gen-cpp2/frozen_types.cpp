@@ -17,7 +17,7 @@ namespace apache {
 namespace thrift {
 namespace detail {
 
-void TccStructTraits< ::apache::thrift::frozen::schema::Field>::translateFieldName(
+void TccStructTraits<::apache::thrift::frozen::schema::Field>::translateFieldName(
     FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
     FOLLY_MAYBE_UNUSED int16_t& fid,
     FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
@@ -31,7 +31,7 @@ void TccStructTraits< ::apache::thrift::frozen::schema::Field>::translateFieldNa
     _ftype = apache::thrift::protocol::T_I16;
   }
 }
-void TccStructTraits< ::apache::thrift::frozen::schema::Layout>::translateFieldName(
+void TccStructTraits<::apache::thrift::frozen::schema::Layout>::translateFieldName(
     FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
     FOLLY_MAYBE_UNUSED int16_t& fid,
     FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
@@ -53,7 +53,7 @@ void TccStructTraits< ::apache::thrift::frozen::schema::Layout>::translateFieldN
     _ftype = apache::thrift::protocol::T_STRING;
   }
 }
-void TccStructTraits< ::apache::thrift::frozen::schema::Schema>::translateFieldName(
+void TccStructTraits<::apache::thrift::frozen::schema::Schema>::translateFieldName(
     FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
     FOLLY_MAYBE_UNUSED int16_t& fid,
     FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
@@ -99,6 +99,7 @@ void Field::__clear() {
 bool Field::operator==(const Field& rhs) const {
   (void)rhs;
   auto& lhs = *this;
+  (void)lhs;
   if (!(lhs.layoutId == rhs.layoutId)) {
     return false;
   }
@@ -111,6 +112,7 @@ bool Field::operator==(const Field& rhs) const {
 bool Field::operator<(const Field& rhs) const {
   (void)rhs;
   auto& lhs = *this;
+  (void)lhs;
   if (!(lhs.layoutId == rhs.layoutId)) {
     return lhs.layoutId < rhs.layoutId;
   }
@@ -163,6 +165,7 @@ void Layout::__clear() {
 bool Layout::operator==(const Layout& rhs) const {
   (void)rhs;
   auto& lhs = *this;
+  (void)lhs;
   if (!(lhs.size == rhs.size)) {
     return false;
   }
@@ -181,6 +184,7 @@ bool Layout::operator==(const Layout& rhs) const {
 bool Layout::operator<(const Layout& rhs) const {
   (void)rhs;
   auto& lhs = *this;
+  (void)lhs;
   if (!(lhs.size == rhs.size)) {
     return lhs.size < rhs.size;
   }
@@ -249,6 +253,7 @@ void Schema::__clear() {
 bool Schema::operator==(const Schema& rhs) const {
   (void)rhs;
   auto& lhs = *this;
+  (void)lhs;
   if (!(lhs.fileVersion == rhs.fileVersion)) {
     return false;
   }
@@ -267,6 +272,7 @@ bool Schema::operator==(const Schema& rhs) const {
 bool Schema::operator<(const Schema& rhs) const {
   (void)rhs;
   auto& lhs = *this;
+  (void)lhs;
   if (!(lhs.fileVersion == rhs.fileVersion)) {
     return lhs.fileVersion < rhs.fileVersion;
   }

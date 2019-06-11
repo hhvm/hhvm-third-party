@@ -10,8 +10,8 @@
 namespace apache { namespace thrift {
 
 constexpr const std::size_t _ProtocolIdEnumDataStorage::size;
-constexpr const std::array<ProtocolId, 3> _ProtocolIdEnumDataStorage::values;
-constexpr const std::array<folly::StringPiece, 3> _ProtocolIdEnumDataStorage::names;
+constexpr const std::array<ProtocolId, 2> _ProtocolIdEnumDataStorage::values;
+constexpr const std::array<folly::StringPiece, 2> _ProtocolIdEnumDataStorage::names;
 
 }} // apache::thrift
 namespace apache { namespace thrift {
@@ -32,6 +32,16 @@ namespace apache { namespace thrift {
 constexpr const std::size_t _RpcPriorityEnumDataStorage::size;
 constexpr const std::array<RpcPriority, 6> _RpcPriorityEnumDataStorage::values;
 constexpr const std::array<folly::StringPiece, 6> _RpcPriorityEnumDataStorage::names;
+
+}} // apache::thrift
+namespace apache { namespace thrift {
+
+}} // apache::thrift
+namespace apache { namespace thrift {
+
+constexpr const std::size_t _RequestRpcMetadataFlagsEnumDataStorage::size;
+constexpr const std::array<RequestRpcMetadataFlags, 2> _RequestRpcMetadataFlagsEnumDataStorage::values;
+constexpr const std::array<folly::StringPiece, 2> _RequestRpcMetadataFlagsEnumDataStorage::names;
 
 }} // apache::thrift
 namespace apache { namespace thrift {

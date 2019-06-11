@@ -12,37 +12,43 @@
 
 #include "thrift/lib/thrift/gen-cpp2/reflection_data.h"
 
+
+namespace apache { namespace thrift {
+
+constexpr std::size_t const TEnumTraits<::apache::thrift::reflection::Type>::size;
+folly::Range<::apache::thrift::reflection::Type const*> const TEnumTraits<::apache::thrift::reflection::Type>::values = folly::range(::apache::thrift::reflection::_TypeEnumDataStorage::values);
+folly::Range<folly::StringPiece const*> const TEnumTraits<::apache::thrift::reflection::Type>::names = folly::range(::apache::thrift::reflection::_TypeEnumDataStorage::names);
+
+char const* TEnumTraits<::apache::thrift::reflection::Type>::findName(type value) {
+  using factory = ::apache::thrift::reflection::_Type_EnumMapFactory;
+  static folly::Indestructible<factory::ValuesToNamesMapType> const map{
+      factory::makeValuesToNamesMap()};
+  auto found = map->find(value);
+  return found == map->end() ? nullptr : found->second;
+}
+
+bool TEnumTraits<::apache::thrift::reflection::Type>::findValue(char const* name, type* out) {
+  using factory = ::apache::thrift::reflection::_Type_EnumMapFactory;
+  static folly::Indestructible<factory::NamesToValuesMapType> const map{
+      factory::makeNamesToValuesMap()};
+  auto found = map->find(name);
+  return found == map->end() ? false : (*out = found->second, true);
+}
+
+}} // apache::thrift
+
 namespace apache { namespace thrift { namespace reflection {
 
 const _Type_EnumMapFactory::ValuesToNamesMapType _Type_VALUES_TO_NAMES = _Type_EnumMapFactory::makeValuesToNamesMap();
 const _Type_EnumMapFactory::NamesToValuesMapType _Type_NAMES_TO_VALUES = _Type_EnumMapFactory::makeNamesToValuesMap();
 
 }}} // apache::thrift::reflection
-namespace std {
-
-} // std
-namespace apache { namespace thrift {
-
-template <> const std::size_t TEnumTraits< ::apache::thrift::reflection::Type>::size = 16;
-template <> const folly::Range<const  ::apache::thrift::reflection::Type*> TEnumTraits< ::apache::thrift::reflection::Type>::values = folly::range( ::apache::thrift::reflection::_TypeEnumDataStorage::values);
-template <> const folly::Range<const folly::StringPiece*> TEnumTraits< ::apache::thrift::reflection::Type>::names = folly::range( ::apache::thrift::reflection::_TypeEnumDataStorage::names);
-template <> const char* TEnumTraits< ::apache::thrift::reflection::Type>::findName( ::apache::thrift::reflection::Type value) {
-  static auto const map = folly::Indestructible< ::apache::thrift::reflection::_Type_EnumMapFactory::ValuesToNamesMapType>{ ::apache::thrift::reflection::_Type_EnumMapFactory::makeValuesToNamesMap()};
-  return findName(*map, value);
-}
-
-template <> bool TEnumTraits< ::apache::thrift::reflection::Type>::findValue(const char* name,  ::apache::thrift::reflection::Type* outValue) {
-  static auto const map = folly::Indestructible< ::apache::thrift::reflection::_Type_EnumMapFactory::NamesToValuesMapType>{ ::apache::thrift::reflection::_Type_EnumMapFactory::makeNamesToValuesMap()};
-  return findValue(*map, name, outValue);
-}
-
-}} // apache::thrift
 
 namespace apache {
 namespace thrift {
 namespace detail {
 
-void TccStructTraits< ::apache::thrift::reflection::StructField>::translateFieldName(
+void TccStructTraits<::apache::thrift::reflection::StructField>::translateFieldName(
     FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
     FOLLY_MAYBE_UNUSED int16_t& fid,
     FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
@@ -68,7 +74,7 @@ void TccStructTraits< ::apache::thrift::reflection::StructField>::translateField
     _ftype = apache::thrift::protocol::T_I16;
   }
 }
-void TccStructTraits< ::apache::thrift::reflection::DataType>::translateFieldName(
+void TccStructTraits<::apache::thrift::reflection::DataType>::translateFieldName(
     FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
     FOLLY_MAYBE_UNUSED int16_t& fid,
     FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
@@ -94,7 +100,7 @@ void TccStructTraits< ::apache::thrift::reflection::DataType>::translateFieldNam
     _ftype = apache::thrift::protocol::T_MAP;
   }
 }
-void TccStructTraits< ::apache::thrift::reflection::Schema>::translateFieldName(
+void TccStructTraits<::apache::thrift::reflection::Schema>::translateFieldName(
     FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
     FOLLY_MAYBE_UNUSED int16_t& fid,
     FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
@@ -149,6 +155,7 @@ void StructField::__clear() {
 bool StructField::operator==(const StructField& rhs) const {
   (void)rhs;
   auto& lhs = *this;
+  (void)lhs;
   if (!(lhs.isRequired == rhs.isRequired)) {
     return false;
   }
@@ -236,6 +243,7 @@ void DataType::__clear() {
 bool DataType::operator==(const DataType& rhs) const {
   (void)rhs;
   auto& lhs = *this;
+  (void)lhs;
   if (!(lhs.name == rhs.name)) {
     return false;
   }
@@ -330,6 +338,7 @@ void Schema::__clear() {
 bool Schema::operator==(const Schema& rhs) const {
   (void)rhs;
   auto& lhs = *this;
+  (void)lhs;
   if (!(lhs.dataTypes == rhs.dataTypes)) {
     return false;
   }

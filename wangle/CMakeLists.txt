@@ -21,7 +21,6 @@ add_library(wangle STATIC ${files} ${hfiles})
 auto_source_group(wangle "${WANGLE_DIR}" ${files} ${hfiles})
 
 find_package(OpenSSL REQUIRED)
-include_directories(${OPENSSL_INCLUDE_DIR})
+include_directories(${OPENSSL_INCLUDE_DIR} "${TP_DIR}/fizz/src")
 
-target_link_libraries(wangle folly boost
-                                   ${OPENSSL_LIBRARIES})
+target_link_libraries(wangle folly boost fizz ${OPENSSL_LIBRARIES})

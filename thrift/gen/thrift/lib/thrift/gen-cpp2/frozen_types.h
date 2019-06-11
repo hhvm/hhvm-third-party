@@ -38,6 +38,7 @@ class Field final : private apache::thrift::detail::st::ComparisonOperators<Fiel
       layoutId(0),
       offset(static_cast<int16_t>(0)) {}
   // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
   Field(apache::thrift::FragileConstructor, int16_t layoutId__arg, int16_t offset__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
@@ -105,50 +106,15 @@ class Field final : private apache::thrift::detail::st::ComparisonOperators<Fiel
 };
 
 void swap(Field& a, Field& b);
-extern template void Field::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t Field::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t Field::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t Field::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void Field::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t Field::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t Field::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t Field::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 template <class Protocol_>
 uint32_t Field::read(Protocol_* iprot) {
-  auto _xferStart = iprot->getCurrentPosition().getCurrentPosition();
+  auto _xferStart = iprot->getCursorPosition();
   readNoXfer(iprot);
-  return iprot->getCurrentPosition().getCurrentPosition() - _xferStart;
+  return iprot->getCursorPosition() - _xferStart;
 }
 
 }}}} // apache::thrift::frozen::schema
-namespace apache { namespace thrift {
-
-template <> inline void Cpp2Ops< ::apache::thrift::frozen::schema::Field>::clear( ::apache::thrift::frozen::schema::Field* obj) {
-  return obj->__clear();
-}
-
-template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::apache::thrift::frozen::schema::Field>::thriftType() {
-  return apache::thrift::protocol::T_STRUCT;
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::frozen::schema::Field>::write(Protocol* proto,  ::apache::thrift::frozen::schema::Field const* obj) {
-  return obj->write(proto);
-}
-
-template <> template <class Protocol> void Cpp2Ops< ::apache::thrift::frozen::schema::Field>::read(Protocol* proto,  ::apache::thrift::frozen::schema::Field* obj) {
-  return obj->readNoXfer(proto);
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::frozen::schema::Field>::serializedSize(Protocol const* proto,  ::apache::thrift::frozen::schema::Field const* obj) {
-  return obj->serializedSize(proto);
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::frozen::schema::Field>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::frozen::schema::Field const* obj) {
-  return obj->serializedSizeZC(proto);
-}
-
-}} // apache::thrift
 namespace apache { namespace thrift { namespace frozen { namespace schema {
 class Layout final : private apache::thrift::detail::st::ComparisonOperators<Layout> {
  public:
@@ -157,6 +123,7 @@ class Layout final : private apache::thrift::detail::st::ComparisonOperators<Lay
       size(0),
       bits(static_cast<int16_t>(0)) {}
   // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
   Layout(apache::thrift::FragileConstructor, int32_t size__arg, int16_t bits__arg, std::map<int16_t,  ::apache::thrift::frozen::schema::Field> fields__arg, std::string typeName__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
@@ -262,50 +229,15 @@ class Layout final : private apache::thrift::detail::st::ComparisonOperators<Lay
 };
 
 void swap(Layout& a, Layout& b);
-extern template void Layout::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t Layout::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t Layout::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t Layout::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void Layout::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t Layout::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t Layout::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t Layout::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 template <class Protocol_>
 uint32_t Layout::read(Protocol_* iprot) {
-  auto _xferStart = iprot->getCurrentPosition().getCurrentPosition();
+  auto _xferStart = iprot->getCursorPosition();
   readNoXfer(iprot);
-  return iprot->getCurrentPosition().getCurrentPosition() - _xferStart;
+  return iprot->getCursorPosition() - _xferStart;
 }
 
 }}}} // apache::thrift::frozen::schema
-namespace apache { namespace thrift {
-
-template <> inline void Cpp2Ops< ::apache::thrift::frozen::schema::Layout>::clear( ::apache::thrift::frozen::schema::Layout* obj) {
-  return obj->__clear();
-}
-
-template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::apache::thrift::frozen::schema::Layout>::thriftType() {
-  return apache::thrift::protocol::T_STRUCT;
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::frozen::schema::Layout>::write(Protocol* proto,  ::apache::thrift::frozen::schema::Layout const* obj) {
-  return obj->write(proto);
-}
-
-template <> template <class Protocol> void Cpp2Ops< ::apache::thrift::frozen::schema::Layout>::read(Protocol* proto,  ::apache::thrift::frozen::schema::Layout* obj) {
-  return obj->readNoXfer(proto);
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::frozen::schema::Layout>::serializedSize(Protocol const* proto,  ::apache::thrift::frozen::schema::Layout const* obj) {
-  return obj->serializedSize(proto);
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::frozen::schema::Layout>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::frozen::schema::Layout const* obj) {
-  return obj->serializedSizeZC(proto);
-}
-
-}} // apache::thrift
 namespace apache { namespace thrift { namespace frozen { namespace schema {
 class Schema final : private apache::thrift::detail::st::ComparisonOperators<Schema> {
  public:
@@ -315,6 +247,7 @@ class Schema final : private apache::thrift::detail::st::ComparisonOperators<Sch
       relaxTypeChecks(0),
       rootLayout(static_cast<int16_t>(0)) {}
   // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
   Schema(apache::thrift::FragileConstructor, int32_t fileVersion__arg, bool relaxTypeChecks__arg, std::map<int16_t,  ::apache::thrift::frozen::schema::Layout> layouts__arg, int16_t rootLayout__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<4, _T> arg) {
@@ -415,47 +348,12 @@ class Schema final : private apache::thrift::detail::st::ComparisonOperators<Sch
 };
 
 void swap(Schema& a, Schema& b);
-extern template void Schema::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t Schema::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t Schema::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t Schema::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void Schema::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t Schema::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t Schema::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t Schema::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 template <class Protocol_>
 uint32_t Schema::read(Protocol_* iprot) {
-  auto _xferStart = iprot->getCurrentPosition().getCurrentPosition();
+  auto _xferStart = iprot->getCursorPosition();
   readNoXfer(iprot);
-  return iprot->getCurrentPosition().getCurrentPosition() - _xferStart;
+  return iprot->getCursorPosition() - _xferStart;
 }
 
 }}}} // apache::thrift::frozen::schema
-namespace apache { namespace thrift {
-
-template <> inline void Cpp2Ops< ::apache::thrift::frozen::schema::Schema>::clear( ::apache::thrift::frozen::schema::Schema* obj) {
-  return obj->__clear();
-}
-
-template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::apache::thrift::frozen::schema::Schema>::thriftType() {
-  return apache::thrift::protocol::T_STRUCT;
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::frozen::schema::Schema>::write(Protocol* proto,  ::apache::thrift::frozen::schema::Schema const* obj) {
-  return obj->write(proto);
-}
-
-template <> template <class Protocol> void Cpp2Ops< ::apache::thrift::frozen::schema::Schema>::read(Protocol* proto,  ::apache::thrift::frozen::schema::Schema* obj) {
-  return obj->readNoXfer(proto);
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::frozen::schema::Schema>::serializedSize(Protocol const* proto,  ::apache::thrift::frozen::schema::Schema const* obj) {
-  return obj->serializedSize(proto);
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::frozen::schema::Schema>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::frozen::schema::Schema const* obj) {
-  return obj->serializedSizeZC(proto);
-}
-
-}} // apache::thrift

@@ -30,16 +30,22 @@ if (NOT EXISTS "${FOLLY_DIR}/Portability.h")
                       "run `git submodule update --init --recursive`?")
 endif()
 
-# Generated files from folly/build/generate_*.py
-auto_sources(genfiles "*.cpp" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}/gen")
-
 # Main folly library files
 auto_sources(files "*.cpp" "RECURSE" "${FOLLY_DIR}")
 auto_sources(cfiles "*.c" "RECURSE" "${FOLLY_DIR}")
 auto_sources(hfiles "*.h" "RECURSE" "${FOLLY_DIR}")
 
 # No need for tests, Benchmarks, Utils, or most experimental stuff
-HHVM_REMOVE_MATCHES_FROM_LISTS(files cfiles hfiles MATCHES "/test/" "/bench/" "Test.cpp$" "/futures/exercises/" "/experimental/logging/example/")
+HHVM_REMOVE_MATCHES_FROM_LISTS(files cfiles hfiles
+ MATCHES
+ "/bench/"
+ "/experimental/logging/example/"
+ "/experimental/pushmi/"
+ "/futures/exercises/"
+ "/python/"
+ "/test/"
+ "Test.cpp$"
+)
 list(REMOVE_ITEM files
   ${FOLLY_DIR}/Benchmark.cpp
   ${FOLLY_DIR}/SingletonStackTrace.cpp

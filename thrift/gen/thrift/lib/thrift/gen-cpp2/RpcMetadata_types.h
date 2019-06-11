@@ -11,19 +11,16 @@
 #include <thrift/lib/cpp2/gen/module_types_h.h>
 #include <thrift/lib/cpp2/protocol/Protocol.h>
 
+#include "thrift/lib/thrift/RpcMetadata_extra.h"
 
 // BEGIN declare_enums
 namespace apache { namespace thrift {
 
 enum class ProtocolId {
   BINARY = 0,
-  COMPACT = 2,
-  FROZEN2 = 6
+  COMPACT = 2
 };
 
-using _ProtocolId_EnumMapFactory = apache::thrift::detail::TEnumMapFactory<ProtocolId, ProtocolId>;
-extern const _ProtocolId_EnumMapFactory::ValuesToNamesMapType _ProtocolId_VALUES_TO_NAMES;
-extern const _ProtocolId_EnumMapFactory::NamesToValuesMapType _ProtocolId_NAMES_TO_VALUES;
 
 
 
@@ -36,9 +33,6 @@ enum class RpcKind {
   STREAMING_REQUEST_STREAMING_RESPONSE = 5
 };
 
-using _RpcKind_EnumMapFactory = apache::thrift::detail::TEnumMapFactory<RpcKind, RpcKind>;
-extern const _RpcKind_EnumMapFactory::ValuesToNamesMapType _RpcKind_VALUES_TO_NAMES;
-extern const _RpcKind_EnumMapFactory::NamesToValuesMapType _RpcKind_NAMES_TO_VALUES;
 
 
 
@@ -51,9 +45,14 @@ enum class RpcPriority {
   N_PRIORITIES = 5
 };
 
-using _RpcPriority_EnumMapFactory = apache::thrift::detail::TEnumMapFactory<RpcPriority, RpcPriority>;
-extern const _RpcPriority_EnumMapFactory::ValuesToNamesMapType _RpcPriority_VALUES_TO_NAMES;
-extern const _RpcPriority_EnumMapFactory::NamesToValuesMapType _RpcPriority_NAMES_TO_VALUES;
+
+
+
+enum class RequestRpcMetadataFlags {
+  UNKNOWN = 0,
+  QUERY_SERVER_LOAD = 1
+};
+
 
 
 
@@ -61,16 +60,20 @@ extern const _RpcPriority_EnumMapFactory::NamesToValuesMapType _RpcPriority_NAME
 namespace std {
 
 
-template<> struct hash<typename  ::apache::thrift::ProtocolId> : public apache::thrift::detail::enum_hash<typename  ::apache::thrift::ProtocolId> {};
-template<> struct equal_to<typename  ::apache::thrift::ProtocolId> : public apache::thrift::detail::enum_equal_to<typename  ::apache::thrift::ProtocolId> {};
+template<> struct hash<typename ::apache::thrift::ProtocolId> : public apache::thrift::detail::enum_hash<typename ::apache::thrift::ProtocolId> {};
+template<> struct equal_to<typename ::apache::thrift::ProtocolId> : public apache::thrift::detail::enum_equal_to<typename ::apache::thrift::ProtocolId> {};
 
 
-template<> struct hash<typename  ::apache::thrift::RpcKind> : public apache::thrift::detail::enum_hash<typename  ::apache::thrift::RpcKind> {};
-template<> struct equal_to<typename  ::apache::thrift::RpcKind> : public apache::thrift::detail::enum_equal_to<typename  ::apache::thrift::RpcKind> {};
+template<> struct hash<typename ::apache::thrift::RpcKind> : public apache::thrift::detail::enum_hash<typename ::apache::thrift::RpcKind> {};
+template<> struct equal_to<typename ::apache::thrift::RpcKind> : public apache::thrift::detail::enum_equal_to<typename ::apache::thrift::RpcKind> {};
 
 
-template<> struct hash<typename  ::apache::thrift::RpcPriority> : public apache::thrift::detail::enum_hash<typename  ::apache::thrift::RpcPriority> {};
-template<> struct equal_to<typename  ::apache::thrift::RpcPriority> : public apache::thrift::detail::enum_equal_to<typename  ::apache::thrift::RpcPriority> {};
+template<> struct hash<typename ::apache::thrift::RpcPriority> : public apache::thrift::detail::enum_hash<typename ::apache::thrift::RpcPriority> {};
+template<> struct equal_to<typename ::apache::thrift::RpcPriority> : public apache::thrift::detail::enum_equal_to<typename ::apache::thrift::RpcPriority> {};
+
+
+template<> struct hash<typename ::apache::thrift::RequestRpcMetadataFlags> : public apache::thrift::detail::enum_hash<typename ::apache::thrift::RequestRpcMetadataFlags> {};
+template<> struct equal_to<typename ::apache::thrift::RequestRpcMetadataFlags> : public apache::thrift::detail::enum_equal_to<typename ::apache::thrift::RequestRpcMetadataFlags> {};
 
 
 } // std
@@ -78,62 +81,95 @@ template<> struct equal_to<typename  ::apache::thrift::RpcPriority> : public apa
 namespace apache { namespace thrift {
 
 
-template <> struct TEnumDataStorage< ::apache::thrift::ProtocolId>;
-#ifndef _MSC_VER
-template <> const std::size_t TEnumTraits< ::apache::thrift::ProtocolId>::size;
-template <> const folly::Range<const  ::apache::thrift::ProtocolId*> TEnumTraits< ::apache::thrift::ProtocolId>::values;
-template <> const folly::Range<const folly::StringPiece*> TEnumTraits< ::apache::thrift::ProtocolId>::names;
-#endif
-template <> const char* TEnumTraits< ::apache::thrift::ProtocolId>::findName( ::apache::thrift::ProtocolId value);
-template <> bool TEnumTraits< ::apache::thrift::ProtocolId>::findValue(const char* name,  ::apache::thrift::ProtocolId* outValue);
+template <> struct TEnumDataStorage<::apache::thrift::ProtocolId>;
 
-template <> inline constexpr  ::apache::thrift::ProtocolId TEnumTraits< ::apache::thrift::ProtocolId>::min() {
-  return  ::apache::thrift::ProtocolId::BINARY;
-}
+template <> struct TEnumTraits<::apache::thrift::ProtocolId> {
+  using type = ::apache::thrift::ProtocolId;
 
-template <> inline constexpr  ::apache::thrift::ProtocolId TEnumTraits< ::apache::thrift::ProtocolId>::max() {
-  return  ::apache::thrift::ProtocolId::FROZEN2;
-}
+  static constexpr std::size_t const size = 2;
+  static folly::Range<type const*> const values;
+  static folly::Range<folly::StringPiece const*> const names;
 
+  static char const* findName(type value);
+  static bool findValue(char const* name, type* out);
 
-template <> struct TEnumDataStorage< ::apache::thrift::RpcKind>;
-#ifndef _MSC_VER
-template <> const std::size_t TEnumTraits< ::apache::thrift::RpcKind>::size;
-template <> const folly::Range<const  ::apache::thrift::RpcKind*> TEnumTraits< ::apache::thrift::RpcKind>::values;
-template <> const folly::Range<const folly::StringPiece*> TEnumTraits< ::apache::thrift::RpcKind>::names;
-#endif
-template <> const char* TEnumTraits< ::apache::thrift::RpcKind>::findName( ::apache::thrift::RpcKind value);
-template <> bool TEnumTraits< ::apache::thrift::RpcKind>::findValue(const char* name,  ::apache::thrift::RpcKind* outValue);
-
-template <> inline constexpr  ::apache::thrift::RpcKind TEnumTraits< ::apache::thrift::RpcKind>::min() {
-  return  ::apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE;
-}
-
-template <> inline constexpr  ::apache::thrift::RpcKind TEnumTraits< ::apache::thrift::RpcKind>::max() {
-  return  ::apache::thrift::RpcKind::STREAMING_REQUEST_STREAMING_RESPONSE;
-}
+  static constexpr type min() { return type::BINARY; }
+  static constexpr type max() { return type::COMPACT; }
+};
 
 
-template <> struct TEnumDataStorage< ::apache::thrift::RpcPriority>;
-#ifndef _MSC_VER
-template <> const std::size_t TEnumTraits< ::apache::thrift::RpcPriority>::size;
-template <> const folly::Range<const  ::apache::thrift::RpcPriority*> TEnumTraits< ::apache::thrift::RpcPriority>::values;
-template <> const folly::Range<const folly::StringPiece*> TEnumTraits< ::apache::thrift::RpcPriority>::names;
-#endif
-template <> const char* TEnumTraits< ::apache::thrift::RpcPriority>::findName( ::apache::thrift::RpcPriority value);
-template <> bool TEnumTraits< ::apache::thrift::RpcPriority>::findValue(const char* name,  ::apache::thrift::RpcPriority* outValue);
+template <> struct TEnumDataStorage<::apache::thrift::RpcKind>;
 
-template <> inline constexpr  ::apache::thrift::RpcPriority TEnumTraits< ::apache::thrift::RpcPriority>::min() {
-  return  ::apache::thrift::RpcPriority::HIGH_IMPORTANT;
-}
+template <> struct TEnumTraits<::apache::thrift::RpcKind> {
+  using type = ::apache::thrift::RpcKind;
 
-template <> inline constexpr  ::apache::thrift::RpcPriority TEnumTraits< ::apache::thrift::RpcPriority>::max() {
-  return  ::apache::thrift::RpcPriority::N_PRIORITIES;
-}
+  static constexpr std::size_t const size = 6;
+  static folly::Range<type const*> const values;
+  static folly::Range<folly::StringPiece const*> const names;
+
+  static char const* findName(type value);
+  static bool findValue(char const* name, type* out);
+
+  static constexpr type min() { return type::SINGLE_REQUEST_SINGLE_RESPONSE; }
+  static constexpr type max() { return type::STREAMING_REQUEST_STREAMING_RESPONSE; }
+};
+
+
+template <> struct TEnumDataStorage<::apache::thrift::RpcPriority>;
+
+template <> struct TEnumTraits<::apache::thrift::RpcPriority> {
+  using type = ::apache::thrift::RpcPriority;
+
+  static constexpr std::size_t const size = 6;
+  static folly::Range<type const*> const values;
+  static folly::Range<folly::StringPiece const*> const names;
+
+  static char const* findName(type value);
+  static bool findValue(char const* name, type* out);
+
+  static constexpr type min() { return type::HIGH_IMPORTANT; }
+  static constexpr type max() { return type::N_PRIORITIES; }
+};
+
+
+template <> struct TEnumDataStorage<::apache::thrift::RequestRpcMetadataFlags>;
+
+template <> struct TEnumTraits<::apache::thrift::RequestRpcMetadataFlags> {
+  using type = ::apache::thrift::RequestRpcMetadataFlags;
+
+  static constexpr std::size_t const size = 2;
+  static folly::Range<type const*> const values;
+  static folly::Range<folly::StringPiece const*> const names;
+
+  static char const* findName(type value);
+  static bool findValue(char const* name, type* out);
+
+  static constexpr type min() { return type::UNKNOWN; }
+  static constexpr type max() { return type::QUERY_SERVER_LOAD; }
+};
 
 
 }} // apache::thrift
 
+namespace apache { namespace thrift {
+
+using _ProtocolId_EnumMapFactory = apache::thrift::detail::TEnumMapFactory<ProtocolId>;
+extern const _ProtocolId_EnumMapFactory::ValuesToNamesMapType _ProtocolId_VALUES_TO_NAMES;
+extern const _ProtocolId_EnumMapFactory::NamesToValuesMapType _ProtocolId_NAMES_TO_VALUES;
+
+using _RpcKind_EnumMapFactory = apache::thrift::detail::TEnumMapFactory<RpcKind>;
+extern const _RpcKind_EnumMapFactory::ValuesToNamesMapType _RpcKind_VALUES_TO_NAMES;
+extern const _RpcKind_EnumMapFactory::NamesToValuesMapType _RpcKind_NAMES_TO_VALUES;
+
+using _RpcPriority_EnumMapFactory = apache::thrift::detail::TEnumMapFactory<RpcPriority>;
+extern const _RpcPriority_EnumMapFactory::ValuesToNamesMapType _RpcPriority_VALUES_TO_NAMES;
+extern const _RpcPriority_EnumMapFactory::NamesToValuesMapType _RpcPriority_NAMES_TO_VALUES;
+
+using _RequestRpcMetadataFlags_EnumMapFactory = apache::thrift::detail::TEnumMapFactory<RequestRpcMetadataFlags>;
+extern const _RequestRpcMetadataFlags_EnumMapFactory::ValuesToNamesMapType _RequestRpcMetadataFlags_VALUES_TO_NAMES;
+extern const _RequestRpcMetadataFlags_EnumMapFactory::NamesToValuesMapType _RequestRpcMetadataFlags_NAMES_TO_VALUES;
+
+}} // apache::thrift
 
 // END declare_enums
 // BEGIN struct_indirection
@@ -143,6 +179,8 @@ template <> inline constexpr  ::apache::thrift::RpcPriority TEnumTraits< ::apach
 namespace apache { namespace thrift {
 class RequestRpcMetadata;
 class ResponseRpcMetadata;
+class StreamPayloadMetadata;
+class RequestSetupMetadata;
 }} // apache::thrift
 // END forward_declare
 // BEGIN typedefs
@@ -157,7 +195,8 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
   RequestRpcMetadata();
 
   // FragileConstructor for use in initialization lists only.
-  RequestRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, std::string name__arg,  ::apache::thrift::RpcKind kind__arg, int32_t seqId__arg, int32_t clientTimeoutMs__arg, int32_t queueTimeoutMs__arg,  ::apache::thrift::RpcPriority priority__arg, std::map<std::string, std::string> otherMetadata__arg, std::string host__arg, std::string url__arg);
+  [[deprecated("This constructor is deprecated")]]
+  RequestRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, std::string name__arg,  ::apache::thrift::RpcKind kind__arg, int32_t seqId__arg, int32_t clientTimeoutMs__arg, int32_t queueTimeoutMs__arg,  ::apache::thrift::RpcPriority priority__arg, std::map<std::string, std::string> otherMetadata__arg, std::string host__arg, std::string url__arg, std::uint32_t crc32c__arg, std::uint64_t flags__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     protocol = arg.extract();
@@ -208,6 +247,16 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
     url = arg.extract();
     __isset.url = true;
   }
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<11, _T> arg) {
+    crc32c = arg.extract();
+    __isset.crc32c = true;
+  }
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<12, _T> arg) {
+    flags = arg.extract();
+    __isset.flags = true;
+  }
 
   RequestRpcMetadata(RequestRpcMetadata&&) = default;
 
@@ -230,6 +279,8 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
   std::map<std::string, std::string> otherMetadata;
   std::string host;
   std::string url;
+  std::uint32_t crc32c;
+  std::uint64_t flags;
 
   struct __isset {
     bool protocol;
@@ -242,9 +293,203 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
     bool otherMetadata;
     bool host;
     bool url;
+    bool crc32c;
+    bool flags;
   } __isset = {};
   bool operator==(const RequestRpcMetadata& rhs) const;
   bool operator<(const RequestRpcMetadata& rhs) const;
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::ProtocolId&> protocol_ref() const& {
+    return {protocol, __isset.protocol};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::ProtocolId&&> protocol_ref() const&& {
+    return {std::move(protocol), __isset.protocol};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::ProtocolId&> protocol_ref() & {
+    return {protocol, __isset.protocol};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::ProtocolId&&> protocol_ref() && {
+    return {std::move(protocol), __isset.protocol};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::string&> name_ref() const& {
+    return {name, __isset.name};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::string&&> name_ref() const&& {
+    return {std::move(name), __isset.name};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::string&> name_ref() & {
+    return {name, __isset.name};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::string&&> name_ref() && {
+    return {std::move(name), __isset.name};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::RpcKind&> kind_ref() const& {
+    return {kind, __isset.kind};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::RpcKind&&> kind_ref() const&& {
+    return {std::move(kind), __isset.kind};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::RpcKind&> kind_ref() & {
+    return {kind, __isset.kind};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::RpcKind&&> kind_ref() && {
+    return {std::move(kind), __isset.kind};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&> seqId_ref() const& {
+    return {seqId, __isset.seqId};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&&> seqId_ref() const&& {
+    return {std::move(seqId), __isset.seqId};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&> seqId_ref() & {
+    return {seqId, __isset.seqId};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&&> seqId_ref() && {
+    return {std::move(seqId), __isset.seqId};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&> clientTimeoutMs_ref() const& {
+    return {clientTimeoutMs, __isset.clientTimeoutMs};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&&> clientTimeoutMs_ref() const&& {
+    return {std::move(clientTimeoutMs), __isset.clientTimeoutMs};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&> clientTimeoutMs_ref() & {
+    return {clientTimeoutMs, __isset.clientTimeoutMs};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&&> clientTimeoutMs_ref() && {
+    return {std::move(clientTimeoutMs), __isset.clientTimeoutMs};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&> queueTimeoutMs_ref() const& {
+    return {queueTimeoutMs, __isset.queueTimeoutMs};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&&> queueTimeoutMs_ref() const&& {
+    return {std::move(queueTimeoutMs), __isset.queueTimeoutMs};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&> queueTimeoutMs_ref() & {
+    return {queueTimeoutMs, __isset.queueTimeoutMs};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&&> queueTimeoutMs_ref() && {
+    return {std::move(queueTimeoutMs), __isset.queueTimeoutMs};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::RpcPriority&> priority_ref() const& {
+    return {priority, __isset.priority};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::RpcPriority&&> priority_ref() const&& {
+    return {std::move(priority), __isset.priority};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::RpcPriority&> priority_ref() & {
+    return {priority, __isset.priority};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::RpcPriority&&> priority_ref() && {
+    return {std::move(priority), __isset.priority};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::map<std::string, std::string>&> otherMetadata_ref() const& {
+    return {otherMetadata, __isset.otherMetadata};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::map<std::string, std::string>&&> otherMetadata_ref() const&& {
+    return {std::move(otherMetadata), __isset.otherMetadata};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::map<std::string, std::string>&> otherMetadata_ref() & {
+    return {otherMetadata, __isset.otherMetadata};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::map<std::string, std::string>&&> otherMetadata_ref() && {
+    return {std::move(otherMetadata), __isset.otherMetadata};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::string&> host_ref() const& {
+    return {host, __isset.host};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::string&&> host_ref() const&& {
+    return {std::move(host), __isset.host};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::string&> host_ref() & {
+    return {host, __isset.host};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::string&&> host_ref() && {
+    return {std::move(host), __isset.host};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::string&> url_ref() const& {
+    return {url, __isset.url};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::string&&> url_ref() const&& {
+    return {std::move(url), __isset.url};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::string&> url_ref() & {
+    return {url, __isset.url};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::string&&> url_ref() && {
+    return {std::move(url), __isset.url};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::uint32_t&> crc32c_ref() const& {
+    return {crc32c, __isset.crc32c};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::uint32_t&&> crc32c_ref() const&& {
+    return {std::move(crc32c), __isset.crc32c};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::uint32_t&> crc32c_ref() & {
+    return {crc32c, __isset.crc32c};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::uint32_t&&> crc32c_ref() && {
+    return {std::move(crc32c), __isset.crc32c};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::uint64_t&> flags_ref() const& {
+    return {flags, __isset.flags};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::uint64_t&&> flags_ref() const&& {
+    return {std::move(flags), __isset.flags};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::uint64_t&> flags_ref() & {
+    return {flags, __isset.flags};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::uint64_t&&> flags_ref() && {
+    return {std::move(flags), __isset.flags};
+  }
 
   const  ::apache::thrift::ProtocolId* get_protocol() const& {
     return __isset.protocol ? std::addressof(protocol) : nullptr;
@@ -394,6 +639,36 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
     return url;
   }
 
+  const std::uint32_t* get_crc32c() const& {
+    return __isset.crc32c ? std::addressof(crc32c) : nullptr;
+  }
+
+  std::uint32_t* get_crc32c() & {
+    return __isset.crc32c ? std::addressof(crc32c) : nullptr;
+  }
+  std::uint32_t* get_crc32c() && = delete;
+
+  std::uint32_t& set_crc32c(std::uint32_t crc32c_) {
+    crc32c = crc32c_;
+    __isset.crc32c = true;
+    return crc32c;
+  }
+
+  const std::uint64_t* get_flags() const& {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+
+  std::uint64_t* get_flags() & {
+    return __isset.flags ? std::addressof(flags) : nullptr;
+  }
+  std::uint64_t* get_flags() && = delete;
+
+  std::uint64_t& set_flags(std::uint64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
+  }
+
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
@@ -411,47 +686,12 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
 };
 
 void swap(RequestRpcMetadata& a, RequestRpcMetadata& b);
-extern template void RequestRpcMetadata::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t RequestRpcMetadata::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t RequestRpcMetadata::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t RequestRpcMetadata::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void RequestRpcMetadata::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t RequestRpcMetadata::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t RequestRpcMetadata::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t RequestRpcMetadata::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 template <class Protocol_>
 uint32_t RequestRpcMetadata::read(Protocol_* iprot) {
-  auto _xferStart = iprot->getCurrentPosition().getCurrentPosition();
+  auto _xferStart = iprot->getCursorPosition();
   readNoXfer(iprot);
-  return iprot->getCurrentPosition().getCurrentPosition() - _xferStart;
-}
-
-}} // apache::thrift
-namespace apache { namespace thrift {
-
-template <> inline void Cpp2Ops< ::apache::thrift::RequestRpcMetadata>::clear( ::apache::thrift::RequestRpcMetadata* obj) {
-  return obj->__clear();
-}
-
-template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::apache::thrift::RequestRpcMetadata>::thriftType() {
-  return apache::thrift::protocol::T_STRUCT;
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::RequestRpcMetadata>::write(Protocol* proto,  ::apache::thrift::RequestRpcMetadata const* obj) {
-  return obj->write(proto);
-}
-
-template <> template <class Protocol> void Cpp2Ops< ::apache::thrift::RequestRpcMetadata>::read(Protocol* proto,  ::apache::thrift::RequestRpcMetadata* obj) {
-  return obj->readNoXfer(proto);
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::RequestRpcMetadata>::serializedSize(Protocol const* proto,  ::apache::thrift::RequestRpcMetadata const* obj) {
-  return obj->serializedSize(proto);
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::RequestRpcMetadata>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::RequestRpcMetadata const* obj) {
-  return obj->serializedSizeZC(proto);
+  return iprot->getCursorPosition() - _xferStart;
 }
 
 }} // apache::thrift
@@ -459,11 +699,11 @@ namespace apache { namespace thrift {
 class ResponseRpcMetadata final : private apache::thrift::detail::st::ComparisonOperators<ResponseRpcMetadata> {
  public:
 
-  ResponseRpcMetadata() :
-      protocol( ::apache::thrift::ProtocolId::BINARY),
-      seqId(0) {}
+  ResponseRpcMetadata();
+
   // FragileConstructor for use in initialization lists only.
-  ResponseRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, int32_t seqId__arg, std::map<std::string, std::string> otherMetadata__arg);
+  [[deprecated("This constructor is deprecated")]]
+  ResponseRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, int32_t seqId__arg, std::map<std::string, std::string> otherMetadata__arg, int64_t load__arg, std::uint32_t crc32c__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     protocol = arg.extract();
@@ -479,6 +719,16 @@ class ResponseRpcMetadata final : private apache::thrift::detail::st::Comparison
     otherMetadata = arg.extract();
     __isset.otherMetadata = true;
   }
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<4, _T> arg) {
+    load = arg.extract();
+    __isset.load = true;
+  }
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<5, _T> arg) {
+    crc32c = arg.extract();
+    __isset.crc32c = true;
+  }
 
   ResponseRpcMetadata(ResponseRpcMetadata&&) = default;
 
@@ -488,17 +738,104 @@ class ResponseRpcMetadata final : private apache::thrift::detail::st::Comparison
 
   ResponseRpcMetadata& operator=(const ResponseRpcMetadata&) = default;
   void __clear();
+
+  ~ResponseRpcMetadata();
+
    ::apache::thrift::ProtocolId protocol;
   int32_t seqId;
   std::map<std::string, std::string> otherMetadata;
+  int64_t load;
+  std::uint32_t crc32c;
 
   struct __isset {
     bool protocol;
     bool seqId;
     bool otherMetadata;
+    bool load;
+    bool crc32c;
   } __isset = {};
   bool operator==(const ResponseRpcMetadata& rhs) const;
   bool operator<(const ResponseRpcMetadata& rhs) const;
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::ProtocolId&> protocol_ref() const& {
+    return {protocol, __isset.protocol};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::ProtocolId&&> protocol_ref() const&& {
+    return {std::move(protocol), __isset.protocol};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::ProtocolId&> protocol_ref() & {
+    return {protocol, __isset.protocol};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::ProtocolId&&> protocol_ref() && {
+    return {std::move(protocol), __isset.protocol};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&> seqId_ref() const& {
+    return {seqId, __isset.seqId};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&&> seqId_ref() const&& {
+    return {std::move(seqId), __isset.seqId};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&> seqId_ref() & {
+    return {seqId, __isset.seqId};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&&> seqId_ref() && {
+    return {std::move(seqId), __isset.seqId};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::map<std::string, std::string>&> otherMetadata_ref() const& {
+    return {otherMetadata, __isset.otherMetadata};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::map<std::string, std::string>&&> otherMetadata_ref() const&& {
+    return {std::move(otherMetadata), __isset.otherMetadata};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::map<std::string, std::string>&> otherMetadata_ref() & {
+    return {otherMetadata, __isset.otherMetadata};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::map<std::string, std::string>&&> otherMetadata_ref() && {
+    return {std::move(otherMetadata), __isset.otherMetadata};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int64_t&> load_ref() const& {
+    return {load, __isset.load};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int64_t&&> load_ref() const&& {
+    return {std::move(load), __isset.load};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int64_t&> load_ref() & {
+    return {load, __isset.load};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int64_t&&> load_ref() && {
+    return {std::move(load), __isset.load};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::uint32_t&> crc32c_ref() const& {
+    return {crc32c, __isset.crc32c};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::uint32_t&&> crc32c_ref() const&& {
+    return {std::move(crc32c), __isset.crc32c};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::uint32_t&> crc32c_ref() & {
+    return {crc32c, __isset.crc32c};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::uint32_t&&> crc32c_ref() && {
+    return {std::move(crc32c), __isset.crc32c};
+  }
 
   const  ::apache::thrift::ProtocolId* get_protocol() const& {
     return __isset.protocol ? std::addressof(protocol) : nullptr;
@@ -540,6 +877,36 @@ class ResponseRpcMetadata final : private apache::thrift::detail::st::Comparison
     return otherMetadata;
   }
 
+  const int64_t* get_load() const& {
+    return __isset.load ? std::addressof(load) : nullptr;
+  }
+
+  int64_t* get_load() & {
+    return __isset.load ? std::addressof(load) : nullptr;
+  }
+  int64_t* get_load() && = delete;
+
+  int64_t& set_load(int64_t load_) {
+    load = load_;
+    __isset.load = true;
+    return load;
+  }
+
+  const std::uint32_t* get_crc32c() const& {
+    return __isset.crc32c ? std::addressof(crc32c) : nullptr;
+  }
+
+  std::uint32_t* get_crc32c() & {
+    return __isset.crc32c ? std::addressof(crc32c) : nullptr;
+  }
+  std::uint32_t* get_crc32c() && = delete;
+
+  std::uint32_t& set_crc32c(std::uint32_t crc32c_) {
+    crc32c = crc32c_;
+    __isset.crc32c = true;
+    return crc32c;
+  }
+
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
@@ -557,47 +924,140 @@ class ResponseRpcMetadata final : private apache::thrift::detail::st::Comparison
 };
 
 void swap(ResponseRpcMetadata& a, ResponseRpcMetadata& b);
-extern template void ResponseRpcMetadata::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t ResponseRpcMetadata::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t ResponseRpcMetadata::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t ResponseRpcMetadata::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void ResponseRpcMetadata::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t ResponseRpcMetadata::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t ResponseRpcMetadata::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t ResponseRpcMetadata::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 template <class Protocol_>
 uint32_t ResponseRpcMetadata::read(Protocol_* iprot) {
-  auto _xferStart = iprot->getCurrentPosition().getCurrentPosition();
+  auto _xferStart = iprot->getCursorPosition();
   readNoXfer(iprot);
-  return iprot->getCurrentPosition().getCurrentPosition() - _xferStart;
+  return iprot->getCursorPosition() - _xferStart;
 }
 
 }} // apache::thrift
 namespace apache { namespace thrift {
+class StreamPayloadMetadata final : private apache::thrift::detail::st::ComparisonOperators<StreamPayloadMetadata> {
+ public:
 
-template <> inline void Cpp2Ops< ::apache::thrift::ResponseRpcMetadata>::clear( ::apache::thrift::ResponseRpcMetadata* obj) {
-  return obj->__clear();
+  StreamPayloadMetadata() {}
+  // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
+  StreamPayloadMetadata(apache::thrift::FragileConstructor);
+
+  StreamPayloadMetadata(StreamPayloadMetadata&&) = default;
+
+  StreamPayloadMetadata(const StreamPayloadMetadata&) = default;
+
+  StreamPayloadMetadata& operator=(StreamPayloadMetadata&&) = default;
+
+  StreamPayloadMetadata& operator=(const StreamPayloadMetadata&) = default;
+  void __clear();
+  bool operator==(const StreamPayloadMetadata& rhs) const;
+  bool operator<(const StreamPayloadMetadata& rhs) const;
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+
+ private:
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< StreamPayloadMetadata >;
+};
+
+void swap(StreamPayloadMetadata& a, StreamPayloadMetadata& b);
+
+template <class Protocol_>
+uint32_t StreamPayloadMetadata::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCursorPosition();
+  readNoXfer(iprot);
+  return iprot->getCursorPosition() - _xferStart;
 }
 
-template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::apache::thrift::ResponseRpcMetadata>::thriftType() {
-  return apache::thrift::protocol::T_STRUCT;
-}
+}} // apache::thrift
+namespace apache { namespace thrift {
+class RequestSetupMetadata final : private apache::thrift::detail::st::ComparisonOperators<RequestSetupMetadata> {
+ public:
 
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::ResponseRpcMetadata>::write(Protocol* proto,  ::apache::thrift::ResponseRpcMetadata const* obj) {
-  return obj->write(proto);
-}
+  RequestSetupMetadata() {}
+  // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
+  RequestSetupMetadata(apache::thrift::FragileConstructor, apache::thrift::MetadataOpaqueMap<std::string, std::string> opaque__arg);
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
+    opaque = arg.extract();
+    __isset.opaque = true;
+  }
 
-template <> template <class Protocol> void Cpp2Ops< ::apache::thrift::ResponseRpcMetadata>::read(Protocol* proto,  ::apache::thrift::ResponseRpcMetadata* obj) {
-  return obj->readNoXfer(proto);
-}
+  RequestSetupMetadata(RequestSetupMetadata&&) = default;
 
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::ResponseRpcMetadata>::serializedSize(Protocol const* proto,  ::apache::thrift::ResponseRpcMetadata const* obj) {
-  return obj->serializedSize(proto);
-}
+  RequestSetupMetadata(const RequestSetupMetadata&) = default;
 
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::ResponseRpcMetadata>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::ResponseRpcMetadata const* obj) {
-  return obj->serializedSizeZC(proto);
+  RequestSetupMetadata& operator=(RequestSetupMetadata&&) = default;
+
+  RequestSetupMetadata& operator=(const RequestSetupMetadata&) = default;
+  void __clear();
+  apache::thrift::MetadataOpaqueMap<std::string, std::string> opaque;
+
+  struct __isset {
+    bool opaque;
+  } __isset = {};
+  bool operator==(const RequestSetupMetadata& rhs) const;
+  bool operator<(const RequestSetupMetadata& rhs) const;
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const apache::thrift::MetadataOpaqueMap<std::string, std::string>&> opaque_ref() const& {
+    return {opaque, __isset.opaque};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const apache::thrift::MetadataOpaqueMap<std::string, std::string>&&> opaque_ref() const&& {
+    return {std::move(opaque), __isset.opaque};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<apache::thrift::MetadataOpaqueMap<std::string, std::string>&> opaque_ref() & {
+    return {opaque, __isset.opaque};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<apache::thrift::MetadataOpaqueMap<std::string, std::string>&&> opaque_ref() && {
+    return {std::move(opaque), __isset.opaque};
+  }
+  const apache::thrift::MetadataOpaqueMap<std::string, std::string>* get_opaque() const&;
+  apache::thrift::MetadataOpaqueMap<std::string, std::string>* get_opaque() &;
+  apache::thrift::MetadataOpaqueMap<std::string, std::string>* get_opaque() && = delete;
+
+  template <typename T_RequestSetupMetadata_opaque_struct_setter = apache::thrift::MetadataOpaqueMap<std::string, std::string>>
+  apache::thrift::MetadataOpaqueMap<std::string, std::string>& set_opaque(T_RequestSetupMetadata_opaque_struct_setter&& opaque_) {
+    opaque = std::forward<T_RequestSetupMetadata_opaque_struct_setter>(opaque_);
+    __isset.opaque = true;
+    return opaque;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+
+ private:
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< RequestSetupMetadata >;
+};
+
+void swap(RequestSetupMetadata& a, RequestSetupMetadata& b);
+
+template <class Protocol_>
+uint32_t RequestSetupMetadata::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCursorPosition();
+  readNoXfer(iprot);
+  return iprot->getCursorPosition() - _xferStart;
 }
 
 }} // apache::thrift

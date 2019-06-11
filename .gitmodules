@@ -32,6 +32,12 @@
 [submodule "fastlz/src"]
     path = fastlz/src
     url = https://github.com/ariya/FastLZ
+[submodule "fizz/src"]
+    path = fizz/src
+    url = https://github.com/facebookincubator/fizz
+[submodule "fmt/fmt"]
+    path = fmt/fmt
+    url = https://github.com/fmtlib/fmt
 [submodule "libafdt/src"]
     path = libafdt/src
     url = https://github.com/facebook/libafdt
@@ -45,6 +51,9 @@
 [submodule "fatal"]
     path = fatal
     url = https://github.com/facebook/fatal
+[submodule "mvfst/src"]
+    path = mvfst/src
+    url = https://github.com/facebookincubator/mvfst.git
 [submodule "ocaml/src"]
     path = ocaml/src
     url = https://github.com/ocaml/ocaml.git

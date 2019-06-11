@@ -35,9 +35,6 @@ enum class Type {
   TYPE_FLOAT = 15
 };
 
-using _Type_EnumMapFactory = apache::thrift::detail::TEnumMapFactory<Type, Type>;
-extern const _Type_EnumMapFactory::ValuesToNamesMapType _Type_VALUES_TO_NAMES;
-extern const _Type_EnumMapFactory::NamesToValuesMapType _Type_NAMES_TO_VALUES;
 
 
 
@@ -45,8 +42,8 @@ extern const _Type_EnumMapFactory::NamesToValuesMapType _Type_NAMES_TO_VALUES;
 namespace std {
 
 
-template<> struct hash<typename  ::apache::thrift::reflection::Type> : public apache::thrift::detail::enum_hash<typename  ::apache::thrift::reflection::Type> {};
-template<> struct equal_to<typename  ::apache::thrift::reflection::Type> : public apache::thrift::detail::enum_equal_to<typename  ::apache::thrift::reflection::Type> {};
+template<> struct hash<typename ::apache::thrift::reflection::Type> : public apache::thrift::detail::enum_hash<typename ::apache::thrift::reflection::Type> {};
+template<> struct equal_to<typename ::apache::thrift::reflection::Type> : public apache::thrift::detail::enum_equal_to<typename ::apache::thrift::reflection::Type> {};
 
 
 } // std
@@ -54,26 +51,32 @@ template<> struct equal_to<typename  ::apache::thrift::reflection::Type> : publi
 namespace apache { namespace thrift {
 
 
-template <> struct TEnumDataStorage< ::apache::thrift::reflection::Type>;
-#ifndef _MSC_VER
-template <> const std::size_t TEnumTraits< ::apache::thrift::reflection::Type>::size;
-template <> const folly::Range<const  ::apache::thrift::reflection::Type*> TEnumTraits< ::apache::thrift::reflection::Type>::values;
-template <> const folly::Range<const folly::StringPiece*> TEnumTraits< ::apache::thrift::reflection::Type>::names;
-#endif
-template <> const char* TEnumTraits< ::apache::thrift::reflection::Type>::findName( ::apache::thrift::reflection::Type value);
-template <> bool TEnumTraits< ::apache::thrift::reflection::Type>::findValue(const char* name,  ::apache::thrift::reflection::Type* outValue);
+template <> struct TEnumDataStorage<::apache::thrift::reflection::Type>;
 
-template <> inline constexpr  ::apache::thrift::reflection::Type TEnumTraits< ::apache::thrift::reflection::Type>::min() {
-  return  ::apache::thrift::reflection::Type::TYPE_VOID;
-}
+template <> struct TEnumTraits<::apache::thrift::reflection::Type> {
+  using type = ::apache::thrift::reflection::Type;
 
-template <> inline constexpr  ::apache::thrift::reflection::Type TEnumTraits< ::apache::thrift::reflection::Type>::max() {
-  return  ::apache::thrift::reflection::Type::TYPE_FLOAT;
-}
+  static constexpr std::size_t const size = 16;
+  static folly::Range<type const*> const values;
+  static folly::Range<folly::StringPiece const*> const names;
+
+  static char const* findName(type value);
+  static bool findValue(char const* name, type* out);
+
+  static constexpr type min() { return type::TYPE_VOID; }
+  static constexpr type max() { return type::TYPE_FLOAT; }
+};
 
 
 }} // apache::thrift
 
+namespace apache { namespace thrift { namespace reflection {
+
+using _Type_EnumMapFactory = apache::thrift::detail::TEnumMapFactory<Type>;
+extern const _Type_EnumMapFactory::ValuesToNamesMapType _Type_VALUES_TO_NAMES;
+extern const _Type_EnumMapFactory::NamesToValuesMapType _Type_NAMES_TO_VALUES;
+
+}}} // apache::thrift::reflection
 
 // END declare_enums
 // BEGIN struct_indirection
@@ -98,6 +101,7 @@ class StructField final : private apache::thrift::detail::st::ComparisonOperator
   StructField();
 
   // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
   StructField(apache::thrift::FragileConstructor, bool isRequired__arg, int64_t type__arg, std::string name__arg, std::unordered_map<std::string, std::string> annotations__arg, int16_t order__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
@@ -151,6 +155,22 @@ class StructField final : private apache::thrift::detail::st::ComparisonOperator
   } __isset = {};
   bool operator==(const StructField& rhs) const;
   bool operator<(const StructField& rhs) const;
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::unordered_map<std::string, std::string>&> annotations_ref() const& {
+    return {annotations, __isset.annotations};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::unordered_map<std::string, std::string>&&> annotations_ref() const&& {
+    return {std::move(annotations), __isset.annotations};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::unordered_map<std::string, std::string>&> annotations_ref() & {
+    return {annotations, __isset.annotations};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::unordered_map<std::string, std::string>&&> annotations_ref() && {
+    return {std::move(annotations), __isset.annotations};
+  }
 
   bool get_isRequired() const {
     return isRequired;
@@ -224,50 +244,15 @@ class StructField final : private apache::thrift::detail::st::ComparisonOperator
 };
 
 void swap(StructField& a, StructField& b);
-extern template void StructField::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t StructField::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t StructField::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t StructField::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void StructField::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t StructField::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t StructField::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t StructField::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 template <class Protocol_>
 uint32_t StructField::read(Protocol_* iprot) {
-  auto _xferStart = iprot->getCurrentPosition().getCurrentPosition();
+  auto _xferStart = iprot->getCursorPosition();
   readNoXfer(iprot);
-  return iprot->getCurrentPosition().getCurrentPosition() - _xferStart;
+  return iprot->getCursorPosition() - _xferStart;
 }
 
 }}} // apache::thrift::reflection
-namespace apache { namespace thrift {
-
-template <> inline void Cpp2Ops< ::apache::thrift::reflection::StructField>::clear( ::apache::thrift::reflection::StructField* obj) {
-  return obj->__clear();
-}
-
-template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::apache::thrift::reflection::StructField>::thriftType() {
-  return apache::thrift::protocol::T_STRUCT;
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::StructField>::write(Protocol* proto,  ::apache::thrift::reflection::StructField const* obj) {
-  return obj->write(proto);
-}
-
-template <> template <class Protocol> void Cpp2Ops< ::apache::thrift::reflection::StructField>::read(Protocol* proto,  ::apache::thrift::reflection::StructField* obj) {
-  return obj->readNoXfer(proto);
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::StructField>::serializedSize(Protocol const* proto,  ::apache::thrift::reflection::StructField const* obj) {
-  return obj->serializedSize(proto);
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::StructField>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::reflection::StructField const* obj) {
-  return obj->serializedSizeZC(proto);
-}
-
-}} // apache::thrift
 namespace apache { namespace thrift { namespace reflection {
 class DataType final : private apache::thrift::detail::st::ComparisonOperators<DataType> {
  public:
@@ -275,6 +260,7 @@ class DataType final : private apache::thrift::detail::st::ComparisonOperators<D
   DataType();
 
   // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
   DataType(apache::thrift::FragileConstructor, std::string name__arg, std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField> fields__arg, int64_t mapKeyType__arg, int64_t valueType__arg, std::unordered_map<std::string, int32_t> enumValues__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
@@ -328,6 +314,70 @@ class DataType final : private apache::thrift::detail::st::ComparisonOperators<D
   } __isset = {};
   bool operator==(const DataType& rhs) const;
   bool operator<(const DataType& rhs) const;
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField>&> fields_ref() const& {
+    return {fields, __isset.fields};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField>&&> fields_ref() const&& {
+    return {std::move(fields), __isset.fields};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField>&> fields_ref() & {
+    return {fields, __isset.fields};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField>&&> fields_ref() && {
+    return {std::move(fields), __isset.fields};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int64_t&> mapKeyType_ref() const& {
+    return {mapKeyType, __isset.mapKeyType};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int64_t&&> mapKeyType_ref() const&& {
+    return {std::move(mapKeyType), __isset.mapKeyType};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int64_t&> mapKeyType_ref() & {
+    return {mapKeyType, __isset.mapKeyType};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int64_t&&> mapKeyType_ref() && {
+    return {std::move(mapKeyType), __isset.mapKeyType};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int64_t&> valueType_ref() const& {
+    return {valueType, __isset.valueType};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int64_t&&> valueType_ref() const&& {
+    return {std::move(valueType), __isset.valueType};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int64_t&> valueType_ref() & {
+    return {valueType, __isset.valueType};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int64_t&&> valueType_ref() && {
+    return {std::move(valueType), __isset.valueType};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::unordered_map<std::string, int32_t>&> enumValues_ref() const& {
+    return {enumValues, __isset.enumValues};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::unordered_map<std::string, int32_t>&&> enumValues_ref() const&& {
+    return {std::move(enumValues), __isset.enumValues};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::unordered_map<std::string, int32_t>&> enumValues_ref() & {
+    return {enumValues, __isset.enumValues};
+  }
+
+  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::unordered_map<std::string, int32_t>&&> enumValues_ref() && {
+    return {std::move(enumValues), __isset.enumValues};
+  }
 
   const std::string& get_name() const& {
     return name;
@@ -411,56 +461,22 @@ class DataType final : private apache::thrift::detail::st::ComparisonOperators<D
 };
 
 void swap(DataType& a, DataType& b);
-extern template void DataType::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t DataType::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t DataType::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t DataType::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void DataType::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t DataType::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t DataType::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t DataType::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 template <class Protocol_>
 uint32_t DataType::read(Protocol_* iprot) {
-  auto _xferStart = iprot->getCurrentPosition().getCurrentPosition();
+  auto _xferStart = iprot->getCursorPosition();
   readNoXfer(iprot);
-  return iprot->getCurrentPosition().getCurrentPosition() - _xferStart;
+  return iprot->getCursorPosition() - _xferStart;
 }
 
 }}} // apache::thrift::reflection
-namespace apache { namespace thrift {
-
-template <> inline void Cpp2Ops< ::apache::thrift::reflection::DataType>::clear( ::apache::thrift::reflection::DataType* obj) {
-  return obj->__clear();
-}
-
-template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::apache::thrift::reflection::DataType>::thriftType() {
-  return apache::thrift::protocol::T_STRUCT;
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::DataType>::write(Protocol* proto,  ::apache::thrift::reflection::DataType const* obj) {
-  return obj->write(proto);
-}
-
-template <> template <class Protocol> void Cpp2Ops< ::apache::thrift::reflection::DataType>::read(Protocol* proto,  ::apache::thrift::reflection::DataType* obj) {
-  return obj->readNoXfer(proto);
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::DataType>::serializedSize(Protocol const* proto,  ::apache::thrift::reflection::DataType const* obj) {
-  return obj->serializedSize(proto);
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::DataType>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::reflection::DataType const* obj) {
-  return obj->serializedSizeZC(proto);
-}
-
-}} // apache::thrift
 namespace apache { namespace thrift { namespace reflection {
 class Schema final : private apache::thrift::detail::st::ComparisonOperators<Schema> {
  public:
 
   Schema() {}
   // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
   Schema(apache::thrift::FragileConstructor, std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType> dataTypes__arg, std::unordered_map<std::string, int64_t> names__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
@@ -526,47 +542,12 @@ class Schema final : private apache::thrift::detail::st::ComparisonOperators<Sch
 };
 
 void swap(Schema& a, Schema& b);
-extern template void Schema::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t Schema::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t Schema::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t Schema::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void Schema::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t Schema::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t Schema::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t Schema::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 template <class Protocol_>
 uint32_t Schema::read(Protocol_* iprot) {
-  auto _xferStart = iprot->getCurrentPosition().getCurrentPosition();
+  auto _xferStart = iprot->getCursorPosition();
   readNoXfer(iprot);
-  return iprot->getCurrentPosition().getCurrentPosition() - _xferStart;
+  return iprot->getCursorPosition() - _xferStart;
 }
 
 }}} // apache::thrift::reflection
-namespace apache { namespace thrift {
-
-template <> inline void Cpp2Ops< ::apache::thrift::reflection::Schema>::clear( ::apache::thrift::reflection::Schema* obj) {
-  return obj->__clear();
-}
-
-template <> inline constexpr apache::thrift::protocol::TType Cpp2Ops< ::apache::thrift::reflection::Schema>::thriftType() {
-  return apache::thrift::protocol::T_STRUCT;
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::Schema>::write(Protocol* proto,  ::apache::thrift::reflection::Schema const* obj) {
-  return obj->write(proto);
-}
-
-template <> template <class Protocol> void Cpp2Ops< ::apache::thrift::reflection::Schema>::read(Protocol* proto,  ::apache::thrift::reflection::Schema* obj) {
-  return obj->readNoXfer(proto);
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::Schema>::serializedSize(Protocol const* proto,  ::apache::thrift::reflection::Schema const* obj) {
-  return obj->serializedSize(proto);
-}
-
-template <> template <class Protocol> uint32_t Cpp2Ops< ::apache::thrift::reflection::Schema>::serializedSizeZC(Protocol const* proto,  ::apache::thrift::reflection::Schema const* obj) {
-  return obj->serializedSizeZC(proto);
-}
-
-}} // apache::thrift

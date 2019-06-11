@@ -1,4 +1,3 @@
-#
 #   +----------------------------------------------------------------------+
 #   | HipHop for PHP                                                       |
 #   +----------------------------------------------------------------------+
@@ -36,23 +35,30 @@ list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/folly/src")
 # Fatal is a header-only library, so there's nothing to build.
 list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/fatal")
 
+list(APPEND THIRD_PARTY_MODULES fizz)
+list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/fizz/src")
+
 list(APPEND THIRD_PARTY_MODULES wangle)
 list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/wangle/src")
 
 list(APPEND THIRD_PARTY_MODULES brotli)
 list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/brotli/src")
 
-if(ENABLE_FASTCGI)
-  list(APPEND THIRD_PARTY_MODULES proxygen)
-  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/proxygen/src")
+list(APPEND THIRD_PARTY_MODULES mvfst)
+list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/mvfst/src")
 
-  list(APPEND THIRD_PARTY_MODULES thrift)
-  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/thrift/src")
+list(APPEND THIRD_PARTY_MODULES proxygen)
+list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/proxygen/src")
 
-  list(APPEND THIRD_PARTY_MODULES zstd)
-  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/zstd/src/lib")
-  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/zstd/src/lib/dictBuilder")
-endif()
+list(APPEND THIRD_PARTY_MODULES fmt)
+list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/fmt/fmt/include")
+
+list(APPEND THIRD_PARTY_MODULES thrift)
+list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/thrift/src")
+
+list(APPEND THIRD_PARTY_MODULES zstd)
+list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/zstd/src/lib")
+list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/zstd/src/lib/dictBuilder")
 
 if (NOT MSVC)
   list(APPEND THIRD_PARTY_MODULES libafdt)
@@ -159,6 +165,12 @@ endif()
 
 # boost checks                                                                        
 find_package(Boost 1.62.0 COMPONENTS context fiber filesystem program_options regex system thread)                                                                          
+if ("${Boost_VERSION}" EQUAL "107000")
+  # https://github.com/boostorg/variant/issues/69
+  message(WARNING "System boost is blacklisted version")
+
+  set(Boost_FOUND false)
+endif()
                                                                                       
 add_library(boost INTERFACE)
 add_custom_target(boostMaybeBuild)

@@ -12,79 +12,128 @@
 
 #include "thrift/lib/thrift/gen-cpp2/RpcMetadata_data.h"
 
+
+namespace apache { namespace thrift {
+
+constexpr std::size_t const TEnumTraits<::apache::thrift::ProtocolId>::size;
+folly::Range<::apache::thrift::ProtocolId const*> const TEnumTraits<::apache::thrift::ProtocolId>::values = folly::range(::apache::thrift::_ProtocolIdEnumDataStorage::values);
+folly::Range<folly::StringPiece const*> const TEnumTraits<::apache::thrift::ProtocolId>::names = folly::range(::apache::thrift::_ProtocolIdEnumDataStorage::names);
+
+char const* TEnumTraits<::apache::thrift::ProtocolId>::findName(type value) {
+  using factory = ::apache::thrift::_ProtocolId_EnumMapFactory;
+  static folly::Indestructible<factory::ValuesToNamesMapType> const map{
+      factory::makeValuesToNamesMap()};
+  auto found = map->find(value);
+  return found == map->end() ? nullptr : found->second;
+}
+
+bool TEnumTraits<::apache::thrift::ProtocolId>::findValue(char const* name, type* out) {
+  using factory = ::apache::thrift::_ProtocolId_EnumMapFactory;
+  static folly::Indestructible<factory::NamesToValuesMapType> const map{
+      factory::makeNamesToValuesMap()};
+  auto found = map->find(name);
+  return found == map->end() ? false : (*out = found->second, true);
+}
+
+}} // apache::thrift
+
 namespace apache { namespace thrift {
 
 const _ProtocolId_EnumMapFactory::ValuesToNamesMapType _ProtocolId_VALUES_TO_NAMES = _ProtocolId_EnumMapFactory::makeValuesToNamesMap();
 const _ProtocolId_EnumMapFactory::NamesToValuesMapType _ProtocolId_NAMES_TO_VALUES = _ProtocolId_EnumMapFactory::makeNamesToValuesMap();
 
 }} // apache::thrift
-namespace std {
 
-} // std
 namespace apache { namespace thrift {
 
-template <> const std::size_t TEnumTraits< ::apache::thrift::ProtocolId>::size = 3;
-template <> const folly::Range<const  ::apache::thrift::ProtocolId*> TEnumTraits< ::apache::thrift::ProtocolId>::values = folly::range( ::apache::thrift::_ProtocolIdEnumDataStorage::values);
-template <> const folly::Range<const folly::StringPiece*> TEnumTraits< ::apache::thrift::ProtocolId>::names = folly::range( ::apache::thrift::_ProtocolIdEnumDataStorage::names);
-template <> const char* TEnumTraits< ::apache::thrift::ProtocolId>::findName( ::apache::thrift::ProtocolId value) {
-  static auto const map = folly::Indestructible< ::apache::thrift::_ProtocolId_EnumMapFactory::ValuesToNamesMapType>{ ::apache::thrift::_ProtocolId_EnumMapFactory::makeValuesToNamesMap()};
-  return findName(*map, value);
+constexpr std::size_t const TEnumTraits<::apache::thrift::RpcKind>::size;
+folly::Range<::apache::thrift::RpcKind const*> const TEnumTraits<::apache::thrift::RpcKind>::values = folly::range(::apache::thrift::_RpcKindEnumDataStorage::values);
+folly::Range<folly::StringPiece const*> const TEnumTraits<::apache::thrift::RpcKind>::names = folly::range(::apache::thrift::_RpcKindEnumDataStorage::names);
+
+char const* TEnumTraits<::apache::thrift::RpcKind>::findName(type value) {
+  using factory = ::apache::thrift::_RpcKind_EnumMapFactory;
+  static folly::Indestructible<factory::ValuesToNamesMapType> const map{
+      factory::makeValuesToNamesMap()};
+  auto found = map->find(value);
+  return found == map->end() ? nullptr : found->second;
 }
 
-template <> bool TEnumTraits< ::apache::thrift::ProtocolId>::findValue(const char* name,  ::apache::thrift::ProtocolId* outValue) {
-  static auto const map = folly::Indestructible< ::apache::thrift::_ProtocolId_EnumMapFactory::NamesToValuesMapType>{ ::apache::thrift::_ProtocolId_EnumMapFactory::makeNamesToValuesMap()};
-  return findValue(*map, name, outValue);
+bool TEnumTraits<::apache::thrift::RpcKind>::findValue(char const* name, type* out) {
+  using factory = ::apache::thrift::_RpcKind_EnumMapFactory;
+  static folly::Indestructible<factory::NamesToValuesMapType> const map{
+      factory::makeNamesToValuesMap()};
+  auto found = map->find(name);
+  return found == map->end() ? false : (*out = found->second, true);
 }
 
 }} // apache::thrift
+
 namespace apache { namespace thrift {
 
 const _RpcKind_EnumMapFactory::ValuesToNamesMapType _RpcKind_VALUES_TO_NAMES = _RpcKind_EnumMapFactory::makeValuesToNamesMap();
 const _RpcKind_EnumMapFactory::NamesToValuesMapType _RpcKind_NAMES_TO_VALUES = _RpcKind_EnumMapFactory::makeNamesToValuesMap();
 
 }} // apache::thrift
-namespace std {
 
-} // std
 namespace apache { namespace thrift {
 
-template <> const std::size_t TEnumTraits< ::apache::thrift::RpcKind>::size = 6;
-template <> const folly::Range<const  ::apache::thrift::RpcKind*> TEnumTraits< ::apache::thrift::RpcKind>::values = folly::range( ::apache::thrift::_RpcKindEnumDataStorage::values);
-template <> const folly::Range<const folly::StringPiece*> TEnumTraits< ::apache::thrift::RpcKind>::names = folly::range( ::apache::thrift::_RpcKindEnumDataStorage::names);
-template <> const char* TEnumTraits< ::apache::thrift::RpcKind>::findName( ::apache::thrift::RpcKind value) {
-  static auto const map = folly::Indestructible< ::apache::thrift::_RpcKind_EnumMapFactory::ValuesToNamesMapType>{ ::apache::thrift::_RpcKind_EnumMapFactory::makeValuesToNamesMap()};
-  return findName(*map, value);
+constexpr std::size_t const TEnumTraits<::apache::thrift::RpcPriority>::size;
+folly::Range<::apache::thrift::RpcPriority const*> const TEnumTraits<::apache::thrift::RpcPriority>::values = folly::range(::apache::thrift::_RpcPriorityEnumDataStorage::values);
+folly::Range<folly::StringPiece const*> const TEnumTraits<::apache::thrift::RpcPriority>::names = folly::range(::apache::thrift::_RpcPriorityEnumDataStorage::names);
+
+char const* TEnumTraits<::apache::thrift::RpcPriority>::findName(type value) {
+  using factory = ::apache::thrift::_RpcPriority_EnumMapFactory;
+  static folly::Indestructible<factory::ValuesToNamesMapType> const map{
+      factory::makeValuesToNamesMap()};
+  auto found = map->find(value);
+  return found == map->end() ? nullptr : found->second;
 }
 
-template <> bool TEnumTraits< ::apache::thrift::RpcKind>::findValue(const char* name,  ::apache::thrift::RpcKind* outValue) {
-  static auto const map = folly::Indestructible< ::apache::thrift::_RpcKind_EnumMapFactory::NamesToValuesMapType>{ ::apache::thrift::_RpcKind_EnumMapFactory::makeNamesToValuesMap()};
-  return findValue(*map, name, outValue);
+bool TEnumTraits<::apache::thrift::RpcPriority>::findValue(char const* name, type* out) {
+  using factory = ::apache::thrift::_RpcPriority_EnumMapFactory;
+  static folly::Indestructible<factory::NamesToValuesMapType> const map{
+      factory::makeNamesToValuesMap()};
+  auto found = map->find(name);
+  return found == map->end() ? false : (*out = found->second, true);
 }
 
 }} // apache::thrift
+
 namespace apache { namespace thrift {
 
 const _RpcPriority_EnumMapFactory::ValuesToNamesMapType _RpcPriority_VALUES_TO_NAMES = _RpcPriority_EnumMapFactory::makeValuesToNamesMap();
 const _RpcPriority_EnumMapFactory::NamesToValuesMapType _RpcPriority_NAMES_TO_VALUES = _RpcPriority_EnumMapFactory::makeNamesToValuesMap();
 
 }} // apache::thrift
-namespace std {
 
-} // std
 namespace apache { namespace thrift {
 
-template <> const std::size_t TEnumTraits< ::apache::thrift::RpcPriority>::size = 6;
-template <> const folly::Range<const  ::apache::thrift::RpcPriority*> TEnumTraits< ::apache::thrift::RpcPriority>::values = folly::range( ::apache::thrift::_RpcPriorityEnumDataStorage::values);
-template <> const folly::Range<const folly::StringPiece*> TEnumTraits< ::apache::thrift::RpcPriority>::names = folly::range( ::apache::thrift::_RpcPriorityEnumDataStorage::names);
-template <> const char* TEnumTraits< ::apache::thrift::RpcPriority>::findName( ::apache::thrift::RpcPriority value) {
-  static auto const map = folly::Indestructible< ::apache::thrift::_RpcPriority_EnumMapFactory::ValuesToNamesMapType>{ ::apache::thrift::_RpcPriority_EnumMapFactory::makeValuesToNamesMap()};
-  return findName(*map, value);
+constexpr std::size_t const TEnumTraits<::apache::thrift::RequestRpcMetadataFlags>::size;
+folly::Range<::apache::thrift::RequestRpcMetadataFlags const*> const TEnumTraits<::apache::thrift::RequestRpcMetadataFlags>::values = folly::range(::apache::thrift::_RequestRpcMetadataFlagsEnumDataStorage::values);
+folly::Range<folly::StringPiece const*> const TEnumTraits<::apache::thrift::RequestRpcMetadataFlags>::names = folly::range(::apache::thrift::_RequestRpcMetadataFlagsEnumDataStorage::names);
+
+char const* TEnumTraits<::apache::thrift::RequestRpcMetadataFlags>::findName(type value) {
+  using factory = ::apache::thrift::_RequestRpcMetadataFlags_EnumMapFactory;
+  static folly::Indestructible<factory::ValuesToNamesMapType> const map{
+      factory::makeValuesToNamesMap()};
+  auto found = map->find(value);
+  return found == map->end() ? nullptr : found->second;
 }
 
-template <> bool TEnumTraits< ::apache::thrift::RpcPriority>::findValue(const char* name,  ::apache::thrift::RpcPriority* outValue) {
-  static auto const map = folly::Indestructible< ::apache::thrift::_RpcPriority_EnumMapFactory::NamesToValuesMapType>{ ::apache::thrift::_RpcPriority_EnumMapFactory::makeNamesToValuesMap()};
-  return findValue(*map, name, outValue);
+bool TEnumTraits<::apache::thrift::RequestRpcMetadataFlags>::findValue(char const* name, type* out) {
+  using factory = ::apache::thrift::_RequestRpcMetadataFlags_EnumMapFactory;
+  static folly::Indestructible<factory::NamesToValuesMapType> const map{
+      factory::makeNamesToValuesMap()};
+  auto found = map->find(name);
+  return found == map->end() ? false : (*out = found->second, true);
 }
+
+}} // apache::thrift
+
+namespace apache { namespace thrift {
+
+const _RequestRpcMetadataFlags_EnumMapFactory::ValuesToNamesMapType _RequestRpcMetadataFlags_VALUES_TO_NAMES = _RequestRpcMetadataFlags_EnumMapFactory::makeValuesToNamesMap();
+const _RequestRpcMetadataFlags_EnumMapFactory::NamesToValuesMapType _RequestRpcMetadataFlags_NAMES_TO_VALUES = _RequestRpcMetadataFlags_EnumMapFactory::makeNamesToValuesMap();
 
 }} // apache::thrift
 
@@ -92,7 +141,7 @@ namespace apache {
 namespace thrift {
 namespace detail {
 
-void TccStructTraits< ::apache::thrift::RequestRpcMetadata>::translateFieldName(
+void TccStructTraits<::apache::thrift::RequestRpcMetadata>::translateFieldName(
     FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
     FOLLY_MAYBE_UNUSED int16_t& fid,
     FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
@@ -137,8 +186,16 @@ void TccStructTraits< ::apache::thrift::RequestRpcMetadata>::translateFieldName(
     fid = 10;
     _ftype = apache::thrift::protocol::T_STRING;
   }
+  else if (_fname == "crc32c") {
+    fid = 11;
+    _ftype = apache::thrift::protocol::T_I32;
+  }
+  else if (_fname == "flags") {
+    fid = 12;
+    _ftype = apache::thrift::protocol::T_I64;
+  }
 }
-void TccStructTraits< ::apache::thrift::ResponseRpcMetadata>::translateFieldName(
+void TccStructTraits<::apache::thrift::ResponseRpcMetadata>::translateFieldName(
     FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
     FOLLY_MAYBE_UNUSED int16_t& fid,
     FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
@@ -155,6 +212,30 @@ void TccStructTraits< ::apache::thrift::ResponseRpcMetadata>::translateFieldName
     fid = 3;
     _ftype = apache::thrift::protocol::T_MAP;
   }
+  else if (_fname == "load") {
+    fid = 4;
+    _ftype = apache::thrift::protocol::T_I64;
+  }
+  else if (_fname == "crc32c") {
+    fid = 5;
+    _ftype = apache::thrift::protocol::T_I32;
+  }
+}
+void TccStructTraits<::apache::thrift::StreamPayloadMetadata>::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+}
+void TccStructTraits<::apache::thrift::RequestSetupMetadata>::translateFieldName(
+    FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
+    FOLLY_MAYBE_UNUSED int16_t& fid,
+    FOLLY_MAYBE_UNUSED apache::thrift::protocol::TType& _ftype) {
+  if (false) {}
+  else if (_fname == "opaque") {
+    fid = 1;
+    _ftype = apache::thrift::protocol::T_MAP;
+  }
 }
 
 } // namespace detail
@@ -169,12 +250,14 @@ RequestRpcMetadata::RequestRpcMetadata() :
       seqId(0),
       clientTimeoutMs(0),
       queueTimeoutMs(0),
-      priority( ::apache::thrift::RpcPriority::HIGH_IMPORTANT) {}
+      priority( ::apache::thrift::RpcPriority::HIGH_IMPORTANT),
+      crc32c(0),
+      flags(0) {}
 
 
 RequestRpcMetadata::~RequestRpcMetadata() {}
 
-RequestRpcMetadata::RequestRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, std::string name__arg,  ::apache::thrift::RpcKind kind__arg, int32_t seqId__arg, int32_t clientTimeoutMs__arg, int32_t queueTimeoutMs__arg,  ::apache::thrift::RpcPriority priority__arg, std::map<std::string, std::string> otherMetadata__arg, std::string host__arg, std::string url__arg) :
+RequestRpcMetadata::RequestRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, std::string name__arg,  ::apache::thrift::RpcKind kind__arg, int32_t seqId__arg, int32_t clientTimeoutMs__arg, int32_t queueTimeoutMs__arg,  ::apache::thrift::RpcPriority priority__arg, std::map<std::string, std::string> otherMetadata__arg, std::string host__arg, std::string url__arg, std::uint32_t crc32c__arg, std::uint64_t flags__arg) :
     protocol(std::move(protocol__arg)),
     name(std::move(name__arg)),
     kind(std::move(kind__arg)),
@@ -184,7 +267,9 @@ RequestRpcMetadata::RequestRpcMetadata(apache::thrift::FragileConstructor,  ::ap
     priority(std::move(priority__arg)),
     otherMetadata(std::move(otherMetadata__arg)),
     host(std::move(host__arg)),
-    url(std::move(url__arg)) {
+    url(std::move(url__arg)),
+    crc32c(std::move(crc32c__arg)),
+    flags(std::move(flags__arg)) {
   __isset.protocol = true;
   __isset.name = true;
   __isset.kind = true;
@@ -195,6 +280,8 @@ RequestRpcMetadata::RequestRpcMetadata(apache::thrift::FragileConstructor,  ::ap
   __isset.otherMetadata = true;
   __isset.host = true;
   __isset.url = true;
+  __isset.crc32c = true;
+  __isset.flags = true;
 }
 
 void RequestRpcMetadata::__clear() {
@@ -209,12 +296,15 @@ void RequestRpcMetadata::__clear() {
   otherMetadata.clear();
   host = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
   url = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+  crc32c = 0;
+  flags = 0;
   __isset = {};
 }
 
 bool RequestRpcMetadata::operator==(const RequestRpcMetadata& rhs) const {
   (void)rhs;
   auto& lhs = *this;
+  (void)lhs;
   if (lhs.__isset.protocol != rhs.__isset.protocol) {
     return false;
   }
@@ -295,12 +385,29 @@ bool RequestRpcMetadata::operator==(const RequestRpcMetadata& rhs) const {
       return false;
     }
   }
+  if (lhs.__isset.crc32c != rhs.__isset.crc32c) {
+    return false;
+  }
+  if (lhs.__isset.crc32c) {
+    if (!(lhs.crc32c == rhs.crc32c)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.flags != rhs.__isset.flags) {
+    return false;
+  }
+  if (lhs.__isset.flags) {
+    if (!(lhs.flags == rhs.flags)) {
+      return false;
+    }
+  }
   return true;
 }
 
 bool RequestRpcMetadata::operator<(const RequestRpcMetadata& rhs) const {
   (void)rhs;
   auto& lhs = *this;
+  (void)lhs;
   if (lhs.__isset.protocol != rhs.__isset.protocol) {
     return lhs.__isset.protocol < rhs.__isset.protocol;
   }
@@ -381,6 +488,22 @@ bool RequestRpcMetadata::operator<(const RequestRpcMetadata& rhs) const {
       return lhs.url < rhs.url;
     }
   }
+  if (lhs.__isset.crc32c != rhs.__isset.crc32c) {
+    return lhs.__isset.crc32c < rhs.__isset.crc32c;
+  }
+  if (lhs.__isset.crc32c) {
+    if (!(lhs.crc32c == rhs.crc32c)) {
+      return lhs.crc32c < rhs.crc32c;
+    }
+  }
+  if (lhs.__isset.flags != rhs.__isset.flags) {
+    return lhs.__isset.flags < rhs.__isset.flags;
+  }
+  if (lhs.__isset.flags) {
+    if (!(lhs.flags == rhs.flags)) {
+      return lhs.flags < rhs.flags;
+    }
+  }
   return false;
 }
 
@@ -405,6 +528,8 @@ void swap(RequestRpcMetadata& a, RequestRpcMetadata& b) {
   swap(a.otherMetadata, b.otherMetadata);
   swap(a.host, b.host);
   swap(a.url, b.url);
+  swap(a.crc32c, b.crc32c);
+  swap(a.flags, b.flags);
   swap(a.__isset, b.__isset);
 }
 
@@ -420,13 +545,26 @@ template uint32_t RequestRpcMetadata::serializedSizeZC<>(apache::thrift::Compact
 }} // apache::thrift
 namespace apache { namespace thrift {
 
-ResponseRpcMetadata::ResponseRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, int32_t seqId__arg, std::map<std::string, std::string> otherMetadata__arg) :
+ResponseRpcMetadata::ResponseRpcMetadata() :
+      protocol( ::apache::thrift::ProtocolId::BINARY),
+      seqId(0),
+      load(0),
+      crc32c(0) {}
+
+
+ResponseRpcMetadata::~ResponseRpcMetadata() {}
+
+ResponseRpcMetadata::ResponseRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, int32_t seqId__arg, std::map<std::string, std::string> otherMetadata__arg, int64_t load__arg, std::uint32_t crc32c__arg) :
     protocol(std::move(protocol__arg)),
     seqId(std::move(seqId__arg)),
-    otherMetadata(std::move(otherMetadata__arg)) {
+    otherMetadata(std::move(otherMetadata__arg)),
+    load(std::move(load__arg)),
+    crc32c(std::move(crc32c__arg)) {
   __isset.protocol = true;
   __isset.seqId = true;
   __isset.otherMetadata = true;
+  __isset.load = true;
+  __isset.crc32c = true;
 }
 
 void ResponseRpcMetadata::__clear() {
@@ -434,12 +572,15 @@ void ResponseRpcMetadata::__clear() {
   protocol =  ::apache::thrift::ProtocolId::BINARY;
   seqId = 0;
   otherMetadata.clear();
+  load = 0;
+  crc32c = 0;
   __isset = {};
 }
 
 bool ResponseRpcMetadata::operator==(const ResponseRpcMetadata& rhs) const {
   (void)rhs;
   auto& lhs = *this;
+  (void)lhs;
   if (lhs.__isset.protocol != rhs.__isset.protocol) {
     return false;
   }
@@ -464,12 +605,29 @@ bool ResponseRpcMetadata::operator==(const ResponseRpcMetadata& rhs) const {
       return false;
     }
   }
+  if (lhs.__isset.load != rhs.__isset.load) {
+    return false;
+  }
+  if (lhs.__isset.load) {
+    if (!(lhs.load == rhs.load)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.crc32c != rhs.__isset.crc32c) {
+    return false;
+  }
+  if (lhs.__isset.crc32c) {
+    if (!(lhs.crc32c == rhs.crc32c)) {
+      return false;
+    }
+  }
   return true;
 }
 
 bool ResponseRpcMetadata::operator<(const ResponseRpcMetadata& rhs) const {
   (void)rhs;
   auto& lhs = *this;
+  (void)lhs;
   if (lhs.__isset.protocol != rhs.__isset.protocol) {
     return lhs.__isset.protocol < rhs.__isset.protocol;
   }
@@ -494,6 +652,22 @@ bool ResponseRpcMetadata::operator<(const ResponseRpcMetadata& rhs) const {
       return lhs.otherMetadata < rhs.otherMetadata;
     }
   }
+  if (lhs.__isset.load != rhs.__isset.load) {
+    return lhs.__isset.load < rhs.__isset.load;
+  }
+  if (lhs.__isset.load) {
+    if (!(lhs.load == rhs.load)) {
+      return lhs.load < rhs.load;
+    }
+  }
+  if (lhs.__isset.crc32c != rhs.__isset.crc32c) {
+    return lhs.__isset.crc32c < rhs.__isset.crc32c;
+  }
+  if (lhs.__isset.crc32c) {
+    if (!(lhs.crc32c == rhs.crc32c)) {
+      return lhs.crc32c < rhs.crc32c;
+    }
+  }
   return false;
 }
 
@@ -511,6 +685,8 @@ void swap(ResponseRpcMetadata& a, ResponseRpcMetadata& b) {
   swap(a.protocol, b.protocol);
   swap(a.seqId, b.seqId);
   swap(a.otherMetadata, b.otherMetadata);
+  swap(a.load, b.load);
+  swap(a.crc32c, b.crc32c);
   swap(a.__isset, b.__isset);
 }
 
@@ -522,5 +698,97 @@ template void ResponseRpcMetadata::readNoXfer<>(apache::thrift::CompactProtocolR
 template uint32_t ResponseRpcMetadata::write<>(apache::thrift::CompactProtocolWriter*) const;
 template uint32_t ResponseRpcMetadata::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 template uint32_t ResponseRpcMetadata::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}} // apache::thrift
+namespace apache { namespace thrift {
+
+StreamPayloadMetadata::StreamPayloadMetadata(apache::thrift::FragileConstructor) {}
+
+void StreamPayloadMetadata::__clear() {
+  // clear all fields
+}
+
+bool StreamPayloadMetadata::operator==(const StreamPayloadMetadata& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  return true;
+}
+
+bool StreamPayloadMetadata::operator<(const StreamPayloadMetadata& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  return false;
+}
+
+
+void swap(StreamPayloadMetadata& a, StreamPayloadMetadata& b) {
+  using ::std::swap;
+  (void)a;
+  (void)b;
+}
+
+template void StreamPayloadMetadata::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t StreamPayloadMetadata::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t StreamPayloadMetadata::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t StreamPayloadMetadata::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void StreamPayloadMetadata::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t StreamPayloadMetadata::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t StreamPayloadMetadata::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t StreamPayloadMetadata::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}} // apache::thrift
+namespace apache { namespace thrift {
+
+RequestSetupMetadata::RequestSetupMetadata(apache::thrift::FragileConstructor, apache::thrift::MetadataOpaqueMap<std::string, std::string> opaque__arg) :
+    opaque(std::move(opaque__arg)) {
+  __isset.opaque = true;
+}
+
+void RequestSetupMetadata::__clear() {
+  // clear all fields
+  opaque.clear();
+  __isset = {};
+}
+
+bool RequestSetupMetadata::operator==(const RequestSetupMetadata& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (lhs.__isset.opaque != rhs.__isset.opaque) {
+    return false;
+  }
+  if (lhs.__isset.opaque) {
+    if (!(lhs.opaque == rhs.opaque)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+const apache::thrift::MetadataOpaqueMap<std::string, std::string>* RequestSetupMetadata::get_opaque() const& {
+  return __isset.opaque ? std::addressof(opaque) : nullptr;
+}
+
+apache::thrift::MetadataOpaqueMap<std::string, std::string>* RequestSetupMetadata::get_opaque() & {
+  return __isset.opaque ? std::addressof(opaque) : nullptr;
+}
+
+
+void swap(RequestSetupMetadata& a, RequestSetupMetadata& b) {
+  using ::std::swap;
+  swap(a.opaque, b.opaque);
+  swap(a.__isset, b.__isset);
+}
+
+template void RequestSetupMetadata::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t RequestSetupMetadata::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t RequestSetupMetadata::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t RequestSetupMetadata::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void RequestSetupMetadata::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t RequestSetupMetadata::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t RequestSetupMetadata::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t RequestSetupMetadata::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }} // apache::thrift

@@ -30,21 +30,21 @@ namespace thrift {
 namespace detail {
 
 template <>
-struct TccStructTraits< ::apache::thrift::reflection::StructField> {
+struct TccStructTraits<::apache::thrift::reflection::StructField> {
   static void translateFieldName(
       folly::StringPiece _fname,
       int16_t& fid,
       apache::thrift::protocol::TType& _ftype);
 };
 template <>
-struct TccStructTraits< ::apache::thrift::reflection::DataType> {
+struct TccStructTraits<::apache::thrift::reflection::DataType> {
   static void translateFieldName(
       folly::StringPiece _fname,
       int16_t& fid,
       apache::thrift::protocol::TType& _ftype);
 };
 template <>
-struct TccStructTraits< ::apache::thrift::reflection::Schema> {
+struct TccStructTraits<::apache::thrift::reflection::Schema> {
   static void translateFieldName(
       folly::StringPiece _fname,
       int16_t& fid,
@@ -156,7 +156,7 @@ _loop:
   switch (_readState.fieldId) {
     case 1:
     {
-      if (LIKELY(_readState.fieldType == apache::thrift::protocol::T_BOOL)) {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_BOOL))) {
         goto _readField_isRequired;
       } else {
         goto _skip;
@@ -164,7 +164,7 @@ _loop:
     }
     case 2:
     {
-      if (LIKELY(_readState.fieldType == apache::thrift::protocol::T_I64)) {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I64))) {
         goto _readField_type;
       } else {
         goto _skip;
@@ -172,7 +172,7 @@ _loop:
     }
     case 3:
     {
-      if (LIKELY(_readState.fieldType == apache::thrift::protocol::T_STRING)) {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
         goto _readField_name;
       } else {
         goto _skip;
@@ -180,7 +180,7 @@ _loop:
     }
     case 4:
     {
-      if (LIKELY(_readState.fieldType == apache::thrift::protocol::T_MAP)) {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_MAP))) {
         goto _readField_annotations;
       } else {
         goto _skip;
@@ -188,7 +188,7 @@ _loop:
     }
     case 5:
     {
-      if (LIKELY(_readState.fieldType == apache::thrift::protocol::T_I16)) {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I16))) {
         goto _readField_order;
       } else {
         goto _skip;
@@ -270,6 +270,15 @@ uint32_t StructField::write(Protocol_* prot_) const {
   xfer += prot_->writeStructEnd();
   return xfer;
 }
+
+extern template void StructField::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t StructField::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t StructField::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t StructField::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void StructField::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t StructField::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t StructField::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t StructField::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // apache::thrift::reflection
 namespace apache { namespace thrift { namespace reflection {
@@ -374,7 +383,7 @@ _loop:
   switch (_readState.fieldId) {
     case 1:
     {
-      if (LIKELY(_readState.fieldType == apache::thrift::protocol::T_STRING)) {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
         goto _readField_name;
       } else {
         goto _skip;
@@ -382,7 +391,7 @@ _loop:
     }
     case 2:
     {
-      if (LIKELY(_readState.fieldType == apache::thrift::protocol::T_MAP)) {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_MAP))) {
         goto _readField_fields;
       } else {
         goto _skip;
@@ -390,7 +399,7 @@ _loop:
     }
     case 3:
     {
-      if (LIKELY(_readState.fieldType == apache::thrift::protocol::T_I64)) {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I64))) {
         goto _readField_mapKeyType;
       } else {
         goto _skip;
@@ -398,7 +407,7 @@ _loop:
     }
     case 4:
     {
-      if (LIKELY(_readState.fieldType == apache::thrift::protocol::T_I64)) {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I64))) {
         goto _readField_valueType;
       } else {
         goto _skip;
@@ -406,7 +415,7 @@ _loop:
     }
     case 5:
     {
-      if (LIKELY(_readState.fieldType == apache::thrift::protocol::T_MAP)) {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_MAP))) {
         goto _readField_enumValues;
       } else {
         goto _skip;
@@ -507,6 +516,15 @@ uint32_t DataType::write(Protocol_* prot_) const {
   return xfer;
 }
 
+extern template void DataType::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t DataType::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t DataType::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t DataType::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void DataType::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t DataType::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t DataType::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t DataType::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
 }}} // apache::thrift::reflection
 namespace apache { namespace thrift { namespace reflection {
 
@@ -571,7 +589,7 @@ _loop:
   switch (_readState.fieldId) {
     case 1:
     {
-      if (LIKELY(_readState.fieldType == apache::thrift::protocol::T_MAP)) {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_MAP))) {
         goto _readField_dataTypes;
       } else {
         goto _skip;
@@ -579,7 +597,7 @@ _loop:
     }
     case 2:
     {
-      if (LIKELY(_readState.fieldType == apache::thrift::protocol::T_MAP)) {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_MAP))) {
         goto _readField_names;
       } else {
         goto _skip;
@@ -634,5 +652,14 @@ uint32_t Schema::write(Protocol_* prot_) const {
   xfer += prot_->writeStructEnd();
   return xfer;
 }
+
+extern template void Schema::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t Schema::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t Schema::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t Schema::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void Schema::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t Schema::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t Schema::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t Schema::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // apache::thrift::reflection

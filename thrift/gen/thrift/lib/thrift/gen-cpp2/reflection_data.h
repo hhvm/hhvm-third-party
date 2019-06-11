@@ -58,8 +58,8 @@ struct _TypeEnumDataStorage {
 }}} // apache::thrift::reflection
 namespace apache { namespace thrift {
 
-template <> struct TEnumDataStorage< ::apache::thrift::reflection::Type> {
-  using storage_type =  ::apache::thrift::reflection::_TypeEnumDataStorage;
+template <> struct TEnumDataStorage<::apache::thrift::reflection::Type> {
+  using storage_type = ::apache::thrift::reflection::_TypeEnumDataStorage;
 };
 
 }} // apache::thrift

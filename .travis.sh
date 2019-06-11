@@ -7,7 +7,7 @@ cd /var/source/util
 hh_client
 FILE=../third_party_notices.txt
 PRE_HASH="$(sha256sum $FILE)"
-hhvm make-notices.hh > $FILE
+hhvm make-notices.hack > $FILE
 POST_HASH="$(sha256sum $FILE)"
 
 if [ "$PRE_HASH" != "$POST_HASH" ]; then
