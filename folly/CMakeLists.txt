@@ -159,6 +159,10 @@ target_include_directories(folly PUBLIC ${FOLLY_ROOT})
 add_dependencies(folly boostMaybeBuild)
 target_link_libraries(folly boost)
 
+add_dependencies(folly libsodiumMaybeBuild)
+target_include_directories(folly PUBLIC "${LIBSODIUM_INCLUDE_DIRS}")
+target_link_libraries(folly libsodium)
+
 find_package(Glog REQUIRED)
 target_include_directories(folly PUBLIC ${LIBGLOG_INCLUDE_DIR})
 target_link_libraries(folly ${LIBGLOG_LIBRARY})

@@ -72,3 +72,6 @@
 [submodule "boost/boost"]
 	path = boost/boost
 	url = https://github.com/boostorg/boost
+[submodule "libsodium/libsodium"]
+	path = libsodium/libsodium
+	url = https://github.com/jedisct1/libsodium.git

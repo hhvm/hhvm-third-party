@@ -7,3 +7,4 @@ webscalesqlclient/build
 *.swp
 ragel/ragel
 build/
+libsodium/install

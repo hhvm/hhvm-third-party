@@ -32,6 +32,7 @@ final class ThirdPartyBinaryNotices {
           'libmbfl/LICENSE',
         ],
       ),
+      'libsodium' => tuple('libsodium', keyset['libsodium/libsodium/LICENSE']),
       'libsqlite3' => null, // has a blessing instead of legal notices
       'libzip' => tuple('libzip', keyset['libzip/src/LICENSE']),
       'lz4' => tuple('LZ4', keyset['lz4/src/lib/LICENSE']),

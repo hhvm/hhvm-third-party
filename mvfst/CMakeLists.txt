@@ -16,4 +16,6 @@ add_library(mvfst STATIC ${files} ${hfiles})
 auto_source_group(mvfst "${MVFST_DIR}" ${files} ${hfiles})
 include_directories("${TP_DIR}/fizz/src" "${MVFST_DIR}")
 
-target_link_libraries(mvfst folly boost fizz)
+add_dependencies(mvfst libsodiumMaybeBuild)
+target_include_directories(mvfst PUBLIC "${LIBSODIUM_INCLUDE_DIRS}")
+target_link_libraries(mvfst folly boost fizz libsodium)
