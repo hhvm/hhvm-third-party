@@ -1077,7 +1077,9 @@ DAMAGES.
 The following software may be included in this product: libsodium. This Software contains the following license and notice below: 
 
 /*
- * Copyright (c) 2013-2016
+ * ISC License
+ *
+ * Copyright (c) 2013-2019
  * Frank Denis <j at pureftpd dot org>
  *
  * Permission to use, copy, modify, and/or distribute this software for any
