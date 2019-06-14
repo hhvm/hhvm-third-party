@@ -5,8 +5,8 @@
  *  @generated
  */
 
-#include "mcrouter/lib/carbon/gen-cpp2/Memcache.h"
-#include "mcrouter/lib/carbon/gen-cpp2/Memcache.tcc"
+#include "mcrouter/lib/network/gen/gen-cpp2/Memcache.h"
+#include "mcrouter/lib/network/gen/gen-cpp2/Memcache.tcc"
 
 namespace facebook { namespace memcache { namespace thrift {
 }}} // facebook::memcache::thrift

@@ -5,7 +5,7 @@
  *  @generated
  */
 
-#include "mcrouter/lib/carbon/gen-cpp2/Common_constants.h"
+#include "mcrouter/lib/network/gen/gen-cpp2/Common_constants.h"
 
 #include <folly/Indestructible.h>
 

@@ -10,6 +10,6 @@
 #include <cstddef>
 #include <thrift/lib/cpp/Thrift.h>
 
-#include "mcrouter/lib/carbon/gen-cpp2/Memcache_types.h"
+#include "mcrouter/lib/network/gen/gen-cpp2/Memcache_types.h"
 
 

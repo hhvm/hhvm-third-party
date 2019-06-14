@@ -11,8 +11,8 @@
 #include <thrift/lib/cpp2/ServiceIncludes.h>
 #include <thrift/lib/cpp2/async/FutureRequest.h>
 #include <thrift/lib/cpp2/async/HeaderChannel.h>
-#include "mcrouter/lib/carbon/gen-cpp2/MemcacheAsyncClient.h"
-#include "mcrouter/lib/carbon/gen-cpp2/MemcacheService_types.h"
+#include "mcrouter/lib/network/gen/gen-cpp2/MemcacheAsyncClient.h"
+#include "mcrouter/lib/network/gen/gen-cpp2/MemcacheService_types.h"
 #include "mcrouter/lib/network/gen/gen-cpp2/Common_types.h"
 #include "mcrouter/lib/network/gen/gen-cpp2/Memcache_types.h"
 #include "mcrouter/lib/network/gen/MemcacheMessages.h"

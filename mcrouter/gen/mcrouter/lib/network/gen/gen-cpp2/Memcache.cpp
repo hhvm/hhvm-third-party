@@ -4,8 +4,8 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
  *  @generated
  */
-#include "mcrouter/lib/carbon/gen-cpp2/Memcache.h"
-#include "mcrouter/lib/carbon/gen-cpp2/Memcache.tcc"
+#include "mcrouter/lib/network/gen/gen-cpp2/Memcache.h"
+#include "mcrouter/lib/network/gen/gen-cpp2/Memcache.tcc"
 
 #include <thrift/lib/cpp2/protocol/BinaryProtocol.h>
 #include <thrift/lib/cpp2/protocol/CompactProtocol.h>

@@ -13,7 +13,7 @@
  * VirtualProtocol) to read/write thrift structs.
  */
 
-#include "mcrouter/lib/carbon/gen-cpp2/Memcache.tcc"
-#include "mcrouter/lib/carbon/gen-cpp2/MemcacheService_types_custom_protocol.h"
+#include "mcrouter/lib/network/gen/gen-cpp2/Memcache.tcc"
+#include "mcrouter/lib/network/gen/gen-cpp2/MemcacheService_types_custom_protocol.h"
 #include "mcrouter/lib/network/gen/gen-cpp2/Common_types_custom_protocol.h"
 #include "mcrouter/lib/network/gen/gen-cpp2/Memcache_types_custom_protocol.h"

@@ -5,7 +5,7 @@
  *  @generated
  */
 
-#include "mcrouter/lib/carbon/gen-cpp2/MemcacheAsyncClient.h"
+#include "mcrouter/lib/network/gen/gen-cpp2/MemcacheAsyncClient.h"
 
 #include <folly/io/IOBuf.h>
 #include <folly/io/IOBufQueue.h>

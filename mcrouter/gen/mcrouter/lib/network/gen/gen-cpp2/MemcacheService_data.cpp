@@ -5,6 +5,6 @@
  *  @generated
  */
 
-#include "mcrouter/lib/carbon/gen-cpp2/MemcacheService_data.h"
+#include "mcrouter/lib/network/gen/gen-cpp2/MemcacheService_data.h"
 
 

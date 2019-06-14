@@ -8,7 +8,7 @@
 
 #include <thrift/lib/cpp2/protocol/Protocol.h>
 
-#include "mcrouter/lib/carbon/gen-cpp2/MemcacheService_types.h"
+#include "mcrouter/lib/network/gen/gen-cpp2/MemcacheService_types.h"
 
 namespace facebook { namespace memcache { namespace thrift {
 

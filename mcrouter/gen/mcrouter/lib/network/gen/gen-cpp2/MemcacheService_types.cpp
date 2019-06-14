@@ -4,13 +4,13 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
  *  @generated
  */
-#include "mcrouter/lib/carbon/gen-cpp2/MemcacheService_types.h"
-#include "mcrouter/lib/carbon/gen-cpp2/MemcacheService_types.tcc"
+#include "mcrouter/lib/network/gen/gen-cpp2/MemcacheService_types.h"
+#include "mcrouter/lib/network/gen/gen-cpp2/MemcacheService_types.tcc"
 
 #include <algorithm>
 #include <folly/Indestructible.h>
 
-#include "mcrouter/lib/carbon/gen-cpp2/MemcacheService_data.h"
+#include "mcrouter/lib/network/gen/gen-cpp2/MemcacheService_data.h"
 
 
 namespace apache {

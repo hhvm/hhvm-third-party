@@ -6,7 +6,7 @@
  */
 #pragma once
 
-#include "mcrouter/lib/carbon/gen-cpp2/Memcache.h"
+#include "mcrouter/lib/network/gen/gen-cpp2/Memcache.h"
 
 #include <folly/io/IOBuf.h>
 #include <folly/io/IOBufQueue.h>

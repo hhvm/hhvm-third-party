@@ -6,7 +6,7 @@
  */
 #pragma once
 
-#include "mcrouter/lib/carbon/gen-cpp2/Common_types.h"
+#include "mcrouter/lib/network/gen/gen-cpp2/Common_types.h"
 
 #include <thrift/lib/cpp2/GeneratedSerializationCodeHelper.h>
 #include <thrift/lib/cpp2/gen/module_types_tcc.h>
