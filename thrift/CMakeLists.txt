@@ -55,6 +55,6 @@ include_directories("${TP_DIR}/fatal")
 include_directories("${TP_DIR}/proxygen/src")
 add_library(hphp_thrift STATIC ${CXX_SOURCES})
 
-target_link_libraries(hphp_thrift wangle boost fmt fizz rsocket_cpp fatal proxygen
+target_link_libraries(hphp_thrift wangle boost fmt fizz rsocket_cpp hphp_proxygen
                                          ${LIBGLOG_LIBRARY}
                                          ${LIBPTHREAD_LIBRARIES})
