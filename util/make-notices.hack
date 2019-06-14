@@ -44,6 +44,7 @@ final class ThirdPartyBinaryNotices {
       'proxygen' => null, // first-party
       'ragel' => null, // not distributed
       're2' => tuple('RE2', keyset['re2/src/LICENSE']),
+      'rsocket-cpp' => null, // first-party
       'squangle' => null, // first-party
       'stubs' => null, // first-party
       'thrift' => null, // first-party

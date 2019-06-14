@@ -75,3 +75,6 @@
 [submodule "libsodium/libsodium"]
 	path = libsodium/libsodium
 	url = https://github.com/jedisct1/libsodium.git
+[submodule "rsocket-cpp/roscket-cpp"]
+	path = rsocket-cpp/rsocket-cpp
+	url = https://github.com/rsocket/rsocket-cpp.git

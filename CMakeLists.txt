@@ -77,6 +77,8 @@ if(ENABLE_ASYNC_MYSQL)
 endif()
 
 if (ENABLE_MCROUTER)
+  list(APPEND THIRD_PARTY_MODULES rsocket-cpp)
+  list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/rsocket-cpp/src")
   # Ragel is only used at build time to generate some files for MCRouter.
   list(APPEND THIRD_PARTY_MODULES ragel)
 
