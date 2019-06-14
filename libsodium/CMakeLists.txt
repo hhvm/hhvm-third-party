@@ -5,7 +5,6 @@ ExternalProject_Add(
   libsodiumBuild
   SOURCE_DIR "${LIBSODIUM_DIR}"
   CONFIGURE_COMMAND
-  ./autogen.sh &&
   ./configure "--prefix=${CMAKE_CURRENT_BINARY_DIR}/install"
     --disable-debug
     --disable-dependency-tracking
