@@ -10,9 +10,11 @@ HHVM_REMOVE_MATCHES_FROM_LISTS(files MATCHES
   "/test/"
   "/tests/"
   "/compiler/"
+  "/server/"
   "/lib/d/"
   "/lib/node/"
   "/lib/cpp2/transport/core/testutil/"
+  "/lib/cpp2/transport/.*RoutingHandler.*"
   "/lib/py/"
   "/lib/php/"
   "/testutil/"
@@ -50,8 +52,9 @@ include_directories("${TP_DIR}/fmt/fmt/include")
 include_directories("${TP_DIR}/fizz/src")
 include_directories("${TP_DIR}/rsocket-cpp/src")
 include_directories("${TP_DIR}/fatal")
+include_directories("${TP_DIR}/proxygen/src")
 add_library(hphp_thrift STATIC ${CXX_SOURCES})
 
-target_link_libraries(hphp_thrift wangle boost fmt fizz rsocket_cpp fatal
+target_link_libraries(hphp_thrift wangle boost fmt fizz rsocket_cpp fatal proxygen
                                          ${LIBGLOG_LIBRARY}
                                          ${LIBPTHREAD_LIBRARIES})
