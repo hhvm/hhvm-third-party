@@ -9,12 +9,10 @@ HHVM_REMOVE_MATCHES_FROM_LISTS(files MATCHES
   "/perf/"
   "/test/"
   "/tests/"
+  "/compiler/"
   "/lib/d/"
   "/lib/node/"
-  "/lib/cpp2/(async|fatal|security|server)/"
   "/lib/cpp2/transport/core/testutil/"
-  "/lib/cpp2/transport/rsocket/"
-  "/lib/cpp2/transport/"
   "/lib/py/"
   "/lib/php/"
   "/testutil/"
@@ -32,7 +30,6 @@ list(REMOVE_ITEM files
   ${THRIFT_DIR}/lib/cpp/transport/THeaderTransport.cpp
   ${THRIFT_DIR}/lib/cpp/transport/TMemPagedTransport.cpp
   ${THRIFT_DIR}/lib/cpp/transport/TMemPagedFactory.cpp
-  ${THRIFT_DIR}/lib/cpp/transport/THeader.cpp
   ${THRIFT_DIR}/lib/cpp/protocol/TSimpleJSONProtocol.cpp
   ${THRIFT_DIR}/lib/cpp/concurrency/NumaThreadManager.cpp
   ${THRIFT_DIR}/lib/cpp/util/TThreadedServerCreator.cpp
@@ -51,9 +48,10 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/gen")
 include_directories("${TP_DIR}/fmt/fmt/include")
 include_directories("${TP_DIR}/fizz/src")
+include_directories("${TP_DIR}/rsocket-cpp/src")
 include_directories("${TP_DIR}/fatal")
 add_library(hphp_thrift STATIC ${CXX_SOURCES})
 
-target_link_libraries(hphp_thrift wangle boost fmt fizz
+target_link_libraries(hphp_thrift wangle boost fmt fizz rsocket_cpp fatal
                                          ${LIBGLOG_LIBRARY}
                                          ${LIBPTHREAD_LIBRARIES})
