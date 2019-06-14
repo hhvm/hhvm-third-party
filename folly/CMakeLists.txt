@@ -138,6 +138,7 @@ CHECK_CXX_SOURCE_COMPILES("
 int main() { return 0; }" IS_X64)
 if (IS_X64)
 set_source_files_properties(${FOLLY_DIR}/hash/detail/ChecksumDetail.cpp PROPERTIES COMPILE_FLAGS -mpclmul)
+set_source_files_properties(${FOLLY_DIR}/hash/detail/Crc32CombineDetail.cpp PROPERTIES COMPILE_FLAGS -mpclmul)
 set_source_files_properties(${FOLLY_DIR}/hash/detail/Crc32cDetail.cpp PROPERTIES COMPILE_FLAGS -mpclmul)
 endif()
 
