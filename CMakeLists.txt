@@ -55,6 +55,7 @@ list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/fmt/fmt/include")
 
 list(APPEND THIRD_PARTY_MODULES thrift)
 list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/thrift/src")
+list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/thrift/gen")
 
 list(APPEND THIRD_PARTY_MODULES zstd)
 list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/zstd/src/lib")
