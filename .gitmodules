@@ -51,9 +51,6 @@
 [submodule "fatal"]
     path = fatal
     url = https://github.com/facebook/fatal
-[submodule "mvfst/src"]
-    path = mvfst/src
-    url = https://github.com/facebookincubator/mvfst.git
 [submodule "ocaml/src"]
     path = ocaml/src
     url = https://github.com/ocaml/ocaml.git

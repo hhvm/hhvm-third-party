@@ -44,9 +44,6 @@ list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/wangle/src")
 list(APPEND THIRD_PARTY_MODULES brotli)
 list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/brotli/src")
 
-list(APPEND THIRD_PARTY_MODULES mvfst)
-list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/mvfst/src")
-
 list(APPEND THIRD_PARTY_MODULES proxygen)
 list(APPEND EXTRA_INCLUDE_PATHS "${TP_DIR}/proxygen/src")
 

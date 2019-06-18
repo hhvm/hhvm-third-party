@@ -37,7 +37,6 @@ final class ThirdPartyBinaryNotices {
       'libzip' => tuple('libzip', keyset['libzip/src/LICENSE']),
       'lz4' => tuple('LZ4', keyset['lz4/src/lib/LICENSE']),
       'mcrouter' => null, // first-party
-      'mvfst' => null, // first-party
       'ocaml' => null, // not distributed
       'opam' => null, // not used yet
       'pcre' => tuple('PCRE', keyset['pcre/LICENCE']),
