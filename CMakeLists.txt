@@ -158,7 +158,7 @@ if(NOT PCRE_LIBRARY)
 endif()
 
 # boost checks                                                                        
-find_package(Boost 1.62.0 COMPONENTS context fiber filesystem program_options regex system thread)                                                                          
+find_package(Boost 1.62.0 COMPONENTS context fiber filesystem iostreams program_options regex system thread)
                                                                                       
 add_library(boost INTERFACE)
 add_custom_target(boostMaybeBuild)
@@ -175,6 +175,7 @@ if(NOT Boost_FOUND)
       "libboost_fiber"
       "libboost_context"
       "libboost_filesystem"
+      "libboost_iostreams"
       "libboost_program_options"
       "libboost_regex"
       "libboost_system"
