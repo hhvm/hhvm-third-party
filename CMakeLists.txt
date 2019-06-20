@@ -166,7 +166,7 @@ if(NOT PCRE_LIBRARY)
 endif()
 
 # boost checks                                                                        
-find_package(Boost 1.62.0 COMPONENTS context fiber filesystem iostreams program_options regex system thread)                                                                          
+find_package(Boost 1.62.0 COMPONENTS context fiber filesystem iostreams program_options regex system thread)
 if ("${Boost_VERSION}" EQUAL "107000")
   # https://github.com/boostorg/variant/issues/69
   message(WARNING "System boost is blacklisted version")
