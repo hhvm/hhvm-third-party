@@ -1099,7 +1099,7 @@ The following software may be included in this product: libsodium. This Software
 
 The following software may be included in this product: libzip. This Software contains the following license and notice below: 
 
-Copyright (C) 1999-2017 Dieter Baron and Thomas Klausner
+Copyright (C) 1999-2016 Dieter Baron and Thomas Klausner
 
 The authors can be contacted at <libzip@nih.at>
 
