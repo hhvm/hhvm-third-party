@@ -30,6 +30,7 @@ list(APPEND CXX_SOURCES "${CMAKE_CURRENT_BINARY_DIR}/mcrouter/lib/network/McAsci
 add_custom_command(
   OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/mcrouter/RouterRegistry.h"
   DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/RouterRegistry-impl.h"
+  COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_BINARY_DIR}/mcrouter"
   COMMAND ${CMAKE_COMMAND} -E create_symlink
     "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter/RouterRegistry-impl.h"
     "${CMAKE_CURRENT_BINARY_DIR}/mcrouter/RouterRegistry.h"
@@ -60,6 +61,7 @@ add_definitions(-DHAVE_CONFIG_H)
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/..")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/gen/")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
+include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 include_directories("${TP_DIR}/rsocket-cpp/src")
 include_directories("${TP_DIR}/thrift/src")
 include_directories("${TP_DIR}/thrift/gen")
