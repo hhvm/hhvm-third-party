@@ -11,7 +11,6 @@ ExternalProject_Add(
     --disable-shared
     --enable-static
   PREFIX "${CMAKE_CURRENT_BINARY_DIR}/install"
-  EXCLUDE_FROM_ALL true
   BUILD_IN_SOURCE true
 )
 set(LIBSODIUM_INCLUDEDIR "${CMAKE_CURRENT_BINARY_DIR}/install/include" PARENT_SCOPE)
