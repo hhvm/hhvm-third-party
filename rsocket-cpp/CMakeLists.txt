@@ -2,9 +2,14 @@ cmake_minimum_required(VERSION 2.8.0)
 
 set(RSOCKET_CPP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
-# Main rsocket_cpp library files
-auto_sources(files "*.cpp" "RECURSE" "${RSOCKET_CPP_DIR}")
-auto_sources(hfiles "*.h" "RECURSE" "${RSOCKET_CPP_DIR}")
+if (OPENSSL_HAVE_ALPN)
+  # Main rsocket_cpp library files
+  auto_sources(files "*.cpp" "RECURSE" "${RSOCKET_CPP_DIR}")
+  auto_sources(hfiles "*.h" "RECURSE" "${RSOCKET_CPP_DIR}")
+else()
+  auto_sources(files "*.cpp" "RECURSE" "${RSOCKET_CPP_DIR}/yarpl")
+  auto_sources(hfiles "*.h" "RECURSE" "${RSOCKET_CPP_DIR}/yarpl")
+endif()
 
 HHVM_REMOVE_MATCHES_FROM_LISTS(files hfiles MATCHES "/devtools/" "/benchmarks/" "/examples/" "/test/" "/perf/")
 

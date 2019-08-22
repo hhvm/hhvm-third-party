@@ -38,6 +38,15 @@ list(REMOVE_ITEM files
   ${THRIFT_DIR}/lib/cpp/util/TNonblockingServerCreator.cpp
 )
 
+if (NOT OPENSSL_HAVE_ALPN)
+  HHVM_REMOVE_MATCHES_FROM_LISTS(files MATCHES
+    "/lib/cpp2/transport/rsocket/"
+    "/lib/cpp2/transport/rocket/"
+    ".*/RSocket.*"
+    ".*/Rocket.*"
+  )
+endif()
+
 list(APPEND CXX_SOURCES ${files})
 
 auto_sources(files "*.cpp" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}/gen")
