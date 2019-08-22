@@ -1,5 +1,9 @@
 set(C_SOURCES)
 auto_sources(files "*.c" "RECURSE" "${CMAKE_CURRENT_SOURCE_DIR}/mcrouter")
+
+if (NOT OPENSSL_HAVE_ALPN)
+  HHVM_REMOVE_MATCHES_FROM_LISTS(files MATCHES ".*ThriftTransport.*")
+endif()
 foreach (file ${files})
   if (${file} MATCHES "/(test|examples?)/")
     list(REMOVE_ITEM files ${file})
