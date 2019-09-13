@@ -41,6 +41,8 @@ HHVM_REMOVE_MATCHES_FROM_LISTS(files cfiles hfiles
  "/bench/"
  "/experimental/logging/example/"
  "/experimental/pushmi/"
+ "/experimental/symbolizer/"
+ "/experimental/exception_tracer/"
  "/futures/exercises/"
  "/python/"
  "/test/"
