@@ -6,10 +6,8 @@
  */
 #pragma once
 
-#include <thrift/lib/cpp2/GeneratedHeaderHelper.h>
-#include <thrift/lib/cpp2/Thrift.h>
 #include <thrift/lib/cpp2/gen/module_types_h.h>
-#include <thrift/lib/cpp2/protocol/Protocol.h>
+
 
 #include "thrift/lib/thrift/RpcMetadata_extra.h"
 
@@ -30,7 +28,8 @@ enum class RpcKind {
   STREAMING_REQUEST_SINGLE_RESPONSE = 2,
   STREAMING_REQUEST_NO_RESPONSE = 3,
   SINGLE_REQUEST_STREAMING_RESPONSE = 4,
-  STREAMING_REQUEST_STREAMING_RESPONSE = 5
+  STREAMING_REQUEST_STREAMING_RESPONSE = 5,
+  SINK = 6
 };
 
 
@@ -103,7 +102,7 @@ template <> struct TEnumDataStorage<::apache::thrift::RpcKind>;
 template <> struct TEnumTraits<::apache::thrift::RpcKind> {
   using type = ::apache::thrift::RpcKind;
 
-  static constexpr std::size_t const size = 6;
+  static constexpr std::size_t const size = 7;
   static folly::Range<type const*> const values;
   static folly::Range<folly::StringPiece const*> const names;
 
@@ -111,7 +110,7 @@ template <> struct TEnumTraits<::apache::thrift::RpcKind> {
   static bool findValue(char const* name, type* out);
 
   static constexpr type min() { return type::SINGLE_REQUEST_SINGLE_RESPONSE; }
-  static constexpr type max() { return type::STREAMING_REQUEST_STREAMING_RESPONSE; }
+  static constexpr type max() { return type::SINK; }
 };
 
 
@@ -196,7 +195,7 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  RequestRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, std::string name__arg,  ::apache::thrift::RpcKind kind__arg, int32_t seqId__arg, int32_t clientTimeoutMs__arg, int32_t queueTimeoutMs__arg,  ::apache::thrift::RpcPriority priority__arg, std::map<std::string, std::string> otherMetadata__arg, std::string host__arg, std::string url__arg, std::uint32_t crc32c__arg, std::uint64_t flags__arg);
+  RequestRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, ::std::string name__arg,  ::apache::thrift::RpcKind kind__arg, int32_t seqId__arg, int32_t clientTimeoutMs__arg, int32_t queueTimeoutMs__arg,  ::apache::thrift::RpcPriority priority__arg, ::std::map<::std::string, ::std::string> otherMetadata__arg, ::std::string host__arg, ::std::string url__arg, std::uint32_t crc32c__arg, std::uint64_t flags__arg, ::std::string loadMetric__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     protocol = arg.extract();
@@ -257,6 +256,11 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
     flags = arg.extract();
     __isset.flags = true;
   }
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<13, _T> arg) {
+    loadMetric = arg.extract();
+    __isset.loadMetric = true;
+  }
 
   RequestRpcMetadata(RequestRpcMetadata&&) = default;
 
@@ -270,17 +274,18 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
   ~RequestRpcMetadata();
 
    ::apache::thrift::ProtocolId protocol;
-  std::string name;
+  ::std::string name;
    ::apache::thrift::RpcKind kind;
   int32_t seqId;
   int32_t clientTimeoutMs;
   int32_t queueTimeoutMs;
    ::apache::thrift::RpcPriority priority;
-  std::map<std::string, std::string> otherMetadata;
-  std::string host;
-  std::string url;
+  ::std::map<::std::string, ::std::string> otherMetadata;
+  ::std::string host;
+  ::std::string url;
   std::uint32_t crc32c;
   std::uint64_t flags;
+  ::std::string loadMetric;
 
   struct __isset {
     bool protocol;
@@ -295,200 +300,217 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
     bool url;
     bool crc32c;
     bool flags;
+    bool loadMetric;
   } __isset = {};
   bool operator==(const RequestRpcMetadata& rhs) const;
   bool operator<(const RequestRpcMetadata& rhs) const;
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::ProtocolId&> protocol_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const  ::apache::thrift::ProtocolId&> protocol_ref() const& {
     return {protocol, __isset.protocol};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::ProtocolId&&> protocol_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const  ::apache::thrift::ProtocolId&&> protocol_ref() const&& {
     return {std::move(protocol), __isset.protocol};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::ProtocolId&> protocol_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref< ::apache::thrift::ProtocolId&> protocol_ref() & {
     return {protocol, __isset.protocol};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::ProtocolId&&> protocol_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref< ::apache::thrift::ProtocolId&&> protocol_ref() && {
     return {std::move(protocol), __isset.protocol};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::string&> name_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const ::std::string&> name_ref() const& {
     return {name, __isset.name};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::string&&> name_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const ::std::string&&> name_ref() const&& {
     return {std::move(name), __isset.name};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::string&> name_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<::std::string&> name_ref() & {
     return {name, __isset.name};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::string&&> name_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<::std::string&&> name_ref() && {
     return {std::move(name), __isset.name};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::RpcKind&> kind_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const  ::apache::thrift::RpcKind&> kind_ref() const& {
     return {kind, __isset.kind};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::RpcKind&&> kind_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const  ::apache::thrift::RpcKind&&> kind_ref() const&& {
     return {std::move(kind), __isset.kind};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::RpcKind&> kind_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref< ::apache::thrift::RpcKind&> kind_ref() & {
     return {kind, __isset.kind};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::RpcKind&&> kind_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref< ::apache::thrift::RpcKind&&> kind_ref() && {
     return {std::move(kind), __isset.kind};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&> seqId_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const int32_t&> seqId_ref() const& {
     return {seqId, __isset.seqId};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&&> seqId_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const int32_t&&> seqId_ref() const&& {
     return {std::move(seqId), __isset.seqId};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&> seqId_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<int32_t&> seqId_ref() & {
     return {seqId, __isset.seqId};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&&> seqId_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<int32_t&&> seqId_ref() && {
     return {std::move(seqId), __isset.seqId};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&> clientTimeoutMs_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const int32_t&> clientTimeoutMs_ref() const& {
     return {clientTimeoutMs, __isset.clientTimeoutMs};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&&> clientTimeoutMs_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const int32_t&&> clientTimeoutMs_ref() const&& {
     return {std::move(clientTimeoutMs), __isset.clientTimeoutMs};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&> clientTimeoutMs_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<int32_t&> clientTimeoutMs_ref() & {
     return {clientTimeoutMs, __isset.clientTimeoutMs};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&&> clientTimeoutMs_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<int32_t&&> clientTimeoutMs_ref() && {
     return {std::move(clientTimeoutMs), __isset.clientTimeoutMs};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&> queueTimeoutMs_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const int32_t&> queueTimeoutMs_ref() const& {
     return {queueTimeoutMs, __isset.queueTimeoutMs};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&&> queueTimeoutMs_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const int32_t&&> queueTimeoutMs_ref() const&& {
     return {std::move(queueTimeoutMs), __isset.queueTimeoutMs};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&> queueTimeoutMs_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<int32_t&> queueTimeoutMs_ref() & {
     return {queueTimeoutMs, __isset.queueTimeoutMs};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&&> queueTimeoutMs_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<int32_t&&> queueTimeoutMs_ref() && {
     return {std::move(queueTimeoutMs), __isset.queueTimeoutMs};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::RpcPriority&> priority_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const  ::apache::thrift::RpcPriority&> priority_ref() const& {
     return {priority, __isset.priority};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::RpcPriority&&> priority_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const  ::apache::thrift::RpcPriority&&> priority_ref() const&& {
     return {std::move(priority), __isset.priority};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::RpcPriority&> priority_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref< ::apache::thrift::RpcPriority&> priority_ref() & {
     return {priority, __isset.priority};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::RpcPriority&&> priority_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref< ::apache::thrift::RpcPriority&&> priority_ref() && {
     return {std::move(priority), __isset.priority};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::map<std::string, std::string>&> otherMetadata_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const ::std::map<::std::string, ::std::string>&> otherMetadata_ref() const& {
     return {otherMetadata, __isset.otherMetadata};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::map<std::string, std::string>&&> otherMetadata_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const ::std::map<::std::string, ::std::string>&&> otherMetadata_ref() const&& {
     return {std::move(otherMetadata), __isset.otherMetadata};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::map<std::string, std::string>&> otherMetadata_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<::std::map<::std::string, ::std::string>&> otherMetadata_ref() & {
     return {otherMetadata, __isset.otherMetadata};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::map<std::string, std::string>&&> otherMetadata_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<::std::map<::std::string, ::std::string>&&> otherMetadata_ref() && {
     return {std::move(otherMetadata), __isset.otherMetadata};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::string&> host_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const ::std::string&> host_ref() const& {
     return {host, __isset.host};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::string&&> host_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const ::std::string&&> host_ref() const&& {
     return {std::move(host), __isset.host};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::string&> host_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<::std::string&> host_ref() & {
     return {host, __isset.host};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::string&&> host_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<::std::string&&> host_ref() && {
     return {std::move(host), __isset.host};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::string&> url_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const ::std::string&> url_ref() const& {
     return {url, __isset.url};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::string&&> url_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const ::std::string&&> url_ref() const&& {
     return {std::move(url), __isset.url};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::string&> url_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<::std::string&> url_ref() & {
     return {url, __isset.url};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::string&&> url_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<::std::string&&> url_ref() && {
     return {std::move(url), __isset.url};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::uint32_t&> crc32c_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const std::uint32_t&> crc32c_ref() const& {
     return {crc32c, __isset.crc32c};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::uint32_t&&> crc32c_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const std::uint32_t&&> crc32c_ref() const&& {
     return {std::move(crc32c), __isset.crc32c};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::uint32_t&> crc32c_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<std::uint32_t&> crc32c_ref() & {
     return {crc32c, __isset.crc32c};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::uint32_t&&> crc32c_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<std::uint32_t&&> crc32c_ref() && {
     return {std::move(crc32c), __isset.crc32c};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::uint64_t&> flags_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const std::uint64_t&> flags_ref() const& {
     return {flags, __isset.flags};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::uint64_t&&> flags_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const std::uint64_t&&> flags_ref() const&& {
     return {std::move(flags), __isset.flags};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::uint64_t&> flags_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<std::uint64_t&> flags_ref() & {
     return {flags, __isset.flags};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::uint64_t&&> flags_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<std::uint64_t&&> flags_ref() && {
     return {std::move(flags), __isset.flags};
+  }
+
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const ::std::string&> loadMetric_ref() const& {
+    return {loadMetric, __isset.loadMetric};
+  }
+
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const ::std::string&&> loadMetric_ref() const&& {
+    return {std::move(loadMetric), __isset.loadMetric};
+  }
+
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<::std::string&> loadMetric_ref() & {
+    return {loadMetric, __isset.loadMetric};
+  }
+
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<::std::string&&> loadMetric_ref() && {
+    return {std::move(loadMetric), __isset.loadMetric};
   }
 
   const  ::apache::thrift::ProtocolId* get_protocol() const& {
@@ -506,17 +528,17 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
     return protocol;
   }
 
-  const std::string* get_name() const& {
+  const ::std::string* get_name() const& {
     return __isset.name ? std::addressof(name) : nullptr;
   }
 
-  std::string* get_name() & {
+  ::std::string* get_name() & {
     return __isset.name ? std::addressof(name) : nullptr;
   }
-  std::string* get_name() && = delete;
+  ::std::string* get_name() && = delete;
 
-  template <typename T_RequestRpcMetadata_name_struct_setter = std::string>
-  std::string& set_name(T_RequestRpcMetadata_name_struct_setter&& name_) {
+  template <typename T_RequestRpcMetadata_name_struct_setter = ::std::string>
+  ::std::string& set_name(T_RequestRpcMetadata_name_struct_setter&& name_) {
     name = std::forward<T_RequestRpcMetadata_name_struct_setter>(name_);
     __isset.name = true;
     return name;
@@ -596,44 +618,44 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
     __isset.priority = true;
     return priority;
   }
-  const std::map<std::string, std::string>* get_otherMetadata() const&;
-  std::map<std::string, std::string>* get_otherMetadata() &;
-  std::map<std::string, std::string>* get_otherMetadata() && = delete;
+  const ::std::map<::std::string, ::std::string>* get_otherMetadata() const&;
+  ::std::map<::std::string, ::std::string>* get_otherMetadata() &;
+  ::std::map<::std::string, ::std::string>* get_otherMetadata() && = delete;
 
-  template <typename T_RequestRpcMetadata_otherMetadata_struct_setter = std::map<std::string, std::string>>
-  std::map<std::string, std::string>& set_otherMetadata(T_RequestRpcMetadata_otherMetadata_struct_setter&& otherMetadata_) {
+  template <typename T_RequestRpcMetadata_otherMetadata_struct_setter = ::std::map<::std::string, ::std::string>>
+  ::std::map<::std::string, ::std::string>& set_otherMetadata(T_RequestRpcMetadata_otherMetadata_struct_setter&& otherMetadata_) {
     otherMetadata = std::forward<T_RequestRpcMetadata_otherMetadata_struct_setter>(otherMetadata_);
     __isset.otherMetadata = true;
     return otherMetadata;
   }
 
-  const std::string* get_host() const& {
+  const ::std::string* get_host() const& {
     return __isset.host ? std::addressof(host) : nullptr;
   }
 
-  std::string* get_host() & {
+  ::std::string* get_host() & {
     return __isset.host ? std::addressof(host) : nullptr;
   }
-  std::string* get_host() && = delete;
+  ::std::string* get_host() && = delete;
 
-  template <typename T_RequestRpcMetadata_host_struct_setter = std::string>
-  std::string& set_host(T_RequestRpcMetadata_host_struct_setter&& host_) {
+  template <typename T_RequestRpcMetadata_host_struct_setter = ::std::string>
+  ::std::string& set_host(T_RequestRpcMetadata_host_struct_setter&& host_) {
     host = std::forward<T_RequestRpcMetadata_host_struct_setter>(host_);
     __isset.host = true;
     return host;
   }
 
-  const std::string* get_url() const& {
+  const ::std::string* get_url() const& {
     return __isset.url ? std::addressof(url) : nullptr;
   }
 
-  std::string* get_url() & {
+  ::std::string* get_url() & {
     return __isset.url ? std::addressof(url) : nullptr;
   }
-  std::string* get_url() && = delete;
+  ::std::string* get_url() && = delete;
 
-  template <typename T_RequestRpcMetadata_url_struct_setter = std::string>
-  std::string& set_url(T_RequestRpcMetadata_url_struct_setter&& url_) {
+  template <typename T_RequestRpcMetadata_url_struct_setter = ::std::string>
+  ::std::string& set_url(T_RequestRpcMetadata_url_struct_setter&& url_) {
     url = std::forward<T_RequestRpcMetadata_url_struct_setter>(url_);
     __isset.url = true;
     return url;
@@ -667,6 +689,22 @@ class RequestRpcMetadata final : private apache::thrift::detail::st::ComparisonO
     flags = flags_;
     __isset.flags = true;
     return flags;
+  }
+
+  const ::std::string* get_loadMetric() const& {
+    return __isset.loadMetric ? std::addressof(loadMetric) : nullptr;
+  }
+
+  ::std::string* get_loadMetric() & {
+    return __isset.loadMetric ? std::addressof(loadMetric) : nullptr;
+  }
+  ::std::string* get_loadMetric() && = delete;
+
+  template <typename T_RequestRpcMetadata_loadMetric_struct_setter = ::std::string>
+  ::std::string& set_loadMetric(T_RequestRpcMetadata_loadMetric_struct_setter&& loadMetric_) {
+    loadMetric = std::forward<T_RequestRpcMetadata_loadMetric_struct_setter>(loadMetric_);
+    __isset.loadMetric = true;
+    return loadMetric;
   }
 
   template <class Protocol_>
@@ -703,7 +741,7 @@ class ResponseRpcMetadata final : private apache::thrift::detail::st::Comparison
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  ResponseRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, int32_t seqId__arg, std::map<std::string, std::string> otherMetadata__arg, int64_t load__arg, std::uint32_t crc32c__arg);
+  ResponseRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, int32_t seqId__arg, ::std::map<::std::string, ::std::string> otherMetadata__arg, int64_t load__arg, std::uint32_t crc32c__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     protocol = arg.extract();
@@ -743,7 +781,7 @@ class ResponseRpcMetadata final : private apache::thrift::detail::st::Comparison
 
    ::apache::thrift::ProtocolId protocol;
   int32_t seqId;
-  std::map<std::string, std::string> otherMetadata;
+  ::std::map<::std::string, ::std::string> otherMetadata;
   int64_t load;
   std::uint32_t crc32c;
 
@@ -757,83 +795,83 @@ class ResponseRpcMetadata final : private apache::thrift::detail::st::Comparison
   bool operator==(const ResponseRpcMetadata& rhs) const;
   bool operator<(const ResponseRpcMetadata& rhs) const;
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::ProtocolId&> protocol_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const  ::apache::thrift::ProtocolId&> protocol_ref() const& {
     return {protocol, __isset.protocol};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const  ::apache::thrift::ProtocolId&&> protocol_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const  ::apache::thrift::ProtocolId&&> protocol_ref() const&& {
     return {std::move(protocol), __isset.protocol};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::ProtocolId&> protocol_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref< ::apache::thrift::ProtocolId&> protocol_ref() & {
     return {protocol, __isset.protocol};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref< ::apache::thrift::ProtocolId&&> protocol_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref< ::apache::thrift::ProtocolId&&> protocol_ref() && {
     return {std::move(protocol), __isset.protocol};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&> seqId_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const int32_t&> seqId_ref() const& {
     return {seqId, __isset.seqId};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int32_t&&> seqId_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const int32_t&&> seqId_ref() const&& {
     return {std::move(seqId), __isset.seqId};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&> seqId_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<int32_t&> seqId_ref() & {
     return {seqId, __isset.seqId};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int32_t&&> seqId_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<int32_t&&> seqId_ref() && {
     return {std::move(seqId), __isset.seqId};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::map<std::string, std::string>&> otherMetadata_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const ::std::map<::std::string, ::std::string>&> otherMetadata_ref() const& {
     return {otherMetadata, __isset.otherMetadata};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::map<std::string, std::string>&&> otherMetadata_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const ::std::map<::std::string, ::std::string>&&> otherMetadata_ref() const&& {
     return {std::move(otherMetadata), __isset.otherMetadata};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::map<std::string, std::string>&> otherMetadata_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<::std::map<::std::string, ::std::string>&> otherMetadata_ref() & {
     return {otherMetadata, __isset.otherMetadata};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::map<std::string, std::string>&&> otherMetadata_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<::std::map<::std::string, ::std::string>&&> otherMetadata_ref() && {
     return {std::move(otherMetadata), __isset.otherMetadata};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int64_t&> load_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const int64_t&> load_ref() const& {
     return {load, __isset.load};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int64_t&&> load_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const int64_t&&> load_ref() const&& {
     return {std::move(load), __isset.load};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int64_t&> load_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<int64_t&> load_ref() & {
     return {load, __isset.load};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int64_t&&> load_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<int64_t&&> load_ref() && {
     return {std::move(load), __isset.load};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::uint32_t&> crc32c_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const std::uint32_t&> crc32c_ref() const& {
     return {crc32c, __isset.crc32c};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::uint32_t&&> crc32c_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const std::uint32_t&&> crc32c_ref() const&& {
     return {std::move(crc32c), __isset.crc32c};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::uint32_t&> crc32c_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<std::uint32_t&> crc32c_ref() & {
     return {crc32c, __isset.crc32c};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::uint32_t&&> crc32c_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<std::uint32_t&&> crc32c_ref() && {
     return {std::move(crc32c), __isset.crc32c};
   }
 
@@ -866,12 +904,12 @@ class ResponseRpcMetadata final : private apache::thrift::detail::st::Comparison
     __isset.seqId = true;
     return seqId;
   }
-  const std::map<std::string, std::string>* get_otherMetadata() const&;
-  std::map<std::string, std::string>* get_otherMetadata() &;
-  std::map<std::string, std::string>* get_otherMetadata() && = delete;
+  const ::std::map<::std::string, ::std::string>* get_otherMetadata() const&;
+  ::std::map<::std::string, ::std::string>* get_otherMetadata() &;
+  ::std::map<::std::string, ::std::string>* get_otherMetadata() && = delete;
 
-  template <typename T_ResponseRpcMetadata_otherMetadata_struct_setter = std::map<std::string, std::string>>
-  std::map<std::string, std::string>& set_otherMetadata(T_ResponseRpcMetadata_otherMetadata_struct_setter&& otherMetadata_) {
+  template <typename T_ResponseRpcMetadata_otherMetadata_struct_setter = ::std::map<::std::string, ::std::string>>
+  ::std::map<::std::string, ::std::string>& set_otherMetadata(T_ResponseRpcMetadata_otherMetadata_struct_setter&& otherMetadata_) {
     otherMetadata = std::forward<T_ResponseRpcMetadata_otherMetadata_struct_setter>(otherMetadata_);
     __isset.otherMetadata = true;
     return otherMetadata;
@@ -986,7 +1024,7 @@ class RequestSetupMetadata final : private apache::thrift::detail::st::Compariso
   RequestSetupMetadata() {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  RequestSetupMetadata(apache::thrift::FragileConstructor, apache::thrift::MetadataOpaqueMap<std::string, std::string> opaque__arg);
+  RequestSetupMetadata(apache::thrift::FragileConstructor, apache::thrift::MetadataOpaqueMap<::std::string, ::std::string> opaque__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     opaque = arg.extract();
@@ -1001,7 +1039,7 @@ class RequestSetupMetadata final : private apache::thrift::detail::st::Compariso
 
   RequestSetupMetadata& operator=(const RequestSetupMetadata&) = default;
   void __clear();
-  apache::thrift::MetadataOpaqueMap<std::string, std::string> opaque;
+  apache::thrift::MetadataOpaqueMap<::std::string, ::std::string> opaque;
 
   struct __isset {
     bool opaque;
@@ -1009,27 +1047,27 @@ class RequestSetupMetadata final : private apache::thrift::detail::st::Compariso
   bool operator==(const RequestSetupMetadata& rhs) const;
   bool operator<(const RequestSetupMetadata& rhs) const;
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const apache::thrift::MetadataOpaqueMap<std::string, std::string>&> opaque_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const apache::thrift::MetadataOpaqueMap<::std::string, ::std::string>&> opaque_ref() const& {
     return {opaque, __isset.opaque};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const apache::thrift::MetadataOpaqueMap<std::string, std::string>&&> opaque_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const apache::thrift::MetadataOpaqueMap<::std::string, ::std::string>&&> opaque_ref() const&& {
     return {std::move(opaque), __isset.opaque};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<apache::thrift::MetadataOpaqueMap<std::string, std::string>&> opaque_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<apache::thrift::MetadataOpaqueMap<::std::string, ::std::string>&> opaque_ref() & {
     return {opaque, __isset.opaque};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<apache::thrift::MetadataOpaqueMap<std::string, std::string>&&> opaque_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<apache::thrift::MetadataOpaqueMap<::std::string, ::std::string>&&> opaque_ref() && {
     return {std::move(opaque), __isset.opaque};
   }
-  const apache::thrift::MetadataOpaqueMap<std::string, std::string>* get_opaque() const&;
-  apache::thrift::MetadataOpaqueMap<std::string, std::string>* get_opaque() &;
-  apache::thrift::MetadataOpaqueMap<std::string, std::string>* get_opaque() && = delete;
+  const apache::thrift::MetadataOpaqueMap<::std::string, ::std::string>* get_opaque() const&;
+  apache::thrift::MetadataOpaqueMap<::std::string, ::std::string>* get_opaque() &;
+  apache::thrift::MetadataOpaqueMap<::std::string, ::std::string>* get_opaque() && = delete;
 
-  template <typename T_RequestSetupMetadata_opaque_struct_setter = apache::thrift::MetadataOpaqueMap<std::string, std::string>>
-  apache::thrift::MetadataOpaqueMap<std::string, std::string>& set_opaque(T_RequestSetupMetadata_opaque_struct_setter&& opaque_) {
+  template <typename T_RequestSetupMetadata_opaque_struct_setter = apache::thrift::MetadataOpaqueMap<::std::string, ::std::string>>
+  apache::thrift::MetadataOpaqueMap<::std::string, ::std::string>& set_opaque(T_RequestSetupMetadata_opaque_struct_setter&& opaque_) {
     opaque = std::forward<T_RequestSetupMetadata_opaque_struct_setter>(opaque_);
     __isset.opaque = true;
     return opaque;

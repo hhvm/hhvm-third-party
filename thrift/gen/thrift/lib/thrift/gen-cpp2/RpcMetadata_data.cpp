@@ -7,6 +7,8 @@
 
 #include "thrift/lib/thrift/gen-cpp2/RpcMetadata_data.h"
 
+#include <thrift/lib/cpp2/gen/module_data_cpp.h>
+
 namespace apache { namespace thrift {
 
 constexpr const std::size_t _ProtocolIdEnumDataStorage::size;
@@ -20,8 +22,8 @@ namespace apache { namespace thrift {
 namespace apache { namespace thrift {
 
 constexpr const std::size_t _RpcKindEnumDataStorage::size;
-constexpr const std::array<RpcKind, 6> _RpcKindEnumDataStorage::values;
-constexpr const std::array<folly::StringPiece, 6> _RpcKindEnumDataStorage::names;
+constexpr const std::array<RpcKind, 7> _RpcKindEnumDataStorage::values;
+constexpr const std::array<folly::StringPiece, 7> _RpcKindEnumDataStorage::names;
 
 }} // apache::thrift
 namespace apache { namespace thrift {

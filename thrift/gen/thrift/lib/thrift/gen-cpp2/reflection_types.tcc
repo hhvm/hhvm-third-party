@@ -8,12 +8,7 @@
 
 #include "thrift/lib/thrift/gen-cpp2/reflection_types.h"
 
-#include <thrift/lib/cpp2/GeneratedSerializationCodeHelper.h>
 #include <thrift/lib/cpp2/gen/module_types_tcc.h>
-
-#include <thrift/lib/cpp2/protocol/BinaryProtocol.h>
-#include <thrift/lib/cpp2/protocol/CompactProtocol.h>
-#include <thrift/lib/cpp2/protocol/ProtocolReaderStructReadState.h>
 
 namespace apache { namespace thrift { namespace reflection {
 
@@ -114,8 +109,8 @@ _readField_name:
   }
 _readField_annotations:
   {
-    this->annotations = std::unordered_map<std::string, std::string>();
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::string>, std::unordered_map<std::string, std::string>>::read(*iprot, this->annotations);
+    this->annotations = std::unordered_map<::std::string, ::std::string>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::string>, std::unordered_map<::std::string, ::std::string>>::read(*iprot, this->annotations);
     this->__isset.annotations = true;
   }
 
@@ -146,11 +141,12 @@ _end:
   return;
 
 _loop:
-  if (_readState.fieldType == apache::thrift::protocol::T_STOP) {
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
     goto _end;
   }
   if (iprot->kUsesFieldNames()) {
-    apache::thrift::detail::TccStructTraits<StructField>::translateFieldName(_readState.fieldName(), _readState.fieldId, _readState.fieldType);
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<StructField>>();
   }
 
   switch (_readState.fieldId) {
@@ -197,7 +193,7 @@ _loop:
     default:
     {
 _skip:
-      iprot->skip(_readState.fieldType);
+      _readState.skip(iprot);
       _readState.readFieldEnd(iprot);
       _readState.readFieldBeginNoInline(iprot);
       goto _loop;
@@ -217,7 +213,7 @@ uint32_t StructField::serializedSize(Protocol_ const* prot_) const {
   xfer += prot_->serializedSizeString(this->name);
   if (this->__isset.annotations) {
     xfer += prot_->serializedFieldSize("annotations", apache::thrift::protocol::T_MAP, 4);
-    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::string>, std::unordered_map<std::string, std::string>>::serializedSize<false>(*prot_, this->annotations);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::string>, std::unordered_map<::std::string, ::std::string>>::serializedSize<false>(*prot_, this->annotations);
   }
   xfer += prot_->serializedFieldSize("order", apache::thrift::protocol::T_I16, 5);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int16_t>::serializedSize<false>(*prot_, this->order);
@@ -237,7 +233,7 @@ uint32_t StructField::serializedSizeZC(Protocol_ const* prot_) const {
   xfer += prot_->serializedSizeString(this->name);
   if (this->__isset.annotations) {
     xfer += prot_->serializedFieldSize("annotations", apache::thrift::protocol::T_MAP, 4);
-    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::string>, std::unordered_map<std::string, std::string>>::serializedSize<false>(*prot_, this->annotations);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::string>, std::unordered_map<::std::string, ::std::string>>::serializedSize<false>(*prot_, this->annotations);
   }
   xfer += prot_->serializedFieldSize("order", apache::thrift::protocol::T_I16, 5);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int16_t>::serializedSize<false>(*prot_, this->order);
@@ -260,7 +256,7 @@ uint32_t StructField::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldEnd();
   if (this->__isset.annotations) {
     xfer += prot_->writeFieldBegin("annotations", apache::thrift::protocol::T_MAP, 4);
-    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::string>, std::unordered_map<std::string, std::string>>::write(*prot_, this->annotations);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::string>, std::unordered_map<::std::string, ::std::string>>::write(*prot_, this->annotations);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldBegin("order", apache::thrift::protocol::T_I16, 5);
@@ -354,8 +350,8 @@ _readField_valueType:
   }
 _readField_enumValues:
   {
-    this->enumValues = std::unordered_map<std::string, int32_t>();
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<std::string, int32_t>>::read(*iprot, this->enumValues);
+    this->enumValues = std::unordered_map<::std::string, int32_t>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<::std::string, int32_t>>::read(*iprot, this->enumValues);
     this->__isset.enumValues = true;
   }
 
@@ -373,11 +369,12 @@ _end:
   return;
 
 _loop:
-  if (_readState.fieldType == apache::thrift::protocol::T_STOP) {
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
     goto _end;
   }
   if (iprot->kUsesFieldNames()) {
-    apache::thrift::detail::TccStructTraits<DataType>::translateFieldName(_readState.fieldName(), _readState.fieldId, _readState.fieldType);
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<DataType>>();
   }
 
   switch (_readState.fieldId) {
@@ -424,7 +421,7 @@ _loop:
     default:
     {
 _skip:
-      iprot->skip(_readState.fieldType);
+      _readState.skip(iprot);
       _readState.readFieldEnd(iprot);
       _readState.readFieldBeginNoInline(iprot);
       goto _loop;
@@ -452,7 +449,7 @@ uint32_t DataType::serializedSize(Protocol_ const* prot_) const {
   }
   if (this->__isset.enumValues) {
     xfer += prot_->serializedFieldSize("enumValues", apache::thrift::protocol::T_MAP, 5);
-    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<std::string, int32_t>>::serializedSize<false>(*prot_, this->enumValues);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<::std::string, int32_t>>::serializedSize<false>(*prot_, this->enumValues);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -478,7 +475,7 @@ uint32_t DataType::serializedSizeZC(Protocol_ const* prot_) const {
   }
   if (this->__isset.enumValues) {
     xfer += prot_->serializedFieldSize("enumValues", apache::thrift::protocol::T_MAP, 5);
-    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<std::string, int32_t>>::serializedSize<false>(*prot_, this->enumValues);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<::std::string, int32_t>>::serializedSize<false>(*prot_, this->enumValues);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -508,7 +505,7 @@ uint32_t DataType::write(Protocol_* prot_) const {
   }
   if (this->__isset.enumValues) {
     xfer += prot_->writeFieldBegin("enumValues", apache::thrift::protocol::T_MAP, 5);
-    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<std::string, int32_t>>::write(*prot_, this->enumValues);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<::std::string, int32_t>>::write(*prot_, this->enumValues);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -560,8 +557,8 @@ _readField_dataTypes:
   }
 _readField_names:
   {
-    this->names = std::unordered_map<std::string, int64_t>();
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<std::string, int64_t>>::read(*iprot, this->names);
+    this->names = std::unordered_map<::std::string, int64_t>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<::std::string, int64_t>>::read(*iprot, this->names);
     this->__isset.names = true;
   }
 
@@ -579,11 +576,12 @@ _end:
   return;
 
 _loop:
-  if (_readState.fieldType == apache::thrift::protocol::T_STOP) {
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
     goto _end;
   }
   if (iprot->kUsesFieldNames()) {
-    apache::thrift::detail::TccStructTraits<Schema>::translateFieldName(_readState.fieldName(), _readState.fieldId, _readState.fieldType);
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<Schema>>();
   }
 
   switch (_readState.fieldId) {
@@ -606,7 +604,7 @@ _loop:
     default:
     {
 _skip:
-      iprot->skip(_readState.fieldType);
+      _readState.skip(iprot);
       _readState.readFieldEnd(iprot);
       _readState.readFieldBeginNoInline(iprot);
       goto _loop;
@@ -621,7 +619,7 @@ uint32_t Schema::serializedSize(Protocol_ const* prot_) const {
   xfer += prot_->serializedFieldSize("dataTypes", apache::thrift::protocol::T_MAP, 1);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>, std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType>>::serializedSize<false>(*prot_, this->dataTypes);
   xfer += prot_->serializedFieldSize("names", apache::thrift::protocol::T_MAP, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<std::string, int64_t>>::serializedSize<false>(*prot_, this->names);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<::std::string, int64_t>>::serializedSize<false>(*prot_, this->names);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -633,7 +631,7 @@ uint32_t Schema::serializedSizeZC(Protocol_ const* prot_) const {
   xfer += prot_->serializedFieldSize("dataTypes", apache::thrift::protocol::T_MAP, 1);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>, std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType>>::serializedSize<false>(*prot_, this->dataTypes);
   xfer += prot_->serializedFieldSize("names", apache::thrift::protocol::T_MAP, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<std::string, int64_t>>::serializedSize<false>(*prot_, this->names);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<::std::string, int64_t>>::serializedSize<false>(*prot_, this->names);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -646,7 +644,7 @@ uint32_t Schema::write(Protocol_* prot_) const {
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>, std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType>>::write(*prot_, this->dataTypes);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldBegin("names", apache::thrift::protocol::T_MAP, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<std::string, int64_t>>::write(*prot_, this->names);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::string, ::apache::thrift::type_class::integral>, std::unordered_map<::std::string, int64_t>>::write(*prot_, this->names);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();

@@ -6,9 +6,7 @@
  */
 #pragma once
 
-#include <array>
-#include <cstddef>
-#include <thrift/lib/cpp/Thrift.h>
+#include <thrift/lib/cpp2/gen/module_data_h.h>
 
 #include "thrift/lib/thrift/gen-cpp2/RpcMetadata_types.h"
 
@@ -39,22 +37,24 @@ namespace apache { namespace thrift {
 
 struct _RpcKindEnumDataStorage {
   using type = RpcKind;
-  static constexpr const std::size_t size = 6;
-  static constexpr const std::array<RpcKind, 6> values = {{
+  static constexpr const std::size_t size = 7;
+  static constexpr const std::array<RpcKind, 7> values = {{
     RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE,
     RpcKind::SINGLE_REQUEST_NO_RESPONSE,
     RpcKind::STREAMING_REQUEST_SINGLE_RESPONSE,
     RpcKind::STREAMING_REQUEST_NO_RESPONSE,
     RpcKind::SINGLE_REQUEST_STREAMING_RESPONSE,
     RpcKind::STREAMING_REQUEST_STREAMING_RESPONSE,
+    RpcKind::SINK,
   }};
-  static constexpr const std::array<folly::StringPiece, 6> names = {{
+  static constexpr const std::array<folly::StringPiece, 7> names = {{
     "SINGLE_REQUEST_SINGLE_RESPONSE",
     "SINGLE_REQUEST_NO_RESPONSE",
     "STREAMING_REQUEST_SINGLE_RESPONSE",
     "STREAMING_REQUEST_NO_RESPONSE",
     "SINGLE_REQUEST_STREAMING_RESPONSE",
     "STREAMING_REQUEST_STREAMING_RESPONSE",
+    "SINK",
   }};
 };
 

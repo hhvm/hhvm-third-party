@@ -7,8 +7,7 @@
 #include "thrift/lib/thrift/gen-cpp2/frozen_types.h"
 #include "thrift/lib/thrift/gen-cpp2/frozen_types.tcc"
 
-#include <algorithm>
-#include <folly/Indestructible.h>
+#include <thrift/lib/cpp2/gen/module_types_cpp.h>
 
 #include "thrift/lib/thrift/gen-cpp2/frozen_data.h"
 
@@ -142,7 +141,7 @@ template uint32_t Field::serializedSizeZC<>(apache::thrift::CompactProtocolWrite
 }}}} // apache::thrift::frozen::schema
 namespace apache { namespace thrift { namespace frozen { namespace schema {
 
-Layout::Layout(apache::thrift::FragileConstructor, int32_t size__arg, int16_t bits__arg, std::map<int16_t,  ::apache::thrift::frozen::schema::Field> fields__arg, std::string typeName__arg) :
+Layout::Layout(apache::thrift::FragileConstructor, int32_t size__arg, int16_t bits__arg, ::std::map<int16_t,  ::apache::thrift::frozen::schema::Field> fields__arg, ::std::string typeName__arg) :
     size(std::move(size__arg)),
     bits(std::move(bits__arg)),
     fields(std::move(fields__arg)),
@@ -200,11 +199,11 @@ bool Layout::operator<(const Layout& rhs) const {
   return false;
 }
 
-const std::map<int16_t,  ::apache::thrift::frozen::schema::Field>& Layout::get_fields() const& {
+const ::std::map<int16_t,  ::apache::thrift::frozen::schema::Field>& Layout::get_fields() const& {
   return fields;
 }
 
-std::map<int16_t,  ::apache::thrift::frozen::schema::Field> Layout::get_fields() && {
+::std::map<int16_t,  ::apache::thrift::frozen::schema::Field> Layout::get_fields() && {
   return std::move(fields);
 }
 
@@ -230,7 +229,7 @@ template uint32_t Layout::serializedSizeZC<>(apache::thrift::CompactProtocolWrit
 }}}} // apache::thrift::frozen::schema
 namespace apache { namespace thrift { namespace frozen { namespace schema {
 
-Schema::Schema(apache::thrift::FragileConstructor, int32_t fileVersion__arg, bool relaxTypeChecks__arg, std::map<int16_t,  ::apache::thrift::frozen::schema::Layout> layouts__arg, int16_t rootLayout__arg) :
+Schema::Schema(apache::thrift::FragileConstructor, int32_t fileVersion__arg, bool relaxTypeChecks__arg, ::std::map<int16_t,  ::apache::thrift::frozen::schema::Layout> layouts__arg, int16_t rootLayout__arg) :
     fileVersion(std::move(fileVersion__arg)),
     relaxTypeChecks(std::move(relaxTypeChecks__arg)),
     layouts(std::move(layouts__arg)),
@@ -288,11 +287,11 @@ bool Schema::operator<(const Schema& rhs) const {
   return false;
 }
 
-const std::map<int16_t,  ::apache::thrift::frozen::schema::Layout>& Schema::get_layouts() const& {
+const ::std::map<int16_t,  ::apache::thrift::frozen::schema::Layout>& Schema::get_layouts() const& {
   return layouts;
 }
 
-std::map<int16_t,  ::apache::thrift::frozen::schema::Layout> Schema::get_layouts() && {
+::std::map<int16_t,  ::apache::thrift::frozen::schema::Layout> Schema::get_layouts() && {
   return std::move(layouts);
 }
 

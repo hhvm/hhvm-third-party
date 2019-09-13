@@ -7,8 +7,7 @@
 #include "thrift/lib/cpp2/transport/rsocket/gen-cpp2/Config_types.h"
 #include "thrift/lib/cpp2/transport/rsocket/gen-cpp2/Config_types.tcc"
 
-#include <algorithm>
-#include <folly/Indestructible.h>
+#include <thrift/lib/cpp2/gen/module_types_cpp.h>
 
 #include "thrift/lib/cpp2/transport/rsocket/gen-cpp2/Config_data.h"
 

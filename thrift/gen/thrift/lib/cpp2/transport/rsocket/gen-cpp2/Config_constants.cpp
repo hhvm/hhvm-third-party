@@ -7,7 +7,8 @@
 
 #include "thrift/lib/cpp2/transport/rsocket/gen-cpp2/Config_constants.h"
 
-#include <folly/Indestructible.h>
+#include <thrift/lib/cpp2/gen/module_constants_cpp.h>
+
 
 namespace apache { namespace thrift {
 

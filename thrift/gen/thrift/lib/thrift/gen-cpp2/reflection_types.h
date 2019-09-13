@@ -6,10 +6,8 @@
  */
 #pragma once
 
-#include <thrift/lib/cpp2/GeneratedHeaderHelper.h>
-#include <thrift/lib/cpp2/Thrift.h>
 #include <thrift/lib/cpp2/gen/module_types_h.h>
-#include <thrift/lib/cpp2/protocol/Protocol.h>
+
 
 #include <unordered_map>
 
@@ -102,7 +100,7 @@ class StructField final : private apache::thrift::detail::st::ComparisonOperator
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  StructField(apache::thrift::FragileConstructor, bool isRequired__arg, int64_t type__arg, std::string name__arg, std::unordered_map<std::string, std::string> annotations__arg, int16_t order__arg);
+  StructField(apache::thrift::FragileConstructor, bool isRequired__arg, int64_t type__arg, ::std::string name__arg, std::unordered_map<::std::string, ::std::string> annotations__arg, int16_t order__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     isRequired = arg.extract();
@@ -142,8 +140,8 @@ class StructField final : private apache::thrift::detail::st::ComparisonOperator
 
   bool isRequired;
   int64_t type;
-  std::string name;
-  std::unordered_map<std::string, std::string> annotations;
+  ::std::string name;
+  std::unordered_map<::std::string, ::std::string> annotations;
   int16_t order;
 
   struct __isset {
@@ -156,19 +154,19 @@ class StructField final : private apache::thrift::detail::st::ComparisonOperator
   bool operator==(const StructField& rhs) const;
   bool operator<(const StructField& rhs) const;
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::unordered_map<std::string, std::string>&> annotations_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const std::unordered_map<::std::string, ::std::string>&> annotations_ref() const& {
     return {annotations, __isset.annotations};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::unordered_map<std::string, std::string>&&> annotations_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const std::unordered_map<::std::string, ::std::string>&&> annotations_ref() const&& {
     return {std::move(annotations), __isset.annotations};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::unordered_map<std::string, std::string>&> annotations_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<std::unordered_map<::std::string, ::std::string>&> annotations_ref() & {
     return {annotations, __isset.annotations};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::unordered_map<std::string, std::string>&&> annotations_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<std::unordered_map<::std::string, ::std::string>&&> annotations_ref() && {
     return {std::move(annotations), __isset.annotations};
   }
 
@@ -192,26 +190,26 @@ class StructField final : private apache::thrift::detail::st::ComparisonOperator
     return type;
   }
 
-  const std::string& get_name() const& {
+  const ::std::string& get_name() const& {
     return name;
   }
 
-  std::string get_name() && {
+  ::std::string get_name() && {
     return std::move(name);
   }
 
-  template <typename T_StructField_name_struct_setter = std::string>
-  std::string& set_name(T_StructField_name_struct_setter&& name_) {
+  template <typename T_StructField_name_struct_setter = ::std::string>
+  ::std::string& set_name(T_StructField_name_struct_setter&& name_) {
     name = std::forward<T_StructField_name_struct_setter>(name_);
     __isset.name = true;
     return name;
   }
-  const std::unordered_map<std::string, std::string>* get_annotations() const&;
-  std::unordered_map<std::string, std::string>* get_annotations() &;
-  std::unordered_map<std::string, std::string>* get_annotations() && = delete;
+  const std::unordered_map<::std::string, ::std::string>* get_annotations() const&;
+  std::unordered_map<::std::string, ::std::string>* get_annotations() &;
+  std::unordered_map<::std::string, ::std::string>* get_annotations() && = delete;
 
-  template <typename T_StructField_annotations_struct_setter = std::unordered_map<std::string, std::string>>
-  std::unordered_map<std::string, std::string>& set_annotations(T_StructField_annotations_struct_setter&& annotations_) {
+  template <typename T_StructField_annotations_struct_setter = std::unordered_map<::std::string, ::std::string>>
+  std::unordered_map<::std::string, ::std::string>& set_annotations(T_StructField_annotations_struct_setter&& annotations_) {
     annotations = std::forward<T_StructField_annotations_struct_setter>(annotations_);
     __isset.annotations = true;
     return annotations;
@@ -261,7 +259,7 @@ class DataType final : private apache::thrift::detail::st::ComparisonOperators<D
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  DataType(apache::thrift::FragileConstructor, std::string name__arg, std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField> fields__arg, int64_t mapKeyType__arg, int64_t valueType__arg, std::unordered_map<std::string, int32_t> enumValues__arg);
+  DataType(apache::thrift::FragileConstructor, ::std::string name__arg, std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField> fields__arg, int64_t mapKeyType__arg, int64_t valueType__arg, std::unordered_map<::std::string, int32_t> enumValues__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     name = arg.extract();
@@ -299,11 +297,11 @@ class DataType final : private apache::thrift::detail::st::ComparisonOperators<D
 
   ~DataType();
 
-  std::string name;
+  ::std::string name;
   std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField> fields;
   int64_t mapKeyType;
   int64_t valueType;
-  std::unordered_map<std::string, int32_t> enumValues;
+  std::unordered_map<::std::string, int32_t> enumValues;
 
   struct __isset {
     bool name;
@@ -315,80 +313,80 @@ class DataType final : private apache::thrift::detail::st::ComparisonOperators<D
   bool operator==(const DataType& rhs) const;
   bool operator<(const DataType& rhs) const;
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField>&> fields_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField>&> fields_ref() const& {
     return {fields, __isset.fields};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField>&&> fields_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField>&&> fields_ref() const&& {
     return {std::move(fields), __isset.fields};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField>&> fields_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField>&> fields_ref() & {
     return {fields, __isset.fields};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField>&&> fields_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField>&&> fields_ref() && {
     return {std::move(fields), __isset.fields};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int64_t&> mapKeyType_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const int64_t&> mapKeyType_ref() const& {
     return {mapKeyType, __isset.mapKeyType};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int64_t&&> mapKeyType_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const int64_t&&> mapKeyType_ref() const&& {
     return {std::move(mapKeyType), __isset.mapKeyType};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int64_t&> mapKeyType_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<int64_t&> mapKeyType_ref() & {
     return {mapKeyType, __isset.mapKeyType};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int64_t&&> mapKeyType_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<int64_t&&> mapKeyType_ref() && {
     return {std::move(mapKeyType), __isset.mapKeyType};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int64_t&> valueType_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const int64_t&> valueType_ref() const& {
     return {valueType, __isset.valueType};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const int64_t&&> valueType_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const int64_t&&> valueType_ref() const&& {
     return {std::move(valueType), __isset.valueType};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int64_t&> valueType_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<int64_t&> valueType_ref() & {
     return {valueType, __isset.valueType};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<int64_t&&> valueType_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<int64_t&&> valueType_ref() && {
     return {std::move(valueType), __isset.valueType};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::unordered_map<std::string, int32_t>&> enumValues_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const std::unordered_map<::std::string, int32_t>&> enumValues_ref() const& {
     return {enumValues, __isset.enumValues};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const std::unordered_map<std::string, int32_t>&&> enumValues_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const std::unordered_map<::std::string, int32_t>&&> enumValues_ref() const&& {
     return {std::move(enumValues), __isset.enumValues};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::unordered_map<std::string, int32_t>&> enumValues_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<std::unordered_map<::std::string, int32_t>&> enumValues_ref() & {
     return {enumValues, __isset.enumValues};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<std::unordered_map<std::string, int32_t>&&> enumValues_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<std::unordered_map<::std::string, int32_t>&&> enumValues_ref() && {
     return {std::move(enumValues), __isset.enumValues};
   }
 
-  const std::string& get_name() const& {
+  const ::std::string& get_name() const& {
     return name;
   }
 
-  std::string get_name() && {
+  ::std::string get_name() && {
     return std::move(name);
   }
 
-  template <typename T_DataType_name_struct_setter = std::string>
-  std::string& set_name(T_DataType_name_struct_setter&& name_) {
+  template <typename T_DataType_name_struct_setter = ::std::string>
+  ::std::string& set_name(T_DataType_name_struct_setter&& name_) {
     name = std::forward<T_DataType_name_struct_setter>(name_);
     __isset.name = true;
     return name;
@@ -433,12 +431,12 @@ class DataType final : private apache::thrift::detail::st::ComparisonOperators<D
     __isset.valueType = true;
     return valueType;
   }
-  const std::unordered_map<std::string, int32_t>* get_enumValues() const&;
-  std::unordered_map<std::string, int32_t>* get_enumValues() &;
-  std::unordered_map<std::string, int32_t>* get_enumValues() && = delete;
+  const std::unordered_map<::std::string, int32_t>* get_enumValues() const&;
+  std::unordered_map<::std::string, int32_t>* get_enumValues() &;
+  std::unordered_map<::std::string, int32_t>* get_enumValues() && = delete;
 
-  template <typename T_DataType_enumValues_struct_setter = std::unordered_map<std::string, int32_t>>
-  std::unordered_map<std::string, int32_t>& set_enumValues(T_DataType_enumValues_struct_setter&& enumValues_) {
+  template <typename T_DataType_enumValues_struct_setter = std::unordered_map<::std::string, int32_t>>
+  std::unordered_map<::std::string, int32_t>& set_enumValues(T_DataType_enumValues_struct_setter&& enumValues_) {
     enumValues = std::forward<T_DataType_enumValues_struct_setter>(enumValues_);
     __isset.enumValues = true;
     return enumValues;
@@ -477,7 +475,7 @@ class Schema final : private apache::thrift::detail::st::ComparisonOperators<Sch
   Schema() {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  Schema(apache::thrift::FragileConstructor, std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType> dataTypes__arg, std::unordered_map<std::string, int64_t> names__arg);
+  Schema(apache::thrift::FragileConstructor, std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType> dataTypes__arg, std::unordered_map<::std::string, int64_t> names__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     dataTypes = arg.extract();
@@ -498,7 +496,7 @@ class Schema final : private apache::thrift::detail::st::ComparisonOperators<Sch
   Schema& operator=(const Schema&) = default;
   void __clear();
   std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType> dataTypes;
-  std::unordered_map<std::string, int64_t> names;
+  std::unordered_map<::std::string, int64_t> names;
 
   struct __isset {
     bool dataTypes;
@@ -515,11 +513,11 @@ class Schema final : private apache::thrift::detail::st::ComparisonOperators<Sch
     __isset.dataTypes = true;
     return dataTypes;
   }
-  const std::unordered_map<std::string, int64_t>& get_names() const&;
-  std::unordered_map<std::string, int64_t> get_names() &&;
+  const std::unordered_map<::std::string, int64_t>& get_names() const&;
+  std::unordered_map<::std::string, int64_t> get_names() &&;
 
-  template <typename T_Schema_names_struct_setter = std::unordered_map<std::string, int64_t>>
-  std::unordered_map<std::string, int64_t>& set_names(T_Schema_names_struct_setter&& names_) {
+  template <typename T_Schema_names_struct_setter = std::unordered_map<::std::string, int64_t>>
+  std::unordered_map<::std::string, int64_t>& set_names(T_Schema_names_struct_setter&& names_) {
     names = std::forward<T_Schema_names_struct_setter>(names_);
     __isset.names = true;
     return names;

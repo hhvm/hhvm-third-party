@@ -7,4 +7,6 @@
 
 #include "thrift/lib/cpp2/transport/rsocket/gen-cpp2/Config_data.h"
 
+#include <thrift/lib/cpp2/gen/module_data_cpp.h>
+
 

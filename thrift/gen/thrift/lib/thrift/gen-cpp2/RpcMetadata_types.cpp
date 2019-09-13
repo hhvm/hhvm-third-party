@@ -7,8 +7,7 @@
 #include "thrift/lib/thrift/gen-cpp2/RpcMetadata_types.h"
 #include "thrift/lib/thrift/gen-cpp2/RpcMetadata_types.tcc"
 
-#include <algorithm>
-#include <folly/Indestructible.h>
+#include <thrift/lib/cpp2/gen/module_types_cpp.h>
 
 #include "thrift/lib/thrift/gen-cpp2/RpcMetadata_data.h"
 
@@ -194,6 +193,10 @@ void TccStructTraits<::apache::thrift::RequestRpcMetadata>::translateFieldName(
     fid = 12;
     _ftype = apache::thrift::protocol::T_I64;
   }
+  else if (_fname == "loadMetric") {
+    fid = 13;
+    _ftype = apache::thrift::protocol::T_STRING;
+  }
 }
 void TccStructTraits<::apache::thrift::ResponseRpcMetadata>::translateFieldName(
     FOLLY_MAYBE_UNUSED folly::StringPiece _fname,
@@ -257,7 +260,7 @@ RequestRpcMetadata::RequestRpcMetadata() :
 
 RequestRpcMetadata::~RequestRpcMetadata() {}
 
-RequestRpcMetadata::RequestRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, std::string name__arg,  ::apache::thrift::RpcKind kind__arg, int32_t seqId__arg, int32_t clientTimeoutMs__arg, int32_t queueTimeoutMs__arg,  ::apache::thrift::RpcPriority priority__arg, std::map<std::string, std::string> otherMetadata__arg, std::string host__arg, std::string url__arg, std::uint32_t crc32c__arg, std::uint64_t flags__arg) :
+RequestRpcMetadata::RequestRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, ::std::string name__arg,  ::apache::thrift::RpcKind kind__arg, int32_t seqId__arg, int32_t clientTimeoutMs__arg, int32_t queueTimeoutMs__arg,  ::apache::thrift::RpcPriority priority__arg, ::std::map<::std::string, ::std::string> otherMetadata__arg, ::std::string host__arg, ::std::string url__arg, std::uint32_t crc32c__arg, std::uint64_t flags__arg, ::std::string loadMetric__arg) :
     protocol(std::move(protocol__arg)),
     name(std::move(name__arg)),
     kind(std::move(kind__arg)),
@@ -269,7 +272,8 @@ RequestRpcMetadata::RequestRpcMetadata(apache::thrift::FragileConstructor,  ::ap
     host(std::move(host__arg)),
     url(std::move(url__arg)),
     crc32c(std::move(crc32c__arg)),
-    flags(std::move(flags__arg)) {
+    flags(std::move(flags__arg)),
+    loadMetric(std::move(loadMetric__arg)) {
   __isset.protocol = true;
   __isset.name = true;
   __isset.kind = true;
@@ -282,6 +286,7 @@ RequestRpcMetadata::RequestRpcMetadata(apache::thrift::FragileConstructor,  ::ap
   __isset.url = true;
   __isset.crc32c = true;
   __isset.flags = true;
+  __isset.loadMetric = true;
 }
 
 void RequestRpcMetadata::__clear() {
@@ -298,6 +303,7 @@ void RequestRpcMetadata::__clear() {
   url = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
   crc32c = 0;
   flags = 0;
+  loadMetric = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
   __isset = {};
 }
 
@@ -398,6 +404,14 @@ bool RequestRpcMetadata::operator==(const RequestRpcMetadata& rhs) const {
   }
   if (lhs.__isset.flags) {
     if (!(lhs.flags == rhs.flags)) {
+      return false;
+    }
+  }
+  if (lhs.__isset.loadMetric != rhs.__isset.loadMetric) {
+    return false;
+  }
+  if (lhs.__isset.loadMetric) {
+    if (!(lhs.loadMetric == rhs.loadMetric)) {
       return false;
     }
   }
@@ -504,14 +518,22 @@ bool RequestRpcMetadata::operator<(const RequestRpcMetadata& rhs) const {
       return lhs.flags < rhs.flags;
     }
   }
+  if (lhs.__isset.loadMetric != rhs.__isset.loadMetric) {
+    return lhs.__isset.loadMetric < rhs.__isset.loadMetric;
+  }
+  if (lhs.__isset.loadMetric) {
+    if (!(lhs.loadMetric == rhs.loadMetric)) {
+      return lhs.loadMetric < rhs.loadMetric;
+    }
+  }
   return false;
 }
 
-const std::map<std::string, std::string>* RequestRpcMetadata::get_otherMetadata() const& {
+const ::std::map<::std::string, ::std::string>* RequestRpcMetadata::get_otherMetadata() const& {
   return __isset.otherMetadata ? std::addressof(otherMetadata) : nullptr;
 }
 
-std::map<std::string, std::string>* RequestRpcMetadata::get_otherMetadata() & {
+::std::map<::std::string, ::std::string>* RequestRpcMetadata::get_otherMetadata() & {
   return __isset.otherMetadata ? std::addressof(otherMetadata) : nullptr;
 }
 
@@ -530,6 +552,7 @@ void swap(RequestRpcMetadata& a, RequestRpcMetadata& b) {
   swap(a.url, b.url);
   swap(a.crc32c, b.crc32c);
   swap(a.flags, b.flags);
+  swap(a.loadMetric, b.loadMetric);
   swap(a.__isset, b.__isset);
 }
 
@@ -554,7 +577,7 @@ ResponseRpcMetadata::ResponseRpcMetadata() :
 
 ResponseRpcMetadata::~ResponseRpcMetadata() {}
 
-ResponseRpcMetadata::ResponseRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, int32_t seqId__arg, std::map<std::string, std::string> otherMetadata__arg, int64_t load__arg, std::uint32_t crc32c__arg) :
+ResponseRpcMetadata::ResponseRpcMetadata(apache::thrift::FragileConstructor,  ::apache::thrift::ProtocolId protocol__arg, int32_t seqId__arg, ::std::map<::std::string, ::std::string> otherMetadata__arg, int64_t load__arg, std::uint32_t crc32c__arg) :
     protocol(std::move(protocol__arg)),
     seqId(std::move(seqId__arg)),
     otherMetadata(std::move(otherMetadata__arg)),
@@ -671,11 +694,11 @@ bool ResponseRpcMetadata::operator<(const ResponseRpcMetadata& rhs) const {
   return false;
 }
 
-const std::map<std::string, std::string>* ResponseRpcMetadata::get_otherMetadata() const& {
+const ::std::map<::std::string, ::std::string>* ResponseRpcMetadata::get_otherMetadata() const& {
   return __isset.otherMetadata ? std::addressof(otherMetadata) : nullptr;
 }
 
-std::map<std::string, std::string>* ResponseRpcMetadata::get_otherMetadata() & {
+::std::map<::std::string, ::std::string>* ResponseRpcMetadata::get_otherMetadata() & {
   return __isset.otherMetadata ? std::addressof(otherMetadata) : nullptr;
 }
 
@@ -741,7 +764,7 @@ template uint32_t StreamPayloadMetadata::serializedSizeZC<>(apache::thrift::Comp
 }} // apache::thrift
 namespace apache { namespace thrift {
 
-RequestSetupMetadata::RequestSetupMetadata(apache::thrift::FragileConstructor, apache::thrift::MetadataOpaqueMap<std::string, std::string> opaque__arg) :
+RequestSetupMetadata::RequestSetupMetadata(apache::thrift::FragileConstructor, apache::thrift::MetadataOpaqueMap<::std::string, ::std::string> opaque__arg) :
     opaque(std::move(opaque__arg)) {
   __isset.opaque = true;
 }
@@ -767,11 +790,11 @@ bool RequestSetupMetadata::operator==(const RequestSetupMetadata& rhs) const {
   return true;
 }
 
-const apache::thrift::MetadataOpaqueMap<std::string, std::string>* RequestSetupMetadata::get_opaque() const& {
+const apache::thrift::MetadataOpaqueMap<::std::string, ::std::string>* RequestSetupMetadata::get_opaque() const& {
   return __isset.opaque ? std::addressof(opaque) : nullptr;
 }
 
-apache::thrift::MetadataOpaqueMap<std::string, std::string>* RequestSetupMetadata::get_opaque() & {
+apache::thrift::MetadataOpaqueMap<::std::string, ::std::string>* RequestSetupMetadata::get_opaque() & {
   return __isset.opaque ? std::addressof(opaque) : nullptr;
 }
 

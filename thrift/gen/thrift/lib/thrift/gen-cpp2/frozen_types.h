@@ -6,10 +6,8 @@
  */
 #pragma once
 
-#include <thrift/lib/cpp2/GeneratedHeaderHelper.h>
-#include <thrift/lib/cpp2/Thrift.h>
 #include <thrift/lib/cpp2/gen/module_types_h.h>
-#include <thrift/lib/cpp2/protocol/Protocol.h>
+
 
 
 // BEGIN declare_enums
@@ -124,7 +122,7 @@ class Layout final : private apache::thrift::detail::st::ComparisonOperators<Lay
       bits(static_cast<int16_t>(0)) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  Layout(apache::thrift::FragileConstructor, int32_t size__arg, int16_t bits__arg, std::map<int16_t,  ::apache::thrift::frozen::schema::Field> fields__arg, std::string typeName__arg);
+  Layout(apache::thrift::FragileConstructor, int32_t size__arg, int16_t bits__arg, ::std::map<int16_t,  ::apache::thrift::frozen::schema::Field> fields__arg, ::std::string typeName__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     size = arg.extract();
@@ -156,8 +154,8 @@ class Layout final : private apache::thrift::detail::st::ComparisonOperators<Lay
   void __clear();
   int32_t size;
   int16_t bits;
-  std::map<int16_t,  ::apache::thrift::frozen::schema::Field> fields;
-  std::string typeName;
+  ::std::map<int16_t,  ::apache::thrift::frozen::schema::Field> fields;
+  ::std::string typeName;
 
   struct __isset {
     bool size;
@@ -187,26 +185,26 @@ class Layout final : private apache::thrift::detail::st::ComparisonOperators<Lay
     __isset.bits = true;
     return bits;
   }
-  const std::map<int16_t,  ::apache::thrift::frozen::schema::Field>& get_fields() const&;
-  std::map<int16_t,  ::apache::thrift::frozen::schema::Field> get_fields() &&;
+  const ::std::map<int16_t,  ::apache::thrift::frozen::schema::Field>& get_fields() const&;
+  ::std::map<int16_t,  ::apache::thrift::frozen::schema::Field> get_fields() &&;
 
-  template <typename T_Layout_fields_struct_setter = std::map<int16_t,  ::apache::thrift::frozen::schema::Field>>
-  std::map<int16_t,  ::apache::thrift::frozen::schema::Field>& set_fields(T_Layout_fields_struct_setter&& fields_) {
+  template <typename T_Layout_fields_struct_setter = ::std::map<int16_t,  ::apache::thrift::frozen::schema::Field>>
+  ::std::map<int16_t,  ::apache::thrift::frozen::schema::Field>& set_fields(T_Layout_fields_struct_setter&& fields_) {
     fields = std::forward<T_Layout_fields_struct_setter>(fields_);
     __isset.fields = true;
     return fields;
   }
 
-  const std::string& get_typeName() const& {
+  const ::std::string& get_typeName() const& {
     return typeName;
   }
 
-  std::string get_typeName() && {
+  ::std::string get_typeName() && {
     return std::move(typeName);
   }
 
-  template <typename T_Layout_typeName_struct_setter = std::string>
-  std::string& set_typeName(T_Layout_typeName_struct_setter&& typeName_) {
+  template <typename T_Layout_typeName_struct_setter = ::std::string>
+  ::std::string& set_typeName(T_Layout_typeName_struct_setter&& typeName_) {
     typeName = std::forward<T_Layout_typeName_struct_setter>(typeName_);
     __isset.typeName = true;
     return typeName;
@@ -248,7 +246,7 @@ class Schema final : private apache::thrift::detail::st::ComparisonOperators<Sch
       rootLayout(static_cast<int16_t>(0)) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  Schema(apache::thrift::FragileConstructor, int32_t fileVersion__arg, bool relaxTypeChecks__arg, std::map<int16_t,  ::apache::thrift::frozen::schema::Layout> layouts__arg, int16_t rootLayout__arg);
+  Schema(apache::thrift::FragileConstructor, int32_t fileVersion__arg, bool relaxTypeChecks__arg, ::std::map<int16_t,  ::apache::thrift::frozen::schema::Layout> layouts__arg, int16_t rootLayout__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<4, _T> arg) {
     fileVersion = arg.extract();
@@ -280,7 +278,7 @@ class Schema final : private apache::thrift::detail::st::ComparisonOperators<Sch
   void __clear();
   int32_t fileVersion;
   bool relaxTypeChecks;
-  std::map<int16_t,  ::apache::thrift::frozen::schema::Layout> layouts;
+  ::std::map<int16_t,  ::apache::thrift::frozen::schema::Layout> layouts;
   int16_t rootLayout;
 
   struct __isset {
@@ -311,11 +309,11 @@ class Schema final : private apache::thrift::detail::st::ComparisonOperators<Sch
     __isset.relaxTypeChecks = true;
     return relaxTypeChecks;
   }
-  const std::map<int16_t,  ::apache::thrift::frozen::schema::Layout>& get_layouts() const&;
-  std::map<int16_t,  ::apache::thrift::frozen::schema::Layout> get_layouts() &&;
+  const ::std::map<int16_t,  ::apache::thrift::frozen::schema::Layout>& get_layouts() const&;
+  ::std::map<int16_t,  ::apache::thrift::frozen::schema::Layout> get_layouts() &&;
 
-  template <typename T_Schema_layouts_struct_setter = std::map<int16_t,  ::apache::thrift::frozen::schema::Layout>>
-  std::map<int16_t,  ::apache::thrift::frozen::schema::Layout>& set_layouts(T_Schema_layouts_struct_setter&& layouts_) {
+  template <typename T_Schema_layouts_struct_setter = ::std::map<int16_t,  ::apache::thrift::frozen::schema::Layout>>
+  ::std::map<int16_t,  ::apache::thrift::frozen::schema::Layout>& set_layouts(T_Schema_layouts_struct_setter&& layouts_) {
     layouts = std::forward<T_Schema_layouts_struct_setter>(layouts_);
     __isset.layouts = true;
     return layouts;

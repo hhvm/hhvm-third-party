@@ -7,8 +7,7 @@
 #include "thrift/lib/thrift/gen-cpp2/reflection_types.h"
 #include "thrift/lib/thrift/gen-cpp2/reflection_types.tcc"
 
-#include <algorithm>
-#include <folly/Indestructible.h>
+#include <thrift/lib/cpp2/gen/module_types_cpp.h>
 
 #include "thrift/lib/thrift/gen-cpp2/reflection_data.h"
 
@@ -129,7 +128,7 @@ StructField::StructField() :
 
 StructField::~StructField() {}
 
-StructField::StructField(apache::thrift::FragileConstructor, bool isRequired__arg, int64_t type__arg, std::string name__arg, std::unordered_map<std::string, std::string> annotations__arg, int16_t order__arg) :
+StructField::StructField(apache::thrift::FragileConstructor, bool isRequired__arg, int64_t type__arg, ::std::string name__arg, std::unordered_map<::std::string, ::std::string> annotations__arg, int16_t order__arg) :
     isRequired(std::move(isRequired__arg)),
     type(std::move(type__arg)),
     name(std::move(name__arg)),
@@ -179,11 +178,11 @@ bool StructField::operator==(const StructField& rhs) const {
   return true;
 }
 
-const std::unordered_map<std::string, std::string>* StructField::get_annotations() const& {
+const std::unordered_map<::std::string, ::std::string>* StructField::get_annotations() const& {
   return __isset.annotations ? std::addressof(annotations) : nullptr;
 }
 
-std::unordered_map<std::string, std::string>* StructField::get_annotations() & {
+std::unordered_map<::std::string, ::std::string>* StructField::get_annotations() & {
   return __isset.annotations ? std::addressof(annotations) : nullptr;
 }
 
@@ -217,7 +216,7 @@ DataType::DataType() :
 
 DataType::~DataType() {}
 
-DataType::DataType(apache::thrift::FragileConstructor, std::string name__arg, std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField> fields__arg, int64_t mapKeyType__arg, int64_t valueType__arg, std::unordered_map<std::string, int32_t> enumValues__arg) :
+DataType::DataType(apache::thrift::FragileConstructor, ::std::string name__arg, std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField> fields__arg, int64_t mapKeyType__arg, int64_t valueType__arg, std::unordered_map<::std::string, int32_t> enumValues__arg) :
     name(std::move(name__arg)),
     fields(std::move(fields__arg)),
     mapKeyType(std::move(mapKeyType__arg)),
@@ -290,11 +289,11 @@ std::unordered_map<int16_t,  ::apache::thrift::reflection::StructField>* DataTyp
   return __isset.fields ? std::addressof(fields) : nullptr;
 }
 
-const std::unordered_map<std::string, int32_t>* DataType::get_enumValues() const& {
+const std::unordered_map<::std::string, int32_t>* DataType::get_enumValues() const& {
   return __isset.enumValues ? std::addressof(enumValues) : nullptr;
 }
 
-std::unordered_map<std::string, int32_t>* DataType::get_enumValues() & {
+std::unordered_map<::std::string, int32_t>* DataType::get_enumValues() & {
   return __isset.enumValues ? std::addressof(enumValues) : nullptr;
 }
 
@@ -321,7 +320,7 @@ template uint32_t DataType::serializedSizeZC<>(apache::thrift::CompactProtocolWr
 }}} // apache::thrift::reflection
 namespace apache { namespace thrift { namespace reflection {
 
-Schema::Schema(apache::thrift::FragileConstructor, std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType> dataTypes__arg, std::unordered_map<std::string, int64_t> names__arg) :
+Schema::Schema(apache::thrift::FragileConstructor, std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType> dataTypes__arg, std::unordered_map<::std::string, int64_t> names__arg) :
     dataTypes(std::move(dataTypes__arg)),
     names(std::move(names__arg)) {
   __isset.dataTypes = true;
@@ -356,11 +355,11 @@ std::unordered_map<int64_t,  ::apache::thrift::reflection::DataType> Schema::get
   return std::move(dataTypes);
 }
 
-const std::unordered_map<std::string, int64_t>& Schema::get_names() const& {
+const std::unordered_map<::std::string, int64_t>& Schema::get_names() const& {
   return names;
 }
 
-std::unordered_map<std::string, int64_t> Schema::get_names() && {
+std::unordered_map<::std::string, int64_t> Schema::get_names() && {
   return std::move(names);
 }
 

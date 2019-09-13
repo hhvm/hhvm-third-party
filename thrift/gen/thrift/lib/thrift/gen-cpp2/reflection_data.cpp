@@ -7,6 +7,8 @@
 
 #include "thrift/lib/thrift/gen-cpp2/reflection_data.h"
 
+#include <thrift/lib/cpp2/gen/module_data_cpp.h>
+
 namespace apache { namespace thrift { namespace reflection {
 
 constexpr const std::size_t _TypeEnumDataStorage::size;
