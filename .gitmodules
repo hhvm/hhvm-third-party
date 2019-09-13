@@ -75,3 +75,6 @@
 [submodule "rsocket-cpp/roscket-cpp"]
 	path = rsocket-cpp/rsocket-cpp
 	url = https://github.com/rsocket/rsocket-cpp.git
+[submodule "fb303/src"]
+	path = fb303/src
+	url = https://github.com/facebookincubator/fb303.git

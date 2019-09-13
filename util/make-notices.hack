@@ -21,7 +21,8 @@ final class ThirdPartyBinaryNotices {
         tuple('double-conversion', keyset['double-conversion/LICENSE']),
       'fastlz' => tuple('FastLZ', keyset['fastlz/src/LICENSE']),
       'fatal' => null, // First-party, i.e. Facebook project
-      'fizz' => null, // firsrt-party
+      'fb303' => null, // first-party
+      'fizz' => null, // first-party
       'fmt' => tuple('fmt', keyset['fmt/fmt/LICENSE.rst']),
       'folly' => null, // first-party
       'libafdt' => null, // first-party
