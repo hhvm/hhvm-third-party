@@ -32,13 +32,9 @@ ENDIF()
 
 add_custom_command(
   OUTPUT ${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.h
-  COMMAND ${PROXYGEN_LIB_DIR}/http/gen_HTTPCommonHeaders.h.sh "${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.txt" "${CMAKE_CURRENT_SOURCE_DIR}/src" "${PROXYGEN_LIB_DIR}/http"
-  DEPENDS ${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.txt ${PROXYGEN_LIB_DIR}/http/gen_HTTPCommonHeaders.h.sh
-)
-add_custom_command(
   OUTPUT ${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.cpp
-  COMMAND "${PROXYGEN_LIB_DIR}/http/gen_HTTPCommonHeaders.cpp.sh" "${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.txt" "${CMAKE_CURRENT_SOURCE_DIR}/src" "${PROXYGEN_LIB_DIR}/http" "${GPERF_EXECUTABLE}"
-  DEPENDS ${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.txt ${PROXYGEN_LIB_DIR}/http/gen_HTTPCommonHeaders.cpp.sh
+  COMMAND ${PROXYGEN_LIB_DIR}/http/gen_HTTPCommonHeaders.sh "${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.txt" "${CMAKE_CURRENT_SOURCE_DIR}/src" "${PROXYGEN_LIB_DIR}/http"
+  DEPENDS ${PROXYGEN_LIB_DIR}/http/HTTPCommonHeaders.txt ${PROXYGEN_LIB_DIR}/http/gen_HTTPCommonHeaders.sh
 )
 
 add_definitions(-DNO_LIB_GFLAGS)
