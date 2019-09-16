@@ -7,7 +7,8 @@
 
 #include "mcrouter/lib/carbon/gen-cpp2/carbon_result_constants.h"
 
-#include <folly/Indestructible.h>
+#include <thrift/lib/cpp2/gen/module_constants_cpp.h>
+
 
 namespace carbon {
 

@@ -7,8 +7,7 @@
 #include "mcrouter/lib/network/gen/gen-cpp2/Memcache_types.h"
 #include "mcrouter/lib/network/gen/gen-cpp2/Memcache_types.tcc"
 
-#include <algorithm>
-#include <folly/Indestructible.h>
+#include <thrift/lib/cpp2/gen/module_types_cpp.h>
 
 #include "mcrouter/lib/network/gen/gen-cpp2/Memcache_data.h"
 
@@ -125,6 +124,10 @@ void TccStructTraits<::facebook::memcache::thrift::McDeleteRequest>::translateFi
   else if (_fname == "value") {
     fid = 4;
     _ftype = apache::thrift::protocol::T_STRING;
+  }
+  else if (_fname == "attributes") {
+    fid = 5;
+    _ftype = apache::thrift::protocol::T_MAP;
   }
 }
 void TccStructTraits<::facebook::memcache::thrift::McDeleteReply>::translateFieldName(
@@ -329,6 +332,10 @@ void TccStructTraits<::facebook::memcache::thrift::McGetsRequest>::translateFiel
   else if (_fname == "key") {
     fid = 1;
     _ftype = apache::thrift::protocol::T_STRING;
+  }
+  else if (_fname == "flags") {
+    fid = 2;
+    _ftype = apache::thrift::protocol::T_I64;
   }
 }
 void TccStructTraits<::facebook::memcache::thrift::McGetsReply>::translateFieldName(
@@ -852,7 +859,7 @@ McGetReply::McGetReply() :
 
 McGetReply::~McGetReply() {}
 
-McGetReply::McGetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, folly::IOBuf value__arg, uint64_t flags__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McGetReply::McGetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, folly::IOBuf value__arg, uint64_t flags__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     value(std::move(value__arg)),
     flags(std::move(flags__arg)),
@@ -1040,7 +1047,7 @@ McSetReply::McSetReply() :
 
 McSetReply::~McSetReply() {}
 
-McSetReply::McSetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t flags__arg, folly::IOBuf value__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McSetReply::McSetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t flags__arg, folly::IOBuf value__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     flags(std::move(flags__arg)),
     value(std::move(value__arg)),
@@ -1130,15 +1137,24 @@ template uint32_t McSetReply::serializedSizeZC<>(apache::thrift::CompactProtocol
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McDeleteRequest::McDeleteRequest(apache::thrift::FragileConstructor,  ::carbon::thrift::IOBufKey key__arg, uint64_t flags__arg, int32_t exptime__arg, folly::IOBuf value__arg) :
+McDeleteRequest::McDeleteRequest() :
+      flags(0),
+      exptime(0) {}
+
+
+McDeleteRequest::~McDeleteRequest() {}
+
+McDeleteRequest::McDeleteRequest(apache::thrift::FragileConstructor,  ::carbon::thrift::IOBufKey key__arg, uint64_t flags__arg, int32_t exptime__arg, folly::IOBuf value__arg, std::unordered_map<std::string, uint64_t> attributes__arg) :
     key(std::move(key__arg)),
     flags(std::move(flags__arg)),
     exptime(std::move(exptime__arg)),
-    value(std::move(value__arg)) {
+    value(std::move(value__arg)),
+    attributes(std::move(attributes__arg)) {
   __isset.key = true;
   __isset.flags = true;
   __isset.exptime = true;
   __isset.value = true;
+  __isset.attributes = true;
 }
 
 void McDeleteRequest::__clear() {
@@ -1147,6 +1163,7 @@ void McDeleteRequest::__clear() {
   flags = 0;
   exptime = 0;
   value = apache::thrift::StringTraits< folly::IOBuf>::fromStringLiteral("");
+  attributes.clear();
   __isset = {};
 }
 
@@ -1166,26 +1183,18 @@ bool McDeleteRequest::operator==(const McDeleteRequest& rhs) const {
   if (!apache::thrift::StringTraits<folly::IOBuf>::isEqual(lhs.value, rhs.value)) {
     return false;
   }
+  if (!(lhs.attributes == rhs.attributes)) {
+    return false;
+  }
   return true;
 }
 
-bool McDeleteRequest::operator<(const McDeleteRequest& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!apache::thrift::StringTraits<folly::remove_cvref_t<decltype(std::declval<carbon::Keys<folly::IOBuf>>().rawUnsafe())>>::isEqual(lhs.key.rawUnsafe(), rhs.key.rawUnsafe())) {
-    return apache::thrift::StringTraits<folly::remove_cvref_t<decltype(std::declval<carbon::Keys<folly::IOBuf>>().rawUnsafe())>>::isLess(lhs.key.rawUnsafe(), rhs.key.rawUnsafe());
-  }
-  if (!(lhs.flags == rhs.flags)) {
-    return lhs.flags < rhs.flags;
-  }
-  if (!(lhs.exptime == rhs.exptime)) {
-    return lhs.exptime < rhs.exptime;
-  }
-  if (!apache::thrift::StringTraits<folly::IOBuf>::isEqual(lhs.value, rhs.value)) {
-    return apache::thrift::StringTraits<folly::IOBuf>::isLess(lhs.value, rhs.value);
-  }
-  return false;
+const std::unordered_map<std::string, uint64_t>& McDeleteRequest::get_attributes() const& {
+  return attributes;
+}
+
+std::unordered_map<std::string, uint64_t> McDeleteRequest::get_attributes() && {
+  return std::move(attributes);
 }
 
 
@@ -1195,6 +1204,7 @@ void swap(McDeleteRequest& a, McDeleteRequest& b) {
   swap(a.flags, b.flags);
   swap(a.exptime, b.exptime);
   swap(a.value, b.value);
+  swap(a.attributes, b.attributes);
   swap(a.__isset, b.__isset);
 }
 
@@ -1218,7 +1228,7 @@ McDeleteReply::McDeleteReply() :
 
 McDeleteReply::~McDeleteReply() {}
 
-McDeleteReply::McDeleteReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t flags__arg, folly::IOBuf value__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McDeleteReply::McDeleteReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t flags__arg, folly::IOBuf value__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     flags(std::move(flags__arg)),
     value(std::move(value__arg)),
@@ -1377,7 +1387,7 @@ McLeaseGetReply::McLeaseGetReply() :
 
 McLeaseGetReply::~McLeaseGetReply() {}
 
-McLeaseGetReply::McLeaseGetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int64_t leaseToken__arg, folly::IOBuf value__arg, uint64_t flags__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McLeaseGetReply::McLeaseGetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int64_t leaseToken__arg, folly::IOBuf value__arg, uint64_t flags__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     leaseToken(std::move(leaseToken__arg)),
     value(std::move(value__arg)),
@@ -1585,7 +1595,7 @@ template uint32_t McLeaseSetRequest::serializedSizeZC<>(apache::thrift::CompactP
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McLeaseSetReply::McLeaseSetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McLeaseSetReply::McLeaseSetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     message(std::move(message__arg)),
     appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
@@ -1735,7 +1745,7 @@ template uint32_t McAddRequest::serializedSizeZC<>(apache::thrift::CompactProtoc
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McAddReply::McAddReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McAddReply::McAddReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     message(std::move(message__arg)),
     appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
@@ -1885,7 +1895,7 @@ template uint32_t McReplaceRequest::serializedSizeZC<>(apache::thrift::CompactPr
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McReplaceReply::McReplaceReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McReplaceReply::McReplaceReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     message(std::move(message__arg)),
     appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
@@ -1955,14 +1965,17 @@ template uint32_t McReplaceReply::serializedSizeZC<>(apache::thrift::CompactProt
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McGetsRequest::McGetsRequest(apache::thrift::FragileConstructor,  ::carbon::thrift::IOBufKey key__arg) :
-    key(std::move(key__arg)) {
+McGetsRequest::McGetsRequest(apache::thrift::FragileConstructor,  ::carbon::thrift::IOBufKey key__arg, uint64_t flags__arg) :
+    key(std::move(key__arg)),
+    flags(std::move(flags__arg)) {
   __isset.key = true;
+  __isset.flags = true;
 }
 
 void McGetsRequest::__clear() {
   // clear all fields
   key.rawUnsafe() = apache::thrift::StringTraits< folly::remove_cvref_t<decltype(std::declval<carbon::Keys<folly::IOBuf>>().rawUnsafe())>>::fromStringLiteral("");
+  flags = 0;
   __isset = {};
 }
 
@@ -1971,6 +1984,9 @@ bool McGetsRequest::operator==(const McGetsRequest& rhs) const {
   auto& lhs = *this;
   (void)lhs;
   if (!apache::thrift::StringTraits<folly::remove_cvref_t<decltype(std::declval<carbon::Keys<folly::IOBuf>>().rawUnsafe())>>::isEqual(lhs.key.rawUnsafe(), rhs.key.rawUnsafe())) {
+    return false;
+  }
+  if (!(lhs.flags == rhs.flags)) {
     return false;
   }
   return true;
@@ -1983,6 +1999,9 @@ bool McGetsRequest::operator<(const McGetsRequest& rhs) const {
   if (!apache::thrift::StringTraits<folly::remove_cvref_t<decltype(std::declval<carbon::Keys<folly::IOBuf>>().rawUnsafe())>>::isEqual(lhs.key.rawUnsafe(), rhs.key.rawUnsafe())) {
     return apache::thrift::StringTraits<folly::remove_cvref_t<decltype(std::declval<carbon::Keys<folly::IOBuf>>().rawUnsafe())>>::isLess(lhs.key.rawUnsafe(), rhs.key.rawUnsafe());
   }
+  if (!(lhs.flags == rhs.flags)) {
+    return lhs.flags < rhs.flags;
+  }
   return false;
 }
 
@@ -1990,6 +2009,7 @@ bool McGetsRequest::operator<(const McGetsRequest& rhs) const {
 void swap(McGetsRequest& a, McGetsRequest& b) {
   using ::std::swap;
   swap(a.key, b.key);
+  swap(a.flags, b.flags);
   swap(a.__isset, b.__isset);
 }
 
@@ -2014,7 +2034,7 @@ McGetsReply::McGetsReply() :
 
 McGetsReply::~McGetsReply() {}
 
-McGetsReply::McGetsReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t casToken__arg, folly::IOBuf value__arg, uint64_t flags__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McGetsReply::McGetsReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t casToken__arg, folly::IOBuf value__arg, uint64_t flags__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     casToken(std::move(casToken__arg)),
     value(std::move(value__arg)),
@@ -2222,7 +2242,7 @@ template uint32_t McCasRequest::serializedSizeZC<>(apache::thrift::CompactProtoc
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McCasReply::McCasReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McCasReply::McCasReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     message(std::move(message__arg)),
     appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
@@ -2352,7 +2372,7 @@ template uint32_t McIncrRequest::serializedSizeZC<>(apache::thrift::CompactProto
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McIncrReply::McIncrReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int64_t delta__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McIncrReply::McIncrReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int64_t delta__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     delta(std::move(delta__arg)),
     message(std::move(message__arg)),
@@ -2492,7 +2512,7 @@ template uint32_t McDecrRequest::serializedSizeZC<>(apache::thrift::CompactProto
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McDecrReply::McDecrReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int64_t delta__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McDecrReply::McDecrReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int64_t delta__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     delta(std::move(delta__arg)),
     message(std::move(message__arg)),
@@ -2632,7 +2652,7 @@ McMetagetReply::McMetagetReply() :
 
 McMetagetReply::~McMetagetReply() {}
 
-McMetagetReply::McMetagetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int32_t age__arg, int32_t exptime__arg, int16_t ipv__arg, std::string ipAddress__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McMetagetReply::McMetagetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int32_t age__arg, int32_t exptime__arg, int16_t ipv__arg, ::std::string ipAddress__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     age(std::move(age__arg)),
     exptime(std::move(exptime__arg)),
@@ -2822,7 +2842,7 @@ template uint32_t McAppendRequest::serializedSizeZC<>(apache::thrift::CompactPro
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McAppendReply::McAppendReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McAppendReply::McAppendReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     message(std::move(message__arg)),
     appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
@@ -2972,7 +2992,7 @@ template uint32_t McPrependRequest::serializedSizeZC<>(apache::thrift::CompactPr
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McPrependReply::McPrependReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McPrependReply::McPrependReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     message(std::move(message__arg)),
     appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
@@ -3102,7 +3122,7 @@ template uint32_t McTouchRequest::serializedSizeZC<>(apache::thrift::CompactProt
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McTouchReply::McTouchReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McTouchReply::McTouchReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     message(std::move(message__arg)),
     appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
@@ -3222,7 +3242,7 @@ template uint32_t McFlushReRequest::serializedSizeZC<>(apache::thrift::CompactPr
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McFlushReReply::McFlushReReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McFlushReReply::McFlushReReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     message(std::move(message__arg)),
     appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
@@ -3352,7 +3372,7 @@ template uint32_t McFlushAllRequest::serializedSizeZC<>(apache::thrift::CompactP
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McFlushAllReply::McFlushAllReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McFlushAllReply::McFlushAllReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     message(std::move(message__arg)),
     appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
@@ -3490,7 +3510,7 @@ McGatReply::McGatReply() :
 
 McGatReply::~McGatReply() {}
 
-McGatReply::McGatReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, folly::IOBuf value__arg, uint64_t flags__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McGatReply::McGatReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, folly::IOBuf value__arg, uint64_t flags__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     value(std::move(value__arg)),
     flags(std::move(flags__arg)),
@@ -3659,7 +3679,7 @@ McGatsReply::McGatsReply() :
 
 McGatsReply::~McGatsReply() {}
 
-McGatsReply::McGatsReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t casToken__arg, folly::IOBuf value__arg, uint64_t flags__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McGatsReply::McGatsReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t casToken__arg, folly::IOBuf value__arg, uint64_t flags__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     casToken(std::move(casToken__arg)),
     value(std::move(value__arg)),

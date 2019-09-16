@@ -7,4 +7,6 @@
 
 #include "mcrouter/lib/carbon/gen-cpp2/carbon_data.h"
 
+#include <thrift/lib/cpp2/gen/module_data_cpp.h>
+
 

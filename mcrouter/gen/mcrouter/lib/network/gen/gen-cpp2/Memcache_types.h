@@ -6,10 +6,8 @@
  */
 #pragma once
 
-#include <thrift/lib/cpp2/GeneratedHeaderHelper.h>
-#include <thrift/lib/cpp2/Thrift.h>
 #include <thrift/lib/cpp2/gen/module_types_h.h>
-#include <thrift/lib/cpp2/protocol/Protocol.h>
+
 
 #include "mcrouter/lib/carbon/gen-cpp2/carbon_types.h"
 #include "mcrouter/lib/carbon/gen-cpp2/carbon_result_types.h"
@@ -165,7 +163,7 @@ class McGetReply final : private apache::thrift::detail::st::ComparisonOperators
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McGetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, folly::IOBuf value__arg, uint64_t flags__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McGetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, folly::IOBuf value__arg, uint64_t flags__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -206,7 +204,7 @@ class McGetReply final : private apache::thrift::detail::st::ComparisonOperators
    ::carbon::Result result;
   folly::IOBuf value;
   uint64_t flags;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -219,19 +217,19 @@ class McGetReply final : private apache::thrift::detail::st::ComparisonOperators
   bool operator==(const McGetReply& rhs) const;
   bool operator<(const McGetReply& rhs) const;
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const folly::IOBuf&> value_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const folly::IOBuf&> value_ref() const& {
     return {value, __isset.value};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const folly::IOBuf&&> value_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const folly::IOBuf&&> value_ref() const&& {
     return {std::move(value), __isset.value};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<folly::IOBuf&> value_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<folly::IOBuf&> value_ref() & {
     return {value, __isset.value};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<folly::IOBuf&&> value_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<folly::IOBuf&&> value_ref() && {
     return {std::move(value), __isset.value};
   }
 
@@ -271,16 +269,16 @@ class McGetReply final : private apache::thrift::detail::st::ComparisonOperators
     return flags;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McGetReply_message_struct_setter = std::string>
-  std::string& set_message(T_McGetReply_message_struct_setter&& message_) {
+  template <typename T_McGetReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McGetReply_message_struct_setter&& message_) {
     message = std::forward<T_McGetReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -459,7 +457,7 @@ class McSetReply final : private apache::thrift::detail::st::ComparisonOperators
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McSetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t flags__arg, folly::IOBuf value__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McSetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t flags__arg, folly::IOBuf value__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -500,7 +498,7 @@ class McSetReply final : private apache::thrift::detail::st::ComparisonOperators
    ::carbon::Result result;
   uint64_t flags;
   folly::IOBuf value;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -548,16 +546,16 @@ class McSetReply final : private apache::thrift::detail::st::ComparisonOperators
     return value;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McSetReply_message_struct_setter = std::string>
-  std::string& set_message(T_McSetReply_message_struct_setter&& message_) {
+  template <typename T_McSetReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McSetReply_message_struct_setter&& message_) {
     message = std::forward<T_McSetReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -603,12 +601,11 @@ namespace facebook { namespace memcache { namespace thrift {
 class McDeleteRequest final : private apache::thrift::detail::st::ComparisonOperators<McDeleteRequest> {
  public:
 
-  McDeleteRequest() :
-      flags(0),
-      exptime(0) {}
+  McDeleteRequest();
+
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McDeleteRequest(apache::thrift::FragileConstructor,  ::carbon::thrift::IOBufKey key__arg, uint64_t flags__arg, int32_t exptime__arg, folly::IOBuf value__arg);
+  McDeleteRequest(apache::thrift::FragileConstructor,  ::carbon::thrift::IOBufKey key__arg, uint64_t flags__arg, int32_t exptime__arg, folly::IOBuf value__arg, std::unordered_map<std::string, uint64_t> attributes__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     key = arg.extract();
@@ -629,6 +626,11 @@ class McDeleteRequest final : private apache::thrift::detail::st::ComparisonOper
     value = arg.extract();
     __isset.value = true;
   }
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<5, _T> arg) {
+    attributes = arg.extract();
+    __isset.attributes = true;
+  }
 
   McDeleteRequest(McDeleteRequest&&) = default;
 
@@ -638,16 +640,21 @@ class McDeleteRequest final : private apache::thrift::detail::st::ComparisonOper
 
   McDeleteRequest& operator=(const McDeleteRequest&) = default;
   void __clear();
+
+  ~McDeleteRequest();
+
    ::carbon::thrift::IOBufKey key;
   uint64_t flags;
   int32_t exptime;
   folly::IOBuf value;
+  std::unordered_map<std::string, uint64_t> attributes;
 
   struct __isset {
     bool key;
     bool flags;
     bool exptime;
     bool value;
+    bool attributes;
   } __isset = {};
   bool operator==(const McDeleteRequest& rhs) const;
   bool operator<(const McDeleteRequest& rhs) const;
@@ -701,6 +708,15 @@ class McDeleteRequest final : private apache::thrift::detail::st::ComparisonOper
     __isset.value = true;
     return value;
   }
+  const std::unordered_map<std::string, uint64_t>& get_attributes() const&;
+  std::unordered_map<std::string, uint64_t> get_attributes() &&;
+
+  template <typename T_McDeleteRequest_attributes_struct_setter = std::unordered_map<std::string, uint64_t>>
+  std::unordered_map<std::string, uint64_t>& set_attributes(T_McDeleteRequest_attributes_struct_setter&& attributes_) {
+    attributes = std::forward<T_McDeleteRequest_attributes_struct_setter>(attributes_);
+    __isset.attributes = true;
+    return attributes;
+  }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -736,7 +752,7 @@ class McDeleteReply final : private apache::thrift::detail::st::ComparisonOperat
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McDeleteReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t flags__arg, folly::IOBuf value__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McDeleteReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t flags__arg, folly::IOBuf value__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -777,7 +793,7 @@ class McDeleteReply final : private apache::thrift::detail::st::ComparisonOperat
    ::carbon::Result result;
   uint64_t flags;
   folly::IOBuf value;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -825,16 +841,16 @@ class McDeleteReply final : private apache::thrift::detail::st::ComparisonOperat
     return value;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McDeleteReply_message_struct_setter = std::string>
-  std::string& set_message(T_McDeleteReply_message_struct_setter&& message_) {
+  template <typename T_McDeleteReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McDeleteReply_message_struct_setter&& message_) {
     message = std::forward<T_McDeleteReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -973,7 +989,7 @@ class McLeaseGetReply final : private apache::thrift::detail::st::ComparisonOper
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McLeaseGetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int64_t leaseToken__arg, folly::IOBuf value__arg, uint64_t flags__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McLeaseGetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int64_t leaseToken__arg, folly::IOBuf value__arg, uint64_t flags__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -1020,7 +1036,7 @@ class McLeaseGetReply final : private apache::thrift::detail::st::ComparisonOper
   int64_t leaseToken;
   folly::IOBuf value;
   uint64_t flags;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -1034,19 +1050,19 @@ class McLeaseGetReply final : private apache::thrift::detail::st::ComparisonOper
   bool operator==(const McLeaseGetReply& rhs) const;
   bool operator<(const McLeaseGetReply& rhs) const;
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const folly::IOBuf&> value_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const folly::IOBuf&> value_ref() const& {
     return {value, __isset.value};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const folly::IOBuf&&> value_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const folly::IOBuf&&> value_ref() const&& {
     return {std::move(value), __isset.value};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<folly::IOBuf&> value_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<folly::IOBuf&> value_ref() & {
     return {value, __isset.value};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<folly::IOBuf&&> value_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<folly::IOBuf&&> value_ref() && {
     return {std::move(value), __isset.value};
   }
 
@@ -1096,16 +1112,16 @@ class McLeaseGetReply final : private apache::thrift::detail::st::ComparisonOper
     return flags;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McLeaseGetReply_message_struct_setter = std::string>
-  std::string& set_message(T_McLeaseGetReply_message_struct_setter&& message_) {
+  template <typename T_McLeaseGetReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McLeaseGetReply_message_struct_setter&& message_) {
     message = std::forward<T_McLeaseGetReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -1304,7 +1320,7 @@ class McLeaseSetReply final : private apache::thrift::detail::st::ComparisonOper
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McLeaseSetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McLeaseSetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -1330,7 +1346,7 @@ class McLeaseSetReply final : private apache::thrift::detail::st::ComparisonOper
   McLeaseSetReply& operator=(const McLeaseSetReply&) = default;
   void __clear();
    ::carbon::Result result;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -1351,16 +1367,16 @@ class McLeaseSetReply final : private apache::thrift::detail::st::ComparisonOper
     return result;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McLeaseSetReply_message_struct_setter = std::string>
-  std::string& set_message(T_McLeaseSetReply_message_struct_setter&& message_) {
+  template <typename T_McLeaseSetReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McLeaseSetReply_message_struct_setter&& message_) {
     message = std::forward<T_McLeaseSetReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -1540,7 +1556,7 @@ class McAddReply final : private apache::thrift::detail::st::ComparisonOperators
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McAddReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McAddReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -1566,7 +1582,7 @@ class McAddReply final : private apache::thrift::detail::st::ComparisonOperators
   McAddReply& operator=(const McAddReply&) = default;
   void __clear();
    ::carbon::Result result;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -1587,16 +1603,16 @@ class McAddReply final : private apache::thrift::detail::st::ComparisonOperators
     return result;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McAddReply_message_struct_setter = std::string>
-  std::string& set_message(T_McAddReply_message_struct_setter&& message_) {
+  template <typename T_McAddReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McAddReply_message_struct_setter&& message_) {
     message = std::forward<T_McAddReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -1776,7 +1792,7 @@ class McReplaceReply final : private apache::thrift::detail::st::ComparisonOpera
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McReplaceReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McReplaceReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -1802,7 +1818,7 @@ class McReplaceReply final : private apache::thrift::detail::st::ComparisonOpera
   McReplaceReply& operator=(const McReplaceReply&) = default;
   void __clear();
    ::carbon::Result result;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -1823,16 +1839,16 @@ class McReplaceReply final : private apache::thrift::detail::st::ComparisonOpera
     return result;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McReplaceReply_message_struct_setter = std::string>
-  std::string& set_message(T_McReplaceReply_message_struct_setter&& message_) {
+  template <typename T_McReplaceReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McReplaceReply_message_struct_setter&& message_) {
     message = std::forward<T_McReplaceReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -1878,14 +1894,20 @@ namespace facebook { namespace memcache { namespace thrift {
 class McGetsRequest final : private apache::thrift::detail::st::ComparisonOperators<McGetsRequest> {
  public:
 
-  McGetsRequest() {}
+  McGetsRequest() :
+      flags(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McGetsRequest(apache::thrift::FragileConstructor,  ::carbon::thrift::IOBufKey key__arg);
+  McGetsRequest(apache::thrift::FragileConstructor,  ::carbon::thrift::IOBufKey key__arg, uint64_t flags__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     key = arg.extract();
     __isset.key = true;
+  }
+  template <typename _T>
+  void __set_field(::apache::thrift::detail::argument_wrapper<2, _T> arg) {
+    flags = arg.extract();
+    __isset.flags = true;
   }
 
   McGetsRequest(McGetsRequest&&) = default;
@@ -1897,9 +1919,11 @@ class McGetsRequest final : private apache::thrift::detail::st::ComparisonOperat
   McGetsRequest& operator=(const McGetsRequest&) = default;
   void __clear();
    ::carbon::thrift::IOBufKey key;
+  uint64_t flags;
 
   struct __isset {
     bool key;
+    bool flags;
   } __isset = {};
   bool operator==(const McGetsRequest& rhs) const;
   bool operator<(const McGetsRequest& rhs) const;
@@ -1917,6 +1941,16 @@ class McGetsRequest final : private apache::thrift::detail::st::ComparisonOperat
     key = std::forward<T_McGetsRequest_key_struct_setter>(key_);
     __isset.key = true;
     return key;
+  }
+
+  uint64_t get_flags() const {
+    return flags;
+  }
+
+  uint64_t& set_flags(uint64_t flags_) {
+    flags = flags_;
+    __isset.flags = true;
+    return flags;
   }
 
   template <class Protocol_>
@@ -1953,7 +1987,7 @@ class McGetsReply final : private apache::thrift::detail::st::ComparisonOperator
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McGetsReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t casToken__arg, folly::IOBuf value__arg, uint64_t flags__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McGetsReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t casToken__arg, folly::IOBuf value__arg, uint64_t flags__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -2000,7 +2034,7 @@ class McGetsReply final : private apache::thrift::detail::st::ComparisonOperator
   uint64_t casToken;
   folly::IOBuf value;
   uint64_t flags;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -2014,19 +2048,19 @@ class McGetsReply final : private apache::thrift::detail::st::ComparisonOperator
   bool operator==(const McGetsReply& rhs) const;
   bool operator<(const McGetsReply& rhs) const;
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const folly::IOBuf&> value_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const folly::IOBuf&> value_ref() const& {
     return {value, __isset.value};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const folly::IOBuf&&> value_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const folly::IOBuf&&> value_ref() const&& {
     return {std::move(value), __isset.value};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<folly::IOBuf&> value_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<folly::IOBuf&> value_ref() & {
     return {value, __isset.value};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<folly::IOBuf&&> value_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<folly::IOBuf&&> value_ref() && {
     return {std::move(value), __isset.value};
   }
 
@@ -2076,16 +2110,16 @@ class McGetsReply final : private apache::thrift::detail::st::ComparisonOperator
     return flags;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McGetsReply_message_struct_setter = std::string>
-  std::string& set_message(T_McGetsReply_message_struct_setter&& message_) {
+  template <typename T_McGetsReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McGetsReply_message_struct_setter&& message_) {
     message = std::forward<T_McGetsReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -2284,7 +2318,7 @@ class McCasReply final : private apache::thrift::detail::st::ComparisonOperators
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McCasReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McCasReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -2310,7 +2344,7 @@ class McCasReply final : private apache::thrift::detail::st::ComparisonOperators
   McCasReply& operator=(const McCasReply&) = default;
   void __clear();
    ::carbon::Result result;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -2331,16 +2365,16 @@ class McCasReply final : private apache::thrift::detail::st::ComparisonOperators
     return result;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McCasReply_message_struct_setter = std::string>
-  std::string& set_message(T_McCasReply_message_struct_setter&& message_) {
+  template <typename T_McCasReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McCasReply_message_struct_setter&& message_) {
     message = std::forward<T_McCasReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -2481,7 +2515,7 @@ class McIncrReply final : private apache::thrift::detail::st::ComparisonOperator
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McIncrReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int64_t delta__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McIncrReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int64_t delta__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -2513,7 +2547,7 @@ class McIncrReply final : private apache::thrift::detail::st::ComparisonOperator
   void __clear();
    ::carbon::Result result;
   int64_t delta;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -2545,16 +2579,16 @@ class McIncrReply final : private apache::thrift::detail::st::ComparisonOperator
     return delta;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McIncrReply_message_struct_setter = std::string>
-  std::string& set_message(T_McIncrReply_message_struct_setter&& message_) {
+  template <typename T_McIncrReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McIncrReply_message_struct_setter&& message_) {
     message = std::forward<T_McIncrReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -2695,7 +2729,7 @@ class McDecrReply final : private apache::thrift::detail::st::ComparisonOperator
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McDecrReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int64_t delta__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McDecrReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int64_t delta__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -2727,7 +2761,7 @@ class McDecrReply final : private apache::thrift::detail::st::ComparisonOperator
   void __clear();
    ::carbon::Result result;
   int64_t delta;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -2759,16 +2793,16 @@ class McDecrReply final : private apache::thrift::detail::st::ComparisonOperator
     return delta;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McDecrReply_message_struct_setter = std::string>
-  std::string& set_message(T_McDecrReply_message_struct_setter&& message_) {
+  template <typename T_McDecrReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McDecrReply_message_struct_setter&& message_) {
     message = std::forward<T_McDecrReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -2889,7 +2923,7 @@ class McMetagetReply final : private apache::thrift::detail::st::ComparisonOpera
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McMetagetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int32_t age__arg, int32_t exptime__arg, int16_t ipv__arg, std::string ipAddress__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McMetagetReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, int32_t age__arg, int32_t exptime__arg, int16_t ipv__arg, ::std::string ipAddress__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -2941,8 +2975,8 @@ class McMetagetReply final : private apache::thrift::detail::st::ComparisonOpera
   int32_t age;
   int32_t exptime;
   int16_t ipv;
-  std::string ipAddress;
-  std::string message;
+  ::std::string ipAddress;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -2997,31 +3031,31 @@ class McMetagetReply final : private apache::thrift::detail::st::ComparisonOpera
     return ipv;
   }
 
-  const std::string& get_ipAddress() const& {
+  const ::std::string& get_ipAddress() const& {
     return ipAddress;
   }
 
-  std::string get_ipAddress() && {
+  ::std::string get_ipAddress() && {
     return std::move(ipAddress);
   }
 
-  template <typename T_McMetagetReply_ipAddress_struct_setter = std::string>
-  std::string& set_ipAddress(T_McMetagetReply_ipAddress_struct_setter&& ipAddress_) {
+  template <typename T_McMetagetReply_ipAddress_struct_setter = ::std::string>
+  ::std::string& set_ipAddress(T_McMetagetReply_ipAddress_struct_setter&& ipAddress_) {
     ipAddress = std::forward<T_McMetagetReply_ipAddress_struct_setter>(ipAddress_);
     __isset.ipAddress = true;
     return ipAddress;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McMetagetReply_message_struct_setter = std::string>
-  std::string& set_message(T_McMetagetReply_message_struct_setter&& message_) {
+  template <typename T_McMetagetReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McMetagetReply_message_struct_setter&& message_) {
     message = std::forward<T_McMetagetReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -3201,7 +3235,7 @@ class McAppendReply final : private apache::thrift::detail::st::ComparisonOperat
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McAppendReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McAppendReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -3227,7 +3261,7 @@ class McAppendReply final : private apache::thrift::detail::st::ComparisonOperat
   McAppendReply& operator=(const McAppendReply&) = default;
   void __clear();
    ::carbon::Result result;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -3248,16 +3282,16 @@ class McAppendReply final : private apache::thrift::detail::st::ComparisonOperat
     return result;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McAppendReply_message_struct_setter = std::string>
-  std::string& set_message(T_McAppendReply_message_struct_setter&& message_) {
+  template <typename T_McAppendReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McAppendReply_message_struct_setter&& message_) {
     message = std::forward<T_McAppendReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -3437,7 +3471,7 @@ class McPrependReply final : private apache::thrift::detail::st::ComparisonOpera
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McPrependReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McPrependReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -3463,7 +3497,7 @@ class McPrependReply final : private apache::thrift::detail::st::ComparisonOpera
   McPrependReply& operator=(const McPrependReply&) = default;
   void __clear();
    ::carbon::Result result;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -3484,16 +3518,16 @@ class McPrependReply final : private apache::thrift::detail::st::ComparisonOpera
     return result;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McPrependReply_message_struct_setter = std::string>
-  std::string& set_message(T_McPrependReply_message_struct_setter&& message_) {
+  template <typename T_McPrependReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McPrependReply_message_struct_setter&& message_) {
     message = std::forward<T_McPrependReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -3633,7 +3667,7 @@ class McTouchReply final : private apache::thrift::detail::st::ComparisonOperato
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McTouchReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McTouchReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -3659,7 +3693,7 @@ class McTouchReply final : private apache::thrift::detail::st::ComparisonOperato
   McTouchReply& operator=(const McTouchReply&) = default;
   void __clear();
    ::carbon::Result result;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -3680,16 +3714,16 @@ class McTouchReply final : private apache::thrift::detail::st::ComparisonOperato
     return result;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McTouchReply_message_struct_setter = std::string>
-  std::string& set_message(T_McTouchReply_message_struct_setter&& message_) {
+  template <typename T_McTouchReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McTouchReply_message_struct_setter&& message_) {
     message = std::forward<T_McTouchReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -3811,7 +3845,7 @@ class McFlushReReply final : private apache::thrift::detail::st::ComparisonOpera
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McFlushReReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McFlushReReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -3837,7 +3871,7 @@ class McFlushReReply final : private apache::thrift::detail::st::ComparisonOpera
   McFlushReReply& operator=(const McFlushReReply&) = default;
   void __clear();
    ::carbon::Result result;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -3858,16 +3892,16 @@ class McFlushReReply final : private apache::thrift::detail::st::ComparisonOpera
     return result;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McFlushReReply_message_struct_setter = std::string>
-  std::string& set_message(T_McFlushReReply_message_struct_setter&& message_) {
+  template <typename T_McFlushReReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McFlushReReply_message_struct_setter&& message_) {
     message = std::forward<T_McFlushReReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -4007,7 +4041,7 @@ class McFlushAllReply final : private apache::thrift::detail::st::ComparisonOper
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McFlushAllReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McFlushAllReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -4033,7 +4067,7 @@ class McFlushAllReply final : private apache::thrift::detail::st::ComparisonOper
   McFlushAllReply& operator=(const McFlushAllReply&) = default;
   void __clear();
    ::carbon::Result result;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -4054,16 +4088,16 @@ class McFlushAllReply final : private apache::thrift::detail::st::ComparisonOper
     return result;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McFlushAllReply_message_struct_setter = std::string>
-  std::string& set_message(T_McFlushAllReply_message_struct_setter&& message_) {
+  template <typename T_McFlushAllReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McFlushAllReply_message_struct_setter&& message_) {
     message = std::forward<T_McFlushAllReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -4202,7 +4236,7 @@ class McGatReply final : private apache::thrift::detail::st::ComparisonOperators
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McGatReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, folly::IOBuf value__arg, uint64_t flags__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McGatReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, folly::IOBuf value__arg, uint64_t flags__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -4243,7 +4277,7 @@ class McGatReply final : private apache::thrift::detail::st::ComparisonOperators
    ::carbon::Result result;
   folly::IOBuf value;
   uint64_t flags;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -4256,19 +4290,19 @@ class McGatReply final : private apache::thrift::detail::st::ComparisonOperators
   bool operator==(const McGatReply& rhs) const;
   bool operator<(const McGatReply& rhs) const;
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const folly::IOBuf&> value_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const folly::IOBuf&> value_ref() const& {
     return {value, __isset.value};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const folly::IOBuf&&> value_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const folly::IOBuf&&> value_ref() const&& {
     return {std::move(value), __isset.value};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<folly::IOBuf&> value_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<folly::IOBuf&> value_ref() & {
     return {value, __isset.value};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<folly::IOBuf&&> value_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<folly::IOBuf&&> value_ref() && {
     return {std::move(value), __isset.value};
   }
 
@@ -4308,16 +4342,16 @@ class McGatReply final : private apache::thrift::detail::st::ComparisonOperators
     return flags;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McGatReply_message_struct_setter = std::string>
-  std::string& set_message(T_McGatReply_message_struct_setter&& message_) {
+  template <typename T_McGatReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McGatReply_message_struct_setter&& message_) {
     message = std::forward<T_McGatReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -4456,7 +4490,7 @@ class McGatsReply final : private apache::thrift::detail::st::ComparisonOperator
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McGatsReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t casToken__arg, folly::IOBuf value__arg, uint64_t flags__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McGatsReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, uint64_t casToken__arg, folly::IOBuf value__arg, uint64_t flags__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -4503,7 +4537,7 @@ class McGatsReply final : private apache::thrift::detail::st::ComparisonOperator
   uint64_t casToken;
   folly::IOBuf value;
   uint64_t flags;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -4517,19 +4551,19 @@ class McGatsReply final : private apache::thrift::detail::st::ComparisonOperator
   bool operator==(const McGatsReply& rhs) const;
   bool operator<(const McGatsReply& rhs) const;
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const folly::IOBuf&> value_ref() const& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const folly::IOBuf&> value_ref() const& {
     return {value, __isset.value};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<const folly::IOBuf&&> value_ref() const&& {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const folly::IOBuf&&> value_ref() const&& {
     return {std::move(value), __isset.value};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<folly::IOBuf&> value_ref() & {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<folly::IOBuf&> value_ref() & {
     return {value, __isset.value};
   }
 
-  THRIFT_NOLINK ::apache::thrift::optional_field_ref<folly::IOBuf&&> value_ref() && {
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<folly::IOBuf&&> value_ref() && {
     return {std::move(value), __isset.value};
   }
 
@@ -4579,16 +4613,16 @@ class McGatsReply final : private apache::thrift::detail::st::ComparisonOperator
     return flags;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McGatsReply_message_struct_setter = std::string>
-  std::string& set_message(T_McGatsReply_message_struct_setter&& message_) {
+  template <typename T_McGatsReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McGatsReply_message_struct_setter&& message_) {
     message = std::forward<T_McGatsReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;

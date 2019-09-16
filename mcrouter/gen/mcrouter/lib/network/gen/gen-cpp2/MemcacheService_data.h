@@ -6,9 +6,7 @@
  */
 #pragma once
 
-#include <array>
-#include <cstddef>
-#include <thrift/lib/cpp/Thrift.h>
+#include <thrift/lib/cpp2/gen/module_data_h.h>
 
 #include "mcrouter/lib/network/gen/gen-cpp2/MemcacheService_types.h"
 

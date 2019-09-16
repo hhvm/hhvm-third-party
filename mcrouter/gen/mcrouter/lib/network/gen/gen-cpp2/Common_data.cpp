@@ -7,4 +7,6 @@
 
 #include "mcrouter/lib/network/gen/gen-cpp2/Common_data.h"
 
+#include <thrift/lib/cpp2/gen/module_data_cpp.h>
+
 

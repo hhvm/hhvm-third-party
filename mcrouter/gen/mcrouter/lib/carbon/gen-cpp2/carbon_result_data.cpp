@@ -7,6 +7,8 @@
 
 #include "mcrouter/lib/carbon/gen-cpp2/carbon_result_data.h"
 
+#include <thrift/lib/cpp2/gen/module_data_cpp.h>
+
 namespace carbon {
 
 constexpr const std::size_t _ResultEnumDataStorage::size;

@@ -7,7 +7,8 @@
 
 #include "mcrouter/lib/network/gen/gen-cpp2/Memcache_constants.h"
 
-#include <folly/Indestructible.h>
+#include <thrift/lib/cpp2/gen/module_constants_cpp.h>
+
 
 namespace facebook { namespace memcache { namespace thrift {
 

@@ -7,8 +7,7 @@
 #include "mcrouter/lib/network/gen/gen-cpp2/Common_types.h"
 #include "mcrouter/lib/network/gen/gen-cpp2/Common_types.tcc"
 
-#include <algorithm>
-#include <folly/Indestructible.h>
+#include <thrift/lib/cpp2/gen/module_types_cpp.h>
 
 #include "mcrouter/lib/network/gen/gen-cpp2/Common_data.h"
 
@@ -246,7 +245,7 @@ template uint32_t McVersionRequest::serializedSizeZC<>(apache::thrift::CompactPr
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McVersionReply::McVersionReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, folly::IOBuf value__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McVersionReply::McVersionReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, folly::IOBuf value__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     value(std::move(value__arg)),
     message(std::move(message__arg)),
@@ -376,7 +375,7 @@ template uint32_t McStatsRequest::serializedSizeZC<>(apache::thrift::CompactProt
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McStatsReply::McStatsReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, std::vector<std::string> stats__arg, int16_t appSpecificErrorCode__arg) :
+McStatsReply::McStatsReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, ::std::vector<::std::string> stats__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     message(std::move(message__arg)),
     stats(std::move(stats__arg)),
@@ -434,11 +433,11 @@ bool McStatsReply::operator<(const McStatsReply& rhs) const {
   return false;
 }
 
-const std::vector<std::string>& McStatsReply::get_stats() const& {
+const ::std::vector<::std::string>& McStatsReply::get_stats() const& {
   return stats;
 }
 
-std::vector<std::string> McStatsReply::get_stats() && {
+::std::vector<::std::string> McStatsReply::get_stats() && {
   return std::move(stats);
 }
 
@@ -514,7 +513,7 @@ template uint32_t McShutdownRequest::serializedSizeZC<>(apache::thrift::CompactP
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McShutdownReply::McShutdownReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McShutdownReply::McShutdownReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     message(std::move(message__arg)),
     appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
@@ -634,7 +633,7 @@ template uint32_t McQuitRequest::serializedSizeZC<>(apache::thrift::CompactProto
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McQuitReply::McQuitReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McQuitReply::McQuitReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     message(std::move(message__arg)),
     appSpecificErrorCode(std::move(appSpecificErrorCode__arg)) {
@@ -754,7 +753,7 @@ template uint32_t McExecRequest::serializedSizeZC<>(apache::thrift::CompactProto
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-McExecReply::McExecReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string response__arg, std::string message__arg, int16_t appSpecificErrorCode__arg) :
+McExecReply::McExecReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string response__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg) :
     result(std::move(result__arg)),
     response(std::move(response__arg)),
     message(std::move(message__arg)),
@@ -873,7 +872,7 @@ template uint32_t GoAwayAcknowledgement::serializedSizeZC<>(apache::thrift::Comp
 }}} // facebook::memcache::thrift
 namespace facebook { namespace memcache { namespace thrift {
 
-GoAwayRequest::GoAwayRequest(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string reason__arg) :
+GoAwayRequest::GoAwayRequest(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string reason__arg) :
     result(std::move(result__arg)),
     reason(std::move(reason__arg)) {
   __isset.result = true;

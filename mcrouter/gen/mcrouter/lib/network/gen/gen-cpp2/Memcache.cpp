@@ -7,9 +7,7 @@
 #include "mcrouter/lib/network/gen/gen-cpp2/Memcache.h"
 #include "mcrouter/lib/network/gen/gen-cpp2/Memcache.tcc"
 
-#include <thrift/lib/cpp2/protocol/BinaryProtocol.h>
-#include <thrift/lib/cpp2/protocol/CompactProtocol.h>
-#include <thrift/lib/cpp2/protocol/Protocol.h>
+#include <thrift/lib/cpp2/gen/service_cpp.h>
 
 namespace facebook { namespace memcache { namespace thrift {
 std::unique_ptr<apache::thrift::AsyncProcessor> MemcacheSvIf::getProcessor() {
@@ -392,13 +390,17 @@ bool MemcacheAsyncProcessor::isOnewayMethod(const folly::IOBuf* buf, const apach
   return apache::thrift::detail::ap::is_oneway_method(buf, header, onewayMethods_);
 }
 
+std::shared_ptr<folly::RequestContext> MemcacheAsyncProcessor::getBaseContextForRequest() {
+  return iface_->getBaseContextForRequest();
+}
+
 std::unordered_set<std::string> MemcacheAsyncProcessor::onewayMethods_ {};
 std::unordered_map<std::string, int16_t> MemcacheAsyncProcessor::cacheKeyMap_ {};
-const MemcacheAsyncProcessor::BinaryProtocolProcessMap& MemcacheAsyncProcessor::getBinaryProtocolProcessMap() {
+const MemcacheAsyncProcessor::ProcessMap& MemcacheAsyncProcessor::getBinaryProtocolProcessMap() {
   return binaryProcessMap_;
 }
 
-const MemcacheAsyncProcessor::BinaryProtocolProcessMap MemcacheAsyncProcessor::binaryProcessMap_ {
+const MemcacheAsyncProcessor::ProcessMap MemcacheAsyncProcessor::binaryProcessMap_ {
   {"mcGet", &MemcacheAsyncProcessor::process_mcGet<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"mcSet", &MemcacheAsyncProcessor::process_mcSet<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"mcDelete", &MemcacheAsyncProcessor::process_mcDelete<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
@@ -421,11 +423,11 @@ const MemcacheAsyncProcessor::BinaryProtocolProcessMap MemcacheAsyncProcessor::b
   {"mcVersion", &MemcacheAsyncProcessor::process_mcVersion<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
 };
 
-const MemcacheAsyncProcessor::CompactProtocolProcessMap& MemcacheAsyncProcessor::getCompactProtocolProcessMap() {
+const MemcacheAsyncProcessor::ProcessMap& MemcacheAsyncProcessor::getCompactProtocolProcessMap() {
   return compactProcessMap_;
 }
 
-const MemcacheAsyncProcessor::CompactProtocolProcessMap MemcacheAsyncProcessor::compactProcessMap_ {
+const MemcacheAsyncProcessor::ProcessMap MemcacheAsyncProcessor::compactProcessMap_ {
   {"mcGet", &MemcacheAsyncProcessor::process_mcGet<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"mcSet", &MemcacheAsyncProcessor::process_mcSet<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"mcDelete", &MemcacheAsyncProcessor::process_mcDelete<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},

@@ -6,10 +6,8 @@
  */
 #pragma once
 
-#include <thrift/lib/cpp2/GeneratedHeaderHelper.h>
-#include <thrift/lib/cpp2/Thrift.h>
 #include <thrift/lib/cpp2/gen/module_types_h.h>
-#include <thrift/lib/cpp2/protocol/Protocol.h>
+
 
 #include "mcrouter/lib/carbon/gen-cpp2/carbon_types.h"
 #include "mcrouter/lib/carbon/gen-cpp2/carbon_result_types.h"
@@ -121,7 +119,7 @@ class McVersionReply final : private apache::thrift::detail::st::ComparisonOpera
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McVersionReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, folly::IOBuf value__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McVersionReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, folly::IOBuf value__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -153,7 +151,7 @@ class McVersionReply final : private apache::thrift::detail::st::ComparisonOpera
   void __clear();
    ::carbon::Result result;
   folly::IOBuf value;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -190,16 +188,16 @@ class McVersionReply final : private apache::thrift::detail::st::ComparisonOpera
     return value;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McVersionReply_message_struct_setter = std::string>
-  std::string& set_message(T_McVersionReply_message_struct_setter&& message_) {
+  template <typename T_McVersionReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McVersionReply_message_struct_setter&& message_) {
     message = std::forward<T_McVersionReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -321,7 +319,7 @@ class McStatsReply final : private apache::thrift::detail::st::ComparisonOperato
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McStatsReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, std::vector<std::string> stats__arg, int16_t appSpecificErrorCode__arg);
+  McStatsReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, ::std::vector<::std::string> stats__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -352,8 +350,8 @@ class McStatsReply final : private apache::thrift::detail::st::ComparisonOperato
   McStatsReply& operator=(const McStatsReply&) = default;
   void __clear();
    ::carbon::Result result;
-  std::string message;
-  std::vector<std::string> stats;
+  ::std::string message;
+  ::std::vector<::std::string> stats;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -375,25 +373,25 @@ class McStatsReply final : private apache::thrift::detail::st::ComparisonOperato
     return result;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McStatsReply_message_struct_setter = std::string>
-  std::string& set_message(T_McStatsReply_message_struct_setter&& message_) {
+  template <typename T_McStatsReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McStatsReply_message_struct_setter&& message_) {
     message = std::forward<T_McStatsReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
   }
-  const std::vector<std::string>& get_stats() const&;
-  std::vector<std::string> get_stats() &&;
+  const ::std::vector<::std::string>& get_stats() const&;
+  ::std::vector<::std::string> get_stats() &&;
 
-  template <typename T_McStatsReply_stats_struct_setter = std::vector<std::string>>
-  std::vector<std::string>& set_stats(T_McStatsReply_stats_struct_setter&& stats_) {
+  template <typename T_McStatsReply_stats_struct_setter = ::std::vector<::std::string>>
+  ::std::vector<::std::string>& set_stats(T_McStatsReply_stats_struct_setter&& stats_) {
     stats = std::forward<T_McStatsReply_stats_struct_setter>(stats_);
     __isset.stats = true;
     return stats;
@@ -515,7 +513,7 @@ class McShutdownReply final : private apache::thrift::detail::st::ComparisonOper
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McShutdownReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McShutdownReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -541,7 +539,7 @@ class McShutdownReply final : private apache::thrift::detail::st::ComparisonOper
   McShutdownReply& operator=(const McShutdownReply&) = default;
   void __clear();
    ::carbon::Result result;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -562,16 +560,16 @@ class McShutdownReply final : private apache::thrift::detail::st::ComparisonOper
     return result;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McShutdownReply_message_struct_setter = std::string>
-  std::string& set_message(T_McShutdownReply_message_struct_setter&& message_) {
+  template <typename T_McShutdownReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McShutdownReply_message_struct_setter&& message_) {
     message = std::forward<T_McShutdownReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -693,7 +691,7 @@ class McQuitReply final : private apache::thrift::detail::st::ComparisonOperator
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McQuitReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McQuitReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -719,7 +717,7 @@ class McQuitReply final : private apache::thrift::detail::st::ComparisonOperator
   McQuitReply& operator=(const McQuitReply&) = default;
   void __clear();
    ::carbon::Result result;
-  std::string message;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -740,16 +738,16 @@ class McQuitReply final : private apache::thrift::detail::st::ComparisonOperator
     return result;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McQuitReply_message_struct_setter = std::string>
-  std::string& set_message(T_McQuitReply_message_struct_setter&& message_) {
+  template <typename T_McQuitReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McQuitReply_message_struct_setter&& message_) {
     message = std::forward<T_McQuitReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -871,7 +869,7 @@ class McExecReply final : private apache::thrift::detail::st::ComparisonOperator
       appSpecificErrorCode(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  McExecReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string response__arg, std::string message__arg, int16_t appSpecificErrorCode__arg);
+  McExecReply(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string response__arg, ::std::string message__arg, int16_t appSpecificErrorCode__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -902,8 +900,8 @@ class McExecReply final : private apache::thrift::detail::st::ComparisonOperator
   McExecReply& operator=(const McExecReply&) = default;
   void __clear();
    ::carbon::Result result;
-  std::string response;
-  std::string message;
+  ::std::string response;
+  ::std::string message;
   int16_t appSpecificErrorCode;
 
   struct __isset {
@@ -925,31 +923,31 @@ class McExecReply final : private apache::thrift::detail::st::ComparisonOperator
     return result;
   }
 
-  const std::string& get_response() const& {
+  const ::std::string& get_response() const& {
     return response;
   }
 
-  std::string get_response() && {
+  ::std::string get_response() && {
     return std::move(response);
   }
 
-  template <typename T_McExecReply_response_struct_setter = std::string>
-  std::string& set_response(T_McExecReply_response_struct_setter&& response_) {
+  template <typename T_McExecReply_response_struct_setter = ::std::string>
+  ::std::string& set_response(T_McExecReply_response_struct_setter&& response_) {
     response = std::forward<T_McExecReply_response_struct_setter>(response_);
     __isset.response = true;
     return response;
   }
 
-  const std::string& get_message() const& {
+  const ::std::string& get_message() const& {
     return message;
   }
 
-  std::string get_message() && {
+  ::std::string get_message() && {
     return std::move(message);
   }
 
-  template <typename T_McExecReply_message_struct_setter = std::string>
-  std::string& set_message(T_McExecReply_message_struct_setter&& message_) {
+  template <typename T_McExecReply_message_struct_setter = ::std::string>
+  ::std::string& set_message(T_McExecReply_message_struct_setter&& message_) {
     message = std::forward<T_McExecReply_message_struct_setter>(message_);
     __isset.message = true;
     return message;
@@ -1045,7 +1043,7 @@ class GoAwayRequest final : private apache::thrift::detail::st::ComparisonOperat
       result( ::carbon::Result::UNKNOWN) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  GoAwayRequest(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, std::string reason__arg);
+  GoAwayRequest(apache::thrift::FragileConstructor,  ::carbon::Result result__arg, ::std::string reason__arg);
   template <typename _T>
   void __set_field(::apache::thrift::detail::argument_wrapper<1, _T> arg) {
     result = arg.extract();
@@ -1066,7 +1064,7 @@ class GoAwayRequest final : private apache::thrift::detail::st::ComparisonOperat
   GoAwayRequest& operator=(const GoAwayRequest&) = default;
   void __clear();
    ::carbon::Result result;
-  std::string reason;
+  ::std::string reason;
 
   struct __isset {
     bool result;
@@ -1085,16 +1083,16 @@ class GoAwayRequest final : private apache::thrift::detail::st::ComparisonOperat
     return result;
   }
 
-  const std::string& get_reason() const& {
+  const ::std::string& get_reason() const& {
     return reason;
   }
 
-  std::string get_reason() && {
+  ::std::string get_reason() && {
     return std::move(reason);
   }
 
-  template <typename T_GoAwayRequest_reason_struct_setter = std::string>
-  std::string& set_reason(T_GoAwayRequest_reason_struct_setter&& reason_) {
+  template <typename T_GoAwayRequest_reason_struct_setter = ::std::string>
+  ::std::string& set_reason(T_GoAwayRequest_reason_struct_setter&& reason_) {
     reason = std::forward<T_GoAwayRequest_reason_struct_setter>(reason_);
     __isset.reason = true;
     return reason;

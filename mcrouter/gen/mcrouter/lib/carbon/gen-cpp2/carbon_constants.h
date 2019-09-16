@@ -6,7 +6,7 @@
  */
 #pragma once
 
-#include <thrift/lib/cpp2/protocol/Protocol.h>
+#include <thrift/lib/cpp2/gen/module_constants_h.h>
 
 #include "mcrouter/lib/carbon/gen-cpp2/carbon_types.h"
 

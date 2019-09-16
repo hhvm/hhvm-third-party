@@ -7,8 +7,7 @@
 #include "mcrouter/lib/network/gen/gen-cpp2/MemcacheService_types.h"
 #include "mcrouter/lib/network/gen/gen-cpp2/MemcacheService_types.tcc"
 
-#include <algorithm>
-#include <folly/Indestructible.h>
+#include <thrift/lib/cpp2/gen/module_types_cpp.h>
 
 #include "mcrouter/lib/network/gen/gen-cpp2/MemcacheService_data.h"
 
