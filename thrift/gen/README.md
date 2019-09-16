@@ -30,3 +30,5 @@ If you need to poke around the docker image to debug or find stuff:
 $ docker commit $CONTAINER_ID snapshot_name # create an image based on $CONTAINER_ID
 $ docker run -it snapshot_name /bin/bash -l # start bash in a new container, based on the filesystem from the other container
 ```
+
+Next, follow the instructions for third-party/mcrouter/gen/
