@@ -41,13 +41,18 @@ HHVM_REMOVE_MATCHES_FROM_LISTS(files cfiles hfiles
  "/bench/"
  "/experimental/logging/example/"
  "/experimental/pushmi/"
- "/experimental/symbolizer/"
  "/experimental/exception_tracer/"
  "/futures/exercises/"
  "/python/"
  "/test/"
  "Test.cpp$"
 )
+if (NOT LINUX)
+  HHVM_REMOVE_MATCHES_FROM_LISTS(files cfiles hfiles
+   MATCHES
+   "/experimental/symbolizer/"
+  )
+endif()
 list(REMOVE_ITEM files
   ${FOLLY_DIR}/Benchmark.cpp
   ${FOLLY_DIR}/SingletonStackTrace.cpp
@@ -67,8 +72,6 @@ list(REMOVE_ITEM files
   ${FOLLY_DIR}/experimental/io/AsyncIO.cpp
   ${FOLLY_DIR}/experimental/io/HugePageUtil.cpp
   ${FOLLY_DIR}/experimental/symbolizer/StackTrace.cpp
-  ${FOLLY_DIR}/experimental/symbolizer/ElfCache.cpp
-  ${FOLLY_DIR}/experimental/symbolizer/ElfUtil.cpp
   ${FOLLY_DIR}/experimental/symbolizer/SignalHandler.cpp
   ${FOLLY_DIR}/init/Init.cpp
   # io/Compression requires snappy library
@@ -111,26 +114,9 @@ endif()
 if (LINUX)
   list(REMOVE_ITEM files ${FOLLY_DIR}/detail/Clock.cpp)
   list(REMOVE_ITEM hfiles ${FOLLY_DIR}/detail/Clock.h)
-else()
-  # Remove non-portable items
-  list(REMOVE_ITEM files
-    ${FOLLY_DIR}/experimental/symbolizer/Dwarf.cpp
-    ${FOLLY_DIR}/experimental/symbolizer/Elf.cpp
-    ${FOLLY_DIR}/experimental/symbolizer/LineReader.cpp
-    ${FOLLY_DIR}/experimental/symbolizer/Symbolizer.cpp
-  )
-  list(REMOVE_ITEM hfiles
-    ${FOLLY_DIR}/experimental/symbolizer/Dwarf.h
-    ${FOLLY_DIR}/experimental/symbolizer/Elf.h
-    ${FOLLY_DIR}/experimental/symbolizer/Elf-inl.h
-    ${FOLLY_DIR}/experimental/symbolizer/LineReader.h
-    ${FOLLY_DIR}/experimental/symbolizer/Symbolizer.h
-  )
-
-  if (WINDOWS)
-    list(REMOVE_ITEM files ${FOLLY_DIR}/Subprocess.cpp)
-    list(REMOVE_ITEM hfiles ${FOLLY_DIR}/Subprocess.h)
-  endif()
+elseif(WINDOWS)
+  list(REMOVE_ITEM files ${FOLLY_DIR}/Subprocess.cpp)
+  list(REMOVE_ITEM hfiles ${FOLLY_DIR}/Subprocess.h)
 endif()
 
 CHECK_CXX_SOURCE_COMPILES("
