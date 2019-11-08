@@ -35,7 +35,7 @@ endif()
 # ocaml (4.03) seems to have parallel build dependency problems.
 add_custom_command(
   OUTPUT ${OCAML} ${OCAMLC} ${OCAMLOPT}
-  COMMAND ./configure -prefix "${OCAML_PREFIX}" -no-graph -cc "${CMAKE_C_COMPILER}"
+  COMMAND ./configure -prefix "${OCAML_PREFIX}" -no-graph
   COMMAND \$\(MAKE\) -k world.opt || true
   COMMAND \$\(MAKE\) -j1 world.opt
   COMMAND \$\(MAKE\) install
@@ -54,8 +54,6 @@ add_custom_command(
 add_custom_command(
   OUTPUT ${OPAM}
   COMMAND /bin/bash -c "\
-    'CC=${CMAKE_C_COMPILER}' \
-    'CXX=${CMAKE_CXX_COMPILER}' \
     PATH='${OCAML_PREFIX}/bin:$ENV{PATH}'\
     ./configure \
     --prefix='${OCAML_PREFIX}' \
