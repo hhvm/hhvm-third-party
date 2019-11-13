@@ -22,7 +22,7 @@ function(download_and_extract OUT_DIR_VARIABLE URL SHA256)
   )
   message(STATUS "... extracted ${DIR}/")
 
-  file(TOUCH "${STAMP_FILE}")
+  execute_process(COMMAND cmake -E touch "${STAMP_FILE}")
 endfunction()
 
 download_and_extract(RUST_DIR "${RUST_URL}" "${RUST_SHA256}")
@@ -33,7 +33,7 @@ if(NOT EXISTS "${STAMP_FILE}")
     COMMAND "${RUST_DIR}/install.sh" "--prefix=${RUST_PREFIX}"
     WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
   )
-  file(TOUCH "${STAMP_FILE}")
+  execute_process(COMMAND cmake -E touch "${STAMP_FILE}")
 else()
   message(STATUS "Not re-installing rust, stamp file present.")
 endif()
