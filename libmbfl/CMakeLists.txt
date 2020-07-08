@@ -33,10 +33,13 @@ add_definitions(-DHAVE_CONFIG_H=1)
 add_definitions(-UPACKAGE -UPACKAGE_VERSION)
 add_definitions(-DMBFL_STATIC)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mbfl)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/nls)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/filters)
+include_directories(
+  BEFORE  # these must go first because there's another config.h in fb-mysql
+  ${CMAKE_CURRENT_SOURCE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}/mbfl
+  ${CMAKE_CURRENT_SOURCE_DIR}/nls
+  ${CMAKE_CURRENT_SOURCE_DIR}/filters
+)
 
 add_subdirectory(nls)
 add_subdirectory(filters)
