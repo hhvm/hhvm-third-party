@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 Derick Rethans
+ * Copyright (c) 2015-2019 Derick Rethans
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,21 +22,10 @@
  * THE SOFTWARE.
  */
 
-/* $Id$ */
-
 #include "timelib.h"
+#include "timelib_private.h"
 
-#include <stdio.h>
 #include <ctype.h>
-
-#ifdef HAVE_STDLIB_H
-#include <stdlib.h>
-#endif
-#ifdef HAVE_STRING_H
-#include <string.h>
-#else
-#include <strings.h>
-#endif
 
 #if defined(_MSC_VER)
 # define strtoll(s, f, b) _atoi64(s)
@@ -47,15 +36,6 @@
 #  define strtoll(s, f, b) strtol(s, f, b)
 # endif
 #endif
-
-#define TIMELIB_UNSET   -99999
-
-#define TIMELIB_SECOND  1
-#define TIMELIB_MINUTE  2
-#define TIMELIB_HOUR    3
-#define TIMELIB_DAY     4
-#define TIMELIB_MONTH   5
-#define TIMELIB_YEAR    6
 
 #define EOI      257
 
@@ -88,18 +68,16 @@ typedef unsigned char uchar;
 #define YYDEBUG(s,c)
 #endif
 
-#include "timelib_structs.h"
-
-typedef struct Scanner {
+typedef struct _Scanner {
 	int           fd;
 	uchar        *lim, *str, *ptr, *cur, *tok, *pos;
 	unsigned int  line, len;
-	struct timelib_error_container *errors;
+	timelib_error_container *errors;
 
-	struct timelib_time     *begin;
-	struct timelib_time     *end;
-	struct timelib_rel_time *period;
-	int                      recurrences;
+	timelib_time     *begin;
+	timelib_time     *end;
+	timelib_rel_time *period;
+	int               recurrences;
 
 	int have_period;
 	int have_recurrences;
@@ -107,15 +85,6 @@ typedef struct Scanner {
 	int have_begin_date;
 	int have_end_date;
 } Scanner;
-
-static void add_warning(Scanner *s, char *error)
-{
-	s->errors->warning_count++;
-	s->errors->warning_messages = timelib_realloc(s->errors->warning_messages, s->errors->warning_count * sizeof(timelib_error_message));
-	s->errors->warning_messages[s->errors->warning_count - 1].position = s->tok ? s->tok - s->str : 0;
-	s->errors->warning_messages[s->errors->warning_count - 1].character = s->tok ? *s->tok : 0;
-	s->errors->warning_messages[s->errors->warning_count - 1].message = timelib_strdup(error);
-}
 
 static void add_error(Scanner *s, char *error)
 {
@@ -134,9 +103,10 @@ static char *timelib_string(Scanner *s)
 	return tmp;
 }
 
-static timelib_sll timelib_get_nr(char **ptr, int max_length)
+static timelib_sll timelib_get_nr(const char **ptr, int max_length)
 {
-	char *begin, *end, *str;
+	const char *begin, *end;
+	char *str;
 	timelib_sll tmp_nr = TIMELIB_UNSET;
 	int len = 0;
 
@@ -159,7 +129,7 @@ static timelib_sll timelib_get_nr(char **ptr, int max_length)
 	return tmp_nr;
 }
 
-static timelib_ull timelib_get_unsigned_nr(char **ptr, int max_length)
+static timelib_ull timelib_get_unsigned_nr(const char **ptr, int max_length)
 {
 	timelib_ull dir = 1;
 
@@ -180,55 +150,6 @@ static timelib_ull timelib_get_unsigned_nr(char **ptr, int max_length)
 	return dir * timelib_get_nr(ptr, max_length);
 }
 
-static void timelib_eat_spaces(char **ptr)
-{
-	while (**ptr == ' ' || **ptr == '\t') {
-		++*ptr;
-	}
-}
-
-static void timelib_eat_until_separator(char **ptr)
-{
-	while (strchr(" \t.,:;/-0123456789", **ptr) == NULL) {
-		++*ptr;
-	}
-}
-
-static timelib_long timelib_get_zone(char **ptr, int *dst, timelib_time *t, int *tz_not_found, const timelib_tzdb *tzdb)
-{
-	timelib_long retval = 0;
-
-	*tz_not_found = 0;
-
-	while (**ptr == ' ' || **ptr == '\t' || **ptr == '(') {
-		++*ptr;
-	}
-	if ((*ptr)[0] == 'G' && (*ptr)[1] == 'M' && (*ptr)[2] == 'T' && ((*ptr)[3] == '+' || (*ptr)[3] == '-')) {
-		*ptr += 3;
-	}
-	if (**ptr == '+') {
-		++*ptr;
-		t->is_localtime = 1;
-		t->zone_type = TIMELIB_ZONETYPE_OFFSET;
-		*tz_not_found = 0;
-		t->dst = 0;
-
-		retval = -1 * timelib_parse_tz_cor(ptr);
-	} else if (**ptr == '-') {
-		++*ptr;
-		t->is_localtime = 1;
-		t->zone_type = TIMELIB_ZONETYPE_OFFSET;
-		*tz_not_found = 0;
-		t->dst = 0;
-
-		retval = timelib_parse_tz_cor(ptr);
-	}
-	while (**ptr == ')') {
-		++*ptr;
-	}
-	return retval;
-}
-
 #define timelib_split_free(arg) {       \
 	int i;                         \
 	for (i = 0; i < arg.c; i++) {  \
@@ -247,7 +168,8 @@ static timelib_long timelib_get_zone(char **ptr, int *dst, timelib_time *t, int 
 static int scan(Scanner *s)
 {
 	uchar *cursor = s->cur;
-	char *str, *ptr = NULL;
+	char *str;
+	const char *ptr = NULL;
 
 std:
 	s->tok = cursor;
@@ -288,7 +210,7 @@ isoweek          = year4 "-"? "W" weekofyear;
 		DEBUG_OUTPUT("recurrences");
 		TIMELIB_INIT;
 		ptr++;
-		s->recurrences = timelib_get_unsigned_nr((char **) &ptr, 9);
+		s->recurrences = timelib_get_unsigned_nr(&ptr, 9);
 		TIMELIB_DEINIT;
 		s->have_recurrences = 1;
 		return TIMELIB_PERIOD;
@@ -307,12 +229,12 @@ isoweek          = year4 "-"? "W" weekofyear;
 		}
 		DEBUG_OUTPUT("datetimebasic | datetimeextended");
 		TIMELIB_INIT;
-		current->y = timelib_get_nr((char **) &ptr, 4);
-		current->m = timelib_get_nr((char **) &ptr, 2);
-		current->d = timelib_get_nr((char **) &ptr, 2);
-		current->h = timelib_get_nr((char **) &ptr, 2);
-		current->i = timelib_get_nr((char **) &ptr, 2);
-		current->s = timelib_get_nr((char **) &ptr, 2);
+		current->y = timelib_get_nr(&ptr, 4);
+		current->m = timelib_get_nr(&ptr, 2);
+		current->d = timelib_get_nr(&ptr, 2);
+		current->h = timelib_get_nr(&ptr, 2);
+		current->i = timelib_get_nr(&ptr, 2);
+		current->s = timelib_get_nr(&ptr, 2);
 		s->have_date = 1;
 		TIMELIB_DEINIT;
 		return TIMELIB_ISO_DATE;
@@ -335,11 +257,11 @@ isoweek          = year4 "-"? "W" weekofyear;
 				break;
 			}
 
-			nr = timelib_get_unsigned_nr((char **) &ptr, 12);
+			nr = timelib_get_unsigned_nr(&ptr, 12);
 			switch (*ptr) {
 				case 'Y': s->period->y = nr; break;
-				case 'W': s->period->d = nr * 7; break;
-				case 'D': s->period->d = nr; break;
+				case 'W': s->period->d += nr * 7; break;
+				case 'D': s->period->d += nr; break;
 				case 'H': s->period->h = nr; break;
 				case 'S': s->period->s = nr; break;
 				case 'M':
@@ -364,17 +286,17 @@ isoweek          = year4 "-"? "W" weekofyear;
 	{
 		DEBUG_OUTPUT("combinedrep");
 		TIMELIB_INIT;
-		s->period->y = timelib_get_unsigned_nr((char **) &ptr, 4);
+		s->period->y = timelib_get_unsigned_nr(&ptr, 4);
 		ptr++;
-		s->period->m = timelib_get_unsigned_nr((char **) &ptr, 2);
+		s->period->m = timelib_get_unsigned_nr(&ptr, 2);
 		ptr++;
-		s->period->d = timelib_get_unsigned_nr((char **) &ptr, 2);
+		s->period->d = timelib_get_unsigned_nr(&ptr, 2);
 		ptr++;
-		s->period->h = timelib_get_unsigned_nr((char **) &ptr, 2);
+		s->period->h = timelib_get_unsigned_nr(&ptr, 2);
 		ptr++;
-		s->period->i = timelib_get_unsigned_nr((char **) &ptr, 2);
+		s->period->i = timelib_get_unsigned_nr(&ptr, 2);
 		ptr++;
-		s->period->s = timelib_get_unsigned_nr((char **) &ptr, 2);
+		s->period->s = timelib_get_unsigned_nr(&ptr, 2);
 		s->have_period = 1;
 		TIMELIB_DEINIT;
 		return TIMELIB_PERIOD;
@@ -404,17 +326,17 @@ isoweek          = year4 "-"? "W" weekofyear;
 
 /*!max:re2c */
 
-void timelib_strtointerval(char *s, size_t len,
+void timelib_strtointerval(const char *s, size_t len,
                            timelib_time **begin, timelib_time **end,
 						   timelib_rel_time **period, int *recurrences,
-						   struct timelib_error_container **errors)
+						   timelib_error_container **errors)
 {
 	Scanner in;
 	int t;
-	char *e = s + len - 1;
+	const char *e = s + len - 1;
 
 	memset(&in, 0, sizeof(in));
-	in.errors = timelib_malloc(sizeof(struct timelib_error_container));
+	in.errors = timelib_malloc(sizeof(timelib_error_container));
 	in.errors->warning_count = 0;
 	in.errors->warning_messages = NULL;
 	in.errors->error_count = 0;
@@ -454,7 +376,7 @@ void timelib_strtointerval(char *s, size_t len,
 	in.begin->h = TIMELIB_UNSET;
 	in.begin->i = TIMELIB_UNSET;
 	in.begin->s = TIMELIB_UNSET;
-	in.begin->f = 0;
+	in.begin->us = 0;
 	in.begin->z = 0;
 	in.begin->dst = 0;
 	in.begin->is_localtime = 0;
@@ -467,7 +389,7 @@ void timelib_strtointerval(char *s, size_t len,
 	in.end->h = TIMELIB_UNSET;
 	in.end->i = TIMELIB_UNSET;
 	in.end->s = TIMELIB_UNSET;
-	in.end->f = 0;
+	in.end->us = 0;
 	in.end->z = 0;
 	in.end->dst = 0;
 	in.end->is_localtime = 0;
