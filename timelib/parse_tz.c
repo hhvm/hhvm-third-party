@@ -552,7 +552,7 @@ static struct location_info **create_location_table(const char *db_name)
         return NULL;
     }
 
-    li = calloc(LOCINFO_HASH_SIZE, sizeof *li);
+    li = timelib_calloc(LOCINFO_HASH_SIZE, sizeof *li);
 
     while (fgets(line, sizeof line, fp)) {
         char *p = line, *code, *name, *comment;
@@ -603,10 +603,10 @@ static struct location_info **create_location_table(const char *db_name)
             *p = '\0';
 
         hash = tz_hash(name);
-        i = malloc(sizeof *i);
+        i = timelib_malloc(sizeof *i);
         memcpy(i->code, code, 2);
         strncpy(i->name, name, sizeof i->name);
-        i->comment = strdup(comment);
+        i->comment = timelib_strdup(comment);
         i->longitude = longitude;
         i->latitude = latitude;
         i->next = li[hash];
@@ -669,13 +669,13 @@ static void create_zone_index(timelib_tzdb *db)
 	/* LIFO stack to hold directory entries to scan; each slot is a
 	 * directory name relative to the zoneinfo prefix. */
 	dirstack_size = 32;
-	dirstack = malloc(dirstack_size * sizeof *dirstack);
+	dirstack = timelib_malloc(dirstack_size * sizeof *dirstack);
 	dirstack_top = 1;
-	dirstack[0] = strdup("");
+	dirstack[0] = timelib_strdup("");
 
 	/* Index array. */
 	index_size = 64;
-	db_index = malloc(index_size * sizeof *db_index);
+	db_index = timelib_malloc(index_size * sizeof *db_index);
 	index_next = 0;
 
 	do {
@@ -708,27 +708,27 @@ static void create_zone_index(timelib_tzdb *db)
 				if (S_ISDIR(st.st_mode)) {
 					if (dirstack_top == dirstack_size) {
 						dirstack_size *= 2;
-						dirstack = realloc(dirstack,
+						dirstack = timelib_realloc(dirstack,
 								   dirstack_size * sizeof *dirstack);
 					}
-					dirstack[dirstack_top++] = strdup(name);
+					dirstack[dirstack_top++] = timelib_strdup(name);
 				}
 				else {
 					if (index_next == index_size) {
 						index_size *= 2;
-						db_index = realloc(db_index,
+						db_index = timelib_realloc(db_index,
 								   index_size * sizeof *db_index);
 					}
 
-					db_index[index_next++].id = strdup(name);
+					db_index[index_next++].id = timelib_strdup(name);
 				}
 			}
 
-			free(ents[--count]);
+			timelib_free(ents[--count]);
 		}
 
-		if (count != -1) free(ents);
-		free(top);
+		if (count != -1) timelib_free(ents);
+		timelib_free(top);
 	} while (dirstack_top);
 
         qsort(db_index, index_next, sizeof *db_index, sysdbcmp);
@@ -736,7 +736,7 @@ static void create_zone_index(timelib_tzdb *db)
 	db->index = db_index;
 	db->index_size = index_next;
 
-	free(dirstack);
+	timelib_free(dirstack);
 }
 
 #define FAKE_HEADER "1234\0??\1??"
@@ -837,7 +837,7 @@ static int inmem_seek_to_tz_position(const unsigned char **tzf, const char *time
 
 	tmp = setlocale(LC_CTYPE, NULL);
 	if (tmp) {
-		cur_locale = strdup(tmp);
+		cur_locale = timelib_strdup(tmp);
 	}
 	setlocale(LC_CTYPE, "C");
 #endif
@@ -854,7 +854,7 @@ static int inmem_seek_to_tz_position(const unsigned char **tzf, const char *time
 			(*tzf) = &(tzdb->data[tzdb->index[mid].pos]);
 #ifdef HAVE_SETLOCALE
 			setlocale(LC_CTYPE, cur_locale);
-			if (cur_locale) free(cur_locale);
+			if (cur_locale) timelib_free(cur_locale);
 #endif
 			return 1;
 		}
@@ -863,7 +863,7 @@ static int inmem_seek_to_tz_position(const unsigned char **tzf, const char *time
 
 #ifdef HAVE_SETLOCALE
 	setlocale(LC_CTYPE, cur_locale);
-	if (cur_locale) free(cur_locale);
+	if (cur_locale) timelib_free(cur_locale);
 #endif
 	return 0;
 }
@@ -903,7 +903,7 @@ timelib_tzdb *timelib_zoneinfo(const char *db_name)
             (system_location_table = create_location_table(db_name))) {
                 timelib_tzdb *tzdb = timelib_malloc(sizeof(timelib_tzdb));
                 tzdb->version = "0.system";
-                database_name = strdup(db_name);
+                database_name = timelib_strdup(db_name);
                 create_zone_index(tzdb);
                 fake_data_segment(tzdb, system_location_table);
                 timezonedb_system = tzdb;
@@ -1030,7 +1030,7 @@ timelib_tzinfo *timelib_parse_tzfile(const char *timezone, const timelib_tzdb *t
 			 * if possible. */
             li = find_zone_info(system_location_table, timezone);
             if (li) {
-				tmp->location.comments = strdup(li->comment);
+				tmp->location.comments = timelib_strdup(li->comment);
 								strncpy(tmp->location.country_code, li->code, 2);
 				tmp->location.longitude = li->longitude;
 				tmp->location.latitude = li->latitude;
@@ -1038,7 +1038,7 @@ timelib_tzinfo *timelib_parse_tzfile(const char *timezone, const timelib_tzdb *t
 			} else {
 				strcpy(tmp->location.country_code, "??");
 				tmp->bc = 0;
-				tmp->location.comments = strdup("");
+				tmp->location.comments = timelib_strdup("");
 			}
 
 			/* Now done with the mmap segment - discard it. */
@@ -1088,19 +1088,19 @@ void timelib_zoneinfo_dtor(timelib_tzdb *tzdb)
                         struct location_info *l = *li;
                         while (l) {
                                 struct location_info *ln = l->next;
-                                free((void*)l->comment);
-                                free((void*)l);
+                                timelib_free((void*)l->comment);
+                                timelib_free((void*)l);
                                 l = ln;
                         }
                 }
                 for (ti = tzdb->index; ti < te; ti++) {
-                        free((void*)ti->id);
+                        timelib_free((void*)ti->id);
                 }
-                free((void*)system_location_table);
-                free((void*)database_name);
-                free((void*)tzdb->index);
-                free((void*)tzdb->data);
-                free((void*)timezonedb_system);
+                timelib_free((void*)system_location_table);
+                timelib_free((void*)database_name);
+                timelib_free((void*)tzdb->index);
+                timelib_free((void*)tzdb->data);
+                timelib_free((void*)timezonedb_system);
                 timezonedb_system = NULL;
         }
 }
