@@ -750,7 +750,8 @@ static void fake_data_segment(timelib_tzdb *sysdb, struct location_info **info)
 
         data = malloc(3 * sysdb->index_size + 7);
 
-        p = mempcpy(data, FAKE_HEADER, sizeof(FAKE_HEADER) - 1);
+        n = sizeof(FAKE_HEADER) - 1;
+        p = memcpy(data, FAKE_HEADER, n) + n;
 
         for (n = 0; n < sysdb->index_size; n++) {
                 const struct location_info *li;
